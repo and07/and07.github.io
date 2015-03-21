@@ -8,6 +8,17 @@
   </style>
  </head>
  <body>
-  <p>Страница на HTML5</p>
+  <p>Страница на HTML5 <div id="test">test</div></p>
  </body>
+ <script>
+ /***
+  * http://learn.javascript.ru/searching-elements-dom#xpath-в-современных-браузерах
+  * 
+  */
+ 
+ document.querySelectorAll('#test').click = function(){
+  alert('test');
+  
+ }
+ </script>
 </html>
