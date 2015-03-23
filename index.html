@@ -601,6 +601,18 @@ $(document).ready(function() {
 		$('#js_tpl').text('<xsl:text>'+DEF_TPL+'</xsl:text>');
 	}
 	
+	 $("input[name='type']").change(function() {
+	 	var type = parseInt($(this).val());
+	 	var text = $('#js_tpl').text();	
+	 	if(type === 1){
+	 		$('#js_tpl').text(DEF_TPL);
+	 	}	 	
+	 	if(type === 2){
+	 		var text = '<xsl:text>' + $('#js_tpl').text() + '</xsl:text>';	
+	 		$('#js_tpl').text(text);
+	 	}
+	 });
+	
 	/*
 http://habrahabr.ru/post/27666/	
 http://habrahabr.ru/search/?q=[textarea]&target_type=posts	
