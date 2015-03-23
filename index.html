@@ -25,8 +25,8 @@
 <body >
 
 <div id="main">
-<input type="radio" name="type" value="html" checked="checked" >HTML<Br>
-<input type="radio" name="type" value="xml">XML<Br>
+<input type="radio" name="type" value="1" checked="checked" >HTML<Br>
+<input type="radio" name="type" value="2">XML<Br>
 <textarea id="js_tpl"></textarea>
 				<div id="iframes">
 					<iframe id="html" name="html" width="99%" height="350" ></iframe>
@@ -594,7 +594,13 @@ function htmltree(elem)
 
 
 $(document).ready(function() {
-	$('#js_tpl').text(DEF_TPL);
+	var type = parseInt(getRadioVal('type'));
+	if(type === 1){
+		$('#js_tpl').text(DEF_TPL);	
+	}else if(type === 2){
+		
+	}
+	$('#js_tpl').text('<xsl:text>'+DEF_TPL+'</xsl:text>');
 	/*
 http://habrahabr.ru/post/27666/	
 http://habrahabr.ru/search/?q=[textarea]&target_type=posts	
