@@ -588,7 +588,7 @@ function htmltree(elem)
 	}	
 	//var doc =  document.getElementById('html').contentWindow.document;
 	//var doc =  loadXMLString(DEF_TPL);
-	console.log(doc);
+	//console.log(doc);
 	var data = [];
 	var root = doc.documentElement;
 	console.log(root);
@@ -606,11 +606,12 @@ $(document).ready(function() {
 	/*
 	var type = parseInt(getRadioVal('type'));
 	if(type === 1){
-		$('#js_tpl').text(DEF_TPL);	
+		
 	}else if(type === 2){
 		$('#js_tpl').text(DEF_TPL);
-	}*/
-	
+	}
+	*/
+	$('#js_tpl').text(DEF_TPL);
 	 $("input[name='type']").change(function() {
 	 	var type = parseInt($(this).val());
 	 	var text = document.getElementById("js_tpl").value;
