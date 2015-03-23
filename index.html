@@ -576,17 +576,19 @@ function htmltree(elem)
 	$win.find('.popup-btns').css('top', $win[0].offsetHeight-40);
 	
 	var type = getRadioVal('type');
-	alert(type);
+
 	var ind = [];
 	
 	var type = parseInt(getRadioVal('type'));
 	if(type === 1){
 		var doc =  document.getElementById('html').contentWindow.document;
 	}else if(type === 2){
+		console.log($('#js_tpl').text());
 		var doc =  loadXMLString($('#js_tpl').text());
 	}	
 	//var doc =  document.getElementById('html').contentWindow.document;
 	//var doc =  loadXMLString(DEF_TPL);
+	console.log(doc);
 	var data = [];
 	var root = doc.documentElement;
 	console.log(root);
