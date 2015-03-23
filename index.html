@@ -605,18 +605,19 @@ $(document).ready(function() {
 	if(type === 1){
 		$('#js_tpl').text(DEF_TPL);	
 	}else if(type === 2){
-		$('#js_tpl').text('<xsl:text>'+DEF_TPL+'</xsl:text>');
+		$('#js_tpl').text(DEF_TPL);
 	}
 	
 	 $("input[name='type']").change(function() {
 	 	var type = parseInt($(this).val());
 	 	var text = $('#js_tpl').text();	
 	 	if(type === 1){
-	 		$('#js_tpl').text(DEF_TPL);
+	 		var text =  $('#js_tpl').text() ;
+	 		$('#js_tpl').text('');
+	 		$('#js_tpl').text(text);
 	 	}	 	
 	 	if(type === 2){
-	 		
-	 		var text = '<xsl:text>' + $('#js_tpl').text() + '</xsl:text>';	
+	 		var text =  $('#js_tpl').text() ;	
 	 		$('#js_tpl').text('');
 	 		$('#js_tpl').append(text);
 	 	}
