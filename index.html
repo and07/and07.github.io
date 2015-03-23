@@ -598,9 +598,9 @@ $(document).ready(function() {
 	if(type === 1){
 		$('#js_tpl').text(DEF_TPL);	
 	}else if(type === 2){
-		
+		$('#js_tpl').text('<xsl:text>'+DEF_TPL+'</xsl:text>');
 	}
-	$('#js_tpl').text('<xsl:text>'+DEF_TPL+'</xsl:text>');
+	
 	/*
 http://habrahabr.ru/post/27666/	
 http://habrahabr.ru/search/?q=[textarea]&target_type=posts	
