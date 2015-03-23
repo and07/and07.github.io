@@ -77,19 +77,20 @@ var DEF_TPL =
 ' </body>'+
 '</html>';
 //-----------------------------------------------
-function getRadioVal(form, name) {
-    var val;
-    // get list of radio buttons with specified name
-    var radios = form.elements[name];
-    
-    // loop through list of radio buttons
-    for (var i=0, len=radios.length; i<len; i++) {
-        if ( radios[i].checked ) { // radio checked?
-            val = radios[i].value; // if so, hold its value in val
-            break; // and break out of for loop
-        }
-    }
-    return val; // return value of checked radio or undefined if none checked
+function getRadioVal(name) {
+    	var val = null;
+	var radios = document.getElementsByName(name);
+
+	for (var i = 0, length = radios.length; i < length; i++) {
+	    if (radios[i].checked) {
+	        // do whatever you want with the checked radio
+	        return radios[i].value;
+	
+	        // only one radio can be logically checked, don't check the rest
+	        break;
+	    }
+	}
+    	return val; // return value of checked radio or undefined if none checked
 }
 
 function loadXMLString(txt) 
@@ -574,7 +575,7 @@ function htmltree(elem)
 	$win.css('top', ($(window).height()-$win[0].offsetHeight)/2);
 	$win.find('.popup-btns').css('top', $win[0].offsetHeight-40);
 	
-	var type = getRadioVal(document.getElementById('main'), 'type');
+	var type = getRadioVal('type');
 	alert(type);
 	var ind = [];
 	var doc =  document.getElementById('html').contentWindow.document;
