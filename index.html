@@ -607,7 +607,7 @@ http://habrahabr.ru/search/?q=[textarea]&target_type=posts
 	console.log(document.getElementById('html').contentWindow);
 	
 	document.getElementById('js_tpl').onchange = function(){
-		alert(this.value());
+		alert($(this).val());
 	}
 	$('#js_tpl').bind('textchange', function() {
 		alert('sf');
