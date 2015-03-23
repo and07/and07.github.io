@@ -606,6 +606,9 @@ http://habrahabr.ru/search/?q=[textarea]&target_type=posts
 	//document.getElementById(HtmlFrames.activeFrame).src = "data:text/html;charset=utf-8," + DEF_TPL; 
 	console.log(document.getElementById('html').contentWindow);
 	
+	document.getElementById('js_tpl').onchange = function(){
+		alert(this.value());
+	}
 	$('#js_tpl').bind('textchange', function() {
 		alert('sf');
 		var iframe = document.getElementById('html');
