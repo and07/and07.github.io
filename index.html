@@ -584,9 +584,7 @@ function htmltree(elem)
 		var doc =  document.getElementById('html').contentWindow.document;
 	}else if(type === 2){
 		var text = document.getElementById("js_tpl").value;
-		alert(text);
-		console.log(text);
-		var doc =  loadXMLString($('#js_tpl').text());
+		var doc =  loadXMLString(text);
 	}	
 	//var doc =  document.getElementById('html').contentWindow.document;
 	//var doc =  loadXMLString(DEF_TPL);
@@ -630,19 +628,53 @@ $(document).ready(function() {
 	 });
 	
 	/*
+	
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE recipe>
+<recipe name="хлеб" preptime="5min" cooktime="180min">
+   <title>
+      Простой хлеб
+   </title>
+   <composition>
+      <ingredient amount="3" unit="стакан">Мука</ingredient>
+      <ingredient amount="0.25" unit="грамм">Дрожжи</ingredient>
+      <ingredient amount="1.5" unit="стакан">Тёплая вода</ingredient>
+      <ingredient amount="1" unit="чайная ложка">Соль</ingredient>
+   </composition>
+   <instructions>
+     <step>
+        Смешать все ингредиенты и тщательно замесить. 
+     </step>
+     <step>
+        Закрыть тканью и оставить на один час в тёплом помещении. 
+     </step>
+     <!-- 
+        <step>
+           Почитать вчерашнюю газету. 
+        </step>
+         - это сомнительный шаг...
+      -->
+     <step>
+        Замесить ещё раз, положить на противень и поставить в духовку. 
+     </step>
+   </instructions>
+</recipe>	
+	
 http://habrahabr.ru/post/27666/	
 http://habrahabr.ru/search/?q=[textarea]&target_type=posts	
 	*/
 	//$('#html').contents().find('html').html(DEF_TPL);
 	var iframe = document.getElementById('html');
-	iframe.contentWindow.contents = $('#js_tpl').val();
+	var text = document.getElementById("js_tpl").value;
+	iframe.contentWindow.contents = text;
 	iframe.src = 'javascript:window.contents';	
 	//document.getElementById(HtmlFrames.activeFrame).src = "data:text/html;charset=utf-8," + DEF_TPL; 
-	console.log(document.getElementById('html').contentWindow);
+	//console.log(document.getElementById('html').contentWindow);
 	
 	document.getElementById('js_tpl').onchange = function(){
 		var iframe = document.getElementById('html');
-		iframe.contentWindow.contents = $(this).val();
+		var text = document.getElementById("js_tpl").value;
+		iframe.contentWindow.contents = text;
 		iframe.src = 'javascript:window.contents';	
 		return true;		
 	}
