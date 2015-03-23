@@ -538,6 +538,7 @@ function createXPathFromElement(elm) {
     {
     	var activeInd = tree.getActiveInd();
     	var obj = tree.getActiveByInd(activeInd);
+    	console.log(obj);
     	if (obj)
     	{
     		$(obj.node).data('oldstyle3', $(obj.node).getStyleObject());
