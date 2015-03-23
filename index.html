@@ -578,7 +578,14 @@ function htmltree(elem)
 	var type = getRadioVal('type');
 	alert(type);
 	var ind = [];
-	var doc =  document.getElementById('html').contentWindow.document;
+	
+	var type = parseInt(getRadioVal('type'));
+	if(type === 1){
+		var doc =  document.getElementById('html').contentWindow.document;
+	}else if(type === 2){
+		var doc =  loadXMLString(DEF_TPL);
+	}	
+	//var doc =  document.getElementById('html').contentWindow.document;
 	//var doc =  loadXMLString(DEF_TPL);
 	var data = [];
 	var root = doc.documentElement;
