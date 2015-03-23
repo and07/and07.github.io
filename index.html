@@ -584,8 +584,9 @@ function htmltree(elem)
 		var doc =  document.getElementById('html').contentWindow.document;
 	}else if(type === 2){
 		var text = document.getElementById("js_tpl").value;
+		alert(text);
 		console.log(text);
-		var doc =  loadXMLString(text);
+		var doc =  loadXMLString($('#js_tpl').text());
 	}	
 	//var doc =  document.getElementById('html').contentWindow.document;
 	//var doc =  loadXMLString(DEF_TPL);
