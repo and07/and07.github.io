@@ -583,8 +583,9 @@ function htmltree(elem)
 	if(type === 1){
 		var doc =  document.getElementById('html').contentWindow.document;
 	}else if(type === 2){
-		console.log($('#js_tpl').text());
-		var doc =  loadXMLString($('#js_tpl').text());
+		var text = document.getElementById("js_tpl").value;
+		console.log(text);
+		var doc =  loadXMLString(text);
 	}	
 	//var doc =  document.getElementById('html').contentWindow.document;
 	//var doc =  loadXMLString(DEF_TPL);
@@ -603,26 +604,28 @@ function htmltree(elem)
 
 
 $(document).ready(function() {
+	/*
 	var type = parseInt(getRadioVal('type'));
 	if(type === 1){
 		$('#js_tpl').text(DEF_TPL);	
 	}else if(type === 2){
 		$('#js_tpl').text(DEF_TPL);
-	}
+	}*/
 	
 	 $("input[name='type']").change(function() {
 	 	var type = parseInt($(this).val());
-	 	var text = $('#js_tpl').text();	
+	 	var text = document.getElementById("js_tpl").value;
+	 	document.getElementById("js_tpl").value = '';
+/*	 	
 	 	if(type === 1){
-	 		var text =  $('#js_tpl').text() ;
 	 		$('#js_tpl').text('');
 	 		$('#js_tpl').text(text);
 	 	}	 	
 	 	if(type === 2){
-	 		var text =  $('#js_tpl').text() ;	
 	 		$('#js_tpl').text('');
 	 		$('#js_tpl').append(text);
 	 	}
+*/
 	 });
 	
 	/*
