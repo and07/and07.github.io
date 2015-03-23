@@ -607,15 +607,12 @@ http://habrahabr.ru/search/?q=[textarea]&target_type=posts
 	console.log(document.getElementById('html').contentWindow);
 	
 	document.getElementById('js_tpl').onchange = function(){
-		alert($(this).val());
-	}
-	$('#js_tpl').bind('textchange', function() {
-		alert('sf');
 		var iframe = document.getElementById('html');
-		iframe.contentWindow.contents = $('#js_tpl').val();
+		iframe.contentWindow.contents = $(this).val();
 		iframe.src = 'javascript:window.contents';	
-		return true;
-	});	
+		return true;		
+	}
+	
 });
 </script>
 </body>
