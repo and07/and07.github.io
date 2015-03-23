@@ -583,7 +583,7 @@ function htmltree(elem)
 	if(type === 1){
 		var doc =  document.getElementById('html').contentWindow.document;
 	}else if(type === 2){
-		var doc =  loadXMLString(DEF_TPL);
+		var doc =  loadXMLString($('#js_tpl').text());
 	}	
 	//var doc =  document.getElementById('html').contentWindow.document;
 	//var doc =  loadXMLString(DEF_TPL);
