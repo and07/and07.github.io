@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<article>
+    <title>
+        Игра "Морской бой"
+    </title>
+    <para>
+        Данная игра состоит из следующих функциональных элементов:
+        корабли игрока, корабли противника, а также игрового поля.
+    </para>
+    <section>
+        <title>
+            Особенности устройства игрового поля
+        </title>
+        <para>
+            Игровое поле представляет собой квадрат размерностью 400 х 400 пикселей и разделено на 100
+            клеток размером 40 х 40 пикселей каждая. Все клетки хранятся в одномерном массиве, что 
+            упрощает обращение к ним. В тоже время для клеток есть и двухчисловой индекс: коордиата
+            слева и сверху - это позволяет упростить нахождение месторасположения картинок кораблей.
+        </para>
+        <figure>
+            <title>Ячейка игрового поля</title>
+            <mediaobject>
+                <imageobject>
+                    <imagedata fileref="field.jpg" format="jpg" />
+                </imageobject>
+            </mediaobject>
+        </figure>
+        <para>
+            После прорисовки поля получим следующий результат:
+        </para>
+        <figure>
+            <title>Игровое поле</title>
+            <mediaobject>
+                <imageobject>
+                    <imagedata fileref="field.jpg" format="jpg" />
+                </imageobject>
+            </mediaobject>
+        </figure>
+        <para>
+            При входе на страницу происходит запуск режима редактора - в этом режиме пользователь может
+            расставить корабли по полю.
+        </para>
+        <figure>
+            <title>Начальные установки режима редактора</title>
+            <mediaobject>
+                <imageobject>
+                    <imagedata fileref="editor.jpg" format="jpg" />
+                </imageobject>
+            </mediaobject>
+        </figure>
+        <para>
+            Ниже приведен фрагмент кода создания поля:
+        </para>
+        <example>
+            <title>Прорисовка игрового поля</title>
+            <programlisting>
+<![CDATA[
+function initField(id){
+    var o_div = document.getElementById('battleship-field-' + id);
+    if(!elementExist(o_div))
+        return false;
+    o_div.style.display = 'block';
+    o_div.style.width = FIELD_SIZE * (CELL_SIZE + 2 * FIELD_BORDER);
+    o_div.style.height = FIELD_SIZE * (CELL_SIZE + 2 * FIELD_BORDER);
+    var str = "";
+    for(var i = 1; i <= FIELD_SIZE; i ++)
+    {
+        for(var j = 1; j <= FIELD_SIZE; j ++)
+            str += "<img id = '" + id + "-cell-" + String(i) + "-" + String(j) + "' src = 'image/cell.jpg' border = '" + FIELD_BORDER + "' style = 'width:" + CELL_SIZE + ";height:" + CELL_SIZE + ";'>";
+        str += "<br/>";
+    }
+    o_div.innerHTML = str;
+    return true;
+}
+]]>
+            </programlisting>
+        </example>
+    </section>
+    <section>
+        <title>
+            Движение корабля
+        </title>
+        <para>
+            В игре предусмотрена возможность передвижения корабля с помошью мыши. Если при установке корабля
+            игрок попытается установить корабль вне поля или на другой корабль, то передвигаемый корабль
+            вернется на ту позицию, на которой он был до движения.Ниже представлен код, отвечающий за событие
+            падения корабля на поле
+        </para>
+        <example>
+            <title>Движение танка</title>
+            <programlisting>
+<![CDATA[
+function shipDrop(event, ui){
+    var x = Math.ceil((ui.offset.left - FIELD_MARGIN_LEFT_EDITOR) / (CELL_SIZE));
+    var y = Math.ceil((ui.offset.top - FIELD_MARGIN_TOP_EDITOR) / (CELL_SIZE));
+    if(x < 1)
+        x = 1;
+    if(x > FIELD_SIZE)
+        x = FIELD_SIZE;
+    if(y < 1)
+        y = 1;
+    if(y > FIELD_SIZE)
+        y = FIELD_SIZE;
+    //учтем расположение корабля
+    var o_img1 = document.getElementById(ui.helper.attr('id'));
+    var i_height = Math.round(o_img1.height / (CELL_SIZE + 2 * FIELD_BORDER));
+    var i_width = Math.round(o_img1.width / (CELL_SIZE + 2 * FIELD_BORDER));
+    var is_exist = false;
+    for(var i = 0; i < i_height; i ++){
+        for(var j = 0; j < i_width; j ++){
+            if(a_cell_block[(y - 1 + i) * FIELD_SIZE + x + j])
+                is_exist = true;
+        }
+    }
+    if(is_exist)
+    {
+        can_move = false;
+        if(is_gorisontal_start != o_ship['is_gorisontal'])
+            shipRotate(o_ship);
+        ui.helper.animate({
+                left: i_ship_left,
+                top: i_ship_top
+            },
+            SPEED_ANIMATION_REVERT,
+            null,
+            function(){
+                //глобальная блокировка от движения во время возврата
+                can_move = true;
+            });
+        if(!is_repeat_move)
+            getCountShip(ui.helper.attr('id'), 1);
+        else{
+            a_ship_user[ui.helper.attr('id')] = o_ship;
+            o_ship = null;
+        }
+    }else{
+        var a_cell = shipShadow({
+                'i_index' : (y - 1) * FIELD_SIZE + x,
+                'id' : ui.helper.attr('id')}
+        );
+        for(var i in a_cell){
+            var o_img = document.getElementById('user-cell-' + a_cell[i]['i_row'] + '-' + a_cell[i]['i_col']);
+            if(!elementExist(o_img,'img'))
+                return false;
+            a_cell_block[i] = o_img;
+        }
+        a_ship_user[ui.helper.attr('id')] = {
+            'a_shadow' : a_cell,
+            'i_index' : (y - 1) * FIELD_SIZE + x,
+            'id' : ui.helper.attr('id'),
+            'is_gorisontal' : o_ship['is_gorisontal']
+        };
+        if(!is_repeat_move)
+            i_ship_set ++;
+    }
+    is_repeat_move = false;
+    //покраска всех недоступных клеток
+    blockedField(false);
+    return false;
+}
+]]>
+            </programlisting>
+        </example>
+        <para>
+            Для повышения интереса к игре был разработан простой алгоритм игры
+            для противника. Суть алгоритма в следующем: если противник ранил (попал)
+            корабль игрока, то следующие ходы противник будет делать вокруг раненой
+            клетки с целью добить ранненый корбль игрока. Ниже приведен скрипт,
+            реализующий данную возможность.
+        </para>
+        <example>
+            <title>Тактика противника при попадании</title>
+            <programlisting>
+<![CDATA[
+function setTarget(i_index){
+    a_cell_ship[i_index] = i_index;
+    if(arrayLength(a_cell_ship) == 1)
+        a_cell_cross = cellCrossShadow(i_index);
+    else{
+        var a_param = arrayMinMax(a_cell_ship);
+        var i_add = Math.abs(a_param['i_min'] - a_param['i_max']);
+        a_cell_cross = {};
+        if(i_add < FIELD_SIZE){
+            //корабль расположен горизонтально
+            if(a_param['i_min'] - (Math.ceil(a_param['i_min'] / FIELD_SIZE) - 1) * FIELD_SIZE - 1 >= 1)
+                a_cell_cross[parseInt(a_param['i_min']) - 1] = parseInt(a_param['i_min']) - 1;
+            if(a_param['i_max'] - (Math.ceil(a_param['i_max'] / FIELD_SIZE) - 1) * FIELD_SIZE + 1 <= FIELD_SIZE)
+                a_cell_cross[parseInt(a_param['i_max']) + 1] = parseInt(a_param['i_max']) + 1;
+        }else{
+            //корабль расположен вертикально
+            if(Math.ceil(a_param['i_min'] / FIELD_SIZE) - 1 >= 1)
+                a_cell_cross[parseInt(a_param['i_min']) - FIELD_SIZE] = parseInt(a_param['i_min']) - FIELD_SIZE;
+            if(Math.ceil(a_param['i_max'] / FIELD_SIZE) + 1 <= FIELD_SIZE)
+                a_cell_cross[parseInt(a_param['i_max']) + FIELD_SIZE] = parseInt(a_param['i_max']) + FIELD_SIZE;
+        }
+    }
+    for(var i in a_cell_cross){
+        if(i in a_cell_block && a_cell_block[i].length == 1)   //если клетка стрелянная
+            delete a_cell_cross[i];
+    }
+}
+]]>
+            </programlisting>
+        </example>
+    </section>
+    <section>
+        <title>
+            Использование программного продукта
+        </title>
+        <para>
+            Так как данное приложение является игрой, написаной на Javascript, то для того, чтобы его использовать
+            необходимо запустить сраницу index.html, используя браузер. Заливка на сайт необязательна
+        </para>
+        <para>
+            Вся игра довольно легко настраивается - есть возможность изменить количество кораблей, размеры полей
+            обоих сторон - можно изменить как количество клеток, так и их размер без дополнительных изменений кода.
+            Все настройки хранятся в файле constants.js
+        </para>
+        <para>
+            Также можно оформить данное приложение в виде расширения к любому браузеру, но для этого
+            нужно будет добавить файл конфигурации, а также подредактировать исходники и заархивировать игру
+            в соответствии с требуемым форматом.
+        </para>
+        <example>
+            <title>Пример файла конфигурации</title>
+            <programlisting>
+<![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<widget xmlns="http://www.w3.org/ns/widgets" id="http://www.example.org/helloworld">
+    <name>Hello extensions!</name>
+    <description>A simple hello world example</description>
+    <author href="yourURL" email="yourEMail">Enter your name here</author>
+    <icon src="icons/hello.png"/>
+</widget>
+]]>
+            </programlisting>
+        </example>
+    </section>
+</article>

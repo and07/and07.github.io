@@ -1,0 +1,237 @@
+<!doctype html>
+<script src="code/chapter/07_elife.js"></script>
+<script src="code/animateworld.js"></script>
+
+<body><script>
+//animateWorld(valley);
+
+
+function Spirit(){	
+};
+
+
+function LifelikeWorldSpirit(map, legend) {
+  var grid = new Grid(map[0].length, map.length);  
+  this.grid = grid;  
+  this.legend = legend;
+  
+  map.forEach(function(line, y) {
+    for (var x = 0; x < line.length; x++)
+      grid.set(new Vector(x, y),
+               elementFromChar(legend, line[x]));
+  });
+  
+  var gridOfSpirit = new GridOfSpirit(map[0].length, map.length);
+  this.gridOfSpirit = gridOfSpirit;
+  
+  map.forEach(function(line, y) {
+    for (var x = 0; x < line.length; x++)
+      gridOfSpirit.setSpirit(new Vector(x, y),
+               new Spirit);
+  });
+}
+
+LifelikeWorldSpirit.prototype = Object.create(LifelikeWorld.prototype);
+
+LifelikeWorldSpirit.prototype.turn = function() {
+   this.gridOfSpirit.forEach(function(spirit, vector) {    
+     spirit.plantSpirit = 0;    
+     spirit.meatSpirit = 0;    
+  }, this);
+   
+  var solved = [];    
+  this.grid.forEach(function(critter, vector) {    
+   // var spirit = this.gridOfSpirit.getSpirit(vector);
+    if (critter.typeOfSpirit && solved.indexOf(critter) == -1) {      
+      this.solveSpirit(critter, vector);
+      solved.push(critter);
+    }
+  }, this);
+  
+  acted = [];
+  this.grid.forEach(function(critter, vector) {
+    if (critter.act && acted.indexOf(critter) == -1) {
+      acted.push(critter);
+      this.letAct(critter, vector);
+    }
+  }, this);
+};
+
+
+LifelikeWorldSpirit.prototype.solveSpirit = function(critter, vector) {  
+  if (critter) {
+    var areaToSolve = [vector];
+  	this.solved = []; 
+    this.solveSpiritR(critter.typeOfSpirit, critter.spiritValue, areaToSolve, 1, 3);    
+  };
+};
+
+
+LifelikeWorldSpirit.prototype.solveSpiritR = function(typeOfSpirit, spiritValue, areaToSolve, step, dist) {  
+  var nextAreaToSolve = []; 
+  var mes = '';
+ 
+  if (step <= dist) {      
+    areaToSolve.forEach(function(start){  
+      for (var dir in directions) {
+        var target = start.plus(directions[dir]);       
+        if (this.grid.isInside(target)) {       
+          if (charFromElement(this.grid.get(target)) == ' '){
+          var targetSpirit = this.gridOfSpirit.getSpirit(target);          
+          if (this.solved.indexOf(targetSpirit) == -1){            
+            nextAreaToSolve.push(target);                    
+            this.solved.push(targetSpirit);                                
+            targetSpirit[typeOfSpirit] += spiritValue;          
+          };
+        };
+      };
+    }; 
+  }.bind(this)); 
+    
+    this.solveSpiritR(typeOfSpirit, spiritValue/2, nextAreaToSolve, step + 1, dist);
+  };
+};
+
+
+function GridOfSpirit(width, height) {  
+  this.spaceOfSpirit = new Array(width * height);
+  this.width = width;
+  this.height = height;
+};
+
+GridOfSpirit.prototype = Object.create(Grid.prototype);
+
+GridOfSpirit.prototype.getSpirit = function(vector) {
+  return this.spaceOfSpirit[vector.x + this.width * vector.y];
+};
+
+GridOfSpirit.prototype.getSpiritValue = function(vector, typeOfSpirit) {
+  return this.spaceOfSpirit[vector.x + this.width * vector.y][typeOfSpirit];
+};
+
+GridOfSpirit.prototype.setSpirit = function(vector, spirit) {
+  this.spaceOfSpirit[vector.x + this.width * vector.y] = spirit;
+};
+
+GridOfSpirit.prototype.forEach = function(f, context) {
+  for (var y = 0; y < this.height; y++) {
+    for (var x = 0; x < this.width; x++) {
+      var value = this.spaceOfSpirit[x + y * this.width];
+      if (value != null)
+        f.call(context, value, new Vector(x, y));
+    }
+  }
+};
+
+View.prototype.findSpirit = function(typeOfSpirit) {  
+  var maxSpiritValue = 0;
+  var bestDir = null;
+ 
+  for (var dir in directions){
+     var target = this.vector.plus(directions[dir]);
+    if (this.world.grid.isInside(target)){          
+        var curSpiritValue = this.world.gridOfSpirit.getSpiritValue(target, typeOfSpirit);    
+      if (curSpiritValue > maxSpiritValue) {
+        maxSpiritValue = curSpiritValue;
+        bestDir = dir;
+      };
+    };
+  };
+
+  if (maxSpiritValue > 0)  
+    return bestDir
+  else 
+    return this.find(" ");  
+};
+
+actionTypes.grow = function(critter) {
+  critter.energy += 1;
+  return true;
+};
+
+function Plant() {
+  this.energy = 3 + Math.random() * 4;  
+  this.typeOfSpirit = "plantSpirit";
+  this.spiritValue = 1000;
+};
+
+function SmartPlantEater() {
+  this.energy = 50;
+  this.typeOfSpirit = "meatSpirit";
+  this.spiritValue = 2000;
+};
+
+
+function SmartPlantEater() {
+  this.energy = 30;
+  this.direction = "e";
+  this.typeOfSpirit = "meatSpirit";
+  this.spiritValue = 2000;
+}
+SmartPlantEater.prototype.act = function(context) {
+  var space = context.find(" ");
+  if (this.energy > 110 && space)
+    return {type: "reproduce", direction: space};
+  var plants = context.findAll("*");
+  if (plants.length > 1)
+    return {type: "eat", direction: randomElement(plants)};
+  if (context.look(this.direction) != " " && space)
+    this.direction = space;
+  return {type: "move", direction: this.direction};
+};
+
+
+function Tiger() {
+  this.energy = 100;
+  //this.typeOfSpirit = "hanterSpirit";
+  this.spiritValue = 2000;
+};
+
+Tiger.prototype.act = function(context) {
+  var space = context.find(" ");
+  if (this.energy > 205 && space)
+    return {type: "reproduce", direction: space};
+  var meat = context.find("O");
+  if (meat && this.energy < 100)
+    return {type: "eat", direction: meat};
+  var spirit = context.findSpirit("meatSpirit");
+  if (spirit)
+    return {type: "move", direction: spirit};
+};
+
+
+Plant.prototype.act = function(context) {
+  if (this.energy > 30) {
+    var space = context.find(" ");
+    if (space)
+      return {type: "reproduce", direction: space};
+  }
+  if (this.energy < 30)
+    return {type: "grow"};
+};
+
+animateWorld(new LifelikeWorldSpirit(
+  ["####################################################",
+   "#                 ####         ****O            *###",
+   "# O * @   ##                 ########        O  **##",
+   "#   *    ##                            ****     ***#",
+   "#   *   ##*                        ##########   ***#",
+   "#      ##***  *         ****                     **#",
+   "#* **  #  *  ***      #########        @         **#",
+   "#* **  #      *             **#   *              **#",
+   "#     ##              #       #  ***          ######",
+   "#*                    #       #   *           # O  #",
+   "#*       @            #  ######                 ** #",
+   "###          ****          ***         O        ** #",
+   "#  *    O                                       *  #",
+   "#   *     ##  ##  ##  ##               ###      *  #",
+   "#   **         #              *       #####     *  #",
+   "##  **        O#  #    ***  ***        ###      ** #",
+   "###*      O      #   ***** O          O      @ ****#",
+   "####################################################"],
+  {"#": Wall,
+   "@": Tiger,
+   "O": SmartPlantEater,
+   "*": Plant}
+));
+</script></body>
