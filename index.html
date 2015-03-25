@@ -26,8 +26,13 @@
 
 <div id="main">
 
-<input type="radio" name="type" value="1" checked="checked" >HTML<Br>
-<input type="radio" name="type" value="2">XML<Br>
+<div  class="btn-group" data-toggle="buttons">
+	<a href="#html" class="btn btn-default active" data-toggle="tab">
+		<input type="radio" name="type" value="1" checked="checked">HTML</a>
+	<a href="#xml" class="btn btn-default" data-toggle="tab">
+		<input type="radio" name="type" value="2">XML</a>
+</div>
+
 <textarea id="js_tpl"></textarea>
 				<div id="iframes">
 					<iframe id="html" name="html" width="99%" height="350" ></iframe>
