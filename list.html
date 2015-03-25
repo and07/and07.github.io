@@ -166,12 +166,31 @@
 				 <div class="modal-footer">
 					<a data-dismiss="modal" id="ok-del-btn" class="btn" href="/main/delete/955">OK</a>    <a data-dismiss="modal" id="cancel-del-btn" class="btn" href="#">Отмена</a></div>
 				</div>
-
+				
+				<div id="createModal" class="modal fade" style="display: none;">
+				<div class="modal-header">
+					<a class="close" data-dismiss="modal">×</a>
+					<h3>Создать парсер</h3>
+				</div>
+				 <div class="modal-body">
+					<form class="form1 form-vertical" id="form" action="/main/create" method="post"> 
+					<fieldset>
+						<label for="CreateScraperForm_name" class="required">Название <span class="required">*</span></label>
+						<input name="CreateScraperForm[name]" id="CreateScraperForm_name" type="text">	
+						<label for="CreateScraperForm_startpage" class="required">Стартовая страница <span class="required">*</span></label>
+						<input style="width: 400px;" name="CreateScraperForm[startpage]" id="CreateScraperForm_startpage" type="text">
+					</fieldset>
+					<br>
+					</form>
+				</div>
+				 <div class="modal-footer">
+					<a data-dismiss="modal" id="ok-del-btn" class="btn" href="/create/" >OK</a>    <a data-dismiss="modal" id="cancel-del-btn" class="btn" href="#">Отмена</a></div>
+				</div>
 
 					</div>
 					<div class="span2">
 						<div class="right-panel">
-							<a href="/main/create"><i class="icon-plus"></i>&nbsp;Создать парсер</a>		</div>
+							<a href="/main/create"  class="create" rel="tooltip"  data-original-title="Create"><i class="icon-plus"></i>&nbsp;Создать парсер</a>		</div>
 						<div class="right-panel hint">
 							Это список ваших парсеров.		</div>	
 					</div>

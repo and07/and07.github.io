@@ -1,6 +1,11 @@
 ﻿/***main-index.js***/
 $(document).ready(function() {
 
+	$('a.create').click(function(e) {
+		e.preventDefault();
+		$('#createModal').modal('show');
+	});
+
 	$('a.delete').click(function(e) {
 		e.preventDefault();
 		$('#deleteModal').find('#ok-del-btn').attr('href', $(this).attr('href'));
