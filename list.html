@@ -1,1 +1,346 @@
-asdasd
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<!-- <link rel="stylesheet" type="text/css" href="/css/main2.css" /> -->
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="css/bootstrap-yii.css" />
+<link rel="stylesheet" type="text/css" href="css/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="css/TextareaDecorator.css" />
+<link rel="stylesheet" type="text/css" href="css/main2.css" />
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/coffee-script.js"></script>
+<script type="text/javascript" src="js/ect.min.js"></script>
+<script type="text/javascript" src="js/xpath.js"></script>
+<script type="text/javascript" src="js/bootstrap-dropdown-right.js"></script>
+<script type="text/javascript" src="js/Parser.js"></script>
+<script type="text/javascript" src="js/TextareaDecorator.js"></script>
+<script type="text/javascript" src="js/Keybinder.js"></script>
+<script type="text/javascript" src="js/jquery.tabby.js"></script>
+<script type="text/javascript" src="js/ldtparser.js"></script>
+<script type="text/javascript" src="js/jquery.ba-bbq.js"></script>
+
+<title>cpainfo | Редактор</title>
+</head>
+
+<body >
+
+<div id="main">
+	<div id="header">
+	<div class="container-fluid">
+		<div id="userinfo">prio@hotbox.ru&nbsp;&nbsp;|&nbsp;&nbsp;<a target="_blank" href="#/ru/docs">Документация</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#/ru/site/logout">Выход</a>		</div>
+		<div id="logo">
+			<a href="#/ru/">
+				<h1>ScraperLab</h1>
+			</a>
+		</div>
+	</div>	
+	</div><!-- header -->
+	
+		
+		
+	<div class="container-fluid">
+		
+<div class="row-fluid">
+			<div id="tabList" class="tab-pane active">
+				<div class="container-fluid">
+						
+				<div class="row-fluid">
+					<div class="span10">
+
+				<div id="yw0" class="grid-view">
+				<table class="items table table-striped table-bordered table-condensed">
+				<thead>
+				<tr>
+				<th id="yw0_c0"><a href="/main?Scrapers_sort=id">ID<span class="caret"></span></a></th><th id="yw0_c1"><a href="/main?Scrapers_sort=name">Название<span class="caret"></span></a></th><th id="yw0_c2"><a href="/main?Scrapers_sort=start_page">Стартовая страница<span class="caret"></span></a></th><th id="yw0_c3"><a href="/main?Scrapers_sort=dtmodified">Изменено<span class="caret"></span></a></th><th class="button-column" id="yw0_c4">&nbsp;</th></tr>
+				</thead>
+				<tbody>
+				<tr class="odd"><td>959</td><td>test</td><td>http://actionpay.ru/ru/</td><td style="width: 180px;">08.12.2014, 17:26:18</td><td style="width: 95px"><a style="margin-left: 5px;" rel="tooltip" href="/edit/959" data-original-title="Редактировать"><i class="icon-edit"></i></a><a style="margin-left: 5px;" rel="tooltip" href="/generate/959" data-original-title="Генерировать"><i class="icon-file"></i></a><a style="margin-left: 5px;" onclick="showRunDialog(this);" rel="tooltip" href="#" data-original-title="Управление запуском"><i class="icon-play"></i></a><a style="margin-left: 5px;" onclick="showResultDialog(this);" rel="tooltip" href="#" data-original-title="Результат выполнения"><i class="icon-folder-open"></i></a><a style="margin-left: 5px;" class="delete" rel="tooltip" href="/main/delete/959" data-original-title="Удалить"><i class="icon-remove"></i></a></td></tr>
+				<tr class="even"><td>955</td><td>cpainfo</td><td>http://cpainform.ru/programs/funservices/santa4me/</td><td style="width: 180px;">12.12.2014, 18:56:27</td><td style="width: 95px"><a style="margin-left: 5px;" rel="tooltip" href="/edit/955" data-original-title="Редактировать"><i class="icon-edit"></i></a><a style="margin-left: 5px;" rel="tooltip" href="/generate/955" data-original-title="Генерировать"><i class="icon-file"></i></a><a style="margin-left: 5px;" onclick="showRunDialog(this);" rel="tooltip" href="#" data-original-title="Управление запуском"><i class="icon-play"></i></a><a style="margin-left: 5px;" onclick="showResultDialog(this);" rel="tooltip" href="#" data-original-title="Результат выполнения"><i class="icon-folder-open"></i></a><a style="margin-left: 5px;" class="delete" rel="tooltip" href="/main/delete/955" data-original-title="Удалить"><i class="icon-remove"></i></a></td></tr>
+				</tbody>
+				</table><div class="keys" style="display:none" title="/main"><span>959</span><span>955</span></div>
+				</div>
+
+
+				<div class="popup runcontrol ui-draggable" id="runcontrol" style="display: none; left: 339px; top: 151px;">
+					<div class="popup-title">
+						<div class="popup-close"><button class="close">×</button></div>
+						<h3>Управление запуском (beta)</h3>
+					</div>
+					<div class="popup-body">
+							<div style="width: 80%; float: left; margin-right: 10px">
+						<fieldset>
+							<input type="hidden" name="scrid" value="955">
+							<input type="radio" name="runtype" value="single" checked="checked">&nbsp;Одиночный запуск			<br><br>
+							<input type="radio" name="runtype" value="shedule">&nbsp;Запуск по расписанию			<table id="shedulesetup" style="margin-left: 40px;">
+								<tbody><tr>
+									<td style="width: 120px;"><span class="left-td">Начать в</span></td>
+									<td>Дата:<input type="text" name="sheduledate" class="datepicker" style="width: 80px;"/>&nbsp;&nbsp;&nbsp;Время:<input type="text" name="sheduletime" style="width: 50px;"/>
+										<br><span class="hint">Например: 2013-12-03  14:15</span>
+									</td>
+								</tr>
+								<tr>
+									<td style="width: 120px;"><span class="left-td">Повторять</span></td>
+									<td><select name="repeat">
+											<option value="hour">каждый час</option>
+											<option value="3hour">каждые 4 часа</option>
+											<option value="8hour">каждые 8 часов</option>
+											<option value="12hour">каждые 12 часов</option>
+											<option value="day">каждые 24 часа</option>
+											<option value="3day">каждые 3 дня</option>
+											<option value="week">каждые 7 дней</option>
+											<option value="2week">каждые 2 недели</option>
+											<option value="month">каждый месяц</option>
+										</select>
+									</td>
+								</tr>
+							</tbody></table>
+						</fieldset>
+						<fieldset>
+							<legend>Статус</legend>
+							<span class="runstatus" id="notrun" style="display: inline;">не выполняется</span>
+							<span class="runstatus" id="run" style="display: none;">выполняется</span>
+							<span class="runstatus" id="wait" style="display: none;">ожидает запуска</span>
+							<span class="runstatus" id="waitshed" style="display: none;">ожидает запуска по расписанию</span>
+							<span class="runstatus" id="limit" style="display: none;">превышен лимит</span>
+							<span class="myprogressbar" style="float: right; width: 200px;"><span style="width: 0%;">&nbsp;</span></span>
+						</fieldset>
+					</div>
+					<div>
+						<button id="btnrun" class="btn btn-large"><i class="icon-play"></i>&nbsp;Запуск</button>
+						<button id="btnstop" class="btn btn-large" style="display: none;"><i class="icon-stop"></i>&nbsp;Стоп</button>
+					</div>
+					</div>
+				</div>
+
+				<div class="popup runcontrol ui-draggable" id="runresult" style="display: none; left: 239px; top: 51px;">
+					<div class="popup-title">
+						<div class="popup-close"><button class="close">×</button></div>
+						<h3>Результат выполнения</h3>
+					</div>
+					<div class="popup-body">
+							<fieldset style="overflow: hidden;">
+						<span class="line">
+							Парсер:&nbsp;<span id="scrname">cpainfo</span>
+							<span style="width: 100px; display: inline-block;">&nbsp;</span>
+							Стартовая страница:&nbsp;<span id="startpage">http://cpainform.ru/programs/funservices/santa4me/</span>
+						</span>
+						<br>
+						Последний запуск:&nbsp;<span id="lastrun">01.01.1970, 4:00:00</span>
+					</fieldset>
+					<fieldset>
+						<legend>Вывод</legend>
+						<div id="runoutput" style="overflow: auto; height: 150px; font-size: 12px;"></div>
+					</fieldset>
+					<fieldset>
+						<legend>Файлы</legend>
+						<div style="overflow: auto; height: 150px; padding: 0; margin: 0">
+							<table id="files" class="table table-striped table-condensed" style="width: 50%; float: left">
+								<!-- <thead>
+									<tr>
+										<td style="width: 300px">Имя файла</td>
+										<td></td>
+									</tr>
+								</thead> -->
+								<tbody></tbody>
+							</table>
+							&nbsp;&nbsp;&nbsp;
+							<button id="zip" class="btn btn-small" href="http://scraperlab.com/execserver/api/download?file=3ac3723b9248900b6c6f15ad86c1c9c1&amp;zip=1" onclick="SaveZip(this);">Сохранить все</button>			
+							<button id="delall" class="btn btn-small" href="http://scraperlab.com/execserver/api/download?file=3ac3723b9248900b6c6f15ad86c1c9c1&amp;deleteall=1" onclick="DeleteAll(this);">Удалить все</button>
+						</div>
+					</fieldset>
+					</div>
+				</div>
+
+				<div id="deleteModal" class="modal fade" style="display: none;">
+				<div class="modal-header">
+					<a class="close" data-dismiss="modal">×</a>
+					<h3>Удаление парсера</h3>
+				</div>
+				 <div class="modal-body">
+					<p>Вы действительно хотите удалить парсер?</p>
+				</div>
+				 <div class="modal-footer">
+					<a data-dismiss="modal" id="ok-del-btn" class="btn" href="/main/delete/955">OK</a>    <a data-dismiss="modal" id="cancel-del-btn" class="btn" href="#">Отмена</a></div>
+				</div>
+
+
+					</div>
+					<div class="span2">
+						<div class="right-panel">
+							<a href="/main/create"><i class="icon-plus"></i>&nbsp;Создать парсер</a>		</div>
+						<div class="right-panel hint">
+							Это список ваших парсеров.		</div>	
+					</div>
+				</div>	
+				</div>
+			</div>
+</div>
+
+
+<div id="closeModal" class="modal fade">
+	<div class="modal-header">
+		<a class="close" data-dismiss="modal">&times;</a>
+		<h3>Закрытие</h3>
+	</div>
+	 
+	<div class="modal-body">
+		<p>Сохранить изменения?</p>
+		<div class="popup3" style="margin-left: 45%; top: 40%;"><img src="images/ajax-loader2.gif" /></div>
+	</div>
+	 
+	<div class="modal-footer">
+		<a id="yes-close-btn" data-url="#/main" class="btn" href="#">Да</a>    
+		<a data-dismiss="modal" id="no-close-btn" data-url="/main" class="btn" href="#">Нет</a>
+		<a data-dismiss="modal" id="cancel-close-btn" class="btn" href="#">Отмена</a>
+	</div>
+</div>
+
+
+<div id="delexpModal" class="modal fade">
+	<div class="modal-header">
+		<a class="close" data-dismiss="modal">&times;</a>
+		<h3>Удаление профиля экспорта</h3>
+	</div>
+	<div class="modal-body">
+		<p>Вы действительно хотите удалить профиль экспорта?</p>
+	</div>
+	<div class="modal-footer">
+		<a data-dismiss="modal" id="ok-del-exp" class="btn" href="#">OK</a>    <a data-dismiss="modal" id="cancel-del-exp" class="btn" href="#">Отмена</a>
+	</div>
+</div>
+
+<div id="delpageexpModal" class="modal fade">
+	<div class="modal-header">
+		<a class="close" data-dismiss="modal">&times;</a>
+		<h3>Удаление правила экспорта</h3>
+	</div>
+	<div class="modal-body">
+		<p>Вы действительно хотите удалить правило экспорта?</p>
+	</div>
+	<div class="modal-footer">
+		<a data-dismiss="modal" id="ok-del-exppage" class="btn" href="#">OK</a>    <a data-dismiss="modal" id="cancel-del-exppage" class="btn" href="#">Отмена</a>
+	</div>
+</div>
+
+
+<div id="loader" class="popup2">
+	<img src="images/ajax-loader2.gif" />
+</div>
+
+	</div>
+	
+		
+	<div class="hFooter"></div>
+</div>
+
+<div id="footer">Copyright &copy; 2013-2014 ScraperLab.com <span style="display: inline-block; width:50px;"></span><a href="mailto:support@scraperlab.com">support@scraperlab.com</a></div>
+
+<script type="text/javascript">
+/*<![CDATA[*/
+var HelpUrl = '/ru/docs/';
+var TranslateArray = {};
+var RDBExportTypes = {'opencart':
+{'Product': {
+	'Language': true,
+	'Product Name': true,
+	'Product Price': true,
+	'Product Description': true,
+    'Product Category': {
+        'Category Name': true,
+    },
+	'Product Sort Order': true,
+	'Manufacturer Name': true,
+	'Product Specification': {
+		'Attribute Group Name': true,
+		'Group Attributes': {
+			'Attribute Name': true,
+			'Attribute Value': true,
+		},
+	},
+	'Main Image Path': true,
+	'Product Images': {
+		'Image Path': true,
+	},
+	'Product Quantity': true,
+ },
+ 'Category': {
+	 'Category Name': true,
+	 'Category Description': true,
+     'Language': true,
+	 'Parent Category': true,
+	 'Child Category': true,
+ },
+},
+'prestashop':
+{'Product': {
+    'Language': true,
+    'Shop Name': true,
+	'Product Name': true,
+	'Product Description': true,
+	'Product Price': true,
+	'Product SEO Link': true,
+	'Manufacturer Name': true,
+    'Supplier Name': true,
+    'Tax Rules Name': true,
+	'Category Name': true,
+	'Product Category': {
+        'Category Name': true,
+    },
+    'Product Images': {
+        'Image Name': true,
+    },
+    'Product Features': {
+        'Feature Name': true,
+        'Feature Value': true,
+    },
+  },
+},
+'wordpress':
+{'Post': {
+	'User Login': true,
+	'Post Content': true,
+	'Post Title': true,
+	'Post Status': true,
+    'Post Type': true,
+	'Post Terms': {
+		'Term Type': true,
+		'Term Name': true,
+	},
+    'Attachments': true,
+ },
+},
+};
+var ECTTemplates = {'exportlistformatrow': '<tr>\n	<td><%- @i %></td>\n	<td><%= @e.name %></td>\n	<td><%= @e.type %></td>\n	<% retvar = if @e.retvarname then @e.retvarname+\' = \' else \'\' %>\n	<td><%= retvar %>store(\'<%= @e.name %>\', \'<%= @e.filename %>\', <%= @e.paramstype %>(...));</td>\n	<td>\n		<input type="hidden" name="exportid" value="<%- @i %>" />\n		<a class="edit" href="#" onclick="pageExportListEdit(this);" title="<%= @Lang.t \'Редактировать\' %>"><i class="icon-pencil"></i></a>\n		&nbsp;\n		<a class="up" href="#" onclick="pageExportListUp(this);" title="<%= @Lang.t \'Переместить вверх\' %>"><i class=" icon-arrow-up"></i></a>\n		<a class="down" href="#" onclick="pageExportListDown(this);" title="<%= @Lang.t \'Переместить вниз\' %>"><i class=" icon-arrow-down"></i></a>\n		&nbsp;\n		<a class="delete" href="#" onclick="pageExportListDelete(this);" title="<%= @Lang.t \'Удалить\' %>"><i class="icon-trash"></i></a>\n	</td>\n</tr>',
+'exportlistformattable': '<% for e, i in @exp : %>\n	<% include \'exportlistformatrow\', {i: i, e: e, Lang: @Lang} %>\n<% end %>',
+'exportpageformatarray': '<% num = 1 %> \n<% for elem in @array : %>\n	<% include \'exportpageformatarrayrow\', {num: num, elem: elem, rules: @rules, vartypes: @vartypes[num-1], Lang: @Lang} %>\n	<% num++ %> \n<% end %>',
+'exportpageformatarrayrow': '<tr>\n	<td style="width: 100px;"><%- @num %></td>\n	<td>\n		<% include \'exportpagevarselect\', {elem: @elem, rules: @rules, vartypes: @vartypes, Lang: @Lang} %>\n	</td>\n	<td style="width: 100px;">\n		<a href="#" onclick="pageExportUp(this);" title="<%= @Lang.t \'Переместить вверх\' %>"><i class="icon-arrow-up"></i></a>\n		<a href="#" onclick="pageExportDown(this);" title="<%= @Lang.t \'Переместить вниз\' %>"><i class="icon-arrow-down"></i></a>\n	</td>\n	<td style="width: 50px;">\n		<a href="#" onclick="pageExportItemDelete(this);" title="<%= @Lang.t \'Удалить\' %>"><i class="icon-trash"></i></a>\n	</td>\n</tr>',
+'exportpageformatdict': '<% for var1, elem of @array : %>\n<tr>\n	<% matches = var1.match /^(.+?)(\\*?)$/ %>\n	<% span = if matches[2] != \'\' then \'<span>*</span>\' else \'\'	%>\n	<td style="width: 250px"><%= matches[1] %><%- span %></td>\n	<td style="width: 30px">=&gt;</td>\n	<td>\n		<% include \'exportpagevarselect\', {elem: elem, rules: @rules, vartypes: @vartypes[var1], Lang: @Lang} %>\n	</td>\n</tr>\n<% end %>',
+'exportpagevarselect': '<select name="rulename">\n<% section = 0 %>\n<% for rule in @rules : %>\n	<% if @vartypes == \'var\' && rule.name == @elem : %>\n		<% selected = \'selected="selected"\' %>\n	<% else : %>\n	  	<% selected = \'\' %>\n	<% end %>\n	\n	<% if section == 0 && rule.isrule && !rule.global : %>\n		<% section = 1 %>\n		<option value="" style="font-weight: bold;">--<%= @Lang.t \'Правила\' %>:</option>\n	<% else if section == 1 && !rule.isrule && !rule.global : %>\n		<% section = 2 %>\n		<option value="" style="font-weight: bold;">--<%= @Lang.t \'Переменные\' %>:</option>\n	<% else if section == 2 && rule.global : %>\n		<% section = 3 %>\n		<option value="" style="font-weight: bold;">--<% @Lang.t \'Глобальные\' %>:</option>\n	<% end %>\n	\n	<option value="<%= rule.name %>" <%= selected %>><%= rule.name %> (<%= rule.type %>)</option>\n<% end %>\n<% if @vartypes == \'const\' : %>\n	<option value="{const}" selected="selected" style="font-weight: bold;"><%= @Lang.t \'Константа\' %></option>\n	</select>\n	<input type="text" name="const" value="<%= @elem %>" />\n<% else : %>\n	<option value="{const}" style="font-weight: bold;"><%= @Lang.t \'Константа\' %></option>\n	</select>\n	<input type="text" name="const" style="display: none" />\n<% end %>',
+'pagedataformat': '<ul class="nav nav-tabs" style="margin-bottom: 0px;">\n	<% num = 1 %>\n	<% for group, rules of @data : %>\n		<% active = if num == 1 then \' class="active"\' else \'\' %>\n		<li<%- active %> title="<%= @Lang.t \'Группа\' %>"><a href="#tab<%- num++ %>" data-toggle="tab"><%= group %></a></li>\n	<%end %>\n</ul>\n<div class="tab-content" style="overflow: auto; width: 100%; height: 95%; border: 1px solid #DDDDDD; border-top: none; paddin-top: 5px;">\n	<% num = 1 %>\n	<% for group, table of @data : %>\n		<% active = if num == 1 then \' active\' else \'\' %>\n		<div class="tab-pane<%- active %>" id="tab<%- num++ %>">\n			<table class="table table-striped table-condensed" style="width: <%- @totallen[group] %>px; max-width: none;">\n				<thead>\n					<tr><td>#</td>\n					<% for hname, hvalue of @headers[group] : %>\n						<td title="<%= @Lang.t \'Имя правила\' %>"><strong><%= hname %></strong></td>\n					<% end %>\n					</tr>\n				</thead>\n				<tbody>\n					<% for line in table : %>\n						<tr>\n						<% for rname, rvalue of line : %>\n							<td><%= rvalue.val %>\n								<% if rvalue.type == \'image\' : %>\n									<br/><img src="<%- rvalue.val %>" height="100" />\n								<% end %>\n							</td>\n						<% end %>\n						</tr>\n					<% end %>\n				</tbody>\n			</table>\n		</div>\n	<% end %>\n</div>',
+'ruleformatrow': '<tr id="rule-<%= @rule.name %>">\n	<td><input type="checkbox" name="checkbox" /></td>\n	<td><%= @rule.name %></td>\n	<td><% if @rule.type == \'text\' : %>\n			<span class="label" id="text"><%= @Lang.t \'Текст\' %></span>\n		<% else if @rule.type == \'link\' : %>\n			<span class="label" id="link"><%= @Lang.t \'Ссылка\' %></span>\n		<% else if @rule.type == \'image\' : %>			\n			<span class="label" id="image"><%= @Lang.t \'Картинка\' %></span> \n		<% else if @rule.type == \'form\' : %>			\n			<span class="label" id="form"><%= @Lang.t \'Форма\' %></span>\n		<% else if @rule.type == \'regexp\' : %>			\n			<span class="label" id="regexp">RegExp</span>\n		<% else if @rule.type == \'html\' : %>			\n			<span class="label" id="htmltype">HTML</span>\n		<% end %>\n	</td>\n	<td><%= @rule.group %></td>\n	<td><%= @rule.path %></td>\n	<td>\n		<div class="btn-group">\n			<button class="btn btn-mini dropdown-toggle" data-toggle="dropdown2">\n				<%= @Lang.t \'Действия\' %> <span class="caret"></span>\n			</button>\n			<ul class="dropdown-menu">\n				<% if @type != \'form\': %>\n					<% if @rule.type == \'regexp\': %>\n						<li><a href="#" onclick="getregexp(this);"><%= @Lang.t \'Параметры\' %></a></li>\n					<% else: %>\n						<li><a href="#" onclick="ruleoptions(this);"><%= @Lang.t \'Параметры\' %></a></li>\n					<% end %>\n					<li><a href="#" onclick="rulesetgroup(this);"><%= @Lang.t \'Группировка\' %></a></li>\n					<li><a href="#" onclick="rulefilter(this);"><%= @Lang.t \'Фильтр\' %></a></li>\n				<% end %>\n				<% if @rule.type == \'link\' or @rule.type == \'form\' or @rule.type == \'html\': %>\n					<li><a href="#" onclick="ruleload(this);"><%= @Lang.t \'Загрузить\' %></a></li>\n				<% end %>\n				<% if @rule.type != \'form\' and @rule.type != \'regexp\': %>\n					<li><a href="#" onclick="htmltree(this);"><%= @Lang.t \'Редактировать XPath\' %></a></li>\n				<% end %>\n			</ul>\n		</div>\n	</td>\n	\n</tr>',
+'ruleformattable': '<% for rule in @array : %>\n	<% include \'ruleformatrow\', {rule: rule, Lang: @Lang} %>\n<% end %>',
+};
+jQuery(function($) {
+jQuery('a[rel="tooltip"]').tooltip();
+jQuery('a[rel="popover"]').popover();
+jQuery('#closeModal').modal({'show':false});
+jQuery('#delexpModal').modal({'show':false});
+jQuery('#delpageexpModal').modal({'show':false});
+});
+/*]]>*/
+</script>
+
+
+</body>
+
+<script type="text/javascript" src="vars.js"></script>
+<script type="text/javascript" src="module.js"></script>
+<script type="text/javascript" src="obj.js"></script>
+<script type="text/javascript" src="main-rules.js"></script>
+<script type="text/javascript" src="events.js"></script>
+
+</html>
