@@ -48,8 +48,7 @@
 	<div class="tabbable tabs-right">
 		
 		<ul id="sidetabs" class="nav nav-tabs">
-			<li class="active"><a id="tab-list" data-toggle="tab" href="#tabList">Список</a></li>
-			<li ><a id="tab-browser" data-toggle="tab" href="#tabBrowser">Браузер</a></li>
+			<li class="active"><a id="tab-browser" data-toggle="tab" href="#tabBrowser">Браузер</a></li>
 			<li ><a id="tab-script"  data-toggle="tab" href="#tabScript" onclick="tabScriptClick();">Скрипт</a></li>			
 			<li><a id="tab-export" data-toggle="tab" href="#tabExport">Экспорт</a></li>
 			
@@ -69,139 +68,6 @@
 		</ul>
 		
 		<div class="tab-content">
-			<div id="tabList" class="tab-pane active">
-				<div class="container-fluid">
-						
-				<div class="row-fluid">
-					<div class="span10">
-
-				<div id="yw0" class="grid-view">
-				<table class="items table table-striped table-bordered table-condensed">
-				<thead>
-				<tr>
-				<th id="yw0_c0"><a href="/main?Scrapers_sort=id">ID<span class="caret"></span></a></th><th id="yw0_c1"><a href="/main?Scrapers_sort=name">Название<span class="caret"></span></a></th><th id="yw0_c2"><a href="/main?Scrapers_sort=start_page">Стартовая страница<span class="caret"></span></a></th><th id="yw0_c3"><a href="/main?Scrapers_sort=dtmodified">Изменено<span class="caret"></span></a></th><th class="button-column" id="yw0_c4">&nbsp;</th></tr>
-				</thead>
-				<tbody>
-				<tr class="odd"><td>959</td><td>test</td><td>http://actionpay.ru/ru/</td><td style="width: 180px;">08.12.2014, 17:26:18</td><td style="width: 95px"><a style="margin-left: 5px;" rel="tooltip" href="/edit/959" data-original-title="Редактировать"><i class="icon-edit"></i></a><a style="margin-left: 5px;" rel="tooltip" href="/generate/959" data-original-title="Генерировать"><i class="icon-file"></i></a><a style="margin-left: 5px;" onclick="showRunDialog(this);" rel="tooltip" href="#" data-original-title="Управление запуском"><i class="icon-play"></i></a><a style="margin-left: 5px;" onclick="showResultDialog(this);" rel="tooltip" href="#" data-original-title="Результат выполнения"><i class="icon-folder-open"></i></a><a style="margin-left: 5px;" class="delete" rel="tooltip" href="/main/delete/959" data-original-title="Удалить"><i class="icon-remove"></i></a></td></tr>
-				<tr class="even"><td>955</td><td>cpainfo</td><td>http://cpainform.ru/programs/funservices/santa4me/</td><td style="width: 180px;">12.12.2014, 18:56:27</td><td style="width: 95px"><a style="margin-left: 5px;" rel="tooltip" href="/edit/955" data-original-title="Редактировать"><i class="icon-edit"></i></a><a style="margin-left: 5px;" rel="tooltip" href="/generate/955" data-original-title="Генерировать"><i class="icon-file"></i></a><a style="margin-left: 5px;" onclick="showRunDialog(this);" rel="tooltip" href="#" data-original-title="Управление запуском"><i class="icon-play"></i></a><a style="margin-left: 5px;" onclick="showResultDialog(this);" rel="tooltip" href="#" data-original-title="Результат выполнения"><i class="icon-folder-open"></i></a><a style="margin-left: 5px;" class="delete" rel="tooltip" href="/main/delete/955" data-original-title="Удалить"><i class="icon-remove"></i></a></td></tr>
-				</tbody>
-				</table><div class="keys" style="display:none" title="/main"><span>959</span><span>955</span></div>
-				</div>
-
-
-				<div class="popup runcontrol ui-draggable" id="runcontrol" style="display: none; left: 339px; top: 151px;">
-					<div class="popup-title">
-						<div class="popup-close"><button class="close">×</button></div>
-						<h3>Управление запуском (beta)</h3>
-					</div>
-					<div class="popup-body">
-							<div style="width: 80%; float: left; margin-right: 10px">
-						<fieldset>
-							<input type="hidden" name="scrid" value="955">
-							<input type="radio" name="runtype" value="single" checked="checked">&nbsp;Одиночный запуск			<br><br>
-							<input type="radio" name="runtype" value="shedule">&nbsp;Запуск по расписанию			<table id="shedulesetup" style="margin-left: 40px;">
-								<tbody><tr>
-									<td style="width: 120px;"><span class="left-td">Начать в</span></td>
-									<td>Дата:<input type="text" name="sheduledate" class="datepicker" style="width: 80px;"/>&nbsp;&nbsp;&nbsp;Время:<input type="text" name="sheduletime" style="width: 50px;"/>
-										<br><span class="hint">Например: 2013-12-03  14:15</span>
-									</td>
-								</tr>
-								<tr>
-									<td style="width: 120px;"><span class="left-td">Повторять</span></td>
-									<td><select name="repeat">
-											<option value="hour">каждый час</option>
-											<option value="3hour">каждые 4 часа</option>
-											<option value="8hour">каждые 8 часов</option>
-											<option value="12hour">каждые 12 часов</option>
-											<option value="day">каждые 24 часа</option>
-											<option value="3day">каждые 3 дня</option>
-											<option value="week">каждые 7 дней</option>
-											<option value="2week">каждые 2 недели</option>
-											<option value="month">каждый месяц</option>
-										</select>
-									</td>
-								</tr>
-							</tbody></table>
-						</fieldset>
-						<fieldset>
-							<legend>Статус</legend>
-							<span class="runstatus" id="notrun" style="display: inline;">не выполняется</span>
-							<span class="runstatus" id="run" style="display: none;">выполняется</span>
-							<span class="runstatus" id="wait" style="display: none;">ожидает запуска</span>
-							<span class="runstatus" id="waitshed" style="display: none;">ожидает запуска по расписанию</span>
-							<span class="runstatus" id="limit" style="display: none;">превышен лимит</span>
-							<span class="myprogressbar" style="float: right; width: 200px;"><span style="width: 0%;">&nbsp;</span></span>
-						</fieldset>
-					</div>
-					<div>
-						<button id="btnrun" class="btn btn-large"><i class="icon-play"></i>&nbsp;Запуск</button>
-						<button id="btnstop" class="btn btn-large" style="display: none;"><i class="icon-stop"></i>&nbsp;Стоп</button>
-					</div>
-					</div>
-				</div>
-
-				<div class="popup runcontrol ui-draggable" id="runresult" style="display: none; left: 239px; top: 51px;">
-					<div class="popup-title">
-						<div class="popup-close"><button class="close">×</button></div>
-						<h3>Результат выполнения</h3>
-					</div>
-					<div class="popup-body">
-							<fieldset style="overflow: hidden;">
-						<span class="line">
-							Парсер:&nbsp;<span id="scrname">cpainfo</span>
-							<span style="width: 100px; display: inline-block;">&nbsp;</span>
-							Стартовая страница:&nbsp;<span id="startpage">http://cpainform.ru/programs/funservices/santa4me/</span>
-						</span>
-						<br>
-						Последний запуск:&nbsp;<span id="lastrun">01.01.1970, 4:00:00</span>
-					</fieldset>
-					<fieldset>
-						<legend>Вывод</legend>
-						<div id="runoutput" style="overflow: auto; height: 150px; font-size: 12px;"></div>
-					</fieldset>
-					<fieldset>
-						<legend>Файлы</legend>
-						<div style="overflow: auto; height: 150px; padding: 0; margin: 0">
-							<table id="files" class="table table-striped table-condensed" style="width: 50%; float: left">
-								<!-- <thead>
-									<tr>
-										<td style="width: 300px">Имя файла</td>
-										<td></td>
-									</tr>
-								</thead> -->
-								<tbody></tbody>
-							</table>
-							&nbsp;&nbsp;&nbsp;
-							<button id="zip" class="btn btn-small" href="http://scraperlab.com/execserver/api/download?file=3ac3723b9248900b6c6f15ad86c1c9c1&amp;zip=1" onclick="SaveZip(this);">Сохранить все</button>			
-							<button id="delall" class="btn btn-small" href="http://scraperlab.com/execserver/api/download?file=3ac3723b9248900b6c6f15ad86c1c9c1&amp;deleteall=1" onclick="DeleteAll(this);">Удалить все</button>
-						</div>
-					</fieldset>
-					</div>
-				</div>
-
-				<div id="deleteModal" class="modal fade" style="display: none;">
-				<div class="modal-header">
-					<a class="close" data-dismiss="modal">×</a>
-					<h3>Удаление парсера</h3>
-				</div>
-				 <div class="modal-body">
-					<p>Вы действительно хотите удалить парсер?</p>
-				</div>
-				 <div class="modal-footer">
-					<a data-dismiss="modal" id="ok-del-btn" class="btn" href="/main/delete/955">OK</a>    <a data-dismiss="modal" id="cancel-del-btn" class="btn" href="#">Отмена</a></div>
-				</div>
-
-
-					</div>
-					<div class="span2">
-						<div class="right-panel">
-							<a href="/main/create"><i class="icon-plus"></i>&nbsp;Создать парсер</a>		</div>
-						<div class="right-panel hint">
-							Это список ваших парсеров.		</div>	
-					</div>
-				</div>	
-				</div>
-			</div>
 			<div id="tabBrowser" class="tab-pane">
 			
 				<div id="panel">
