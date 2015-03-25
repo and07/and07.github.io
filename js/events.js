@@ -1,6 +1,6 @@
 ﻿/***main-index.js***/
 $(document).ready(function() {
-
+/*
 	$('a.create').click(function(e) {
 		e.preventDefault();
 		$('#createModal').modal('show');
@@ -15,7 +15,7 @@ $(document).ready(function() {
 	$('#deleteModal').find('#ok-del-btn').click(function() {
 		location.href = $(this).attr('href');
 	});
-	
+*/
 	$('.popup').draggable({handle: '.popup-title'});
 	$('.popup:not(#helper) .close').click(function() {
 	   	$(this).parent().parent().parent().fadeOut('slow');

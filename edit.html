@@ -1298,6 +1298,19 @@
 <div id="footer">Copyright &copy; 2013-2014 ScraperLab.com <span style="display: inline-block; width:50px;"></span><a href="mailto:support@scraperlab.com">support@scraperlab.com</a></div>
 
 <script type="text/javascript">
+$(document).ready(function() {
+    $('#html').on('load', setFrameFunctions);
+	//$('#'+HtmlFrames.activeFrame).contents().find('html').html(DEF_TPL)
+	//document.getElementById(HtmlFrames.activeFrame).src = "data:text/html;charset=utf-8," + DEF_TPL;
+	var iframe = document.getElementById('html');
+	iframe.contentWindow.contents = DEF_TPL;
+	iframe.src = 'javascript:window.contents';
+	
+    HTMLRenderer = ECT({root: ECTTemplates});
+
+});
+
+
 /*<![CDATA[*/
 var HelpUrl = '/ru/docs/';
 var TranslateArray = {};
