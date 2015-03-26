@@ -1,3 +1,87 @@
+"use strict";
+function supports_html5_storage() {
+  try {
+    return 'localStorage' in window && window['localStorage'] !== null;
+} catch (e) {
+    return false;
+  }
+}
+
+Date.prototype.yyyymmdd = function() {
+   var yyyy = this.getFullYear().toString();
+   var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
+   var dd  = this.getDate().toString();
+   var _hh = this.getHours().toString(); 
+   var _mm = this.getMinutes().toString();  
+   var _ss = this.getSeconds().toString();  
+   return yyyy + '-' + ( mm[1]?mm:"0"+ mm[0] ) +'-' + (dd[1]?dd:"0"+dd[0]) + ' '+ _hh+':'+_mm+':'+_ss; // padding
+};
+
+function getParserData(){
+	var parser = JSON.parse(localStorage['parser']) || {};
+	return parser;
+}
+
+function addParseList(){
+	var parser = getParserData();
+	for(var k in parser){
+		parseList.add(parser[k]);
+	}
+}
+function loadXMLString(txt) 
+{
+	if (window.DOMParser)
+	  {
+	  var parser=new DOMParser();
+	  var xmlDoc=parser.parseFromString(txt,"text/xml");
+	  }
+	else // code for IE
+	  {
+	  var xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
+	  xmlDoc.async=false;
+	  xmlDoc.loadXML(txt); 
+	  }
+	return xmlDoc;
+}
+function addBaseTag(el,url){
+    var newBase = el.createElement("base");
+    newBase.setAttribute("href", url);
+	var head = el.getElementsByTagName("head")[0]
+	var theFirstChild = head.firstChild;
+	// Insert the new element before the first child
+	head.insertBefore(newBase, theFirstChild);	
+    //el.getElementsByTagName("head")[0].appendChild(newBase);
+}
+function getIframeContent(id) { 
+
+    var iframe = document.getElementById(id); 
+
+    var doc; 
+
+    if(iframe.contentDocument) { 
+        doc = iframe.contentDocument; 
+    } else {
+        doc = iframe.contentWindow.document; 
+    }
+    return doc;
+} 
+
+function getRadioVal(name) {
+    	var val = null;
+	var radios = document.getElementsByName(name);
+
+	for (var i = 0, length = radios.length; i < length; i++) {
+	    if (radios[i].checked) {
+	        // do whatever you want with the checked radio
+	        return radios[i].value;
+	
+	        // only one radio can be logically checked, don't check the rest
+	        break;
+	    }
+	}
+    	return val; // return value of checked radio or undefined if none checked
+}
+/*****************************************************************************************/
 var SetIntervalID = -1;
 
 function showRunDialog(row)
@@ -995,7 +1079,7 @@ function ruleedit(elem)
 	var name = ruleactions_getname(elem);
 	var rule = PagesList.get().rules.getByName(name);
 	
-	$win = $('#ruleedit');
+	var $win = $('#ruleedit');
 	$win.find('#rulename').html('<b>'+name+'</b>');
 	$win.find('input[name="name"]').val(name);
 	rulelables($win, rule.type);
@@ -1026,7 +1110,7 @@ function pageexport()
 		$('#pageexport-list-table table tbody').append('<tr><td colspan="5">'+Lang.t('Нет ни одного правила экспорта')+'</td></tr>');
 	}
 	
-	$win = $('#pageexport');
+	var $win = $('#pageexport');
 	$win.fadeIn('slow').css('left', ($(window).width()-$win[0].offsetWidth)/2);
 	$win.css('top', ($(window).height()-$win[0].offsetHeight)/2);
 	$('#pageexport .popup-btns').css('top', $win[0].offsetHeight-40);
@@ -1093,7 +1177,7 @@ function ruleoptions(elem)
 	}
 	else if (rule.type == 'html')
 	{
-		$win = $('#htmlopt');
+		var $win = $('#htmlopt');
 		$win.find('input[name="optstore"]').prop('checked', rule.options.store);
 		$win.find('input[name="optcontent"]').prop('checked', rule.options.content);
 		$win.find('input[name="optnext"]').prop('checked', rule.options.next);
@@ -1102,7 +1186,7 @@ function ruleoptions(elem)
 		$('#ruleoptions #htmlopt').show();
 	}
 	
-	$win = $('#ruleoptions');
+	var $win = $('#ruleoptions');
 	$win.fadeIn('slow').css('left', ($(window).width()-$win[0].offsetWidth)/2);
 	$win.css('top', ($(window).height()-$win[0].offsetHeight)/2);
 	$('#ruleoptions .popup-btns').css('top', $win[0].offsetHeight-40);
@@ -1118,7 +1202,7 @@ function rulesetgroup(elem)
 	$('#rulesetgroup input[name="name"]').val(name);
 	$('#rulesetgroup input[name="setname"]').val('');
 	
-	$win = $('#rulesetgroup');
+	var $win = $('#rulesetgroup');
 	rulelables($win, rule.type);
 	
 	$('#rulesetgroup select[name="groups"] option').remove();
@@ -1222,7 +1306,7 @@ function pagedata()
 {
 	refreshpagedata();
 	
-	$win = $('#pagedata');
+	var $win = $('#pagedata');
 	$win.fadeIn('slow').css('left', ($(window).width()-$win[0].offsetWidth)/2);
 	$win.css('top', ($(window).height()-$win[0].offsetHeight)/2);
 	$('#pagedata .popup-btns').css('top', $win[0].offsetHeight-40);
@@ -1270,7 +1354,7 @@ function getregexp_exec()
 	$('#getregexp #reout').text(out);
 
 	var doc = document.getElementById(HtmlFrames.activeFrame).contentWindow.document;
-	var source = (PagesList.get().type == 'html') ? doc.body.innerHTML : doc.documentElement.outerHTML;
+	var source = (PagesList.get() && PagesList.get().type == 'html') ? doc.body.innerHTML : doc.documentElement.outerHTML;
 	$('#getregexp #source').empty();
 	var sourceElem = document.getElementById('source');
 	var start = 0;
@@ -1463,8 +1547,16 @@ function htmltree(elem)
 
 //xxx
 	//var doc =  document.getElementById(HtmlFrames.activeFrame).contentWindow.document;
-	var doc =  loadXMLString(DEF_TPL);
 	
+	
+	var type = parseInt(getRadioVal('type'));
+	if(type === 1){
+		var doc =  document.getElementById('html').contentWindow.document;
+	}else if(type === 2){
+		var content = _PARSE.html || DEF_TPL;
+		var doc =  loadXMLString(content);
+	}		
+
 	var data = [];
 	var root;
 	if (PagesList.get() && PagesList.get().type == 'html')

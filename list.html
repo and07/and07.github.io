@@ -234,10 +234,10 @@
 				<div id="editModal" class="modal fade"  style="display: none; margin: 0px; top: 0px;left:0px; width:100%;">
 					<div class="modal-header">
 						<a class="close" data-dismiss="modal">×</a>
-						<h3>Edit</h3>
+						<h3 id = "js_name">Edit</h3>
 					</div>
-					<div class="modal-body" style="max-height:100%;">
-						TEST
+					<div class="modal-body" style="max-height:80%;">
+									
 <div class="tabbable tabs-right">				
 		<ul id="sidetabs" class="nav nav-tabs">
 			<li class="active"><a id="tab-browser" data-toggle="tab" href="#tabBrowser">Браузер</a></li>
@@ -262,6 +262,11 @@
 		<div class="tab-content">
 			<div id="tabBrowser" class="tab-pane active">
 			
+				<div  class="btn-group" data-toggle="buttons">
+						<input type="radio" name="type" value="1" checked="checked">HTML
+						<input type="radio" name="type" value="2">XML
+				</div>
+				
 				<div id="panel">
 					<!--<div style="float: right; margin-top: 1px;">
 						<button onclick="togglebrowser();" class="btn" title="Свернуть/Развернуть браузер">
@@ -275,7 +280,7 @@
 						<button onclick="loadnext();" class="btn" title="Вперёд">
 							<i class="icon-arrow-right"></i>
 						</button>
-						<input type="text" name="url" id="url" value="" placeholder="Введите url страницы" style="width: 300px;"/>
+						<input type="text" name="url" id="js_url" value="" placeholder="Введите url страницы" style="width: 300px;"/>
 						<button onclick="loadpage_nourl(false, true);" class="btn" title="Обновить страницу в кэше"><i class="icon-repeat"></i></button>
 						<button onclick="loadtree();" class="btn" title="Загружаемые страницы">
 							<i class="icon-th-list"></i>
@@ -296,6 +301,7 @@
 				</div>
 				
 				<div id="iframes">
+					<textarea id="js_tpl" style="margin: 0px 0px 9px; width: 1079px; height: 82px;"></textarea>				
 					<iframe id="html" name="html" width="99%" height="350" ></iframe>
 					<iframe id="html2" width="99%" style="display: none;"></iframe>
 				</div>
@@ -1430,10 +1436,9 @@
 	</div>
 						
 						
-						TEST
 					</div>
 					<div class="modal-footer">
-						<a data-dismiss="modal" id="add-btn" class="btn" href="/create/" >OK</a>    <a data-dismiss="modal" id="cancel-del-btn" class="btn" href="#">Отмена</a>
+					<!--	<a data-dismiss="modal" id="add-btn" class="btn" href="/create/" >OK</a>    <a data-dismiss="modal" id="cancel-del-btn" class="btn" href="#">Отмена</a> -->
 					</div>
 				</div>				
 <!-- EDIT-->			
@@ -1514,51 +1519,61 @@
 
 <div id="footer">Copyright &copy; 2013-2014 ScraperLab.com <span style="display: inline-block; width:50px;"></span><a href="mailto:support@scraperlab.com">support@scraperlab.com</a></div>
 
-<script type="text/javascript">
-/**********************************/
-//http://www.listjs.com/examples/add-get-remove
-var options = {
-  valueNames: [ 'id', 'name', 'url', 'date_edit' ]
-};
 
-// Init list
-var parseList = new List('parser_list', options);
+
+<script type="text/javascript" src="js/vars.js" ></script>
+<script type="text/javascript" src="js/module.js" ></script>
+<script type="text/javascript" src="js/obj.js" ></script>
+<script type="text/javascript" src="js/main-rules.js" ></script>
+<script type="text/javascript" src="js/events.js" ></script>
+
+<script type="text/javascript" >
+
+if(!supports_html5_storage()){
+	alert('обновите браузер');
+}
+
+/**********************************/
+
 
 var idField = $('#id-field');
 var nameField = $('#name-field');
 var urlField = $('#url-field');
 var addBtn = $('#add-btn');
-var editBtn = $('#edit-btn');
+//var editBtn = $('#edit-btn');
 var removeBtns = $('.remove-item-btn');
 var search = $('.search');
+/*
+editBtn.click(function() {
+	alert('as');
+});
+*/
 
+addParseList();
 refreshCallbacks();
-
-Date.prototype.yyyymmdd = function() {
-   var yyyy = this.getFullYear().toString();
-   var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
-   var dd  = this.getDate().toString();
-   var _hh = this.getHours().toString(); 
-   var _mm = this.getMinutes().toString();  
-   var _ss = this.getSeconds().toString();  
-   return yyyy + '-' + ( mm[1]?mm:"0"+ mm[0] ) +'-' + (dd[1]?dd:"0"+dd[0]) + ' '+ _hh+':'+_mm+':'+_ss; // padding
-};
-
 
 
 addBtn.click(function() {
-  parseList.add({
-    id: Math.floor(Math.random()*110000),
-    name: nameField.val(),
-    url: urlField.val(),
-    date_edit: new Date().yyyymmdd()
-  });
-  clearFields();
-  refreshCallbacks();
-});
 
-editBtn.click(function() {
-	alert('as');
+	_PARSE.id = Math.floor(Math.random()*110000);
+	_PARSE.url = urlField.val();
+	_PARSE.name = nameField.val();
+	_PARSE.date_edit = new Date().yyyymmdd();
+	
+	var parser = getParserData();
+	parser[_PARSE.name] = {
+		'id' : _PARSE.id,
+		'url' : _PARSE.url,
+		'name' : _PARSE.name,
+		'date_edit' : _PARSE.date_edit
+	};
+
+	parseList.add(parser[_PARSE.name]);
+	
+	localStorage['parser']= JSON.stringify(parser); 	
+
+	clearFields();
+	refreshCallbacks();
 });
 
 function refreshCallbacks() {
@@ -1566,7 +1581,7 @@ function refreshCallbacks() {
 	removeBtns = $(removeBtns.selector);
 
 	removeBtns.click(function() {
-		var itemId = parseList.itemId;
+		var itemId = _PARSE.id;
 		parseList.remove('id', itemId);
 		clearFields();
 	});
@@ -1574,7 +1589,7 @@ function refreshCallbacks() {
 	$('a.delete').click(function(e) {
 		e.preventDefault();
 		var itemId = $(this).closest('tr').find('.id').text();
-		parseList.itemId = itemId;		
+		_PARSE.id = itemId;		
 		//$('#deleteModal').find('#ok-del-btn').attr('href', $(this).attr('href'));
 		$('#deleteModal').modal('show');
 	}); 
@@ -1582,21 +1597,42 @@ function refreshCallbacks() {
 	$('a.edit').click(function(e) {
 		e.preventDefault();
 		var itemId = $(this).closest('tr').find('.id').text();
-		parseList.itemId = itemId;
+		_PARSE.id = itemId;
+		_PARSE.url = $(this).closest('tr').find('.url').text();
+		_PARSE.name = $(this).closest('tr').find('.name').text();
 		$('#editModal').modal('show');
 	});  
 }
 
 function clearFields() {
-  nameField.val('');
-  urlField.val('');
-  parseList.itemId = null;	
+	nameField.val('');
+	urlField.val('');
+	_PARSE.id = null;
+	_PARSE.url = null;
+	_PARSE.name = null;
 }
-
 $('a.create').click(function(e) {
 	e.preventDefault();
 	$('#createModal').modal('show');
 });
+
+bindModelInput(_PARSE,'url',document.getElementById('js_url'));
+bindModelInput(_PARSE,'name',document.getElementById('js_name'));
+bindModelInput(_PARSE,'date_edit',null);
+bindModelInput(_PARSE,'id',null);
+bindModelInput(_PARSE,'html',null);
+
+
+
+document.getElementById('js_tpl').onchange = function(){
+	var iframe = document.getElementById('html');
+	var text = document.getElementById("js_tpl").value;
+	_PARSE.html = text;
+	iframe.contentWindow.contents = text;
+	iframe.src = 'javascript:window.contents';
+	addBaseTag(getIframeContent('html'), _PARSE.url)
+	return true;		
+}
 
 
 	/*
@@ -1607,79 +1643,8 @@ $('a.create').click(function(e) {
 
 /**********************************/
 /*<![CDATA[*/
-var HelpUrl = '/ru/docs/';
-var TranslateArray = {};
-var RDBExportTypes = {'opencart':
-{'Product': {
-	'Language': true,
-	'Product Name': true,
-	'Product Price': true,
-	'Product Description': true,
-    'Product Category': {
-        'Category Name': true,
-    },
-	'Product Sort Order': true,
-	'Manufacturer Name': true,
-	'Product Specification': {
-		'Attribute Group Name': true,
-		'Group Attributes': {
-			'Attribute Name': true,
-			'Attribute Value': true,
-		},
-	},
-	'Main Image Path': true,
-	'Product Images': {
-		'Image Path': true,
-	},
-	'Product Quantity': true,
- },
- 'Category': {
-	 'Category Name': true,
-	 'Category Description': true,
-     'Language': true,
-	 'Parent Category': true,
-	 'Child Category': true,
- },
-},
-'prestashop':
-{'Product': {
-    'Language': true,
-    'Shop Name': true,
-	'Product Name': true,
-	'Product Description': true,
-	'Product Price': true,
-	'Product SEO Link': true,
-	'Manufacturer Name': true,
-    'Supplier Name': true,
-    'Tax Rules Name': true,
-	'Category Name': true,
-	'Product Category': {
-        'Category Name': true,
-    },
-    'Product Images': {
-        'Image Name': true,
-    },
-    'Product Features': {
-        'Feature Name': true,
-        'Feature Value': true,
-    },
-  },
-},
-'wordpress':
-{'Post': {
-	'User Login': true,
-	'Post Content': true,
-	'Post Title': true,
-	'Post Status': true,
-    'Post Type': true,
-	'Post Terms': {
-		'Term Type': true,
-		'Term Name': true,
-	},
-    'Attachments': true,
- },
-},
-};
+
+
 var ECTTemplates = {'exportlistformatrow': '<tr>\n	<td><%- @i %></td>\n	<td><%= @e.name %></td>\n	<td><%= @e.type %></td>\n	<% retvar = if @e.retvarname then @e.retvarname+\' = \' else \'\' %>\n	<td><%= retvar %>store(\'<%= @e.name %>\', \'<%= @e.filename %>\', <%= @e.paramstype %>(...));</td>\n	<td>\n		<input type="hidden" name="exportid" value="<%- @i %>" />\n		<a class="edit" href="#" onclick="pageExportListEdit(this);" title="<%= @Lang.t \'Редактировать\' %>"><i class="icon-pencil"></i></a>\n		&nbsp;\n		<a class="up" href="#" onclick="pageExportListUp(this);" title="<%= @Lang.t \'Переместить вверх\' %>"><i class=" icon-arrow-up"></i></a>\n		<a class="down" href="#" onclick="pageExportListDown(this);" title="<%= @Lang.t \'Переместить вниз\' %>"><i class=" icon-arrow-down"></i></a>\n		&nbsp;\n		<a class="delete" href="#" onclick="pageExportListDelete(this);" title="<%= @Lang.t \'Удалить\' %>"><i class="icon-trash"></i></a>\n	</td>\n</tr>',
 'exportlistformattable': '<% for e, i in @exp : %>\n	<% include \'exportlistformatrow\', {i: i, e: e, Lang: @Lang} %>\n<% end %>',
 'exportpageformatarray': '<% num = 1 %> \n<% for elem in @array : %>\n	<% include \'exportpageformatarrayrow\', {num: num, elem: elem, rules: @rules, vartypes: @vartypes[num-1], Lang: @Lang} %>\n	<% num++ %> \n<% end %>',
@@ -1697,16 +1662,13 @@ jQuery('#closeModal').modal({'show':false});
 jQuery('#delexpModal').modal({'show':false});
 jQuery('#delpageexpModal').modal({'show':false});
 });
+
 /*]]>*/
 </script>
 
 
 </body>
 
-<script type="text/javascript" src="js/vars.js"></script>
-<script type="text/javascript" src="js/module.js"></script>
-<script type="text/javascript" src="js/obj.js"></script>
-<script type="text/javascript" src="js/main-rules.js"></script>
-<script type="text/javascript" src="js/events.js"></script>
+
 
 </html>

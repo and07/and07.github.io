@@ -1,0 +1,84 @@
+/***custom modal window***/
+#blockscreen, .modalWindow, .modalConfirmWindow {
+    position: fixed;
+}
+
+
+#blockscreen {
+    background: rgba(0, 0, 0, .5);
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 910;
+    overflow: hidden;
+	filter:progid:DXImageTransform.Microsoft.Alpha(opacity=55);
+	-moz-opacity: 0.55;
+	-khtml-opacity: 0.55;
+	position: absolute; 
+	width:100%; 
+	height:100%;
+	background-color: #000000; 
+	opacity: 0.3; 
+	text-align: center; 
+	color: #FFFFFF; 
+	font-size: 60px; 
+}
+
+.modalWindow, .modalConfirmWindow {
+    z-index: 1000;
+    background: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #a1a1a1;
+    box-shadow: 0 0 10px #444;
+}
+
+.modalConfirmWindow {
+	padding: 25px;
+}
+
+.modalwindow-close {
+    cursor: pointer;
+    height: 36px;
+    position: absolute;
+    right: -18px;
+    top: -18px;
+    width: 36px;
+    z-index: 1004;
+}
+.modalwindow-close, #modalwindow-prev span, #modalwindow-next span {
+    background-image: url("../js/lib/fancybox/fancybox_sprite.png");
+}
+
+#modalwindow-next span {
+    background-position: 0 -72px;
+}
+
+#modalwindow-prev span {
+    background-position: 0 -36px;
+}
+
+#modalwindow-prev span{
+    cursor: pointer;
+    height: 36px;
+    left: -40px;
+    margin-top: -18px;
+    position: absolute;
+    top: 50%;
+    width: 36px;
+    z-index: 1003;
+}
+
+#modalwindow-next span {
+    cursor: pointer;
+    height: 36px;
+    right: -40px;
+    margin-top: -18px;
+    position: absolute;
+    top: 50%;
+    width: 36px;
+    z-index: 1003;
+}
+
+/******END custom modal window*********/

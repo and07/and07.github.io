@@ -54,3 +54,12 @@
 	var HtmlFrames = new HtmlFramesClass();
 	var HTTPHeaders = new HTTPHeadersClass();
 	
+	
+	//http://www.listjs.com/examples/add-get-remove
+	var ParseOptions = {
+	  valueNames: [ 'id', 'name', 'url', 'date_edit' ],
+	  //item: '<tr class="odd"><td class="id"></td><td class="name"></td><td class="url"></td><td class="date_edit" style="width: 180px;"></td><td style="width: 95px"><a style="margin-left: 5px;" class="edit" rel="tooltip" href="#" data-original-title="Редактировать"><i class="icon-edit"></i></a><a style="margin-left: 5px;" rel="tooltip" href="/generate/" data-original-title="Генерировать"><i class="icon-file"></i></a><a style="margin-left: 5px;" onclick="showRunDialog(this);" rel="tooltip" href="#" data-original-title="Управление запуском"><i class="icon-play"></i></a><a style="margin-left: 5px;" onclick="showResultDialog(this);" rel="tooltip" href="#" data-original-title="Результат выполнения"><i class="icon-folder-open"></i></a><a style="margin-left: 5px;" class="delete" rel="tooltip" href="#" data-original-title="Удалить"><i class="icon-remove"></i></a></td></tr>'
+	};
+	// Init list
+	var parseList = new List('parser_list', ParseOptions);
+	
