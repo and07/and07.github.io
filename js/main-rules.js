@@ -106,6 +106,72 @@ function getRadioVal(name) {
 	}
     	return val; // return value of checked radio or undefined if none checked
 }
+
+
+
+function addEventListener(element, name, observer, capture) {
+    if (typeof element == 'string') {
+        element = PARS.doc.querySelector(element);
+    }
+    if (element.addEventListener) {
+        element.addEventListener(name, observer, capture);
+    } else if (element.attachEvent) {
+        element.attachEvent('on' + name, observer);
+    }
+};
+function setEvenHoveredAll(html){
+   var hovered = document.getElementById('hovered-element-info');
+   var allNodes = html.getElementsByTagName('*');
+   var tag = ['meta','title','link','script','body'];
+   var tagNode = [];
+   for(var i=0; i< allNodes.length; i++ ){
+		if(allNodes[i].tagName.toLowerCase() in tag){
+			continue;
+		}else{
+			if(allNodes[i].tagName.toLowerCase() in tagNode){
+				continue;
+			}else{
+				tagNode.push(allNodes[i].tagName.toLowerCase());
+				addEventListener(allNodes[i], 'mouseover', function(e){
+					e = e || event;
+					e.stopPropagation();
+					var target = e.target || e.srcElement;
+					target.style.border = "1px solid #000";
+					target.style.background="#d3e2f0";//"#f2f2f2";
+					// console.log( createXPathFromElement(target));
+				   
+					hovered.innerHTML = createXPathFromElement(target);
+					//_EVENT.add(this,'click',setXpath);
+					addEventListener(target, 'click', function(e){
+						 e = e || event;
+						 var _target = e.target || e.srcElement;
+						 var xpath = document.getElementById('selxpath');
+						 var v_xpath = createXPathFromElement(_target);
+						 v_xpath = v_xpath.replace(' parse_sel_el','');
+						 v_xpath = v_xpath.replace('[@class=""]','');
+						 v_xpath = v_xpath.replace('[@class=""]','');
+						 xpath.value = v_xpath;
+						 var cls_parse_sel = 'parse_sel_el';
+						if (!hasClass(_target,cls_parse_sel)){
+							addClass(_target,cls_parse_sel);
+							popup(_target);
+						}
+						 e.preventDefault();
+						 return false;
+					 })
+				});                            
+				addEventListener(allNodes[i], 'mouseout', function(e){
+					e = e || event;
+					
+					var target = e.target || e.srcElement;                            
+					this.style.border = "none";
+					this.style.background="";
+				});
+			}                  
+		} 
+	}
+}
+
 /*****************************************************************************************/
 var SetIntervalID = -1;
 

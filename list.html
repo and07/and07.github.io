@@ -24,7 +24,35 @@
 
 <script type="text/javascript" src="js/list.js"></script>
 
-<title>cpainfo | Редактор</title>
+<title>GET XPATH</title>
+
+
+<style>
+.extracted-items-container {
+pointer-events: none;
+background-color: rgba(0,0,0,0.8);
+padding: 10px;
+width: 400px;
+box-shadow: 0px 0px 12px 0px rgba(0,0,0,1.0);
+position: fixed;
+left: 400px;
+top: 30px;
+}
+
+#hovered-element-info {
+font: 1.0em Helvetica,Arial,sans-serif;
+color: white;
+padding: 8px;
+/*float: left;*/
+background-color: rgba(0,0,0,0.8);
+box-shadow: 0px 4px 6px 0px rgba(0,0,0,0.8);
+margin-right: 15px;
+/*display: none;*/
+pointer-events: all;
+/*max-width: 450px;*/
+border-radius: 3px;
+}
+</style>
 </head>
 
 <body >
@@ -254,7 +282,7 @@
 				<a href="/generate/955" style="display: inline-block; width: 90px; text-align:center; text-decoration: underline;">
 					Генерировать				</a>
 					<br>
-				<a href="#" onclick="htmltree(this);">Редактировать XPath</a>	
+				<a href="#" onclick="htmltree(this);">GET XPath</a>	
 			</div>
 		</ul>
 		
@@ -301,8 +329,9 @@
 					</div>
 				</div>
 				
+				<textarea id="js_tpl" style="margin: 0px 0px 9px; width: 1079px; height: 82px;"></textarea>
 				<div id="iframes">
-					<textarea id="js_tpl" style="margin: 0px 0px 9px; width: 1079px; height: 82px;"></textarea>				
+					<div id="hovered-element" ><div id="hovered-element-info"></div></div>					
 					<iframe id="html" name="html" width="99%" height="350" ></iframe>
 					<iframe id="html2" width="99%" style="display: none;"></iframe>
 				</div>
@@ -1606,18 +1635,21 @@ function refreshCallbacks() {
 		}else{
 			_PARSE.html = DEF_TPL;
 		}
-		populateIframe('html', _PARSE.html)
+		var html = populateIframe('html', _PARSE.html);
+		setEvenHoveredAll(html);
 		//addBaseTag(getIframeContent('html'), _PARSE.url)
 		$('#editModal').modal('show');
 	});
 
 	$('#js_base_btn').change(function() {
         if($(this).is(":checked")) {
-            addBaseTag(getIframeContent('html'), _PARSE.url)
-			populateIframe('html', getIframeContent('html').body.innerHTML)
+            addBaseTag(getIframeContent('html'), _PARSE.url);
+			var html = populateIframe('html', getIframeContent('html').body.innerHTML);
+			setEvenHoveredAll(html);
         }else{
 			delBaseTag(getIframeContent('html'));
-			populateIframe('html', getIframeContent('html').body.innerHTML)
+			var html = populateIframe('html', getIframeContent('html').body.innerHTML);
+			setEvenHoveredAll(html);
 		}    
     });
 }
@@ -1655,7 +1687,8 @@ document.getElementById('js_tpl').onchange = function(){
 	iframe.contentWindow.contents = text;
 	iframe.src = 'javascript:window.contents';
 	*/
-	populateIframe('html', _PARSE.html)
+	var html = populateIframe('html', _PARSE.html);
+	setEvenHoveredAll(html);
 	//addBaseTag(getIframeContent('html'), _PARSE.url)
 	return true;		
 }
