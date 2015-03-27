@@ -21,8 +21,11 @@ function setlocalStorageParser (data){
 	localStorage['parser']= JSON.stringify(data); 
 }
 function getParserData(){
-	var parser = JSON.parse(localStorage['parser']) || {};
-	return parser;
+	if(localStorage['parser']){
+		var parser = JSON.parse(localStorage['parser']) || {};
+		return parser;
+	}
+	return false;
 }
 function getlocalStorageParser (){
 	return getParserData(); 
