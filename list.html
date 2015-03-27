@@ -265,7 +265,9 @@
 				<div  class="btn-group" data-toggle="buttons">
 						<input type="radio" name="type" value="1" checked="checked">HTML
 						<input type="radio" name="type" value="2">XML
+						<input type="checkbox" name="base" id="js_base_btn">BaseTag
 				</div>
+				
 				
 				<div id="panel">
 					<!--<div style="float: right; margin-top: 1px;">
@@ -1552,7 +1554,6 @@ editBtn.click(function() {
 addParseList();
 refreshCallbacks();
 
-
 addBtn.click(function() {
 
 	_PARSE.id = Math.floor(Math.random()*110000);
@@ -1560,7 +1561,7 @@ addBtn.click(function() {
 	_PARSE.name = nameField.val();
 	_PARSE.date_edit = new Date().yyyymmdd();
 	
-	var parser = getParserData();
+	var parser = getlocalStorageParser();
 	parser[_PARSE.name] = {
 		'id' : _PARSE.id,
 		'url' : _PARSE.url,
@@ -1570,7 +1571,7 @@ addBtn.click(function() {
 
 	parseList.add(parser[_PARSE.name]);
 	
-	localStorage['parser']= JSON.stringify(parser); 	
+	setlocalStorageParser(parser); 	
 
 	clearFields();
 	refreshCallbacks();
@@ -1600,8 +1601,26 @@ function refreshCallbacks() {
 		_PARSE.id = itemId;
 		_PARSE.url = $(this).closest('tr').find('.url').text();
 		_PARSE.name = $(this).closest('tr').find('.name').text();
+		var parser = getlocalStorageParser();
+		if(parser[_PARSE.name] && parser[_PARSE.name]['html']){
+			_PARSE.html = parser[_PARSE.name]['html'];
+		}else{
+			_PARSE.html = DEF_TPL;
+		}
+		populateIframe('html', _PARSE.html)
+		//addBaseTag(getIframeContent('html'), _PARSE.url)
 		$('#editModal').modal('show');
-	});  
+	});
+
+	$('#js_base_btn').change(function() {
+        if($(this).is(":checked")) {
+            addBaseTag(getIframeContent('html'), _PARSE.url)
+			populateIframe('html', getIframeContent('html').body.innerHTML)
+        }else{
+			delBaseTag(getIframeContent('html'));
+			populateIframe('html', getIframeContent('html').body.innerHTML)
+		}    
+    });
 }
 
 function clearFields() {
@@ -1610,27 +1629,35 @@ function clearFields() {
 	_PARSE.id = null;
 	_PARSE.url = null;
 	_PARSE.name = null;
+	_PARSE.html = null;
 }
 $('a.create').click(function(e) {
 	e.preventDefault();
 	$('#createModal').modal('show');
 });
 
-bindModelInput(_PARSE,'url',document.getElementById('js_url'));
-bindModelInput(_PARSE,'name',document.getElementById('js_name'));
-bindModelInput(_PARSE,'date_edit',null);
-bindModelInput(_PARSE,'id',null);
-bindModelInput(_PARSE,'html',null);
-
+bindModelInput(_PARSE, 'url', document.getElementById('js_url'));
+bindModelInput(_PARSE, 'name', document.getElementById('js_name'));
+bindModelInput(_PARSE, 'html', document.getElementById('js_tpl'));
+bindModelInput(_PARSE, 'date_edit', null);
+bindModelInput(_PARSE, 'id', null);
+bindModelInput(_PARSE, 'rule', null);
 
 
 document.getElementById('js_tpl').onchange = function(){
-	var iframe = document.getElementById('html');
 	var text = document.getElementById("js_tpl").value;
 	_PARSE.html = text;
+	
+	var data = getlocalStorageParser();
+	data[_PARSE.name]['html'] = text;
+	setlocalStorageParser(data)
+	/*
+	var iframe = document.getElementById('html');
 	iframe.contentWindow.contents = text;
 	iframe.src = 'javascript:window.contents';
-	addBaseTag(getIframeContent('html'), _PARSE.url)
+	*/
+	populateIframe('html', _PARSE.html)
+	//addBaseTag(getIframeContent('html'), _PARSE.url)
 	return true;		
 }
 

@@ -17,10 +17,17 @@ Date.prototype.yyyymmdd = function() {
    return yyyy + '-' + ( mm[1]?mm:"0"+ mm[0] ) +'-' + (dd[1]?dd:"0"+dd[0]) + ' '+ _hh+':'+_mm+':'+_ss; // padding
 };
 
+function setlocalStorageParser (data){
+	localStorage['parser']= JSON.stringify(data); 
+}
 function getParserData(){
 	var parser = JSON.parse(localStorage['parser']) || {};
 	return parser;
 }
+function getlocalStorageParser (){
+	return getParserData(); 
+}
+
 
 function addParseList(){
 	var parser = getParserData();
@@ -43,10 +50,19 @@ function loadXMLString(txt)
 	  }
 	return xmlDoc;
 }
-function addBaseTag(el,url){
-    var newBase = el.createElement("base");
-    newBase.setAttribute("href", url);
+function delBaseTag(el){
 	var head = el.getElementsByTagName("head")[0]
+	var oldBase = el.getElementsByTagName("base")[0];
+	if(oldBase){
+		head.removeChild(oldBase);
+	}
+}
+
+function addBaseTag(el,url){
+	delBaseTag(el);
+	var newBase = el.createElement("base");
+	newBase.setAttribute("href", url);
+	var head = el.getElementsByTagName("head")[0];
 	var theFirstChild = head.firstChild;
 	// Insert the new element before the first child
 	head.insertBefore(newBase, theFirstChild);	
@@ -65,7 +81,13 @@ function getIframeContent(id) {
     }
     return doc;
 } 
+function populateIframe(id,text) {
+	var doc = getIframeContent(id);
 
+	doc.body.innerHTML = text;
+		
+	return doc;
+} 
 function getRadioVal(name) {
     	var val = null;
 	var radios = document.getElementsByName(name);
@@ -385,7 +407,7 @@ function createXPathFromElement(elm) {
         		str += '[' + pos + ']';
         	segs.unshift(str); 
         } else { 
-            for (i = 1, sib = elm.previousSibling; sib; sib = sib.previousSibling) { 
+            for (var i = 1, sib = elm.previousSibling; sib; sib = sib.previousSibling) { 
                 if (sib.nodeName == elm.nodeName)  i++; 
             }; 
             segs.unshift(elm.nodeName.toLowerCase() + '[' + i + ']'); 
@@ -547,10 +569,13 @@ function rulesclose(loc)
 	}
 	else
 	{
+		/*
 		if (loc)
 			location.href = loc;
 		else
 			location.href = $('#btnclose').attr('href');
+		*/
+		//$('#editModal').modal('hide');
 	}
 }
 
@@ -564,7 +589,7 @@ var LoadpageParams = {};
 
 function loadpage_nourl(save, refresh)
 {
-	url = $('#url').val();
+	var url = _PARSE.url;
 	if (url != '')
 	{
 		var cookstr = HTTPHeaders.getCookiesStrForSite(url);
@@ -652,7 +677,7 @@ function loadpage_nourl(save, refresh)
 			
 			//document.getElementById(HtmlFrames.activeFrame).src = './frame.html';
 			var iframe = document.getElementById('html');
-			iframe.contentWindow.contents = DEF_TPL;
+			iframe.contentWindow.contents = _PARSE.html;
 			iframe.src = 'javascript:window.contents';
 		}
 	} 
@@ -794,7 +819,7 @@ function loadpage(save, url, type, params, encoding, index)
 					showLoadingProcess();
 					//document.getElementById(HtmlFrames.activeFrame).src = '/proxy/index?url='+encodeURIComponent(url2)+'&type='+method+paramsstr+'&encoding='+encoding+cookparam;
 					var iframe = document.getElementById('html');
-					iframe.contentWindow.contents = DEF_TPL;
+					iframe.contentWindow.contents = _PARSE.html;
 					iframe.src = 'javascript:window.contents';
 				}
 			}
@@ -1433,7 +1458,7 @@ function loadtreeupdate()
 
 function loadtree()
 {
-	$win = $('#loadtree');
+	var $win = $('#loadtree');
 	
 	loadtreeupdate();
 	
@@ -1553,7 +1578,7 @@ function htmltree(elem)
 	if(type === 1){
 		var doc =  document.getElementById('html').contentWindow.document;
 	}else if(type === 2){
-		var content = _PARSE.html || DEF_TPL;
+		var content = _PARSE.html ;
 		var doc =  loadXMLString(content);
 	}		
 
@@ -1572,6 +1597,7 @@ function htmltree(elem)
 	
 	HtmlTree.isclosed = true;
 	HtmlTree.update(data, ind);
+	
 }
 
 
@@ -1996,7 +2022,7 @@ function pageExportProfile(ind, curexp)
 			vars[name].isrule = true;
 
 	vars = PagesList.get().vars.getSortedArray();
-	gvars = GlobalVars.getSortedArray();
+	var gvars = GlobalVars.getSortedArray();
 
 	$('#pageexport #divfilename input[name="filename"]').val(curexp.filename);
 	$('#pageexport #divretvarname input[name="retvarname"]').val(curexp.retvarname ? curexp.retvarname : '');
@@ -2545,7 +2571,7 @@ function cancelLoadTree()
 
 function setHtmlTree()
 {
-	$win = $('#htmltree');
+	var $win = $('#htmltree');
 	var name = $win.find('input[name="name"]').val();
 	var rule = PagesList.get().rules.getByName(name);
 	var newpath = $win.find('textarea[name="xpath"]').val();
@@ -3637,14 +3663,14 @@ function showLoadingProcess()
 {
 	if (LoadingProcessCount <= 0)
 	{
-		$layer = $('<div id="layer1" class="toplayer"></div>');
+		var $layer = $('<div id="layer1" class="toplayer"></div>');
 		$layer.css('top', $('#header').height()-5);
 		$layer.width($(window).width());
 		$layer.height($(document).height());
 		$layer.appendTo('body');
 	
 		$('#loader').show();
-		$win = $('#loader');
+		var $win = $('#loader');
 		$win.css('left', ($(window).width()-$win[0].offsetWidth)/2);
 		$win.css('top', ($(window).height()-$win[0].offsetHeight-100)/2);
 		LoadingProcessCount = 0;
