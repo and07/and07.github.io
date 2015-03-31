@@ -1699,7 +1699,7 @@ function refreshCallbacks() {
 		var html = populateIframe('html', _PARSE.html);
 		setEvenHoveredAll(html);
 		$('.js_items').attr('id','js_items_'+_PARSE.id);
-		if(parser[_PARSE.name].rule.data){
+		if(parser[_PARSE.name] && parser[_PARSE.name].rule && parser[_PARSE.name].rule.data){
 			console.log(parser[_PARSE.name].rule.data);
 			PARSE_RULE.createTree(parser[_PARSE.name].rule.data);
 		}
