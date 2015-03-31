@@ -58,7 +58,7 @@ var _PARSE = {
 	_html : null,
 	_name : null,
 	_date_edit : null,
-	_rule : null
+	_rule : []
 };
 
 function bindModelInput(obj, property, domElem) { 
@@ -109,6 +109,13 @@ user = {}
 bindModelInput(user,'name',document.getElementById('foo'));// Вуаля, получаем двусторонний дата-биндинг
 
 */
+
+
+
+
+
+
+
 
 var HelpUrl = '/ru/docs/';
 var TranslateArray = {};

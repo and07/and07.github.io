@@ -1,4 +1,5 @@
 "use strict";
+
 function supports_html5_storage() {
   try {
     return 'localStorage' in window && window['localStorage'] !== null;
@@ -108,7 +109,134 @@ function getRadioVal(name) {
 }
 
 
+function popup(el){
+	var frame = getIframeContent('HTMLview');
+	var popup2 = new PopupMenu(frame);
+	popup2.add('red', function(target) {
+	console.log(target);
+		target.style.background = 'red';
+	});
+	popup2.add('link', function(target) {
+	   // console.log(target.querySelector('a').getAttribute('href'));
+		var url =null;
+	   if(target.getAttribute){
+		url = target.getAttribute('href');
+	   }
+	   if(url == null){
+		if(target.querySelector('a'))
+			url = target.querySelector('a').getAttribute('href');
+	   }
+	   if(url == null){
+		url = target.parentNode.getAttribute('href');
+	   }
+	   
+	   var input_url = $('#inputURL').val();
+	   var domen = parseURL(input_url);
+	   domen = domen.protocol + '://' + domen.host + '';      
+	   url = url.replace(domen,'');
+	   url= domen+url;
+	   console.log(url);
+	   PARSE.parse_html(url);
+	});
+	popup2.add('create', function(target) {
+		
+	});
 
+	popup2.add('blue', function(target) {
+		target.style.background = 'blue';
+	});
+	popup2.add('yellow', function(target) {
+		target.style.background = 'yellow';
+	});
+	popup2.addSeparator();
+	popup2.add('default', function(target) {
+		target.style.background = '#EEE';
+	})
+	popup2.setSize(150, 0);
+	popup2.bind(el); 
+
+}
+
+function hasClass(ele,cls) {
+	return ele.className.match(new RegExp('(\\s|^)'+cls+'(\\s|$)'));
+}
+
+function addClass(ele,cls) {
+	if (!hasClass(ele,cls)) ele.className += " "+cls;
+}
+
+function removeClass(ele,cls) {
+	if (hasClass(ele,cls)) {
+    	var reg = new RegExp('(\\s|^)'+cls+'(\\s|$)');
+		ele.className=ele.className.replace(reg,' ');
+	}
+}
+
+function fillSel(obj_name, data)
+{
+	//console.log(data);
+	var _obj = document.querySelector(obj_name);
+	for(var i=0; i < data.length; i++){
+		var NewOpt=document.createElement('OPTION');
+		var dataOpt = data[i];
+		for(var key in dataOpt){
+			if(key === 'text' ){
+				 var text = document.createTextNode(dataOpt[key]);
+				 NewOpt.appendChild(text);
+			}else{
+				NewOpt.setAttribute(key, dataOpt[key]);
+			}
+		}
+		 _obj.appendChild(NewOpt);
+	}
+}
+
+
+
+function setItem()
+{
+	var type = $('#itemname select[name="type"]').val();
+	var name = $('#itemname input[name="name"]').val();
+	var parent = $('#itemname .js_parent').val() || null;
+	
+	
+	if (name != '' && name.search(/^[A-Za-z][A-Za-z0-9_]*$/) != -1) 
+	{
+		$('#itemname').fadeOut('slow');
+		PARSE_RULE.type = type;
+		PARSE_RULE.name = name;
+		
+		var scnt = PARSE_RULE.add(parent);
+		var parent_id = 'tree_'+scnt;
+		var el = document.querySelector('#tree_item_' + scnt);
+		
+		var js_xpath = el.querySelector('.xpath');
+		var v_xpath = PARSE_RULE.xpath;
+		v_xpath = v_xpath.replace(' parse_sel_el','');
+		v_xpath = v_xpath.replace('[@class=""]','');
+		v_xpath = v_xpath.replace('[@class=""]','');
+		js_xpath.value = v_xpath;
+		
+		//document.querySelector('[data-vtree-id = "'+parent_id+'"]');
+		
+		el.querySelector('.type').value = PARSE_RULE.type;
+		el.querySelector('.name').value = PARSE_RULE.name;
+		
+		var rule = {
+			'xpath': PARSE_RULE.xpath,
+			'name' : PARSE_RULE.name,
+			'type' : PARSE_RULE.type,
+		};
+		_PARSE.rule.push(rule);
+		fillSel('.js_parent', [{'text' : PARSE_RULE.name , 'value' : parent_id}]);
+	}
+	/*var cls_parse_sel = 'parse_sel_el';
+	if (!hasClass(_target,cls_parse_sel)){
+		addClass(_target,cls_parse_sel);
+		popup(_target);
+	}*/	
+
+}
 function addEventListener(element, name, observer, capture) {
     if (typeof element == 'string') {
         element = PARS.doc.querySelector(element);
@@ -136,26 +264,21 @@ function setEvenHoveredAll(html){
 					e = e || event;
 					e.stopPropagation();
 					var target = e.target || e.srcElement;
-					target.style.border = "1px solid #000";
+					//target.style.border = "1px solid #000";
 					target.style.background="#d3e2f0";//"#f2f2f2";
 					// console.log( createXPathFromElement(target));
 				   
 					hovered.innerHTML = createXPathFromElement(target);
 					//_EVENT.add(this,'click',setXpath);
 					addEventListener(target, 'click', function(e){
-						 e = e || event;
-						 var _target = e.target || e.srcElement;
-						 var xpath = document.getElementById('selxpath');
-						 var v_xpath = createXPathFromElement(_target);
-						 v_xpath = v_xpath.replace(' parse_sel_el','');
-						 v_xpath = v_xpath.replace('[@class=""]','');
-						 v_xpath = v_xpath.replace('[@class=""]','');
-						 xpath.value = v_xpath;
-						 var cls_parse_sel = 'parse_sel_el';
-						if (!hasClass(_target,cls_parse_sel)){
-							addClass(_target,cls_parse_sel);
-							popup(_target);
-						}
+						e = e || event;
+						var _target = e.target || e.srcElement;
+						PARSE_RULE.xpath = createXPathFromElement(_target);
+						selectBorder(_target, 'text', e, true);
+						
+
+						
+						
 						 e.preventDefault();
 						 return false;
 					 })
@@ -171,6 +294,96 @@ function setEvenHoveredAll(html){
 		} 
 	}
 }
+/*******************Virtual DOM***********************//**USE
+*********************************************    
+    function virtualLink(uri, text, isSelected) {
+        return virtualH('li', [
+            virtualH('a', {
+                className: isSelected ? 'selected' : '',
+                href: uri
+            }, text)
+        ]);
+    }
+    
+    function domLink(uri, text, isSelected) {
+        return domH('li', [
+            domH('a', {
+                className: isSelected ? 'selected' : '',
+                href: uri
+            }, text)
+        ]);
+    }
+
+
+console.log(v('div#fghfgh.dfg', {}, [m('a.dfg',{},[m('.rr',{},[m('span',{},'ddddddd')])])]));
+console.log(virtualLink('ffg', 'test', true));
+console.log(domLink('fghfgh', 'test', true));
+*/
+
+function domH(tagName, props, children) {
+	if (Array.isArray(props) || typeof props === 'string') {
+		children = props;
+		props = {};
+	}
+	children = children || [];
+	props = props || {};
+	if (typeof children === 'string') {
+		children = [children];
+	}
+
+	var node = document.createElement(tagName);
+	Object.keys(props).forEach(function setProp(propName) {
+		//
+		if (typeof props[propName] === 'string' && propName != 'className') {
+			 node.setAttribute(propName, props[propName]);
+		}else{
+			node[propName] = props[propName];
+		}
+
+	});
+
+	children.forEach(function addNode(n) {
+		if (typeof n === 'string') {
+			node.appendChild(document.createTextNode(n));
+		} else {
+			node.appendChild(n);
+		}
+	});
+	return node;
+}
+function v() {
+var type = {}.toString
+var parser = /(?:(^|#|\.)([^#\.\[\]]+))|(\[.+?\])/g, attrParser = /\[(.+?)(?:=("|'|)(.*?)\2)?\]/
+var voidElements = /AREA|BASE|BR|COL|COMMAND|EMBED|HR|IMG|INPUT|KEYGEN|LINK|META|PARAM|SOURCE|TR‌​ACK|WBR/        
+	var args = arguments
+	var hasAttrs = args[1] != null && type.call(args[1]) == "[object Object]" && !("tag" in args[1]) && !("subtree" in args[1])
+	var attrs = hasAttrs ? args[1] : {}
+	var classAttrName = "class" in attrs ? "class" : "className"
+	var cell = {tag: "div", attrs: {}}
+	var match, classes = []
+	while (match = parser.exec(args[0])) {
+		if (match[1] == "") cell.tag = match[2]
+		else if (match[1] == "#") cell.attrs.id = match[2]
+		else if (match[1] == ".") classes.push(match[2])
+		else if (match[3][0] == "[") {
+			var pair = attrParser.exec(match[3])
+			cell.attrs[pair[1]] = pair[3] || (pair[2] ? "" :true)
+		}
+	}
+	if (classes.length > 0) cell.attrs[classAttrName] = classes.join(" ")
+
+	cell.children = hasAttrs ? args[2] : args[1]
+
+	for (var attrName in attrs) {
+		if (attrName == classAttrName) cell.attrs[attrName] = (cell.attrs[attrName] || "") + " " + attrs[attrName]
+		else cell.attrs[attrName] = attrs[attrName]
+	}
+	
+	return domH(cell.tag,cell.attrs,cell.children)    
+}
+/***********************Virtual DOM*************************/
+
+
 
 /*****************************************************************************************/
 var SetIntervalID = -1;
@@ -582,12 +795,122 @@ function XPathToJQuery(xpath) {
 	return jqarr.join(' ');
 }
 
+/***
+var myURL = parseURL('http://abc.com:8080/dir/index.html?id=255&m=hello#top');
+ 
+myURL.file;     // = 'index.html'
+myURL.hash;     // = 'top'
+myURL.host;     // = 'abc.com'
+myURL.query;    // = '?id=255&m=hello'
+myURL.params;   // = Object = { id: 255, m: hello }
+myURL.path;     // = '/dir/index.html'
+myURL.segments; // = Array = ['dir', 'index.html']
+myURL.port;     // = '8080'
+myURL.protocol; // = 'http'
+myURL.source;   // = 'http://abc.com:8080/dir/index.html?id=255&m=hello#top'
 
+****/
+
+function parseURL(url) {
+    //url = decodeURIComponent( url );
+    url = decodeURI( url );
+    var a =  document.createElement('a');
+    a.href = url;
+    return {
+        source: url,
+        protocol: a.protocol.replace(':',''),
+        host: a.hostname,
+        port: a.port,
+        query: a.search,
+        params: (function(){
+            var ret = {},
+                seg = a.search.replace(/^\?/,'').split('&'),
+                len = seg.length, i = 0, s;
+            for (;i<len;i++) {
+                if (!seg[i]) { continue; }
+                s = seg[i].split('=');
+                ret[s[0]] = s[1];
+            }
+            return ret;
+        })(),
+        file: (a.pathname.match(/\/([^\/?#]+)$/i) || [,''])[1],
+        hash: a.hash.replace('#',''),
+        path: a.pathname.replace(/^([^\/])/,'/$1'),
+        relative: (a.href.match(/tps?:\/\/[^\/]+(.+)/) || [,''])[1],
+        segments: a.pathname.replace(/^\//,'').split('/'),
+
+    };
+}
+
+var getTreeData =  function(el){
+	var getData = function(el){
+		var _xpath = {};
+		var _name = {};
+		var _attr = {};
+		var tmp = {};
+		var xpath = el.querySelector('.xpath');
+		var name = el.querySelector('.name');
+		var attr = el.querySelector('.selattr');
+		tmp[xpath.getAttribute("name")] = xpath.value;
+		tmp[name.getAttribute("name")] = name.value;
+		tmp[attr.getAttribute("name")] = attr.value;
+		return tmp;
+	}
+	
+	var sub_el = '.vtree-subtree';
+	if(el.tagName){
+		//obj[el.tagName] = [];
+		var arr = [];
+	if(el.childNodes){
+		var cnt = el.children.length;
+		if(cnt > 0){
+			for(var i=0; i<cnt;i++){
+				var child = el.children[i];
+				if(child.querySelector(sub_el)){
+					var tmp = getData(child);
+					tmp['children'] = {};
+				   
+					//obj[el.tagName]['children']['parent'] = tmp;
+								   
+					tmp['children'] = getTreeData(child.querySelector(sub_el) );
+					arr.push(tmp);
+				}else{
+					var tmp = getData(child);
+					arr.push(tmp);
+				}
+			}
+		}
+	}
+		return arr;
+	}
+}
+function getRule(){
+
+    var elements = document.querySelector('.vtree');
+    var data = getTreeData(elements); 
+    var url = _PARSE.url;
+    var name = _PARSE.name;
+    var host = parseURL(url);
+    var domen = host.protocol + '://' + host.host;
+    var type = _PARSE.type;
+    
+	return {'url':url, 'data':data,'host':host['host'], 'name':name, 'domen':domen}
+
+}
 function rulessave(successfunc)
 {
 	if (!$('#tab-script').parent().hasClass('active'))
 		tabScriptClick();
+	console.log(getRule());
+	var parser = getlocalStorageParser();
+	parser[_PARSE.name]['rule'] =  getRule();
+	setlocalStorageParser(parser);	
 	
+	
+	
+	
+	
+	/*
 	if (successfunc == undefined)
 	{
 		$('#rules-right-btns div div').html('');
@@ -622,7 +945,7 @@ function rulessave(successfunc)
         	   disablebrowser: disBrowser,
         	   },
         success: successfunc, 
-	});
+	});*/
 }
 
 function rulesclose(loc)
@@ -659,6 +982,20 @@ var LoadpageParams = {};
 function loadpage_nourl(save, refresh)
 {
 	var url = _PARSE.url;
+	
+/*	
+$.ajax({
+	url: 'http://www.kitco.com/',
+	type: 'GET',
+	success: function(res) {
+		var tab = $(res.responseText).find('.market_time');
+		$("body").append(tab);
+	}
+});
+
+*/
+	
+	
 	if (url != '')
 	{
 		var cookstr = HTTPHeaders.getCookiesStrForSite(url);

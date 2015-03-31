@@ -487,50 +487,50 @@ function setStyle(){
 
 
 function popup(el){
-var frame = getIframeContent('HTMLview');
-var popup2 = new PopupMenu(frame);
-popup2.add('red', function(target) {
-console.log(target);
-    target.style.background = 'red';
-});
-popup2.add('link', function(target) {
-   // console.log(target.querySelector('a').getAttribute('href'));
-    var url =null;
-   if(target.getAttribute){
-    url = target.getAttribute('href');
-   }
-   if(url == null){
-    if(target.querySelector('a'))
-        url = target.querySelector('a').getAttribute('href');
-   }
-   if(url == null){
-    url = target.parentNode.getAttribute('href');
-   }
-   
-   var input_url = $('#inputURL').val();
-   var domen = parseURL(input_url);
-   domen = domen.protocol + '://' + domen.host + '';      
-   url = url.replace(domen,'');
-   url= domen+url;
-   console.log(url);
-   PARSE.parse_html(url);
-});
-popup2.add('create', function(target) {
-    
-});
+	var frame = getIframeContent('HTMLview');
+	var popup2 = new PopupMenu(frame);
+	popup2.add('red', function(target) {
+	console.log(target);
+		target.style.background = 'red';
+	});
+	popup2.add('link', function(target) {
+	   // console.log(target.querySelector('a').getAttribute('href'));
+		var url =null;
+	   if(target.getAttribute){
+		url = target.getAttribute('href');
+	   }
+	   if(url == null){
+		if(target.querySelector('a'))
+			url = target.querySelector('a').getAttribute('href');
+	   }
+	   if(url == null){
+		url = target.parentNode.getAttribute('href');
+	   }
+	   
+	   var input_url = $('#inputURL').val();
+	   var domen = parseURL(input_url);
+	   domen = domen.protocol + '://' + domen.host + '';      
+	   url = url.replace(domen,'');
+	   url= domen+url;
+	   console.log(url);
+	   PARSE.parse_html(url);
+	});
+	popup2.add('create', function(target) {
+		
+	});
 
-popup2.add('blue', function(target) {
-    target.style.background = 'blue';
-});
-popup2.add('yellow', function(target) {
-    target.style.background = 'yellow';
-});
-popup2.addSeparator();
-popup2.add('default', function(target) {
-    target.style.background = '#EEE';
-})
-popup2.setSize(150, 0);
-popup2.bind(el); 
+	popup2.add('blue', function(target) {
+		target.style.background = 'blue';
+	});
+	popup2.add('yellow', function(target) {
+		target.style.background = 'yellow';
+	});
+	popup2.addSeparator();
+	popup2.add('default', function(target) {
+		target.style.background = '#EEE';
+	})
+	popup2.setSize(150, 0);
+	popup2.bind(el); 
 
 }
 

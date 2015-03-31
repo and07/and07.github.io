@@ -22,7 +22,38 @@
 <script type="text/javascript" src="js/ldtparser.js"></script>
 <script type="text/javascript" src="js/jquery.ba-bbq.js"></script>
 
+<!-- http://www.listjs.com/ -->
 <script type="text/javascript" src="js/list.js"></script>
+<!-- https://github.com/finom/vanillatree -->
+<link href="js/vanillatree/vanillatree.css" rel="stylesheet" />        
+<script src="js/vanillatree/vanillatree.js"></script>
+<script>
+//http://javascript.ru/forum/dom-window/21288-nuzhna-pomoshh-s-ochen-prostymi-veshhami-3.html
+jQuery.ajax = function (d) {
+    var b = location.protocol,
+        e = RegExp(b + "//" + location.hostname),
+        f = "http" + (/^https/.test(b) ? "s" : "") + "://query.yahooapis.com/v1/public/yql?callback=?";
+    return function (a) {
+        var c = a.url;
+        if (/get/i.test(a.type) && !/json/i.test(a.dataType) && !e.test(c) && /:\/\//.test(c)) {
+            a.url = f;
+            a.dataType = "json";
+            a.data = {
+                q: 'select * from html where url="{URL}" and xpath="*"'.replace("{URL}", c + (a.data ? (/\?/.test(c) ? "&" : "?") + jQuery.param(a.data) : "")),
+                format: "xml"
+            };
+            !a.success && a.complete && (a.success = a.complete, delete a.complete);
+            var b = a.success;
+            a.success = function (a) {
+                b && b.call(this, {
+                    responseText: (a.results[0] || "").replace(/<script[^>]+?\/>|<script(.|\s)*?\/script>/gi, "")
+                }, "success")
+            }
+        }
+        return d.apply(this, arguments)
+    }
+}(jQuery.ajax);
+</script>
 
 <title>GET XPATH</title>
 
@@ -354,6 +385,9 @@ border-radius: 3px;
 					</div>
 				</div>
 				<div id="rules-container">
+					<!-- <button id="js_add_rule" class="btn btn-default">Add Item</button> -->
+					<div id="" class="js_items" ></div>
+<!--
 				<table id="rulestbl" class="table table-striped table-bordered">
 					<thead>
 						<tr>
@@ -368,6 +402,7 @@ border-radius: 3px;
 					<tbody>
 					</tbody>
 				</table>
+-->
 				</div>
 				
 				<div class="popup2" id="itemname">
@@ -378,11 +413,35 @@ border-radius: 3px;
 						<span class="label" id="regexp">RegExp</span>
 						<span class="label" id="htmltype">HTML</span>
 					</div>
-					<div>Введите имя:</div>
-					<div class="form-inline">
-						<input type="text" name="name" />
-						<input type="hidden" name="type" />
-						<button class="btn" onclick="setItemName();">OK</button>
+					<div style="float:left">
+						<div>Введите имя:</div>
+						<div class="form-inline">
+							<input type="text" class = "js_name" name="name" />
+						</div>
+					</div>
+					<div style="float:left">
+						<div>Тип:</div>
+						<div class="form-inline">
+							<select class="form-control type js_type selattr" name="type" style="width: 100px;">
+								<option value=""></option>
+								<option value="link">Ссылка</option>
+								<option value="text">Текст</option>
+								<option value="html">HTML</option>
+								<option value="img">Картинка</option>
+								<option value="table">table</option>
+							</select>
+						</div>
+					</div>
+					<div style="float:left">
+						<div>Parent:</div>
+						<div class="form-inline">
+							<select class="form-control parent js_parent selattr" name="parent"  style="width: 100px;">
+								<option value=""></option>
+							</select>
+						</div>
+					</div>
+					<div style="float:left; ">
+						<button class="btn" onclick="setItem();" style="margin-top: 18px;">OK</button>
 					</div>
 				</div>
 				
@@ -1605,6 +1664,8 @@ addBtn.click(function() {
 	refreshCallbacks();
 });
 
+
+
 function refreshCallbacks() {
 	// Needed to add new buttons to jQuery-extended object
 	removeBtns = $(removeBtns.selector);
@@ -1637,7 +1698,13 @@ function refreshCallbacks() {
 		}
 		var html = populateIframe('html', _PARSE.html);
 		setEvenHoveredAll(html);
+		$('.js_items').attr('id','js_items_'+_PARSE.id);
+		if(parser[_PARSE.name].rule.data){
+			console.log(parser[_PARSE.name].rule.data);
+			PARSE_RULE.createTree(parser[_PARSE.name].rule.data);
+		}
 		//addBaseTag(getIframeContent('html'), _PARSE.url)
+		$('#editModal').addClass(' js_id_'+itemId);
 		$('#editModal').modal('show');
 	});
 
@@ -1675,6 +1742,10 @@ bindModelInput(_PARSE, 'id', null);
 bindModelInput(_PARSE, 'rule', null);
 
 
+$('#js_add_rule').click(function(){
+	PARSE_RULE.add();
+});
+
 document.getElementById('js_tpl').onchange = function(){
 	var text = document.getElementById("js_tpl").value;
 	_PARSE.html = text;
@@ -1700,6 +1771,127 @@ document.getElementById('js_tpl').onchange = function(){
 	});
 	*/
 
+$(document).on('click','.xpath',function(){ 
+    $('#selxpath').css('background','#fff');
+    $('#selxpath').attr('id','');        
+    $(this).attr('id','selxpath');
+    $(this).css('background','rgb(253, 0, 0) !important');
+}); 	
+
+
+   
+	
+var PARSE_RULE = function() {
+    var cnt = 0;
+    var scnt = 0;
+    this.xpath = null;
+	this.name = null;
+	this.type = null;
+
+    function createItem() {
+        scnt++;
+	    var id = 'div#tree_item_'+scnt+'';
+        var _xpath = 'xpath';
+        var _name = 'name';
+        var _type = 'type';
+	    return v(id, {}, [ 
+	            v('input.form-control.type.selattr',{name:_type,'disabled':"disabled"}),
+	            v('input.form-control.name',{type:'text',placeholder:'Name',name:_name,'disabled':"disabled"}),
+	            v('input.form-control.xpath',{type:'text',placeholder:'Xpath',name:_xpath,'disabled':"disabled"}),
+	            v("button.btn.btn-default#edit_item", { onclick: editItem, 'data-id':id}, "EditItem"),
+	            v('button.btn.del',{type:'button'},'&times;'),
+	    ]);
+    };
+	function setValTree(el,key,val){
+		el.querySelector('.'+key).value = val;
+	}    
+	function createTreeItem(data,parent_id){
+		
+        if(!tree){
+            tree = new VanillaTree( '#js_items_'+_PARSE.id, {});         
+        }
+		for(var i in data){
+			tree.add({
+			  el: createItem(),
+			  id: 'tree_'+scnt,
+			  opened: true,
+			  parent :parent_id,
+			});
+			var el = document.querySelector('#tree_item_' + scnt);
+			for(var key in data[i]){
+				if(key == 'children') continue;
+				setValTree(el,key,data[i][key])
+			}
+			if(data[i].children){
+				createTree(data[i].children,'tree_'+scnt);
+			}
+		}
+
+	};
+	
+    addSubItem = function(e){
+        //e = e || event;
+        //var target = e.target || e.srcElement;
+        //var d_id = '#'+$(target).parent().attr('id');
+		if(tree){
+				//var tree = new VanillaTree( d_id, {});
+				tree.add({
+				  el: createItem(),
+				  id: 'tree_'+scnt,
+				  label:'aa'+scnt,
+				  parent :_selID,
+				  opened: true
+				}); 
+				return scnt;
+		  }
+			return null;
+    };
+    var tree = undefined;
+    var _selID = undefined;
+    addItem = function(e){
+        if(!tree){
+            tree = new VanillaTree( '#js_items_'+_PARSE.id, {});
+            document.querySelector('#js_items_'+_PARSE.id).addEventListener('vtree-select', function(evt) {
+                _selID = evt.detail.id;
+            });            
+        }
+        tree.add({
+          el: createItem(),
+          id: 'tree_'+scnt,
+          opened: true
+        });
+		return scnt; 
+    };
+	
+	editItem = function (){
+		alert($(this).attr('data-id'));
+	}
+	
+    this.add = function(parent){
+		_selID = parent;
+		//$('.js_items').attr('id','js_items_'+_PARSE.id);
+		if(_selID){
+			return addSubItem();
+		}else{
+			return addItem();
+		}
+    };
+	
+	this.createTree = function(data,parent_id){
+		createTreeItem(data,parent_id);
+	}
+    this.seltype = [
+        '',
+        'link',
+        'text',
+        'html',
+        'img',
+        'table',
+    ];
+	return this;
+
+}();
+	
 /**********************************/
 /*<![CDATA[*/
 
