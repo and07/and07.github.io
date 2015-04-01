@@ -1928,21 +1928,30 @@ function loadXMLString(txt)
 function htmltree(elem)
 {
 	var $win = $('#htmltree');
-/*	var name = ruleactions_getname(elem);
-	var rule = PagesList.get().rules.getByName(name);
-	var node = PagesList.get().rules.getNodesByName(name)[0];
-	var doc = document.getElementById(HtmlFrames.activeFrame).contentWindow.document;
+	var name = elem.querySelector('.name').value;
+	var rule = elem.querySelector('.xpath').value;
+	//var node = PagesList.get().rules.getNodesByName(name)[0];
+	var type = parseInt(getRadioVal('type'));
+	if(type === 1){
+		var doc =  document.getElementById('html').contentWindow.document;
+	}else if(type === 2){
+		var content = _PARSE.html ;
+		var doc =  loadXMLString(content);
+	}
 	
-	$win.find('textarea[name="xpath"]').val(rule.path);
+	var node = evaluateXPath(rule, doc)[0];
+
+	$win.find('textarea[name="xpath"]').val(rule);
 	$win.find('input[name="name"]').val(name);
 	$win.find('#rulename').html('<b>'+name+'</b>');
-	
+/*	
 	rulelables($win, rule.type);
 	*/
 	$win.fadeIn('slow').css('left', ($(window).width()-$win[0].offsetWidth)/2);
 	$win.css('top', ($(window).height()-$win[0].offsetHeight)/2);
 	$win.find('.popup-btns').css('top', $win[0].offsetHeight-40);
-/*	
+
+	/*	
 	if (!node) //если нет узла, то переходим к родительскому элементу в xpath и снова ищем узел
 	{
 		var patharr = rule.path.split('/');
@@ -1953,9 +1962,9 @@ function htmltree(elem)
 		} while (!node2 && patharr.length > 0);
 		node = node2;
 	}
-	*/
+*/
 	var ind = [0];
-	/*
+	
 	if (node)
 	{
 		var node2 = node;
@@ -1974,19 +1983,10 @@ function htmltree(elem)
 			node2 = parent;
 		} while (node2 != doc);
 	}
-	*/
+	
 
-//xxx
-	//var doc =  document.getElementById(HtmlFrames.activeFrame).contentWindow.document;
 	
-	
-	var type = parseInt(getRadioVal('type'));
-	if(type === 1){
-		var doc =  document.getElementById('html').contentWindow.document;
-	}else if(type === 2){
-		var content = _PARSE.html ;
-		var doc =  loadXMLString(content);
-	}		
+		
 
 	var data = [];
 	var root;

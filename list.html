@@ -313,7 +313,7 @@ border-radius: 3px;
 				<a href="/generate/955" style="display: inline-block; width: 90px; text-align:center; text-decoration: underline;">
 					Генерировать				</a>
 					<br>
-				<a href="#" onclick="htmltree(this);">GET XPath</a>	
+				<!--a href="#" onclick="htmltree(this);">GET XPath</a-->	
 			</div>
 		</ul>
 		
@@ -1685,6 +1685,7 @@ function refreshCallbacks() {
 	}); 
 	
 	$('a.edit').click(function(e) {
+		clearFields();
 		e.preventDefault();
 		var itemId = $(this).closest('tr').find('.id').text();
 		_PARSE.id = itemId;
@@ -1698,7 +1699,10 @@ function refreshCallbacks() {
 		}
 		var html = populateIframe('html', _PARSE.html);
 		setEvenHoveredAll(html);
+		$('.js_items > .vtree').html('');
 		$('.js_items').attr('id','js_items_'+_PARSE.id);
+		
+		console.log(parser[_PARSE.name]);
 		if(parser[_PARSE.name] && parser[_PARSE.name].rule && parser[_PARSE.name].rule.data){
 			console.log(parser[_PARSE.name].rule.data);
 			PARSE_RULE.createTree(parser[_PARSE.name].rule.data);
@@ -1728,6 +1732,7 @@ function clearFields() {
 	_PARSE.url = null;
 	_PARSE.name = null;
 	_PARSE.html = null;
+	_PARSE.rule = null;
 }
 $('a.create').click(function(e) {
 	e.preventDefault();
@@ -1799,7 +1804,7 @@ var PARSE_RULE = function() {
 	            v('input.form-control.name',{type:'text',placeholder:'Name',name:_name,'disabled':"disabled"}),
 	            v('input.form-control.xpath',{type:'text',placeholder:'Xpath',name:_xpath,'disabled':"disabled"}),
 	            v("button.btn.btn-default#edit_item", { onclick: editItem, 'data-id':id}, "EditItem"),
-	            v('button.btn.del',{type:'button'},'&times;'),
+	            v('button.btn.del',{onclick: delItem, 'data-id':id},'X'),
 	    ]);
     };
 	function setValTree(el,key,val){
@@ -1848,7 +1853,7 @@ var PARSE_RULE = function() {
     };
     var tree = undefined;
     var _selID = undefined;
-    addItem = function(e){
+    var addItem = function(e){
         if(!tree){
             tree = new VanillaTree( '#js_items_'+_PARSE.id, {});
             document.querySelector('#js_items_'+_PARSE.id).addEventListener('vtree-select', function(evt) {
@@ -1862,9 +1867,13 @@ var PARSE_RULE = function() {
         });
 		return scnt; 
     };
-	
-	editItem = function (){
+	var editItem = function (){
+		var el = document.querySelector($(this).attr('data-id'));
+		htmltree(el);
+	}
+	var delItem = function (){
 		alert($(this).attr('data-id'));
+		
 	}
 	
     this.add = function(parent){
