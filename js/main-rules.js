@@ -32,6 +32,13 @@ function getlocalStorageParser (){
 	return getParserData(); 
 }
 
+function dellocalStorageParser (key){
+	var parser = getParserData();
+	if(parser){
+		delete parser[key];
+	}
+	setlocalStorageParser(parser);
+}
 
 function addParseList(){
 	var parser = getParserData();
@@ -203,15 +210,15 @@ function setItem()
 	if (name != '' && name.search(/^[A-Za-z][A-Za-z0-9_]*$/) != -1) 
 	{
 		$('#itemname').fadeOut('slow');
-		PARSE_RULE.type = type;
-		PARSE_RULE.name = name;
+		PARSE_RULE.rule.type = type;
+		PARSE_RULE.rule.name = name;
 		
 		var scnt = PARSE_RULE.add(parent);
 		var parent_id = 'tree_'+scnt;
 		var el = document.querySelector('#tree_item_' + scnt);
 		
 		var js_xpath = el.querySelector('.xpath');
-		var v_xpath = PARSE_RULE.xpath;
+		var v_xpath = PARSE_RULE.rule.xpath;
 		v_xpath = v_xpath.replace(' parse_sel_el','');
 		v_xpath = v_xpath.replace('[@class=""]','');
 		v_xpath = v_xpath.replace('[@class=""]','');
@@ -219,16 +226,12 @@ function setItem()
 		
 		//document.querySelector('[data-vtree-id = "'+parent_id+'"]');
 		
-		el.querySelector('.type').value = PARSE_RULE.type;
-		el.querySelector('.name').value = PARSE_RULE.name;
+		el.querySelector('.type').value = PARSE_RULE.rule.type;
+		el.querySelector('.name').value = PARSE_RULE.rule.name;
 		
-		var rule = {
-			'xpath': PARSE_RULE.xpath,
-			'name' : PARSE_RULE.name,
-			'type' : PARSE_RULE.type,
-		};
+		var rule = PARSE_RULE.rule;
 		_PARSE.rule.push(rule);
-		fillSel('.js_parent', [{'text' : PARSE_RULE.name , 'value' : parent_id}]);
+		fillSel('.js_parent', [{'text' : PARSE_RULE.rule.name , 'value' : parent_id}]);
 	}
 	/*var cls_parse_sel = 'parse_sel_el';
 	if (!hasClass(_target,cls_parse_sel)){
@@ -273,7 +276,7 @@ function setEvenHoveredAll(html){
 					addEventListener(target, 'click', function(e){
 						e = e || event;
 						var _target = e.target || e.srcElement;
-						PARSE_RULE.xpath = createXPathFromElement(_target);
+						PARSE_RULE.rule.xpath = createXPathFromElement(_target);
 						selectBorder(_target, 'text', e, true);
 						
 
@@ -981,21 +984,11 @@ var LoadpageParams = {};
 
 function loadpage_nourl(save, refresh)
 {
-	var url = _PARSE.url;
-	
-/*	
-$.ajax({
-	url: 'http://www.kitco.com/',
-	type: 'GET',
-	success: function(res) {
-		var tab = $(res.responseText).find('.market_time');
-		$("body").append(tab);
-	}
-});
+	var url = document.getElementById('js_url').value;//_PARSE.url;
+	request(url);
 
-*/
 	
-	
+	/*
 	if (url != '')
 	{
 		var cookstr = HTTPHeaders.getCookiesStrForSite(url);
@@ -1086,7 +1079,8 @@ $.ajax({
 			iframe.contentWindow.contents = _PARSE.html;
 			iframe.src = 'javascript:window.contents';
 		}
-	} 
+	}
+	*/
 }
 
 function loadpage(save, url, type, params, encoding, index)
@@ -1930,6 +1924,11 @@ function htmltree(elem)
 	var $win = $('#htmltree');
 	var name = elem.querySelector('.name').value;
 	var rule = elem.querySelector('.xpath').value;
+
+	PARSE_RULE.rule.name = elem.querySelector('.name').value;
+	PARSE_RULE.rule.type = elem.querySelector('.type').value;
+	PARSE_RULE.rule.xpath = elem.querySelector('.xpath').value;
+	
 	//var node = PagesList.get().rules.getNodesByName(name)[0];
 	var type = parseInt(getRadioVal('type'));
 	if(type === 1){
@@ -1938,10 +1937,12 @@ function htmltree(elem)
 		var content = _PARSE.html ;
 		var doc =  loadXMLString(content);
 	}
+	PARSE_RULE.doc = doc;
 	
 	var node = evaluateXPath(rule, doc)[0];
 
 	$win.find('textarea[name="xpath"]').val(rule);
+	$win.find('input[name="xpath"]').val(rule);
 	$win.find('input[name="name"]').val(name);
 	$win.find('#rulename').html('<b>'+name+'</b>');
 /*	
@@ -2032,7 +2033,8 @@ function selectBorder(elem, type, e, dialog)
 	var ToSelect = 'first';
 	if ($(elem).data('selected') == 1 && (dialog == undefined || dialog == true))
 	{
-		var rule = PagesList.get().rules.getByName($(elem).data('itemname'));
+		//var rule = PagesList.get().rules.getByName($(elem).data('itemname'));
+		var rule = PARSE_RULE.rule.xpath;
 		if (rule != undefined)
 		{
 			if (rule.type == type)
@@ -2979,34 +2981,37 @@ function setHtmlTree()
 {
 	var $win = $('#htmltree');
 	var name = $win.find('input[name="name"]').val();
-	var rule = PagesList.get().rules.getByName(name);
+	var _path = PARSE_RULE.rule.xpath;
 	var newpath = $win.find('textarea[name="xpath"]').val();
 	
 	HtmlTree.onpreactive(HtmlTree, HtmlTree.active);
 	
-	if (rule.path != newpath && newpath != '')
+	if (_path != newpath && newpath != '')
 	{
-		var nodes = PagesList.get().rules.getNodesByName(name);
+		PARSE_RULE.rule.xpath = newpath;
+		/*
+		var nodes = evaluateXPath(rule, PARSE_RULE.doc);
 		for (var j=0; j<nodes.length; j++)
 		{
 			deselectBorder(nodes[j]);
-			if (rule.options.next)
-				deselectBorderNext(nodes[j]);
+		//	if (rule.options.next)
+		//		deselectBorderNext(nodes[j]);
 		}
 		
-		rule.path = newpath;
+		_path = newpath;
 		
-		nodes = PagesList.get().rules.getNodesByName(name);
+		nodes = evaluateXPath(rule, PARSE_RULE.doc)
 		for (var j=0; j<nodes.length; j++)
 		{
-			selectBorder(nodes[j], rule.type, false, false);
-			if (rule.options.next)
-				selectBorderNext(nodes[j], rule.type, false, false);
+			selectBorder(nodes[j], PARSE_RULE.rule.type, false, false);
+		//	if (rule.options.next)
+		//		selectBorderNext(nodes[j], rule.type, false, false);
 		}
 		
 		//$('#rulestbl tbody #rule_'+name+' td:nth-child(5)').text(rule.path);
-		$(elembyruleid(name)).find('td:nth-child(5)').text(rule.path);
+		//$(elembyruleid(name)).find('td:nth-child(5)').text(PARSE_RULE.xpath);
 		SetNotSaved();
+		*/
 	}	
 	
 	$win.fadeOut('slow');

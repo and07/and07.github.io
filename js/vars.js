@@ -58,7 +58,7 @@ var _PARSE = {
 	_html : null,
 	_name : null,
 	_date_edit : null,
-	_rule : []
+	rule : []
 };
 
 function bindModelInput(obj, property, domElem) { 
@@ -101,7 +101,8 @@ function bindModelInput(obj, property, domElem) {
 		}
 	}
 
-} 
+}
+ 
 /*
 USE
 // <input id="foo"> 
