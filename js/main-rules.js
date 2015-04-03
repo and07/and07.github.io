@@ -276,11 +276,15 @@ function setEvenHoveredAll(html){
 					addEventListener(target, 'click', function(e){
 						e = e || event;
 						var _target = e.target || e.srcElement;
-						PARSE_RULE.rule.xpath = createXPathFromElement(_target);
-						selectBorder(_target, 'text', e, true);
 						
-
-						
+						if(PARSE_SETTING.golink){
+							var url = $(_target).attr('href');
+							request(url);
+						}else{
+						console.log();
+							PARSE_RULE.rule.xpath = createXPathFromElement(_target);
+							selectBorder(_target, 'text', e, true);
+						}
 						
 						 e.preventDefault();
 						 return false;
@@ -2161,7 +2165,7 @@ function setFrameFunctions()
 		execContinue();
     else
     {
-    	
+/*   	
     $('a', doc).click(function(e) {
     	e.preventDefault();
         if (GoLink && !ItemName)
@@ -2216,6 +2220,8 @@ function setFrameFunctions()
         	selectBorder(this, 'link', e);
         }
     });
+	
+
     
     $('img', doc).click(function(e) {
     	if (SelectImage && !ItemName)
@@ -2277,7 +2283,7 @@ function setFrameFunctions()
         e.stopPrapagation();
     	return false;
     });
-
+*/
     if (isParseFinish == 3)
     	closeLoadingProcess();
     

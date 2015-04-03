@@ -61,6 +61,10 @@ var _PARSE = {
 	rule : []
 };
 
+var PARSE_SETTING = {
+	golink : false
+}
+
 function bindModelInput(obj, property, domElem) { 
 	if(is_null(domElem)){
 			Object.defineProperty(obj, property, { 

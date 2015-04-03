@@ -64,6 +64,9 @@ function request(url,callback) {
 			_PARSE.html = res.responseText;
 			var html = populateIframe('html', _PARSE.html);
 			setEvenHoveredAll(html);
+			PARSE_SETTING.golink = false;
+			removeClass(document.querySelector('#golink'),'active');
+			
 		};
 	}
 	$.ajax({

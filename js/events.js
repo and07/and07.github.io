@@ -120,8 +120,9 @@ $(document).ready(function() {
     });
 
     $('#golink').click(function() {
-    	SelectText=false; GoLink = true; SelectLink = false; SelectImage = false;
-    	SelectHTML = false;
+		PARSE_SETTING.golink = true;
+    	//SelectText=false; GoLink = true; SelectLink = false; SelectImage = false;
+    	//SelectHTML = false;
     	/*pushBtnFunction(this, 
                 function() { GoLink = true; },
                 function() { GoLink = false; }
