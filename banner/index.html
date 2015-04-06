@@ -83,7 +83,7 @@ border-radius: 3px;
 		
 <div class="row-fluid">
 <div class="container-fluid">
-				<div id="banner_list" class="grid-view">
+				<div id="site_list" class="grid-view">
 					<table class="items table table-striped table-bordered table-condensed">
 					<thead>
 						<tr>
@@ -196,9 +196,42 @@ border-radius: 3px;
 						<h3 id = "js_name">Edit</h3>
 					</div>
 					<div class="modal-body" style="max-height:80%;">
+				<div id="block_list" class="grid-view">
+					<table class="items table table-striped table-bordered table-condensed">
+					<thead>
+						<tr>
+							<th class="sort" id="yw0_c0"><a href="/main?Scrapers_sort=id">ID<span class="caret"></span></a></th>
+							<th class="sort" id="yw0_c1"><a href="/main?Scrapers_sort=name">Блок<span class="caret"></span></a></th>
+							<th class="button-column" id="yw0_c4"> <input type="text" class="search" placeholder="Search" /></th>
+						</tr>
+					</thead>
+					<tbody class="list">
+<!--
+						<tr class="odd">
+							<td class="id">959</td>
+							<td class="name">test</td>
+							<td style="width: 95px">
+								<a style="margin-left: 5px;" class="edit" rel="tooltip" href="/edit/959" data-original-title="Редактировать"><i class="icon-edit"></i></a>
+								<a style="margin-left: 5px;" class="delete" rel="tooltip" href="/main/delete/959" data-original-title="Удалить"><i class="icon-remove"></i></a>
+							</td>
+						</tr>
+						<tr class="even">
+							<td class="id">955</td>
+							<td class="name">cpainfo</td>
+							<td style="width: 95px">
+								<a style="margin-left: 5px;" class="edit" rel="tooltip" href="/edit/955" data-original-title="Редактировать"><i class="icon-edit"></i></a>
+								<a style="margin-left: 5px;" class="delete" rel="tooltip" href="/main/delete/955" data-original-title="Удалить"><i class="icon-remove"></i></a>
+							</td>
+						</tr>
+-->
+					</tbody>
+					</table>
+					<div class="keys" style="display:none" title="/main"><span>959</span><span>955</span></div>
+				</div>
+					<div   style="display: none; margin: 0px; top: 0px;left:0px; width:100%;">
 						<ul id="sidetabs" class="nav nav-tabs">
 							<li class="active"><a id="tab-code" data-toggle="tab" href="#tabCode">Свой код</a></li>
-							<li ><a id="tab-block"  data-toggle="tab" href="#tabBlock" onclick="tabScriptClick();">Тип блока</a></li>			
+							<li ><a id="tab-block"  data-toggle="tab" href="#tabBlock" >Тип блока</a></li>			
 							<li><a id="tab-animation" data-toggle="tab" href="#tabAnimation">Анимация</a></li>
 						</ul>
 						
@@ -238,6 +271,8 @@ border-radius: 3px;
 									<i class="icon-add-white"></i>
 									Еще один код
 								</button>
+								
+								
 								<div class="custom-block-form">
 									
 								</div>
@@ -248,6 +283,12 @@ border-radius: 3px;
 							<div id="tabBlock" class="tab-pane">Тип блока</div>
 							<div id="tabAnimation" class="tab-pane">Анимация</div>
 						</div>
+					</div>
+						
+							<button id="additional-custom-block-button" class="btn green js_add_block" type="button">
+								<i class="icon-add-white"></i>
+								 Добавить блок
+							</button>
 							<div id="rules-right-btns">
 								<div class="success">
 									<img style="display: none;" src="images/ajax-loader2.gif" />
@@ -256,6 +297,9 @@ border-radius: 3px;
 								<button class="btn" onclick="bannersave();">Сохранить</button>
 								<button id="btnclose" class="btn" onclick="bannerclose();" href="/main">Закрыть</button>
 							</div>
+							
+							
+
 					</div>
 					<div class="modal-footer">
 					<!--	<a data-dismiss="modal" id="add-btn" class="btn" href="/create/" >OK</a>    <a data-dismiss="modal" id="cancel-del-btn" class="btn" href="#">Отмена</a> -->
@@ -274,12 +318,12 @@ if(!supports_html5_storage()){
 	var removeBtns = $('.remove-item-btn');
 	var addBtn = $('#add-btn');
 	//http://www.listjs.com/examples/add-get-remove
-	var BannerOptions = {
+	var SiteOptions = {
 	  valueNames: [ 'id', 'name', 'url', 'date_edit' ],
 	  //item: '<tr class="odd"><td class="id"></td><td class="name"></td><td class="url"></td><td class="date_edit" style="width: 180px;"></td><td style="width: 95px"><a style="margin-left: 5px;" class="edit" rel="tooltip" href="#" data-original-title="Редактировать"><i class="icon-edit"></i></a><a style="margin-left: 5px;" rel="tooltip" href="/generate/" data-original-title="Генерировать"><i class="icon-file"></i></a><a style="margin-left: 5px;" onclick="showRunDialog(this);" rel="tooltip" href="#" data-original-title="Управление запуском"><i class="icon-play"></i></a><a style="margin-left: 5px;" onclick="showResultDialog(this);" rel="tooltip" href="#" data-original-title="Результат выполнения"><i class="icon-folder-open"></i></a><a style="margin-left: 5px;" class="delete" rel="tooltip" href="#" data-original-title="Удалить"><i class="icon-remove"></i></a></td></tr>'
 	};
 	// Init list
-	var bannerList = new List('banner_list', BannerOptions);
+	var siteList = new List('site_list', SiteOptions);
 	refreshCallbacks();
 	
 	addBtn.click(function() {
@@ -298,7 +342,7 @@ if(!supports_html5_storage()){
 			'date_edit' : date_edit
 		};
 
-		bannerList.add(banner[name]);
+		siteList.add(banner[name]);
 		
 		//setlocalStorageParser(parser); 	
 
@@ -317,6 +361,16 @@ if(!supports_html5_storage()){
 	$('.js_add_code').click(function(e) {
 		document.querySelector('.custom-block-form').appendChild( createItem());
 	});
+	
+	
+	
+	
+	var BlockOptions = {
+	  valueNames: [ 'id', 'name'],
+	  //item: '<tr class="odd"><td class="id"></td><td class="name"></td><td class="url"></td><td class="date_edit" style="width: 180px;"></td><td style="width: 95px"><a style="margin-left: 5px;" class="edit" rel="tooltip" href="#" data-original-title="Редактировать"><i class="icon-edit"></i></a><a style="margin-left: 5px;" rel="tooltip" href="/generate/" data-original-title="Генерировать"><i class="icon-file"></i></a><a style="margin-left: 5px;" onclick="showRunDialog(this);" rel="tooltip" href="#" data-original-title="Управление запуском"><i class="icon-play"></i></a><a style="margin-left: 5px;" onclick="showResultDialog(this);" rel="tooltip" href="#" data-original-title="Результат выполнения"><i class="icon-folder-open"></i></a><a style="margin-left: 5px;" class="delete" rel="tooltip" href="#" data-original-title="Удалить"><i class="icon-remove"></i></a></td></tr>'
+	};
+	// Init list
+	var blockList = new List('block_list', BlockOptions);
 </script>
 </body>
 </html>

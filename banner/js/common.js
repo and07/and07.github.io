@@ -27,7 +27,7 @@ function refreshCallbacks() {
 	removeBtns.click(function() {
 		var itemId = $(this).closest('tr').find('.id').text();
 		console.log(itemId);
-		bannerList.remove('id', itemId);
+		siteList.remove('id', itemId);
 		//dellocalStorageParser(_PARSE.name);
 		clearFields();
 	});
