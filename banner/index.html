@@ -1,0 +1,322 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+<!-- http://primercss.io/ -->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<!-- <link rel="stylesheet" type="text/css" href="/css/main2.css" /> -->
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="css/bootstrap-yii.css" />
+<link rel="stylesheet" type="text/css" href="css/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="css/TextareaDecorator.css" />
+<link rel="stylesheet" type="text/css" href="css/main2.css" />
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/coffee-script.js"></script>
+<script type="text/javascript" src="js/ect.min.js"></script>
+<script type="text/javascript" src="js/xpath.js"></script>
+<script type="text/javascript" src="js/bootstrap-dropdown-right.js"></script>
+<script type="text/javascript" src="js/Parser.js"></script>
+<script type="text/javascript" src="js/TextareaDecorator.js"></script>
+<script type="text/javascript" src="js/Keybinder.js"></script>
+<script type="text/javascript" src="js/jquery.tabby.js"></script>
+<script type="text/javascript" src="js/ldtparser.js"></script>
+<script type="text/javascript" src="js/jquery.ba-bbq.js"></script>
+
+<!-- https://select2.github.io/ -->
+<link href="js/select2/dist/css/select2.min.css" rel="stylesheet" />
+<script src="js/select2/dist/js/select2.min.js"></script>
+
+<!-- http://www.listjs.com/ -->
+<script type="text/javascript" src="js/list.js"></script>
+
+<!-- https://github.com/finom/vanillatree -->
+<link href="js/vanillatree/vanillatree.css" rel="stylesheet" />
+<script src="js/vanillatree/vanillatree.js"></script>
+
+<title>Banner</title>
+
+
+<style>
+.extracted-items-container {
+pointer-events: none;
+background-color: rgba(0,0,0,0.8);
+padding: 10px;
+width: 400px;
+box-shadow: 0px 0px 12px 0px rgba(0,0,0,1.0);
+position: fixed;
+left: 400px;
+top: 30px;
+}
+
+#hovered-element-info {
+font: 1.0em Helvetica,Arial,sans-serif;
+color: white;
+padding: 8px;
+/*float: left;*/
+background-color: rgba(0,0,0,0.8);
+box-shadow: 0px 4px 6px 0px rgba(0,0,0,0.8);
+margin-right: 15px;
+/*display: none;*/
+pointer-events: all;
+/*max-width: 450px;*/
+border-radius: 3px;
+}
+</style>
+</head>
+
+<body >
+
+<div id="main">
+	<div id="header">
+	<div class="container-fluid">
+		<div id="userinfo">prio@hotbox.ru&nbsp;&nbsp;|&nbsp;&nbsp;<a target="_blank" href="#/ru/docs">Документация</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#/ru/site/logout">Выход</a>		</div>
+		<div id="logo">
+			<a href="#/ru/">
+				<h1>Banners</h1>
+			</a>
+		</div>
+	</div>	
+	</div><!-- header -->
+	<div class="container-fluid">
+		
+<div class="row-fluid">
+<div class="container-fluid">
+				<div id="banner_list" class="grid-view">
+					<table class="items table table-striped table-bordered table-condensed">
+					<thead>
+						<tr>
+							<th class="sort" id="yw0_c0"><a href="/main?Scrapers_sort=id">ID<span class="caret"></span></a></th>
+							<th class="sort" id="yw0_c1"><a href="/main?Scrapers_sort=name">Название сайта<span class="caret"></span></a></th>
+							<th class="sort" id="yw0_c2"><a href="/main?Scrapers_sort=start_page">URL сайта<span class="caret"></span></a></th>
+							<th class="sort" id="yw0_c3"><a href="/main?Scrapers_sort=dtmodified">Изменено<span class="caret"></span></a></th>
+							<th class="button-column" id="yw0_c4"> <input type="text" class="search" placeholder="Search" /></th>
+						</tr>
+					</thead>
+					<tbody class="list">
+						<tr class="odd">
+							<td class="id">959</td>
+							<td class="name">test</td>
+							<td class="url">http://actionpay.ru/ru/</td>
+							<td class="date_edit" style="width: 180px;">08.12.2014, 17:26:18</td>
+							<td style="width: 95px">
+								<a style="margin-left: 5px;" class="edit" rel="tooltip" href="/edit/959" data-original-title="Редактировать"><i class="icon-edit"></i></a>
+								<a style="margin-left: 5px;" class="delete" rel="tooltip" href="/main/delete/959" data-original-title="Удалить"><i class="icon-remove"></i></a>
+							</td>
+						</tr>
+						<tr class="even">
+							<td class="id">955</td>
+							<td class="name">cpainfo</td>
+							<td class="url">http://cpainform.ru/programs/funservices/santa4me/</td>
+							<td class="date_edit" style="width: 180px;">12.12.2014, 18:56:27</td>
+							<td style="width: 95px">
+								<a style="margin-left: 5px;" class="edit" rel="tooltip" href="/edit/955" data-original-title="Редактировать"><i class="icon-edit"></i></a>
+								<a style="margin-left: 5px;" class="delete" rel="tooltip" href="/main/delete/955" data-original-title="Удалить"><i class="icon-remove"></i></a>
+							</td>
+						</tr>
+					</tbody>
+					</table>
+					<div class="keys" style="display:none" title="/main"><span>959</span><span>955</span></div>
+				</div>
+					<div class="span2">
+						<div class="right-panel">
+							<a href="/main/create"  class="create" rel="tooltip"  data-original-title="Create"><i class="icon-plus"></i>&nbsp;Добавить сайт</a>		
+						</div>
+						<div class="right-panel hint"></div>
+					</div>
+</div>				
+</div>
+</div>				
+
+</div>			
+<!-- DEL-->				
+				<div id="deleteModal" class="modal fade" style="display: none;">
+				<div class="modal-header">
+					<a class="close" data-dismiss="modal">×</a>
+					<h3>Удаление сайта</h3>
+				</div>
+				 <div class="modal-body">
+					<p>Вы действительно хотите удалить парсер?</p>
+				</div>
+				 <div class="modal-footer">
+					<a data-dismiss="modal" id="ok-del-btn" class="btn remove-item-btn" href="/main/delete/955">OK</a>    <a data-dismiss="modal" id="cancel-del-btn" class="btn" href="#">Отмена</a></div>
+				</div>
+<!-- DEL-->	
+
+
+<!-- CREATE-->	
+				<div id="createModal" class="modal fade" style="display: none;" >
+					<div class="modal-header">
+						<a class="close" data-dismiss="modal">×</a>
+						<h3>Добавить сайт</h3>
+					</div>
+					<div class="modal-body">
+						<form class="form1 form-vertical" id="form" action="/main/create" method="post"> 
+						<fieldset>
+							<label for="CreateScraperForm_name" class="required">Название сайта<span class="required">*</span></label>
+							<input name="CreateScraperForm[name]" id="name-field" type="text">	
+							<label for="CreateScraperForm_startpage" class="required">URL сайта <span class="required">*</span></label>
+							<input style="width: 400px;" name="CreateScraperForm[startpage]" id="url-field" type="text">
+						</fieldset>
+						<br>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<a data-dismiss="modal" id="add-btn" class="btn" href="/create/" >OK</a>    <a data-dismiss="modal" id="cancel-del-btn" class="btn" href="#">Отмена</a>
+					</div>
+				</div>
+<!-- CREATE-->
+
+<!-- CLOSE -->
+<div id="closeModal" class="modal fade">
+	<div class="modal-header">
+		<a class="close" data-dismiss="modal">&times;</a>
+		<h3>Закрытие</h3>
+	</div>
+	 
+	<div class="modal-body">
+		<p>Сохранить изменения?</p>
+		<div class="popup3" style="margin-left: 45%; top: 40%;"><img src="images/ajax-loader2.gif" /></div>
+	</div>
+	 
+	<div class="modal-footer">
+		<a id="yes-close-btn" data-url="#/main" class="btn" href="#">Да</a>    
+		<a data-dismiss="modal" id="no-close-btn" data-url="/main" class="btn" href="#">Нет</a>
+		<a data-dismiss="modal" id="cancel-close-btn" class="btn" href="#">Отмена</a>
+	</div>
+</div>
+<!-- CLOSE -->
+
+
+<!-- EDIT-->					
+				<div id="editModal" class="modal fade"  style="display: none; margin: 0px; top: 0px;left:0px; width:100%;">
+					<div class="modal-header">
+						<a class="close" data-dismiss="modal">×</a>
+						<h3 id = "js_name">Edit</h3>
+					</div>
+					<div class="modal-body" style="max-height:80%;">
+						<ul id="sidetabs" class="nav nav-tabs">
+							<li class="active"><a id="tab-code" data-toggle="tab" href="#tabCode">Свой код</a></li>
+							<li ><a id="tab-block"  data-toggle="tab" href="#tabBlock" onclick="tabScriptClick();">Тип блока</a></li>			
+							<li><a id="tab-animation" data-toggle="tab" href="#tabAnimation">Анимация</a></li>
+						</ul>
+						
+						<div class="tab-content">
+							<div id="tabCode" class="tab-pane active">
+								<div class="row block_box block_row highlight-box dimentions-box">
+								<!-- Block size -->
+								<div class="pull-right adv_block_sizes_help help_class" style="margin-right: 20px;" data-placement="top" data-trigger="hover" data-content="Настройте размеры рекламной области, которую выделили на сайте. В данной области через систему Advertone будут показываться все рекламные сети." data-original-title="" title=""></div>
+								<div class="span39 design_box block_box">
+									<p class="block-edit-form-label">Ширина блока</p>
+									<div class="form-field mb5">
+										<span>
+											<div class="axis-size-inputs">
+												<input class="template_block preview-input block-size-input" id="size_horizontal-input" type="text" name="size_horizontal" required="required" value="240px">
+												<div class="error-message" id="size_horizontal-errmsg">
+													
+												</div>
+												</div>
+										  </span>
+									</div>
+								</div>
+								<div class="span39 design_box block_box">
+									<p class="block-edit-form-label">Высота блока</p>
+									<div class="form-field mb5">
+										<div class="axis-size-inputs">
+											<input class="block-size-input template_block preview-input" id="size_vertical-input" type="text" name="size_vertical" required="required" value="400px">
+											<div class="error-message" id="size_vertical-errmsg">
+											
+											</div>
+										</div>
+
+									</div>
+									
+								</div>
+								</div>
+								<button id="additional-custom-block-button" class="btn green js_add_code" type="button">
+									<i class="icon-add-white"></i>
+									Еще один код
+								</button>
+								<div class="custom-block-form">
+									
+								</div>
+							
+							</div>
+							
+							
+							<div id="tabBlock" class="tab-pane">Тип блока</div>
+							<div id="tabAnimation" class="tab-pane">Анимация</div>
+						</div>
+							<div id="rules-right-btns">
+								<div class="success">
+									<img style="display: none;" src="images/ajax-loader2.gif" />
+									<div></div>
+								</div>
+								<button class="btn" onclick="bannersave();">Сохранить</button>
+								<button id="btnclose" class="btn" onclick="bannerclose();" href="/main">Закрыть</button>
+							</div>
+					</div>
+					<div class="modal-footer">
+					<!--	<a data-dismiss="modal" id="add-btn" class="btn" href="/create/" >OK</a>    <a data-dismiss="modal" id="cancel-del-btn" class="btn" href="#">Отмена</a> -->
+					</div>
+				</div>				
+<!-- EDIT-->
+<script type="text/javascript" src="js/common.js" ></script>
+<script type="text/javascript" >
+
+if(!supports_html5_storage()){
+	alert('обновите браузер');
+}
+	var idField = $('#id-field');
+	var nameField = $('#name-field');
+	var urlField = $('#url-field');
+	var removeBtns = $('.remove-item-btn');
+	var addBtn = $('#add-btn');
+	//http://www.listjs.com/examples/add-get-remove
+	var BannerOptions = {
+	  valueNames: [ 'id', 'name', 'url', 'date_edit' ],
+	  //item: '<tr class="odd"><td class="id"></td><td class="name"></td><td class="url"></td><td class="date_edit" style="width: 180px;"></td><td style="width: 95px"><a style="margin-left: 5px;" class="edit" rel="tooltip" href="#" data-original-title="Редактировать"><i class="icon-edit"></i></a><a style="margin-left: 5px;" rel="tooltip" href="/generate/" data-original-title="Генерировать"><i class="icon-file"></i></a><a style="margin-left: 5px;" onclick="showRunDialog(this);" rel="tooltip" href="#" data-original-title="Управление запуском"><i class="icon-play"></i></a><a style="margin-left: 5px;" onclick="showResultDialog(this);" rel="tooltip" href="#" data-original-title="Результат выполнения"><i class="icon-folder-open"></i></a><a style="margin-left: 5px;" class="delete" rel="tooltip" href="#" data-original-title="Удалить"><i class="icon-remove"></i></a></td></tr>'
+	};
+	// Init list
+	var bannerList = new List('banner_list', BannerOptions);
+	refreshCallbacks();
+	
+	addBtn.click(function() {
+
+		var id = Math.floor(Math.random()*110000);
+		var url = urlField.val();
+		var name = nameField.val();
+		var date_edit = new Date().yyyymmdd();
+		
+		//var banner = getlocalStorageParser();
+		var banner = {};
+		banner[name] = {
+			'id' : id,
+			'url' : url,
+			'name' :name,
+			'date_edit' : date_edit
+		};
+
+		bannerList.add(banner[name]);
+		
+		//setlocalStorageParser(parser); 	
+
+		clearFields();
+		refreshCallbacks();
+	});
+	
+	
+	
+	
+	$('a.create').click(function(e) {
+		e.preventDefault();
+		$('#createModal').modal('show');
+	});
+	
+	$('.js_add_code').click(function(e) {
+		document.querySelector('.custom-block-form').appendChild( createItem());
+	});
+</script>
+</body>
+</html>
