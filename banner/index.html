@@ -3,8 +3,9 @@
 <head>
 
 <!-- http://primercss.io/ -->
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<!-- <link rel="stylesheet" type="text/css" href="/css/main2.css" /> -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- <link rel="stylesheet" type="text/css" href="/css/main2.css" /> -->
+<!-- http://bootstrap-3.ru/javascript.php -->
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="css/bootstrap-yii.css" />
 <link rel="stylesheet" type="text/css" href="css/jquery-ui.css" />
@@ -189,101 +190,43 @@ border-radius: 3px;
 <!-- CLOSE -->
 
 
-<!-- EDIT-->					
+<!-- EDIT-->
+<style>
+.list {
+  font-family:sans-serif;
+  margin:0;
+  padding:20px 0 0;
+}
+.list > li {
+  display:block;
+  background-color: #eee;
+  padding:10px;
+  box-shadow: inset 0 1px 0 #fff;
+}
+
+</style>				
 				<div id="editModal" class="modal fade"  style="display: none; margin: 0px; top: 0px;left:0px; width:100%;">
 					<div class="modal-header">
 						<a class="close" data-dismiss="modal">×</a>
-						<h3 id = "js_name">Edit</h3>
+						<h3 id = "js_name">Edit <span class="js_site_name"></span></h3>
 					</div>
 					<div class="modal-body" style="max-height:80%;">
-				<div id="block_list" class="grid-view">
-					<table class="items table table-striped table-bordered table-condensed">
-					<thead>
-						<tr>
-							<th class="sort" id="yw0_c0"><a href="/main?Scrapers_sort=id">ID<span class="caret"></span></a></th>
-							<th class="sort" id="yw0_c1"><a href="/main?Scrapers_sort=name">Блок<span class="caret"></span></a></th>
-							<th class="button-column" id="yw0_c4"> <input type="text" class="search" placeholder="Search" /></th>
-						</tr>
-					</thead>
-					<tbody class="list">
-<!--
-						<tr class="odd">
-							<td class="id">959</td>
-							<td class="name">test</td>
-							<td style="width: 95px">
-								<a style="margin-left: 5px;" class="edit" rel="tooltip" href="/edit/959" data-original-title="Редактировать"><i class="icon-edit"></i></a>
-								<a style="margin-left: 5px;" class="delete" rel="tooltip" href="/main/delete/959" data-original-title="Удалить"><i class="icon-remove"></i></a>
-							</td>
-						</tr>
-						<tr class="even">
-							<td class="id">955</td>
-							<td class="name">cpainfo</td>
-							<td style="width: 95px">
-								<a style="margin-left: 5px;" class="edit" rel="tooltip" href="/edit/955" data-original-title="Редактировать"><i class="icon-edit"></i></a>
-								<a style="margin-left: 5px;" class="delete" rel="tooltip" href="/main/delete/955" data-original-title="Удалить"><i class="icon-remove"></i></a>
-							</td>
-						</tr>
--->
-					</tbody>
-					</table>
-					<div class="keys" style="display:none" title="/main"><span>959</span><span>955</span></div>
-				</div>
-					<div   style="display: none; margin: 0px; top: 0px;left:0px; width:100%;">
-						<ul id="sidetabs" class="nav nav-tabs">
-							<li class="active"><a id="tab-code" data-toggle="tab" href="#tabCode">Свой код</a></li>
-							<li ><a id="tab-block"  data-toggle="tab" href="#tabBlock" >Тип блока</a></li>			
-							<li><a id="tab-animation" data-toggle="tab" href="#tabAnimation">Анимация</a></li>
-						</ul>
-						
-						<div class="tab-content">
-							<div id="tabCode" class="tab-pane active">
-								<div class="row block_box block_row highlight-box dimentions-box">
-								<!-- Block size -->
-								<div class="pull-right adv_block_sizes_help help_class" style="margin-right: 20px;" data-placement="top" data-trigger="hover" data-content="Настройте размеры рекламной области, которую выделили на сайте. В данной области через систему Advertone будут показываться все рекламные сети." data-original-title="" title=""></div>
-								<div class="span39 design_box block_box">
-									<p class="block-edit-form-label">Ширина блока</p>
-									<div class="form-field mb5">
-										<span>
-											<div class="axis-size-inputs">
-												<input class="template_block preview-input block-size-input" id="size_horizontal-input" type="text" name="size_horizontal" required="required" value="240px">
-												<div class="error-message" id="size_horizontal-errmsg">
-													
-												</div>
-												</div>
-										  </span>
-									</div>
-								</div>
-								<div class="span39 design_box block_box">
-									<p class="block-edit-form-label">Высота блока</p>
-									<div class="form-field mb5">
-										<div class="axis-size-inputs">
-											<input class="block-size-input template_block preview-input" id="size_vertical-input" type="text" name="size_vertical" required="required" value="400px">
-											<div class="error-message" id="size_vertical-errmsg">
-											
-											</div>
-										</div>
-
-									</div>
-									
-								</div>
-								</div>
-								<button id="additional-custom-block-button" class="btn green js_add_code" type="button">
-									<i class="icon-add-white"></i>
-									Еще один код
-								</button>
-								
-								
-								<div class="custom-block-form">
-									
-								</div>
-							
-							</div>
-							
-							
-							<div id="tabBlock" class="tab-pane">Тип блока</div>
-							<div id="tabAnimation" class="tab-pane">Анимация</div>
+						<fieldset>
+							<label for="CreateScraperForm_name" class="required">Название сайта<span class="required">*</span></label>
+							<input name="CreateScraperForm[name]" class="js_site_name" type="text">	
+							<label for="CreateScraperForm_startpage" class="required">URL сайта <span class="required">*</span></label>
+							<input style="width: 400px;" name="CreateScraperForm[startpage]" class="js_site_url" type="text">
+						</fieldset>
+						<div id="block_list" class="grid-view">
+								<input type="text" class="search" placeholder="Search" />
+								<ul class="list list-unstyled">
+									<li class="">
+										<span class="sort" id="yw0_c0" data-sort="id" style="width:200px;display: inline-block;"><a href="#/main?Scrapers_sort=id" >ID<span class="caret"></span></a></span>
+										<span class="sort" id="yw0_c1" data-sort="name" style="width:200px;display: inline-block;"><a href="#/main?Scrapers_sort=name" >Блок<span class="caret"></span></a></span>
+										<span class="button-column" id="yw0_c4" style="width:200px;display: inline-block;"> </span>
+									</li>
+								</ul>
 						</div>
-					</div>
 						
 							<button id="additional-custom-block-button" class="btn green js_add_block" type="button">
 								<i class="icon-add-white"></i>
@@ -294,37 +237,199 @@ border-radius: 3px;
 									<img style="display: none;" src="images/ajax-loader2.gif" />
 									<div></div>
 								</div>
-								<button class="btn" onclick="bannersave();">Сохранить</button>
-								<button id="btnclose" class="btn" onclick="bannerclose();" href="/main">Закрыть</button>
 							</div>
 							
 							
 
 					</div>
 					<div class="modal-footer">
-					<!--	<a data-dismiss="modal" id="add-btn" class="btn" href="/create/" >OK</a>    <a data-dismiss="modal" id="cancel-del-btn" class="btn" href="#">Отмена</a> -->
+						<button type="button" class="btn btn-default" data-dismiss="modal" onclick="siteclose();">Закрыть</button>
+						<button type="button" class="btn btn-primary" onclick="sitesave();">Сохранить изменения</button>
 					</div>
 				</div>				
 <!-- EDIT-->
+
+<!-- BLOCK -->
+					<div  id="blockModal" class="modal fade" style="display: none; margin: 0px; top: 0px;left:0px; width:100%;">
+						<div class="modal-header">
+							<a class="close" data-dismiss="modal">×</a>
+							<h3 id = "js_name">Block <span class="js_block_name"></span></h3>
+						</div>
+						<div class="modal-body" style="max-height:80%;">
+						
+							<div class="pr20">
+								<label for="title_input">Название блока <sup class="red">*</sup></label>
+								<input type="text" id="title_input" name="title" class="red_text js_block_name" value="" required="required">
+								<div class="error-message" id="title-check-error"></div>
+							</div>
+							<div style="clear:both;">
+							<ul id="sidetabs" class="nav nav-tabs">
+								<li class="active"><a id="tab-code" data-toggle="tab" href="#tabCode">Свой код</a></li>
+								<li ><a id="tab-block"  data-toggle="tab" href="#tabBlock" >Тип блока</a></li>			
+								<li><a id="tab-animation" data-toggle="tab" href="#tabAnimation">Анимация</a></li>
+							</ul>
+							
+							<div class="tab-content">
+								<div id="tabCode" class="tab-pane active">
+									<div class="row block_box block_row highlight-box dimentions-box">
+									<!-- Block size -->
+									<div class="pull-right adv_block_sizes_help help_class" style="margin-right: 20px;" data-placement="top" data-trigger="hover" data-content="Настройте размеры рекламной области, которую выделили на сайте. В данной области через систему Advertone будут показываться все рекламные сети." data-original-title="" title=""></div>
+									<div class="span39 design_box block_box">
+										<p class="block-edit-form-label">Ширина блока</p>
+										<div class="form-field mb5">
+											<span>
+												<div class="axis-size-inputs">
+													<input class="template_block preview-input block-size-input" id="size_horizontal-input" type="text" name="size_horizontal" required="required" value="240px">
+													<div class="error-message" id="size_horizontal-errmsg">
+														
+													</div>
+													</div>
+											  </span>
+										</div>
+									</div>
+									<div class="span39 design_box block_box">
+										<p class="block-edit-form-label">Высота блока</p>
+										<div class="form-field mb5">
+											<div class="axis-size-inputs">
+												<input class="block-size-input template_block preview-input" id="size_vertical-input" type="text" name="size_vertical" required="required" value="400px">
+												<div class="error-message" id="size_vertical-errmsg">
+												
+												</div>
+											</div>
+										</div>
+										
+									</div>
+									</div>
+									<button id="additional-custom-block-button" class="btn green js_add_code" type="button">
+										<i class="icon-add-white"></i>
+										Еще один код
+									</button>
+									
+									
+									<div class="custom-block-form">
+										
+									</div>
+								
+								</div>
+								
+								
+								<div id="tabBlock" class="tab-pane">Тип блока</div>
+								<div id="tabAnimation" class="tab-pane">Анимация</div>
+							</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+							<button type="button" class="btn btn-primary js_save_block">Сохранить изменения</button>
+						</div>
+					</div>
+<!-- BLOCK -->
+
+
 <script type="text/javascript" src="js/common.js" ></script>
 <script type="text/javascript" >
 
 if(!supports_html5_storage()){
 	alert('обновите браузер');
 }
+
+var _BANNER = {
+	sites: [],
+	_id: null,
+	_name : null,
+	_url : null,
+	_block_name : null,
+	getSite : function(){
+		for(var i in _BANNER.sites){
+			if(_BANNER.sites[i].hasOwnProperty(_BANNER.name)){
+				return _BANNER.sites[i][_BANNER.name];
+			}
+		}
+		return null;
+	},
+	getBlock : function(){
+		var site = _BANNER.getSite();
+		for (var b in site){
+			if(site[b].hasOwnProperty(_BANNER.block_name)){
+				return site[b][_BANNER.block_name];
+			}			
+		}
+	},
+	getCode: function(){
+		
+	}
+};
+
+bindModelInput(_BANNER,'name', document.querySelectorAll('.js_site_name'));
+bindModelInput(_BANNER,'url', document.querySelectorAll('.js_site_url'));
+bindModelInput(_BANNER,'block_name', document.querySelectorAll('.js_block_name'));
+bindModelInput(_BANNER,'id', null);
+
+	//http://www.listjs.com/examples/add-get-remove
+	/*************SITE****************/
+function clearFieldsSite() {
+	nameField.val('');
+	urlField.val('');
+}
+function refreshCallbacksSite() {
+	// Needed to add new buttons to jQuery-extended object
+	removeBtns = $(removeBtns.selector);
+
+	removeBtns.click(function() {
+		var itemId = $(this).closest('tr').find('.id').text();
+		console.log(itemId);
+		siteList.remove('id', itemId);
+		//dellocalStorageParser(_PARSE.name);
+		clearFieldsSite();
+	});
+	$('a.delete').click(function(e) {
+		e.preventDefault();
+		_BANNER.id = $(this).closest('tr').find('.id').text();
+		_BANNER.name = $(this).closest('tr').find('.name').text();
+		_BANNER.url = $(this).closest('tr').find('.url').text();
+		
+		$('#deleteModal').modal('show');
+		//$('#deleteModal').find('#ok-del-btn').click(function(key){ console.log(_PARSE.name); dellocalStorageParser(key);});
+	});	
+	
+	$('a.edit').click(function(e) {
+		clearFieldsSite();
+		e.preventDefault();
+		_BANNER.id = $(this).closest('tr').find('.id').text();
+		_BANNER.name = $(this).closest('tr').find('.name').text();
+		_BANNER.url = $(this).closest('tr').find('.url').text();
+		var site = {};
+		site[_BANNER.name] = {
+			'id' : _BANNER.id,
+			'url' : _BANNER.url,
+			'name' : _BANNER.name,
+			'date_edit' : $(this).closest('tr').find('.date_edit').text(),
+			'block' : []
+		};
+		for(var i in _BANNER.sites){
+			if( _BANNER.sites[i].hasOwnProperty(_BANNER.name))
+				delete _BANNER.sites[i];
+		}
+		_BANNER.sites.push(site);
+		_BANNER.sites = _BANNER.sites.filter(function(a){return typeof a !== 'undefined';})
+		//$('#editModal').addClass(' js_id_'+itemId);
+		$('#editModal').modal('show');
+	});
+
+}
 	var idField = $('#id-field');
 	var nameField = $('#name-field');
 	var urlField = $('#url-field');
 	var removeBtns = $('.remove-item-btn');
 	var addBtn = $('#add-btn');
-	//http://www.listjs.com/examples/add-get-remove
+	
 	var SiteOptions = {
-	  valueNames: [ 'id', 'name', 'url', 'date_edit' ],
-	  //item: '<tr class="odd"><td class="id"></td><td class="name"></td><td class="url"></td><td class="date_edit" style="width: 180px;"></td><td style="width: 95px"><a style="margin-left: 5px;" class="edit" rel="tooltip" href="#" data-original-title="Редактировать"><i class="icon-edit"></i></a><a style="margin-left: 5px;" rel="tooltip" href="/generate/" data-original-title="Генерировать"><i class="icon-file"></i></a><a style="margin-left: 5px;" onclick="showRunDialog(this);" rel="tooltip" href="#" data-original-title="Управление запуском"><i class="icon-play"></i></a><a style="margin-left: 5px;" onclick="showResultDialog(this);" rel="tooltip" href="#" data-original-title="Результат выполнения"><i class="icon-folder-open"></i></a><a style="margin-left: 5px;" class="delete" rel="tooltip" href="#" data-original-title="Удалить"><i class="icon-remove"></i></a></td></tr>'
+		valueNames: [ 'id', 'name', 'url', 'date_edit' ],
+		//item: '<tr class="odd"><td class="id"></td><td class="name"></td><td class="url"></td><td class="date_edit" style="width: 180px;"></td><td style="width: 95px"><a style="margin-left: 5px;" class="edit" rel="tooltip" href="#" data-original-title="Редактировать"><i class="icon-edit"></i></a><a style="margin-left: 5px;" rel="tooltip" href="/generate/" data-original-title="Генерировать"><i class="icon-file"></i></a><a style="margin-left: 5px;" onclick="showRunDialog(this);" rel="tooltip" href="#" data-original-title="Управление запуском"><i class="icon-play"></i></a><a style="margin-left: 5px;" onclick="showResultDialog(this);" rel="tooltip" href="#" data-original-title="Результат выполнения"><i class="icon-folder-open"></i></a><a style="margin-left: 5px;" class="delete" rel="tooltip" href="#" data-original-title="Удалить"><i class="icon-remove"></i></a></td></tr>'
 	};
 	// Init list
 	var siteList = new List('site_list', SiteOptions);
-	refreshCallbacks();
+	refreshCallbacksSite();
 	
 	addBtn.click(function() {
 
@@ -334,20 +439,21 @@ if(!supports_html5_storage()){
 		var date_edit = new Date().yyyymmdd();
 		
 		//var banner = getlocalStorageParser();
-		var banner = {};
-		banner[name] = {
+		var site = {};
+		site[name] = {
 			'id' : id,
 			'url' : url,
-			'name' :name,
-			'date_edit' : date_edit
+			'name' : name,
+			'date_edit' : date_edit,
+			'block' : []
 		};
-
-		siteList.add(banner[name]);
+		_BANNER.name = name;
+		_BANNER.sites.push(site);
+		siteList.add(site[name]);
 		
 		//setlocalStorageParser(parser); 	
-
-		clearFields();
-		refreshCallbacks();
+		clearFieldsSite();
+		refreshCallbacksSite();
 	});
 	
 	
@@ -365,12 +471,82 @@ if(!supports_html5_storage()){
 	
 	
 	
+	/***********************BLOCK**************************/
 	var BlockOptions = {
 	  valueNames: [ 'id', 'name'],
-	  //item: '<tr class="odd"><td class="id"></td><td class="name"></td><td class="url"></td><td class="date_edit" style="width: 180px;"></td><td style="width: 95px"><a style="margin-left: 5px;" class="edit" rel="tooltip" href="#" data-original-title="Редактировать"><i class="icon-edit"></i></a><a style="margin-left: 5px;" rel="tooltip" href="/generate/" data-original-title="Генерировать"><i class="icon-file"></i></a><a style="margin-left: 5px;" onclick="showRunDialog(this);" rel="tooltip" href="#" data-original-title="Управление запуском"><i class="icon-play"></i></a><a style="margin-left: 5px;" onclick="showResultDialog(this);" rel="tooltip" href="#" data-original-title="Результат выполнения"><i class="icon-folder-open"></i></a><a style="margin-left: 5px;" class="delete" rel="tooltip" href="#" data-original-title="Удалить"><i class="icon-remove"></i></a></td></tr>'
+	  item: '<li class=""><span class="id" style="width:200px;display: inline-block;"></span><span class="name" style="width:200px;display: inline-block;"></span><span style="width:200px;display: inline-block;"><a style="margin-left: 5px;" class="edit_block" rel="tooltip" href="/edit/955" data-original-title="Редактировать"><i class="icon-edit"></i></a><a style="margin-left: 5px;" class="del_block" rel="tooltip" href="/main/delete/955" data-original-title="Удалить"><i class="icon-remove"></i></a></span></li>'
 	};
 	// Init list
 	var blockList = new List('block_list', BlockOptions);
+	
+	var blockName = $('#title_input');
+	var blockDel = $('.del_block');
+	var blockEdit = $('.edit_block');
+	var blockRemove = $();
+	
+	function clearFieldsBlock() {
+		blockName.val('');
+	}
+	function refreshCallbacksBlock() {
+		// Needed to add new buttons to jQuery-extended object
+
+		blockRemove.click(function() {
+			var itemId = $(this).closest('tr').find('.id').text();
+			console.log(itemId);
+			blockList.remove('id', itemId);
+			//dellocalStorageParser(_PARSE.name);
+			clearFieldsBlock();
+		});
+		
+		 $('.del_block').click(function(e) {
+			e.preventDefault();
+			$("#deleteModal").css("z-index", "1051");
+			$('#deleteModal').modal('show');
+			//$('#deleteModal').find('#ok-del-btn').click(function(key){ console.log(_PARSE.name); dellocalStorageParser(key);});
+		});
+		
+		
+		$('.edit_block').click(function(e) {
+			clearFieldsBlock();
+			e.preventDefault();
+			_BANNER.block_name = $(this).parent().parent().find('.name').text();
+			$('#blockModal').modal('show');
+		});
+	}
+
+
+	$('.js_add_block').click(function(){
+		_BANNER.block_name = null;
+		$('#blockModal').modal('show');
+	});
+	
+	$('.js_save_block').click(function(){
+	
+		if( ! _BANNER.block_name ){
+			var id = Math.floor(Math.random()*110000);
+			var name = blockName.val();
+			
+			var block = {};
+			block[name] = {
+				'id' : id,
+				'name' : name,
+				'code' : []
+			};
+			_BANNER.block_name = name;
+			_BANNER.getSite()['block'].push(block)
+			/*
+			for(var i in _BANNER.sites){
+				if( _BANNER.name in  _BANNER.sites[i]){
+					_BANNER.sites[i][_BANNER.name]['block'].push(block);
+				}
+			}
+			*/
+			blockList.add(block[name]);
+		}
+		clearFieldsBlock();
+		refreshCallbacksBlock();
+		$('#blockModal').modal('hide');
+	});
 </script>
 </body>
 </html>

@@ -78,31 +78,39 @@ function bindModelInput(obj, property, domElem) {
 				configurable: true 
 			});	
 	}else{
-		var tag = domElem.tagName.toLowerCase() || null;
-		if(tag == 'input' || tag == 'textarea'){
-			Object.defineProperty(obj, property, { 
-				get: function() { 
-					return this['_'+property]; 
-				}, 
-				set: function(newValue) {
-					this['_'+property] = newValue; 
-					domElem.value = newValue; 
-				}, 
-				configurable: true 
-			}); 
-		}else{
-			var text = domElem.innerHTML ;
-			Object.defineProperty(obj, property, { 
-				get: function() {
-					return this['_'+property]; 
-				}, 
-				set: function(newValue) { 
-					this['_'+property] = newValue; 
-					domElem.innerHTML = text + ' ' + newValue; 
-				}, 
-				configurable: true 
-			});	
+		function setValDomElem(domElem,newValue){
+			if(domElem.length){
+				for(var i in domElem){
+						var tag = domElem[i].tagName|| null;
+						if(is_null(tag))
+							continue;
+						tag = tag.toLowerCase();
+						if(tag == 'input' || tag == 'textarea'){
+							domElem[i].value = newValue;
+						}else{
+							domElem[i].innerHTML = newValue;
+						}
+				}
+			}else{
+				var tag = domElem.tagName.toLowerCase() || null;
+				if(tag == 'input' || tag == 'textarea'){
+					domElem.value = newValue;
+				}else{
+					domElem.innerHTML = newValue; 
+				}
+			}
 		}
+		Object.defineProperty(obj, property, { 
+			get: function() {
+				return this['_'+property]; 
+			}, 
+			set: function(newValue) { 
+				this['_'+property] = newValue; 
+				setValDomElem(domElem,newValue);
+			}, 
+			configurable: true 
+		});
+
 	}
 
 }

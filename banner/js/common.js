@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 
 function supports_html5_storage() {
   try {
@@ -16,55 +16,83 @@ Date.prototype.yyyymmdd = function() {
    var _ss = this.getSeconds().toString();  
    return yyyy + '-' + ( mm[1]?mm:"0"+ mm[0] ) +'-' + (dd[1]?dd:"0"+dd[0]) + ' '+ _hh+':'+_mm+':'+_ss; // padding
 };
-function clearFields() {
-	nameField.val('');
-	urlField.val('');
-}
-function refreshCallbacks() {
-	// Needed to add new buttons to jQuery-extended object
-	removeBtns = $(removeBtns.selector);
 
-	removeBtns.click(function() {
-		var itemId = $(this).closest('tr').find('.id').text();
-		console.log(itemId);
-		siteList.remove('id', itemId);
-		//dellocalStorageParser(_PARSE.name);
-		clearFields();
-	});
-	$('a.delete').click(function(e) {
-		e.preventDefault();
-		var itemId = $(this).closest('tr').find('.id').text();
-		$('#deleteModal').modal('show');
-		//$('#deleteModal').find('#ok-del-btn').click(function(key){ console.log(_PARSE.name); dellocalStorageParser(key);});
-	});	
-	
-	$('a.edit').click(function(e) {
-		clearFields();
-		e.preventDefault();
-		//$('#editModal').addClass(' js_id_'+itemId);
-		$('#editModal').modal('show');
-	});
-
-}
 
 
 var scnt = 0;
 function createItem() {
 	scnt++;
 	var id = '#item_'+scnt+'';
-	return v(id+'.custom-block-item ', {}, [ 
+	return v(id+'.custom-block-item ', {}, [
+			v('hr'),
 			v('div',{},[
-				v('label',{}),
-				v('input',{}),
+				v('label',{'for': 'block_title_'+scnt},'Название'),
+				v('input',{'id': 'block_title_'+scnt }),
 			]),
 			v('div',{},[
-				v('label',{}),
-				v('textarea',{})
+				v('label',{'for': 'block_code_'+scnt},'Код'),
+				v('textarea',{'id':'block_code_'+scnt,'rows':"7", 'cols':"250", 'spellcheck':"false"})
 			]),
 	]);
 };
+function is_null( mixed_var ){	// Finds whether a variable is NULL
+	// 
+	// +   original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
 
-function bannerclose(loc)
+	return ( mixed_var === null );
+}
+function bindModelInput(obj, property, domElem) { 
+	if(is_null(domElem)){
+			Object.defineProperty(obj, property, { 
+				get: function() {
+					/*return text;*/ 
+					return this['_'+property]; 
+				}, 
+				set: function(newValue) { 
+					this['_'+property] = newValue; 
+				}, 
+				configurable: true 
+			});	
+	}else{
+		function setValDomElem(domElem,newValue){
+			if(domElem.length){
+				for(var i in domElem){
+						var tag = domElem[i].tagName|| null;
+						if(is_null(tag))
+							continue;
+						tag = tag.toLowerCase();
+						if(tag == 'input' || tag == 'textarea'){
+							domElem[i].value = newValue;
+						}else{
+							domElem[i].innerHTML = newValue;
+						}
+				}
+			}else{
+				var tag = domElem.tagName.toLowerCase() || null;
+				if(tag == 'input' || tag == 'textarea'){
+					domElem.value = newValue;
+				}else{
+					domElem.innerHTML = newValue; 
+				}
+			}
+
+		}
+		Object.defineProperty(obj, property, { 
+			get: function() {
+				return this['_'+property]; 
+			}, 
+			set: function(newValue) { 
+				this['_'+property] = newValue; 
+				setValDomElem(domElem,newValue);
+			}, 
+			configurable: true 
+		});
+
+	}
+
+}
+
+function siteclose(loc)
 {
 
 	$('#closeModal').modal('show');
@@ -72,7 +100,7 @@ function bannerclose(loc)
 	//$("#editModal").modal('hide');
 
 }
-function bannersave(successfunc)
+function sitesave(successfunc)
 {
 	alert('sdfsf');
 	//var parser = getlocalStorageParser();
