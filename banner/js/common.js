@@ -50,7 +50,8 @@ function bindModelInput(obj, property, domElem) {
 				}, 
 				set: function(newValue) { 
 					this['_'+property] = newValue; 
-				}, 
+				},
+				enumerable: false,
 				configurable: true 
 			});	
 	}else{
@@ -84,7 +85,8 @@ function bindModelInput(obj, property, domElem) {
 			set: function(newValue) { 
 				this['_'+property] = newValue; 
 				setValDomElem(domElem,newValue);
-			}, 
+			},
+			enumerable: false,
 			configurable: true 
 		});
 
