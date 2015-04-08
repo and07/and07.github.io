@@ -238,9 +238,9 @@ border-radius: 3px;
 					<div class="modal-body" style="max-height:80%;">
 						<fieldset>
 							<label for="CreateScraperForm_name" class="required">Название сайта<span class="required">*</span></label>
-							<input name="CreateScraperForm[name]" class="js_site_name" type="text">	
+							<input name="CreateScraperForm[name]" class="js_site_name" readonly type="text">	
 							<label for="CreateScraperForm_startpage" class="required">URL сайта <span class="required">*</span></label>
-							<input style="width: 400px;" name="CreateScraperForm[startpage]" class="js_site_url" type="text">
+							<input style="width: 400px;" name="CreateScraperForm[startpage]" readonly class="js_site_url" type="text">
 						</fieldset>
 						<div id="block_list" class="grid-view">
 								<input type="text" class="search" placeholder="Search" />
@@ -640,6 +640,7 @@ function refreshCallbacksSite() {
 				'name' : blockName.val(),
 				'horizontal' :blockHorizontal.val(),
 				'vertical' : blockVertical.val(),
+				'code' : _BANNER.getBlock()['code']
 			};
 			block.values(_block[blockName.val()]);
 			delete _BANNER.getBlock();
@@ -696,6 +697,20 @@ function refreshCallbacksSite() {
 			clearFieldsCode();
 			refreshCallbacksCode();
 			
+		}else{
+			var code = codeList.get('id',  _BANNER.getCode()['id'])[0];
+			var _code = {};
+			_code[codeName.val()] = {
+				'id' :   _BANNER.getCode()['id'],
+				'name' : codeName.val(),
+				'code' : codeCode.val(),
+			};
+			code.values(_code[codeName.val()]);
+			delete _BANNER.getCode();
+			_BANNER.code_name = name;
+			_BANNER.getBlock()['code'].push(_code);
+			clearFieldsCode();
+			refreshCallbacksCode();
 		}
 		$('#codeModal').modal('hide');
 	});
