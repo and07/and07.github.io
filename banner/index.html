@@ -138,13 +138,38 @@ border-radius: 3px;
 					<h3>Удаление сайта</h3>
 				</div>
 				 <div class="modal-body">
-					<p>Вы действительно хотите удалить парсер?</p>
+					<p>Вы действительно хотите удалить <span class="js_site_name js_block_name js_code_name"></span>?</p>
 				</div>
 				 <div class="modal-footer">
-					<a data-dismiss="modal" id="ok-del-btn" class="btn remove-item-btn" href="/main/delete/955">OK</a>    <a data-dismiss="modal" id="cancel-del-btn" class="btn" href="#">Отмена</a></div>
+					<a data-dismiss="modal" id="ok-del-btn" class="btn remove-item-btn js_del_site" href="/main/delete/955">OK</a>    <a data-dismiss="modal" id="cancel-del-btn" class="btn" href="#">Отмена</a></div>
 				</div>
-<!-- DEL-->	
-
+<!-- DEL-->
+<!-- DEL BLOCK-->				
+				<div id="deleteBlockModal" class="modal fade" style="display: none;">
+				<div class="modal-header">
+					<a class="close" data-dismiss="modal">×</a>
+					<h3>Удаление сайта</h3>
+				</div>
+				 <div class="modal-body">
+					<p>Вы действительно хотите удалить <span class="js_site_name js_block_name js_code_name"></span>?</p>
+				</div>
+				 <div class="modal-footer">
+					<a data-dismiss="modal" id="ok-del-btn" class="btn remove-item-btn js_del_block" href="/main/delete/955">OK</a>    <a data-dismiss="modal" id="cancel-del-btn" class="btn" href="#">Отмена</a></div>
+				</div>
+<!-- DEL BLOCK-->
+<!-- DEL CODE-->				
+				<div id="deleteCodeModal" class="modal fade" style="display: none;">
+				<div class="modal-header">
+					<a class="close" data-dismiss="modal">×</a>
+					<h3>Удаление сайта</h3>
+				</div>
+				 <div class="modal-body">
+					<p>Вы действительно хотите удалить <span class="js_site_name js_block_name js_code_name"></span>?</p>
+				</div>
+				 <div class="modal-footer">
+					<a data-dismiss="modal" id="ok-del-btn" class="btn remove-item-btn js_del_code" href="/main/delete/955">OK</a>    <a data-dismiss="modal" id="cancel-del-btn" class="btn" href="#">Отмена</a></div>
+				</div>
+<!-- DEL CODE-->
 
 <!-- CREATE-->	
 				<div id="createModal" class="modal fade" style="display: none;" >
@@ -279,7 +304,7 @@ border-radius: 3px;
 										<div class="form-field mb5">
 											<span>
 												<div class="axis-size-inputs">
-													<input class="template_block preview-input block-size-input" id="size_horizontal-input" type="text" name="size_horizontal" required="required" value="240px">
+													<input class="template_block preview-input block-size-input js_block_horizontal" id="size_horizontal-input" type="text" name="size_horizontal" required="required" value="240px">
 													<div class="error-message" id="size_horizontal-errmsg">
 														
 													</div>
@@ -291,7 +316,7 @@ border-radius: 3px;
 										<p class="block-edit-form-label">Высота блока</p>
 										<div class="form-field mb5">
 											<div class="axis-size-inputs">
-												<input class="block-size-input template_block preview-input" id="size_vertical-input" type="text" name="size_vertical" required="required" value="400px">
+												<input class="block-size-input template_block preview-input js_block_vertical" id="size_vertical-input" type="text" name="size_vertical" required="required" value="400px">
 												<div class="error-message" id="size_vertical-errmsg">
 												
 												</div>
@@ -300,15 +325,22 @@ border-radius: 3px;
 										
 									</div>
 									</div>
+									
+									<div id="code_list" class="grid-view">
+											<input type="text" class="search" placeholder="Search" />
+											<ul class="list list-unstyled">
+												<li class="">
+													<span class="sort" id="yw0_c0" data-sort="id" style="width:200px;display: inline-block;"><a href="#/main?Scrapers_sort=id" >ID<span class="caret"></span></a></span>
+													<span class="sort" id="yw0_c1" data-sort="name" style="width:200px;display: inline-block;"><a href="#/main?Scrapers_sort=name" >Name Code<span class="caret"></span></a></span>
+													<span class="button-column" id="yw0_c4" style="width:200px;display: inline-block;"> </span>
+												</li>
+											</ul>
+									</div>
 									<button id="additional-custom-block-button" class="btn green js_add_code" type="button">
 										<i class="icon-add-white"></i>
 										Еще один код
 									</button>
 									
-									
-									<div class="custom-block-form">
-										
-									</div>
 								
 								</div>
 								
@@ -325,6 +357,43 @@ border-radius: 3px;
 					</div>
 <!-- BLOCK -->
 
+<!-- CODE -->
+					<div  id="codeModal" class="modal fade" style="display: none; width:50%;">
+						<div class="modal-header">
+							<a class="close" data-dismiss="modal">×</a>
+							<h3 id = "js_name">Code <span class="js_code_name"></span></h3>
+						</div>
+						<div class="modal-body" style="max-height:80%;">
+									<div class="custom-block-form">
+										<div class="custom-block-item " data-enum="1">
+											<div>
+												<label for="custom-block-title">Название <sup class="red">*</sup></label>
+												<input class="custom-block-title js_code_name" id="custom-block-title" name="custom-block-title" type="text" value="">
+												<div class="error-message">
+													
+												</div>
+											</div>
+											<div>
+												<label for="custom-block-code" style="width: 590px">
+													Код
+													<div class="adv_codes_input_help code_help help_class" data-placement="top" data-trigger="hover" data-content="Вставьте код, который Вам выдала рекламная сеть. Обратите внимание на то, что если у рекламной сети 2 куска кода, то вставлять их нужно друг за другом, в любом порядке." data-original-title="" title="">
+													</div>
+												</label>
+												<textarea class="nice-textarea custom-block-code custom_code valid js_code_code" id="custom-block-code" name="custom-block-code" rows="7" cols="250" spellcheck="false"></textarea>
+												<div class="error-message">
+													
+												</div>
+											</div>
+
+										</div>
+									</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+							<button type="button" class="btn btn-primary js_save_code">Сохранить изменения</button>
+						</div>
+					</div>
+<!-- CODE -->
 
 <script type="text/javascript" src="js/common.js" ></script>
 <script type="text/javascript" >
@@ -335,34 +404,51 @@ if(!supports_html5_storage()){
 
 var _BANNER = {
 	sites: [],
-	_id: null,
 	_name : null,
 	_url : null,
 	_block_name : null,
+	_block_vertical : null,
+	_block_horizontal : null,
+	_code_name : null,
+	_code_code: null,
 	getSite : function(){
 		for(var i in _BANNER.sites){
 			if(_BANNER.sites[i].hasOwnProperty(_BANNER.name)){
 				return _BANNER.sites[i][_BANNER.name];
 			}
 		}
-		return null;
+		return {};
 	},
 	getBlock : function(){
-		var site = _BANNER.getSite();
+		var site = _BANNER.getSite()['block'];
 		for (var b in site){
 			if(site[b].hasOwnProperty(_BANNER.block_name)){
 				return site[b][_BANNER.block_name];
 			}			
 		}
+		return {};
 	},
 	getCode: function(){
-		
+		var block = _BANNER.getBlock()['code'];
+		for (var b in block){
+			if(block[b].hasOwnProperty(_BANNER.code_name)){
+				return block[b][_BANNER.code_name];
+			}			
+		}
+		return {};
 	}
 };
 
 bindModelInput(_BANNER,'name', document.querySelectorAll('.js_site_name'));
 bindModelInput(_BANNER,'url', document.querySelectorAll('.js_site_url'));
+
 bindModelInput(_BANNER,'block_name', document.querySelectorAll('.js_block_name'));
+bindModelInput(_BANNER,'block_vertical', document.querySelectorAll('.js_block_vertical'));
+bindModelInput(_BANNER,'block_horizontal', document.querySelectorAll('.js_block_horizontal'));
+
+
+bindModelInput(_BANNER,'code_name', document.querySelectorAll('.js_code_name'));
+bindModelInput(_BANNER, 'code_code', document.querySelectorAll('.js_code_code'));
 bindModelInput(_BANNER,'id', null);
 
 	//http://www.listjs.com/examples/add-get-remove
@@ -376,8 +462,7 @@ function refreshCallbacksSite() {
 	removeBtns = $(removeBtns.selector);
 
 	removeBtns.click(function() {
-		var itemId = $(this).closest('tr').find('.id').text();
-		console.log(itemId);
+		var itemId = _BANNER.id;
 		siteList.remove('id', itemId);
 		//dellocalStorageParser(_PARSE.name);
 		clearFieldsSite();
@@ -420,7 +505,7 @@ function refreshCallbacksSite() {
 	var idField = $('#id-field');
 	var nameField = $('#name-field');
 	var urlField = $('#url-field');
-	var removeBtns = $('.remove-item-btn');
+	var removeBtns = $('.js_del_site');
 	var addBtn = $('#add-btn');
 	
 	var SiteOptions = {
@@ -464,12 +549,7 @@ function refreshCallbacksSite() {
 		$('#createModal').modal('show');
 	});
 	
-	$('.js_add_code').click(function(e) {
-		document.querySelector('.custom-block-form').appendChild( createItem());
-	});
-	
-	
-	
+
 	
 	/***********************BLOCK**************************/
 	var BlockOptions = {
@@ -480,19 +560,24 @@ function refreshCallbacksSite() {
 	var blockList = new List('block_list', BlockOptions);
 	
 	var blockName = $('#title_input');
+	var blockVertical = $('#size_vertical-input');
+	var blockHorizontal = $('#size_horizontal-input');
 	var blockDel = $('.del_block');
 	var blockEdit = $('.edit_block');
-	var blockRemove = $();
+	var blockRemove = $('.js_del_block');
+
 	
 	function clearFieldsBlock() {
 		blockName.val('');
+		blockVertical.val('');
+		blockHorizontal.val('');
+		_BANNER.block_name = null;
 	}
 	function refreshCallbacksBlock() {
 		// Needed to add new buttons to jQuery-extended object
 
 		blockRemove.click(function() {
-			var itemId = $(this).closest('tr').find('.id').text();
-			console.log(itemId);
+			var itemId = _BANNER.getBlock()['id'];
 			blockList.remove('id', itemId);
 			//dellocalStorageParser(_PARSE.name);
 			clearFieldsBlock();
@@ -500,8 +585,9 @@ function refreshCallbacksSite() {
 		
 		 $('.del_block').click(function(e) {
 			e.preventDefault();
-			$("#deleteModal").css("z-index", "1051");
-			$('#deleteModal').modal('show');
+			_BANNER.block_name = $(this).parent().parent().find('.name').text();
+			$("#deleteBlockModal").css("z-index", "1051");
+			$('#deleteBlockModal').modal('show');
 			//$('#deleteModal').find('#ok-del-btn').click(function(key){ console.log(_PARSE.name); dellocalStorageParser(key);});
 		});
 		
@@ -510,6 +596,8 @@ function refreshCallbacksSite() {
 			clearFieldsBlock();
 			e.preventDefault();
 			_BANNER.block_name = $(this).parent().parent().find('.name').text();
+			_BANNER.block_vertical = _BANNER.getBlock()['vertical'];
+			_BANNER.block_horizontal = _BANNER.getBlock()['horizontal'];
 			$('#blockModal').modal('show');
 		});
 	}
@@ -519,34 +607,117 @@ function refreshCallbacksSite() {
 		_BANNER.block_name = null;
 		$('#blockModal').modal('show');
 	});
-	
+
+	function saveBlock(){
+		var id = Math.floor(Math.random()*110000);
+		var name = blockName.val();
+		var horizontal = blockHorizontal.val();
+		var vertical = blockVertical.val();
+		
+		var block = {};
+		block[name] = {
+			'id' : id,
+			'name' : name,
+			'horizontal' :horizontal,
+			'vertical' : vertical,
+			'code' : []
+		};
+		_BANNER.block_name = name;
+		_BANNER.getSite()['block'].push(block);
+		blockList.add(block[name]);
+	}
 	$('.js_save_block').click(function(){
 	
 		if( ! _BANNER.block_name ){
-			var id = Math.floor(Math.random()*110000);
-			var name = blockName.val();
-			
-			var block = {};
-			block[name] = {
-				'id' : id,
-				'name' : name,
-				'code' : []
-			};
-			_BANNER.block_name = name;
-			_BANNER.getSite()['block'].push(block)
-			/*
-			for(var i in _BANNER.sites){
-				if( _BANNER.name in  _BANNER.sites[i]){
-					_BANNER.sites[i][_BANNER.name]['block'].push(block);
-				}
-			}
-			*/
-			blockList.add(block[name]);
+			saveBlock();
 		}
 		clearFieldsBlock();
 		refreshCallbacksBlock();
 		$('#blockModal').modal('hide');
 	});
+	
+	$('.js_add_code').click(function(e) {
+		//document.querySelector('.custom-block-form').appendChild( createItem());
+		saveBlock();
+		if(!_BANNER.block_name){
+			alert('Name EMPTY!!!');
+		}else{
+			refreshCallbacksCode();
+			$('#codeModal').modal('show');
+		}
+	});
+	
+	
+	
+	
+	/********************CODE**********************/
+	var CodeOptions = {
+	  valueNames: [ 'id', 'name'],
+	  item: '<li class=""><span class="id" style="width:200px;display: inline-block;"></span><span class="name" style="width:200px;display: inline-block;"></span><span style="width:200px;display: inline-block;"><a style="margin-left: 5px;" class="edit_code" rel="tooltip" href="/edit/955" data-original-title="Редактировать"><i class="icon-edit"></i></a><a style="margin-left: 5px;" class="del_code" rel="tooltip" href="/main/delete/955" data-original-title="Удалить"><i class="icon-remove"></i></a></span></li>'
+	};
+	// Init list
+	var codeList = new List('code_list', CodeOptions);
+	var codeName = $("#custom-block-title");
+	var codeCode = $('#custom-block-code');
+	var codeRemove = $('.js_del_code');
+	
+	$('.js_save_code').click(function(){
+		if( ! _BANNER.code_name ){
+			var id = Math.floor(Math.random()*110000);
+			var name = codeName.val();
+			var _code = codeCode.val();
+			var code = {};
+			code[name] = {
+				'id' : id,
+				'name' : name,
+				'code' : _code
+			};
+			codeList.add(code[name]);
+			
+			_BANNER.getBlock()['code'].push(code);
+			clearFieldsCode();
+			refreshCallbacksCode();
+			
+		}
+		$('#codeModal').modal('hide');
+	});
+	
+
+	
+function clearFieldsCode(){
+	codeName.val('');
+	codeCode.val('');
+	_BANNER.code_name = null;
+	_BANNER.code_code = null;
+}
+function refreshCallbacksCode() {
+	// Needed to add new buttons to jQuery-extended object
+
+	codeRemove.click(function() {
+		var itemId = _BANNER.getCode()['id'];
+		console.log(_BANNER.code_name);
+		codeList.remove('id', itemId);
+		//dellocalStorageParser(_PARSE.name);
+		clearFieldsCode();
+	});
+	
+	 $('.del_code').click(function(e) {
+		e.preventDefault();
+		_BANNER.code_name = $(this).parent().parent().find('.name').text();
+		$("#deleteCodeModal").css("z-index", "1051");
+		$('#deleteCodeModal').modal('show');
+		//$('#deleteModal').find('#ok-del-btn').click(function(key){ console.log(_PARSE.name); dellocalStorageParser(key);});
+	});
+	
+	
+	$('.edit_code').click(function(e) {
+		clearFieldsCode();
+		e.preventDefault();
+		_BANNER.code_name = $(this).parent().parent().find('.name').text();
+		_BANNER.code_code = _BANNER.getCode()['code'];
+		$('#codeModal').modal('show');
+	});
+}	
 </script>
 </body>
 </html>
