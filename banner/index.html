@@ -203,7 +203,7 @@ border-radius: 3px;
 	 
 	<div class="modal-body">
 		<p>Сохранить изменения?</p>
-		<div class="popup3" style="margin-left: 45%; top: 40%;"><img src="images/ajax-loader2.gif" /></div>
+		<div class="popup3" style="margin-left: 45%; top: 40%;"><img src="img/ajax-loader2.gif" /></div>
 	</div>
 	 
 	<div class="modal-footer">
@@ -259,7 +259,7 @@ border-radius: 3px;
 							</button>
 							<div id="rules-right-btns">
 								<div class="success">
-									<img style="display: none;" src="images/ajax-loader2.gif" />
+									<img style="display: none;" src="img/ajax-loader2.gif" />
 									<div></div>
 								</div>
 							</div>
@@ -572,6 +572,8 @@ function refreshCallbacksSite() {
 		blockVertical.val('');
 		blockHorizontal.val('');
 		_BANNER.block_name = null;
+		_BANNER.block_vertical = null;
+		_BANNER.block_horizontal = null;
 	}
 	function refreshCallbacksBlock() {
 		// Needed to add new buttons to jQuery-extended object
@@ -608,8 +610,8 @@ function refreshCallbacksSite() {
 		$('#blockModal').modal('show');
 	});
 
-	function saveBlock(){
-		var id = Math.floor(Math.random()*110000);
+	function saveBlock(obj){
+		var id = obj? obj['id'] : Math.floor(Math.random()*110000);
 		var name = blockName.val();
 		var horizontal = blockHorizontal.val();
 		var vertical = blockVertical.val();
@@ -630,6 +632,19 @@ function refreshCallbacksSite() {
 	
 		if( ! _BANNER.block_name ){
 			saveBlock();
+		}else{
+			var block = blockList.get('id',  _BANNER.getBlock()['id'])[0];
+			var _block = {};
+			_block[blockName.val()] = {
+				'id' :  _BANNER.getBlock()['id'],
+				'name' : blockName.val(),
+				'horizontal' :blockHorizontal.val(),
+				'vertical' : blockVertical.val(),
+			};
+			block.values(_block[blockName.val()]);
+			delete _BANNER.getBlock();
+			_BANNER.block_name = name;
+			_BANNER.getSite()['block'].push(_block);
 		}
 		clearFieldsBlock();
 		refreshCallbacksBlock();
@@ -638,10 +653,13 @@ function refreshCallbacksSite() {
 	
 	$('.js_add_code').click(function(e) {
 		//document.querySelector('.custom-block-form').appendChild( createItem());
-		saveBlock();
+		if( ! _BANNER.block_name ){
+			saveBlock();
+		}
 		if(!_BANNER.block_name){
-			alert('Name EMPTY!!!');
+			alert('Name block empty!!!');
 		}else{
+			clearFieldsCode();
 			refreshCallbacksCode();
 			$('#codeModal').modal('show');
 		}
