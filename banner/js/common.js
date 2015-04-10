@@ -17,7 +17,27 @@ Date.prototype.yyyymmdd = function() {
    return yyyy + '-' + ( mm[1]?mm:"0"+ mm[0] ) +'-' + (dd[1]?dd:"0"+dd[0]) + ' '+ _hh+':'+_mm+':'+_ss; // padding
 };
 
+function setlocalStorageAMS (data){
+	localStorage['ams']= JSON.stringify(data); 
+}
+function getAMSData(){
+	if(localStorage['ams']){
+		var ams = JSON.parse(localStorage['ams']) || {};
+		return ams;
+	}
+	return false;
+}
+function getlocalStorageAMS (){
+	return getAMSData(); 
+}
 
+function dellocalStorageAMS (key){
+	var ams = getAMSData();
+	if(ams){
+		delete ams[key];
+	}
+	setlocalStorageAMS(ams);
+}
 
 var scnt = 0;
 function createItem() {

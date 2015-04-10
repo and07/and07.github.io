@@ -64,6 +64,53 @@ pointer-events: all;
 /*max-width: 450px;*/
 border-radius: 3px;
 }
+
+.title{
+	font-size: 20px;
+	margin: 0 auto;
+	width: 100px;
+}
+
+.head_list {
+
+  font-family:sans-serif;
+  margin:0;
+  padding:20px 0 0;
+}
+.head_list > li {
+  display:block;
+  background-color: #eee;
+  padding:10px;
+  box-shadow: inset 0 1px 0 #fff;
+  display: table;
+}
+.head_list > li > span {
+  width:200px;
+  display:table-cell;
+}
+
+
+.list {
+	display: table;
+  font-family:sans-serif;
+  margin:0;
+  padding:0px 0 0;
+}
+.list > li {
+  display:block;
+  background-color: #eee;
+  padding:10px;
+  box-shadow: inset 0 1px 0 #fff;
+  display: table;
+}
+.list > li > span {
+  width:200px;
+  display:table-cell;
+}
+
+.clear{
+clear:both;
+}
 </style>
 </head>
 
@@ -75,16 +122,32 @@ border-radius: 3px;
 		<div id="userinfo">prio@hotbox.ru&nbsp;&nbsp;|&nbsp;&nbsp;<a target="_blank" href="#/ru/docs">Документация</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#/ru/site/logout">Выход</a>		</div>
 		<div id="logo">
 			<a href="#/ru/">
-				<h1>Banners</h1>
+				<h1>AMS</h1>
 			</a>
 		</div>
 	</div>	
 	</div><!-- header -->
+		<div class="span2">
+			<div class="right-panel">
+				<a href="/main/create"  class="create" rel="tooltip"  data-original-title="Create"><i class="icon-plus"></i>&nbsp;Добавить сайт</a>		
+			</div>
+		</div>
+		<div class="clear"></div>
 	<div class="container-fluid">
-		
-<div class="row-fluid">
-<div class="container-fluid">
+				<div class="title">Сайты</div>
 				<div id="site_list" class="grid-view">
+				
+					<ul class="head_list">
+							<li class="">
+								<span class="sort" data-sort="id" id="yw0_c0"><a href="/main?Scrapers_sort=id">ID<span class="caret"></span></a></span>
+								<span class="sort" data-sort="name" id="yw0_c1"><a href="/main?Scrapers_sort=name">Название сайта<span class="caret"></span></a></span>
+								<span class="sort" data-sort="url"  id="yw0_c2"><a href="/main?Scrapers_sort=start_page">URL сайта<span class="caret"></span></a></span>
+								<span class="sort" data-sort="date_edit" id="yw0_c3"><a href="/main?Scrapers_sort=dtmodified">Изменено<span class="caret"></span></a></span>
+								<span class="button-column" id="yw0_c4"> <input type="text" class="search" placeholder="Search" /></span>
+							</li>
+					</ul>
+					<ul class="list"></ul>
+<!--					
 					<table class="items table table-striped table-bordered table-condensed">
 					<thead>
 						<tr>
@@ -118,17 +181,9 @@ border-radius: 3px;
 						</tr>
 					</tbody>
 					</table>
-					<div class="keys" style="display:none" title="/main"><span>959</span><span>955</span></div>
+-->
 				</div>
-					<div class="span2">
-						<div class="right-panel">
-							<a href="/main/create"  class="create" rel="tooltip"  data-original-title="Create"><i class="icon-plus"></i>&nbsp;Добавить сайт</a>		
-						</div>
-						<div class="right-panel hint"></div>
-					</div>
-</div>				
-</div>
-</div>				
+	</div>				
 
 </div>			
 <!-- DEL-->				
@@ -216,20 +271,7 @@ border-radius: 3px;
 
 
 <!-- EDIT-->
-<style>
-.list {
-  font-family:sans-serif;
-  margin:0;
-  padding:20px 0 0;
-}
-.list > li {
-  display:block;
-  background-color: #eee;
-  padding:10px;
-  box-shadow: inset 0 1px 0 #fff;
-}
-
-</style>				
+				
 				<div id="editModal" class="modal fade"  style="display: none; margin: 0px; top: 0px;left:0px; width:100%;">
 					<div class="modal-header">
 						<a class="close" data-dismiss="modal">×</a>
@@ -242,14 +284,17 @@ border-radius: 3px;
 							<label for="CreateScraperForm_startpage" class="required">URL сайта <span class="required">*</span></label>
 							<input style="width: 400px;" name="CreateScraperForm[startpage]" readonly class="js_site_url" type="text">
 						</fieldset>
+						<div class="title">Блоки</div>
+
 						<div id="block_list" class="grid-view">
-								<input type="text" class="search" placeholder="Search" />
+								<ul class="head_list">
+										<li class="">
+											<span class="sort" id="yw0_c0" data-sort="id" ><a href="#/main?Scrapers_sort=id" >ID<span class="caret"></span></a></span>
+											<span class="sort" id="yw0_c1" data-sort="name"><a href="#/main?Scrapers_sort=name" >Блок<span class="caret"></span></a></span>
+											<span class="button-column" id="yw0_c4"> <input type="text" class="search" placeholder="Search" /></span>
+										</li>
+								</ul>
 								<ul class="list list-unstyled">
-									<li class="">
-										<span class="sort" id="yw0_c0" data-sort="id" style="width:200px;display: inline-block;"><a href="#/main?Scrapers_sort=id" >ID<span class="caret"></span></a></span>
-										<span class="sort" id="yw0_c1" data-sort="name" style="width:200px;display: inline-block;"><a href="#/main?Scrapers_sort=name" >Блок<span class="caret"></span></a></span>
-										<span class="button-column" id="yw0_c4" style="width:200px;display: inline-block;"> </span>
-									</li>
 								</ul>
 						</div>
 						
@@ -325,15 +370,17 @@ border-radius: 3px;
 										
 									</div>
 									</div>
-									
+									<div class="title">Код</div>
 									<div id="code_list" class="grid-view">
-											<input type="text" class="search" placeholder="Search" />
+											
+											<ul class="head_list">
+													<li class="">
+														<span class="sort" id="yw0_c0" data-sort="id" ><a href="#/main?Scrapers_sort=id" >ID<span class="caret"></span></a></span>
+														<span class="sort" id="yw0_c1" data-sort="name" ><a href="#/main?Scrapers_sort=name" >Name Code<span class="caret"></span></a></span>
+														<span class="button-column" id="yw0_c4"> <input type="text" class="search" placeholder="Search" /></span>
+													</li>
+											</ul>
 											<ul class="list list-unstyled">
-												<li class="">
-													<span class="sort" id="yw0_c0" data-sort="id" style="width:200px;display: inline-block;"><a href="#/main?Scrapers_sort=id" >ID<span class="caret"></span></a></span>
-													<span class="sort" id="yw0_c1" data-sort="name" style="width:200px;display: inline-block;"><a href="#/main?Scrapers_sort=name" >Name Code<span class="caret"></span></a></span>
-													<span class="button-column" id="yw0_c4" style="width:200px;display: inline-block;"> </span>
-												</li>
 											</ul>
 									</div>
 									<button id="additional-custom-block-button" class="btn green js_add_code" type="button">
@@ -402,6 +449,17 @@ if(!supports_html5_storage()){
 	alert('обновите браузер');
 }
 
+function clearBanner(){
+	sites: [],
+	_name : null,
+	_url : null,
+	_block_name : null,
+	_block_vertical : null,
+	_block_horizontal : null,
+	_code_name : null,
+	_code_code: null
+}
+
 var _BANNER = {
 	sites: [],
 	_name : null,
@@ -464,6 +522,17 @@ function refreshCallbacksSite() {
 	removeBtns.click(function() {
 		var itemId = _BANNER.id;
 		siteList.remove('id', itemId);
+		
+		var arr = [];
+		for(var i in  _BANNER.sites){
+			if( _BANNER.sites[i][_BANNER.name]){
+				
+			}else{
+				arr.push(_BANNER.sites[i][_BANNER.name][i]);
+			}
+		}
+		
+		_BANNER.sites = arr;
 		//dellocalStorageParser(_PARSE.name);
 		clearFieldsSite();
 	});
@@ -487,9 +556,9 @@ function refreshCallbacksSite() {
 	$('a.edit').click(function(e) {
 		clearFieldsSite();
 		e.preventDefault();
-		_BANNER.id = $(this).closest('tr').find('.id').text();
-		_BANNER.name = $(this).closest('tr').find('.name').text();
-		_BANNER.url = $(this).closest('tr').find('.url').text();
+		_BANNER.id = $(this).parent().parent().find('.id').text();
+		_BANNER.name = $(this).parent().parent().find('.name').text();
+		_BANNER.url = $(this).parent().parent().find('.url').text();
 		var site = {};
 		site[_BANNER.name] = {
 			'id' : _BANNER.id,
@@ -519,7 +588,16 @@ function refreshCallbacksSite() {
 	
 	var SiteOptions = {
 		valueNames: [ 'id', 'name', 'url', 'date_edit' ],
-		//item: '<tr class="odd"><td class="id"></td><td class="name"></td><td class="url"></td><td class="date_edit" style="width: 180px;"></td><td style="width: 95px"><a style="margin-left: 5px;" class="edit" rel="tooltip" href="#" data-original-title="Редактировать"><i class="icon-edit"></i></a><a style="margin-left: 5px;" rel="tooltip" href="/generate/" data-original-title="Генерировать"><i class="icon-file"></i></a><a style="margin-left: 5px;" onclick="showRunDialog(this);" rel="tooltip" href="#" data-original-title="Управление запуском"><i class="icon-play"></i></a><a style="margin-left: 5px;" onclick="showResultDialog(this);" rel="tooltip" href="#" data-original-title="Результат выполнения"><i class="icon-folder-open"></i></a><a style="margin-left: 5px;" class="delete" rel="tooltip" href="#" data-original-title="Удалить"><i class="icon-remove"></i></a></td></tr>'
+		item: '<li class="">'+
+						'<span class="id" id="yw0_c0"><a href="/main?Scrapers_sort=id"><span class="caret"></span></a></span>'+
+						'<span class="name" id="yw0_c1"><a href="/main?Scrapers_sort=name"><span class="caret"></span></a></span>'+
+						'<span class="url" id="yw0_c2"><a href="/main?Scrapers_sort=start_page"><span class="caret"></span></a></span>'+
+						'<span class="date_edit" id="yw0_c3"><a href="/main?Scrapers_sort=dtmodified"><span class="caret"></span></a></span>'+
+						'<span class="button-column" id="yw0_c4">'+ 
+								'<a style="margin-left: 5px;" class="edit" rel="tooltip" href="#/edit/955" data-original-title="Редактировать"><i class="icon-edit"></i></a>'+
+								'<a style="margin-left: 5px;" class="delete" rel="tooltip" href="#/main/delete/955" data-original-title="Удалить"><i class="icon-remove"></i></a>'+
+						'</span>'+
+				'</li>'
 	};
 	// Init list
 	var siteList = new List('site_list', SiteOptions);
@@ -573,11 +651,18 @@ function refreshCallbacksSite() {
 	
 	function initBlockList(){
 		blockList = null;
-		$('#block_list > ul.list').html('<li class=""><span class="sort" id="yw0_c0" data-sort="id" style="width:200px;display: inline-block;"><a href="#/main?Scrapers_sort=id" >ID<span class="caret"></span></a></span><span class="sort" id="yw0_c1" data-sort="name" style="width:200px;display: inline-block;"><a href="#/main?Scrapers_sort=name" >Блок<span class="caret"></span></a></span><span class="button-column" id="yw0_c4" style="width:200px;display: inline-block;"> </span></li>');
+		$('#block_list > ul.list').html('');
 
 		var BlockOptions = {
 		  valueNames: [ 'id', 'name'],
-		  item: '<li class=""><span class="id" style="width:200px;display: inline-block;"></span><span class="name" style="width:200px;display: inline-block;"></span><span style="width:200px;display: inline-block;"><a style="margin-left: 5px;" class="edit_block" rel="tooltip" href="/edit/955" data-original-title="Редактировать"><i class="icon-edit"></i></a><a style="margin-left: 5px;" class="del_block" rel="tooltip" href="/main/delete/955" data-original-title="Удалить"><i class="icon-remove"></i></a></span></li>'
+		  item: '<li class="">'+
+					'<span class="id"></span>'+
+					'<span class="name"></span>'+
+					'<span style="width:200px;display: inline-block;">'+
+						'<a style="margin-left: 5px;" class="edit_block" rel="tooltip" href="/edit/955" data-original-title="Редактировать"><i class="icon-edit"></i></a>'+
+						'<a style="margin-left: 5px;" class="del_block" rel="tooltip" href="/main/delete/955" data-original-title="Удалить"><i class="icon-remove"></i></a>'+
+					'</span>'+
+				'</li>'
 		};
 		// Init list
 		blockList = new List('block_list', BlockOptions );	
@@ -585,18 +670,31 @@ function refreshCallbacksSite() {
 	
 	function clearFieldsBlock() {
 		blockName.val('');
-		//blockVertical.val('');
-		//blockHorizontal.val('');
+		blockVertical.val('');
+		blockHorizontal.val('');
 		_BANNER.block_name = null;
-		//_BANNER.block_vertical = null;
-		//_BANNER.block_horizontal = null;
+		_BANNER.block_vertical = null;
+		_BANNER.block_horizontal = null;
 	}
 	function refreshCallbacksBlock() {
 		// Needed to add new buttons to jQuery-extended object
 
 		blockRemove.click(function() {
-			var itemId = _BANNER.getBlock()['id'];
+			var block = _BANNER.getBlock();
+			var itemId = block['id'];
 			blockList.remove('id', itemId);
+			
+			var arr = [];
+			for(var i in  _BANNER.getSite()['block']){
+				if(_BANNER.getSite()['block'][i][block['name']]){
+					
+				}else{
+					arr.push(_BANNER.getSite()['block'][i]);
+				}
+			}
+			
+			_BANNER.getSite()['block'] = arr;
+			
 			//dellocalStorageParser(_PARSE.name);
 			clearFieldsBlock();
 		});
@@ -625,7 +723,7 @@ function refreshCallbacksSite() {
 
 	$('.js_add_block').click(function(){
 		//clearFieldsBlock();
-		$('#code_list > ul.list').html('<li class=""><span class="sort" id="yw0_c0" data-sort="id" style="width:200px;display: inline-block;"><a href="#/main?Scrapers_sort=id" >ID<span class="caret"></span></a></span><span class="sort" id="yw0_c1" data-sort="name" style="width:200px;display: inline-block;"><a href="#/main?Scrapers_sort=name" >Блок<span class="caret"></span></a></span><span class="button-column" id="yw0_c4" style="width:200px;display: inline-block;"> </span></li>');
+		$('#code_list > ul.list').html('');
 		$('#blockModal').modal('show');
 	});
 
@@ -683,39 +781,38 @@ function refreshCallbacksSite() {
 		if( ! _BANNER.block_name ){
 			saveBlock();
 		}else{
-			if(_BANNER.getBlock()['name'] != blockName.val() ){
-				
-				var code = _BANNER.getBlock()['code'] || [];
-				var block = blockList.get('id',  _BANNER.getBlock()['id'])[0];
-				var _block = {};
-				_block[blockName.val()] = {
-					'id' :  _BANNER.getBlock()['id'],
-					'name' : blockName.val(),
-					'horizontal' :blockHorizontal.val(),
-					'vertical' : blockVertical.val(),
-					'code' : code
-				};
-				block.values(_block[blockName.val()]);
-				
-				var arr = [];
-				arr.push(_block);
-				var b = _BANNER.getBlock()['name'];
-				var s = _BANNER.getSite()['name'];
-				for(var i in _BANNER.sites){
-					if(_BANNER.sites[i][s]){
-						for(var k in _BANNER.sites[i][s]['block']){
-							if(_BANNER.sites[i][s]['block'][k][b] && _BANNER.sites[i][s]['block'][k][b]['name'] == b){
-								//console.log(_BANNER.sites[i][s]['block'][k][b]['name']);
-							}else{
-								arr.push(_BANNER.sites[i][s]['block'][k]);
-							}
+		
+			var code = _BANNER.getBlock()['code'] || [];
+			var block = blockList.get('id',  _BANNER.getBlock()['id'])[0];
+			var _block = {};
+			_block[blockName.val()] = {
+				'id' :  _BANNER.getBlock()['id'],
+				'name' : blockName.val(),
+				'horizontal' :blockHorizontal.val(),
+				'vertical' : blockVertical.val(),
+				'code' : code
+			};
+			block.values(_block[blockName.val()]);
+			
+			var arr = [];
+			arr.push(_block);
+			var b = _BANNER.getBlock()['name'];
+			var s = _BANNER.getSite()['name'];
+			for(var i in _BANNER.sites){
+				if(_BANNER.sites[i][s]){
+					for(var k in _BANNER.sites[i][s]['block']){
+						if(_BANNER.sites[i][s]['block'][k][b] && _BANNER.sites[i][s]['block'][k][b]['name'] == b){
+							//console.log(_BANNER.sites[i][s]['block'][k][b]['name']);
+						}else{
+							arr.push(_BANNER.sites[i][s]['block'][k]);
 						}
 					}
 				}
-
-				_BANNER.block_name = name;
-				_BANNER.getSite()['block'] = arr;
 			}
+
+			_BANNER.block_name = name;
+			_BANNER.getSite()['block'] = arr;
+
 		}
 		clearFieldsBlock();
 		refreshCallbacksBlock();
@@ -731,11 +828,17 @@ function refreshCallbacksSite() {
 	var codeRemove = $('.js_del_code');
 	function initCodeList(){
 		codeList = null;
-		$('#code_list > ul.list').html('<li class=""><span class="sort" id="yw0_c0" data-sort="id" style="width:200px;display: inline-block;"><a href="#/main?Scrapers_sort=id" >ID<span class="caret"></span></a></span><span class="sort" id="yw0_c1" data-sort="name" style="width:200px;display: inline-block;"><a href="#/main?Scrapers_sort=name" >Блок<span class="caret"></span></a></span><span class="button-column" id="yw0_c4" style="width:200px;display: inline-block;"> </span></li>');
-		
+		$('#code_list > ul.list').html('');
 		var CodeOptions = {
 		  valueNames: [ 'id', 'name'],
-		  item: '<li class=""><span class="id" style="width:200px;display: inline-block;"></span><span class="name" style="width:200px;display: inline-block;"></span><span style="width:200px;display: inline-block;"><a style="margin-left: 5px;" class="edit_code" rel="tooltip" href="/edit/955" data-original-title="Редактировать"><i class="icon-edit"></i></a><a style="margin-left: 5px;" class="del_code" rel="tooltip" href="/main/delete/955" data-original-title="Удалить"><i class="icon-remove"></i></a></span></li>'
+		  item: '<li class="">'+
+				'<span class="id" ></span>'+
+				'<span class="name" ></span>'+
+				'<span style="width:200px;display: inline-block;">'+
+					'<a style="margin-left: 5px;" class="edit_code" rel="tooltip" href="/edit/955" data-original-title="Редактировать"><i class="icon-edit"></i></a>'+
+					'<a style="margin-left: 5px;" class="del_code" rel="tooltip" href="/main/delete/955" data-original-title="Удалить"><i class="icon-remove"></i></a>'+
+				'</span>'+
+				'</li>'
 		};
 		// Init list
 		codeList = new List('code_list', CodeOptions);	
@@ -843,9 +946,20 @@ function refreshCallbacksCode() {
 	// Needed to add new buttons to jQuery-extended object
 
 	codeRemove.click(function() {
-		var itemId = _BANNER.getCode()['id'];
-		console.log(_BANNER.code_name);
+		var code = _BANNER.getCode();
+		var itemId = code['id'];
 		codeList.remove('id', itemId);
+		
+		var arr = [];
+		for(var i in  _BANNER.getBlock()['code']){
+			if(_BANNER.getBlock()['code'][i][code['name']]){
+				
+			}else{
+				arr.push(_BANNER.getBlock()['code'][i]);
+			}
+		}
+		
+		_BANNER.getBlock()['code'] = arr;
 		//dellocalStorageParser(_PARSE.name);
 		clearFieldsCode();
 	});
