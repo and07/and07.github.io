@@ -18,7 +18,7 @@ Date.prototype.yyyymmdd = function() {
 };
 
 function setlocalStorageAMS (data){
-	localStorage['ams']= JSON.stringify(data); 
+	localStorage['ams'] = JSON.stringify(data); 
 }
 function getAMSData(){
 	if(localStorage['ams']){
