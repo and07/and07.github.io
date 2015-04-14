@@ -574,11 +574,12 @@ function refreshCallbacksSite() {
 			if( _BANNER.sites[i][_BANNER.name]){
 				
 			}else{
-				arr.push(_BANNER.sites[i][_BANNER.name][i]);
+				//arr.push(_BANNER.sites[i][_BANNER.name][i]);
+				clearBanner();
 			}
 		}
 		
-		_BANNER.sites = arr;
+		//_BANNER.sites = arr;
 		
 		//dellocalStorageParser(_PARSE.name);
 		var site = getlocalStorageAMS();
