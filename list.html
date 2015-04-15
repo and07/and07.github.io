@@ -90,7 +90,87 @@ function request(url,callback) {
 
 <title>GET XPATH</title>
 
+<style>
+.extracted-items-container {
+pointer-events: none;
+background-color: rgba(0,0,0,0.8);
+padding: 10px;
+width: 400px;
+box-shadow: 0px 0px 12px 0px rgba(0,0,0,1.0);
+position: fixed;
+left: 400px;
+top: 30px;
+}
 
+#hovered-element-info {
+font: 1.0em Helvetica,Arial,sans-serif;
+color: white;
+padding: 8px;
+/*float: left;*/
+background-color: rgba(0,0,0,0.8);
+box-shadow: 0px 4px 6px 0px rgba(0,0,0,0.8);
+margin-right: 15px;
+/*display: none;*/
+pointer-events: all;
+/*max-width: 450px;*/
+border-radius: 3px;
+}
+
+.title{
+	font-size: 20px;
+	margin: 0 auto;
+	width: 100px;
+}
+
+.head_list {
+
+  font-family:sans-serif;
+  margin:0;
+  padding:20px 0 0;
+  width: 100%;
+}
+.head_list > li {
+  display:block;
+  background-color: #eee;
+  padding:10px;
+  box-shadow: inset 0 1px 0 #fff;
+  display: table;
+  width: 100%;
+}
+.head_list > li > span {
+  display:table-cell;
+}
+
+
+.list {
+	display: table;
+  font-family:sans-serif;
+  margin:0;
+  padding:0px 0 0;
+  width: 100%;
+}
+.list > li {
+  display:block;
+  background-color: #eee;
+  padding:10px;
+  box-shadow: inset 0 1px 0 #fff;
+  display: table;
+  width: 100%;
+}
+.list > li > span {
+  display:table-cell;
+}
+
+.col_3{
+	width:35%;
+}
+.col_5{
+	width:20%;
+}
+.clear{
+clear:both;
+}
+</style>
 <style>
 .extracted-items-container {
 pointer-events: none;
@@ -124,7 +204,9 @@ border-radius: 3px;
 <div id="main">
 	<div id="header">
 	<div class="container-fluid">
-		<div id="userinfo">prio@hotbox.ru&nbsp;&nbsp;|&nbsp;&nbsp;<a target="_blank" href="#/ru/docs">Документация</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#/ru/site/logout">Выход</a>		</div>
+		<div id="userinfo">
+			<!--prio@hotbox.ru&nbsp;&nbsp;|&nbsp;&nbsp;<a target="_blank" href="#/ru/docs">Документация</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#/ru/site/logout">Выход</a>	-->	
+		</div>
 		<div id="logo">
 			<a href="#/ru/">
 				<h1>Parser</h1>
@@ -133,7 +215,7 @@ border-radius: 3px;
 	</div>	
 	</div><!-- header -->
 	
-		
+	<div class="title">Sites</div>	
 		
 	<div class="container-fluid">
 		
@@ -145,6 +227,17 @@ border-radius: 3px;
 					<div class="span10">
 
 				<div id="parser_list" class="grid-view">
+					<ul class="head_list">
+							<li class="">
+								<span class="sort col_5" data-sort="name" id="yw0_c1"><a href="/main?Scrapers_sort=name">Название сайта<span class="caret"></span></a></span>
+								<span class="sort col_5" data-sort="url"  id="yw0_c2"><a href="/main?Scrapers_sort=start_page">URL сайта<span class="caret"></span></a></span>
+								<span class="sort col_5" data-sort="date_edit" id="yw0_c3"><a href="/main?Scrapers_sort=dtmodified">Изменено<span class="caret"></span></a></span>
+								<span class="button-column" id="yw0_c4" class="col_5"> <input type="text" class="search" placeholder="Search" /></span>
+							</li>
+					</ul>
+					<ul class="list"></ul>
+				
+<!--
 					<table class="items table table-striped table-bordered table-condensed">
 					<thead>
 						<tr>
@@ -184,6 +277,7 @@ border-radius: 3px;
 						</tr>
 					</tbody>
 					</table>
+-->
 					<div class="keys" style="display:none" title="/main"><span>959</span><span>955</span></div>
 				</div>
 
@@ -1681,6 +1775,26 @@ $(".js_type").select2({
 	minimumResultsForSearch: Infinity
 });
 
+
+//http://www.listjs.com/examples/add-get-remove
+var ParseOptions = {
+  valueNames: ['name', 'url', 'date_edit' ],
+	item: '<li class="">'+
+					'<span class="name col_5" id="yw0_c1"><a href="/main?Scrapers_sort=name"><span class="caret"></span></a></span>'+
+					'<span class="url col_5" id="yw0_c2"><a href="/main?Scrapers_sort=start_page"><span class="caret"></span></a></span>'+
+					'<span class="date_edit col_5" id="yw0_c3"><a href="/main?Scrapers_sort=dtmodified"><span class="caret"></span></a></span>'+
+					'<span class="button-column col_5" id="yw0_c4">'+ 
+								'<a style="margin-left: 5px;" class="edit" rel="tooltip" href="/edit/959" data-original-title="Редактировать"><i class="icon-edit"></i></a>'+
+								'<a style="margin-left: 5px;" rel="tooltip" href="/generate/959" data-original-title="Генерировать"><i class="icon-file"></i></a>'+
+								'<a style="margin-left: 5px;" onclick="showRunDialog(this);" rel="tooltip" href="#" data-original-title="Управление запуском"><i class="icon-play"></i></a>'+
+								'<a style="margin-left: 5px;" onclick="showResultDialog(this);" rel="tooltip" href="#" data-original-title="Результат выполнения"><i class="icon-folder-open"></i></a>'+
+								'<a style="margin-left: 5px;" class="delete" rel="tooltip" href="/main/delete/959" data-original-title="Удалить"><i class="icon-remove"></i></a>'+
+					'</span>'+
+			'</li>'
+};
+// Init list
+var parseList = new List('parser_list', ParseOptions);
+
 /**********************************/
 
 
@@ -1701,15 +1815,12 @@ addParseList();
 refreshCallbacks();
 
 addBtn.click(function() {
-
-	_PARSE.id = Math.floor(Math.random()*110000);
 	_PARSE.url = urlField.val();
 	_PARSE.name = nameField.val();
 	_PARSE.date_edit = new Date().yyyymmdd();
 	
 	var parser = getlocalStorageParser();
 	parser[_PARSE.name] = {
-		'id' : _PARSE.id,
 		'url' : _PARSE.url,
 		'name' : _PARSE.name,
 		'date_edit' : _PARSE.date_edit
@@ -1730,17 +1841,15 @@ function refreshCallbacks() {
 	removeBtns = $(removeBtns.selector);
 
 	removeBtns.click(function() {
-		var itemId = _PARSE.id;
-		parseList.remove('id', itemId);
+		var itemId = _PARSE.name;
+		parseList.remove('name', itemId);
 		dellocalStorageParser(_PARSE.name);
 		clearFields();
 	});
   
 	$('a.delete').click(function(e) {
 		e.preventDefault();
-		var itemId = $(this).closest('tr').find('.id').text();
-		_PARSE.id = itemId;
-		_PARSE.name = $(this).closest('tr').find('.name').text();
+		_PARSE.name = $(this).parent().parent().find('.name').text();
 		$('#deleteModal').modal('show');
 		//$('#deleteModal').find('#ok-del-btn').click(function(key){ console.log(_PARSE.name); dellocalStorageParser(key);});
 	}); 
@@ -1748,10 +1857,9 @@ function refreshCallbacks() {
 	$('a.edit').click(function(e) {
 		clearFields();
 		e.preventDefault();
-		var itemId = $(this).closest('tr').find('.id').text();
-		_PARSE.id = itemId;
-		_PARSE.url = $(this).closest('tr').find('.url').text();
-		_PARSE.name = $(this).closest('tr').find('.name').text();
+		_PARSE.url = $(this).parent().parent().find('.url').text();
+		_PARSE.name = $(this).parent().parent().find('.name').text();
+		var itemId = _PARSE.name;
 		var parser = getlocalStorageParser();
 		if(parser[_PARSE.name] && parser[_PARSE.name]['html']){
 			_PARSE.html = parser[_PARSE.name]['html'];

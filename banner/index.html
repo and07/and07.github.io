@@ -14,16 +14,9 @@
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/coffee-script.js"></script>
-<script type="text/javascript" src="js/ect.min.js"></script>
 <script type="text/javascript" src="js/xpath.js"></script>
 <script type="text/javascript" src="js/bootstrap-dropdown-right.js"></script>
-<script type="text/javascript" src="js/Parser.js"></script>
-<script type="text/javascript" src="js/TextareaDecorator.js"></script>
-<script type="text/javascript" src="js/Keybinder.js"></script>
-<script type="text/javascript" src="js/jquery.tabby.js"></script>
-<script type="text/javascript" src="js/ldtparser.js"></script>
-<script type="text/javascript" src="js/jquery.ba-bbq.js"></script>
+
 
 <!-- https://select2.github.io/ -->
 <link href="js/select2/dist/css/select2.min.css" rel="stylesheet" />
@@ -151,7 +144,6 @@ clear:both;
 				
 					<ul class="head_list">
 							<li class="">
-								<span class="sort col_5" data-sort="id" id="yw0_c0"><a href="/main?Scrapers_sort=id">ID<span class="caret"></span></a></span>
 								<span class="sort col_5" data-sort="name" id="yw0_c1"><a href="/main?Scrapers_sort=name">Название сайта<span class="caret"></span></a></span>
 								<span class="sort col_5" data-sort="url"  id="yw0_c2"><a href="/main?Scrapers_sort=start_page">URL сайта<span class="caret"></span></a></span>
 								<span class="sort col_5" data-sort="date_edit" id="yw0_c3"><a href="/main?Scrapers_sort=dtmodified">Изменено<span class="caret"></span></a></span>
@@ -301,7 +293,6 @@ clear:both;
 						<div id="block_list" class="grid-view">
 								<ul class="head_list">
 										<li class="">
-											<span class="sort col_3" id="yw0_c0" data-sort="id" ><a href="#/main?Scrapers_sort=id" >ID<span class="caret"></span></a></span>
 											<span class="sort col_3" id="yw0_c1" data-sort="name"><a href="#/main?Scrapers_sort=name" >Блок<span class="caret"></span></a></span>
 											<span class="button-column" id="yw0_c4" class="col_3"> <input type="text" class="search" placeholder="Search" /></span>
 										</li>
@@ -387,7 +378,6 @@ clear:both;
 											
 											<ul class="head_list">
 													<li class="">
-														<span class="sort col_3" id="yw0_c0" data-sort="id" ><a href="#/main?Scrapers_sort=id" >ID<span class="caret"></span></a></span>
 														<span class="sort col_3" id="yw0_c1" data-sort="name" ><a href="#/main?Scrapers_sort=name" >Name Code<span class="caret"></span></a></span>
 														<span class="button-column" id="yw0_c4" class="col_3"> <input type="text" class="search" placeholder="Search" /></span>
 													</li>
@@ -461,17 +451,18 @@ if(!supports_html5_storage()){
 	alert('обновите браузер');
 }
 
+
+
 function clearBanner(){
-	_BANNER = {
-		sites: [],
-		_name : null,
-		_url : null,
-		_block_name : null,
-		_block_vertical : null,
-		_block_horizontal : null,
-		_code_name : null,
-		_code_code: null
-	}
+	_BANNER.sites = [];
+	_BANNER.name = null;
+	_BANNER.url = null;
+	_BANNER.block_name = null;
+	_BANNER.block_vertical = null;
+	_BANNER.block_horizontal = null;
+	_BANNER.code_name = null;
+	_BANNER.code_code = null;
+
 }
 
 var _BANNER = {
@@ -534,9 +525,8 @@ var addBtn = $('#add-btn');
 var siteList = null;
 function intSiteList(){
 	var SiteOptions = {
-		valueNames: [ 'id', 'name', 'url', 'date_edit' ],
+		valueNames: [ 'name', 'url', 'date_edit' ],
 		item: '<li class="">'+
-						'<span class="id col_5" id="yw0_c0"><a href="/main?Scrapers_sort=id"><span class="caret"></span></a></span>'+
 						'<span class="name col_5" id="yw0_c1"><a href="/main?Scrapers_sort=name"><span class="caret"></span></a></span>'+
 						'<span class="url col_5" id="yw0_c2"><a href="/main?Scrapers_sort=start_page"><span class="caret"></span></a></span>'+
 						'<span class="date_edit col_5" id="yw0_c3"><a href="/main?Scrapers_sort=dtmodified"><span class="caret"></span></a></span>'+
@@ -563,25 +553,10 @@ function clearFieldsSite() {
 }
 function refreshCallbacksSite() {
 	// Needed to add new buttons to jQuery-extended object
-	removeBtns = $(removeBtns.selector);
-
 	removeBtns.click(function() {
-		var itemId = _BANNER.id;
-		siteList.remove('id', itemId);
-		
-		var arr = [];
-		for(var i in  _BANNER.sites){
-			if( _BANNER.sites[i][_BANNER.name]){
-				
-			}else{
-				//arr.push(_BANNER.sites[i][_BANNER.name][i]);
-				clearBanner();
-			}
-		}
-		
-		//_BANNER.sites = arr;
-		
-		//dellocalStorageParser(_PARSE.name);
+		var itemId = _BANNER.name;
+		siteList.remove('name', itemId);
+		//dellocalStorage
 		var site = getlocalStorageAMS();
 		var new_site = [];
 		for(var i in site){
@@ -592,14 +567,14 @@ function refreshCallbacksSite() {
 			}
 		}
 		setlocalStorageAMS(new_site);
+		
+		clearBanner();
 		clearFieldsSite();
 	});
 	$('a.delete').click(function(e) {
 		e.preventDefault();
-		_BANNER.id = $(this).closest('tr').find('.id').text();
-		_BANNER.name = $(this).closest('tr').find('.name').text();
-		_BANNER.url = $(this).closest('tr').find('.url').text();
-		
+		_BANNER.name = $(this).parent().parent().find('.name').text();
+		_BANNER.url = $(this).parent().parent().find('.url').text();
 		$('#deleteModal').modal('show');
 		//$('#deleteModal').find('#ok-del-btn').click(function(key){ console.log(_PARSE.name); dellocalStorageParser(key);});
 	});	
@@ -614,7 +589,6 @@ function refreshCallbacksSite() {
 	$('a.edit').click(function(e) {
 		clearFieldsSite();
 		e.preventDefault();
-		_BANNER.id = $(this).parent().parent().find('.id').text();
 		_BANNER.name = $(this).parent().parent().find('.name').text();
 		_BANNER.url = $(this).parent().parent().find('.url').text();
 		var site = getlocalStorageAMS();
@@ -625,23 +599,6 @@ function refreshCallbacksSite() {
 				continue;
 			}
 		}
-/*		
-		var site = {};
-		site[_BANNER.name] = {
-			'id' : _BANNER.id,
-			'url' : _BANNER.url,
-			'name' : _BANNER.name,
-			'date_edit' : $(this).closest('tr').find('.date_edit').text(),
-			'block' :  _BANNER.getSite()['block'] || []
-		};
-		
-		for(var i in _BANNER.sites){
-			if( _BANNER.sites[i].hasOwnProperty(_BANNER.name))
-				delete _BANNER.sites[i];
-		};
-		_BANNER.sites.push(site);
-		_BANNER.sites = _BANNER.sites.filter(function(a){return typeof a !== 'undefined';})
-*/
 		//$('#editModal').addClass(' js_id_'+itemId);
 		addBlockAll();
 		$('#editModal').modal('show');
@@ -650,7 +607,6 @@ function refreshCallbacksSite() {
 }
 	
 	addBtn.click(function() {
-		var id = Math.floor(Math.random()*110000);
 		var url = urlField.val();
 		var name = nameField.val();
 		var date_edit = new Date().yyyymmdd();
@@ -658,7 +614,6 @@ function refreshCallbacksSite() {
 		//var banner = getlocalStorageParser();
 		var site = {};
 		site[name] = {
-			'id' : id,
 			'url' : url,
 			'name' : name,
 			'date_edit' : date_edit,
@@ -706,9 +661,8 @@ function refreshCallbacksSite() {
 		$('#block_list > ul.list').html('');
 
 		var BlockOptions = {
-		  valueNames: [ 'id', 'name'],
+		  valueNames: [ 'name'],
 		  item: '<li class="">'+
-					'<span class="id col_3"></span>'+
 					'<span class="name col_3"></span>'+
 					'<span class="col_3">'+
 						'<a style="margin-left: 5px;" class="edit_block" rel="tooltip" href="/edit/955" data-original-title="Редактировать"><i class="icon-edit"></i></a>'+
@@ -733,8 +687,8 @@ function refreshCallbacksSite() {
 
 		blockRemove.click(function() {
 			var block = _BANNER.getBlock();
-			var itemId = block['id'];
-			blockList.remove('id', itemId);
+			var itemId = block['name'];
+			blockList.remove('name', itemId);
 			
 			var arr = [];
 			for(var i in  _BANNER.getSite()['block']){
@@ -805,7 +759,6 @@ function refreshCallbacksSite() {
 					var _block_ = block[i][b];
 					_block = {};
 					_block[b] = {
-						'id' : _block_['id'],
 						'name' : _block_['name'],
 						'horizontal' : _block_['horizontal'],
 						'vertical' : _block_['vertical'],
@@ -820,14 +773,12 @@ function refreshCallbacksSite() {
 	}
 	
 	function saveBlock(obj){
-		var id = obj? obj['id'] : Math.floor(Math.random()*110000);
 		var name = blockName.val();
 		var horizontal = blockHorizontal.val();
 		var vertical = blockVertical.val();
 		
 		var block = {};
 		block[name] = {
-			'id' : id,
 			'name' : name,
 			'horizontal' :horizontal,
 			'vertical' : vertical,
@@ -845,10 +796,9 @@ function refreshCallbacksSite() {
 		}else{
 		
 			var code = _BANNER.getBlock()['code'] || [];
-			var block = blockList.get('id',  _BANNER.getBlock()['id'])[0];
+			var block = blockList.get('name',  _BANNER.getBlock()['name'])[0];
 			var _block = {};
 			_block[blockName.val()] = {
-				'id' :  _BANNER.getBlock()['id'],
 				'name' : blockName.val(),
 				'horizontal' :blockHorizontal.val(),
 				'vertical' : blockVertical.val(),
@@ -902,9 +852,8 @@ function refreshCallbacksSite() {
 		codeList = null;
 		$('#code_list > ul.list').html('');
 		var CodeOptions = {
-		  valueNames: [ 'id', 'name'],
+		  valueNames: ['name'],
 		  item: '<li class="">'+
-				'<span class="id col_3" ></span>'+
 				'<span class="name col_3" ></span>'+
 				'<span class="col_3">'+
 					'<a style="margin-left: 5px;" class="edit_code" rel="tooltip" href="/edit/955" data-original-title="Редактировать"><i class="icon-edit"></i></a>'+
@@ -927,7 +876,6 @@ function refreshCallbacksSite() {
 					var _code_ = code[i][b];
 					_code = {};
 					_code[b] = {
-						'id' : _code_['id'],
 						'name' : _code_['name'],
 						'code' : _code_['code']
 					};			
@@ -955,12 +903,10 @@ function refreshCallbacksSite() {
 	});	
 	$('.js_save_code').click(function(){
 		if( ! _BANNER.code_name ){
-			var id = Math.floor(Math.random()*110000);
 			var name = codeName.val();
 			var _code = codeCode.val();
 			var code = {};
 			code[name] = {
-				'id' : id,
 				'name' : name,
 				'code' : _code
 			};
@@ -972,10 +918,9 @@ function refreshCallbacksSite() {
 			
 		}else{
 			
-			var code = codeList.get('id',  _BANNER.getCode()['id'])[0];
+			var code = codeList.get('name',  _BANNER.getCode()['name'])[0];
 			var _code = {};
 			_code[codeName.val()] = {
-				'id' :   _BANNER.getCode()['id'],
 				'name' : codeName.val(),
 				'code' : codeCode.val(),
 			};
@@ -1032,8 +977,8 @@ function refreshCallbacksCode() {
 
 	codeRemove.click(function() {
 		var code = _BANNER.getCode();
-		var itemId = code['id'];
-		codeList.remove('id', itemId);
+		var itemId = code['name'];
+		codeList.remove('name', itemId);
 		
 		var arr = [];
 		for(var i in  _BANNER.getBlock()['code']){

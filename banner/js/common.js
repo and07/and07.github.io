@@ -7,6 +7,7 @@ function supports_html5_storage() {
     return false;
   }
 }
+
 Date.prototype.yyyymmdd = function() {
    var yyyy = this.getFullYear().toString();
    var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
@@ -18,8 +19,11 @@ Date.prototype.yyyymmdd = function() {
 };
 
 function setlocalStorageAMS (data){
-	localStorage['ams'] = JSON.stringify(data); 
+	localStorage['ams'] = JSON.stringify(data);
+	//localStorage.setItem('ams', JSON.stringify(data));
+	console.log('localStorage');
 }
+
 function getAMSData(){
 	if(localStorage['ams']){
 		var ams = JSON.parse(localStorage['ams']) || {};
@@ -38,6 +42,8 @@ function dellocalStorageAMS (key){
 	}
 	setlocalStorageAMS(ams);
 }
+
+
 
 var scnt = 0;
 function createItem() {
@@ -124,10 +130,14 @@ function siteclose(loc)
 }
 function sitesave(successfunc)
 {
-	alert('sdfsf');
-	//var parser = getlocalStorageParser();
-	//parser[_PARSE.name]['rule'] =  getRule();
-	//setlocalStorageParser(parser);	
+	var site = getlocalStorageAMS();
+	var new_site = [];
+	for(var i in site){
+		new_site.push(site[i]);
+	}
+	setlocalStorageAMS(new_site);
+	clearBanner();
+	$('#editModal').modal('hide');	
 
 }
 
