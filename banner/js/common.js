@@ -29,7 +29,7 @@ function getAMSData(){
 		var ams = JSON.parse(localStorage['ams']) || {};
 		return ams;
 	}
-	return false;
+	return null;
 }
 function getlocalStorageAMS (){
 	return getAMSData(); 

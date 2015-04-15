@@ -623,7 +623,7 @@ function refreshCallbacksSite() {
 		_BANNER.sites = site[name];
 		siteList.add(site[name]);
 		
-		var site_add = getlocalStorageAMS();
+		var site_add = getlocalStorageAMS() || [];
 		site_add.push(site);
 		setlocalStorageAMS(site_add);
 		
