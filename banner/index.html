@@ -444,6 +444,26 @@ clear:both;
 					</div>
 <!-- CODE -->
 
+<!-- RESCODE -->
+<div class="modal fade" id="resCodeModal" tabindex="-1" role="dialog" aria-labelledby="resModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">CODE</h4>
+      </div>
+      <div class="modal-body">
+        <textarea style="margin: 0px 0px 9px; height: 108px; width: 514px;" class="js_res_code_block"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <!--button type="button" class="btn btn-primary">Save changes</button-->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- RESCODE -->
+
 <script type="text/javascript" src="js/common.js" ></script>
 <script type="text/javascript" >
 
@@ -552,6 +572,7 @@ function clearFieldsSite() {
 	urlField.val('');
 }
 function refreshCallbacksSite() {
+	$('a[rel="tooltip"]').tooltip();
 	// Needed to add new buttons to jQuery-extended object
 	removeBtns.click(function() {
 		var itemId = _BANNER.name;
@@ -655,6 +676,7 @@ function refreshCallbacksSite() {
 	var blockDel = $('.del_block');
 	var blockEdit = $('.edit_block');
 	var blockRemove = $('.js_del_block');
+	var blockCode = $('.code_block');
 	
 	function initBlockList(){
 		blockList = null;
@@ -665,8 +687,9 @@ function refreshCallbacksSite() {
 		  item: '<li class="">'+
 					'<span class="name col_3"></span>'+
 					'<span class="col_3">'+
-						'<a style="margin-left: 5px;" class="edit_block" rel="tooltip" href="/edit/955" data-original-title="Редактировать"><i class="icon-edit"></i></a>'+
-						'<a style="margin-left: 5px;" class="del_block" rel="tooltip" href="/main/delete/955" data-original-title="Удалить"><i class="icon-remove"></i></a>'+
+						'<a style="margin-left: 5px;" class="edit_block" rel="tooltip" href="#/edit/955" data-original-title="Редактировать"><i class="icon-edit"></i></a>'+
+						'<a style="margin-left: 5px;" class="code_block" rel="tooltip" href="#/generate/959" data-original-title=" < CODE > "><i class="icon-file"></i></a>'+
+						'<a style="margin-left: 5px;" class="del_block" rel="tooltip" href="#/main/delete/955" data-original-title="Удалить"><i class="icon-remove"></i></a>'+
 					'</span>'+
 				'</li>'
 		};
@@ -684,7 +707,7 @@ function refreshCallbacksSite() {
 	}
 	function refreshCallbacksBlock() {
 		// Needed to add new buttons to jQuery-extended object
-
+		$('a[rel="tooltip"]').tooltip();
 		blockRemove.click(function() {
 			var block = _BANNER.getBlock();
 			var itemId = block['name'];
@@ -734,6 +757,13 @@ function refreshCallbacksSite() {
 			addCodeAll();
 			$('#blockModal').modal('show');
 		});
+		
+		$('.code_block').click(function(){
+			_BANNER.block_name = $(this).parent().parent().find('.name').text();
+			var res = 'test';
+			$('.js_res_code_block').val(res);
+			$('#resCodeModal').modal('show');
+		})
 	}
 
 
@@ -974,7 +1004,7 @@ function clearFieldsCode(){
 }
 function refreshCallbacksCode() {
 	// Needed to add new buttons to jQuery-extended object
-
+	$('a[rel="tooltip"]').tooltip();
 	codeRemove.click(function() {
 		var code = _BANNER.getCode();
 		var itemId = code['name'];
@@ -1025,6 +1055,16 @@ function refreshCallbacksCode() {
 		$('#codeModal').modal('show');
 	});
 }	
+</script>
+
+<script type="text/javascript">
+/*<![CDATA[*/
+jQuery(function($) {
+	jQuery('a[rel="tooltip"]').tooltip();
+	jQuery('a[rel="popover"]').popover();
+
+});
+/*]]>*/
 </script>
 </body>
 </html>
