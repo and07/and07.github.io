@@ -2251,7 +2251,7 @@ function exportEdit(elem)
 	
 	var name = $(elem).parent().parent().find('td:nth-child(1)').text();
 	
-	var exp = ExportRules.get(name);
+	var exp = _PARSE.getExportRules(name);
 	$('#exportedit input[name="exportType"]').val(exp.type);
 	$('#exportedit #tabCSV #exportName').prop('disabled', true);
 	$('#exportedit #tabXML #exportName').prop('disabled', true);
@@ -2372,7 +2372,7 @@ function exportDelete(elem)
 		var name = $(elem).parent().parent().find('td:nth-child(1)').text();
 		//ExportRules.del(name);
 		//$(elem).parent().parent().remove();
-		alert(name);
+		alert(name + 'NOT DEL');
 	});
 	$('#delexpModal').modal('show');
 }

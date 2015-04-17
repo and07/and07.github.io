@@ -946,6 +946,20 @@ border-radius: 3px;
 						</tbody>
 					</table>
 					</div>
+					
+				<div id="export_list" class="grid-view">
+					<ul class="head_list">
+							<li class="">
+								<span class="sort col_5" data-sort="name" id="yw0_c1"><a href="/main?Scrapers_sort=name">Имя<span class="caret"></span></a></span>
+								<span class="sort col_5" data-sort="type"  id="yw0_c2"><a href="/main?Scrapers_sort=start_page">Тип<span class="caret"></span></a></span>
+								<span class="sort col_5" data-sort="format" id="yw0_c3"><a href="/main?Scrapers_sort=dtmodified">Расширение<span class="caret"></span></a></span>
+								<span class="button-column" id="yw0_c4" class="col_5"> <input type="text" class="search" placeholder="Search" /></span>
+							</li>
+					</ul>
+					<ul class="list"></ul>
+				</div>
+				
+					
 					<div class="span2">
 						<div class="right-panel" style="margin-top: 0px;">
 				    		<a href="#" onclick="exportNew();">Создать</a>
@@ -1304,6 +1318,14 @@ var _PARSE = function () {
 	
 	this.createTree = function(data,parent_id){
 		createTreeItem(data,parent_id);
+	}
+	this.getExportRules = function(name){
+		for(var i in this.sites.export){
+			if(this.sites.export[i][name]){
+				return this.sites.export[i][name]
+			}
+		}
+		
 	}
 
 	return this;
