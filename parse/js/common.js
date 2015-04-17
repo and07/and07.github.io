@@ -1929,6 +1929,46 @@ function deselectBorder(elem)
 		$(elem).data('selected', 0);
 	}
 }
+function setHtmlTree()
+{
+	var $win = $('#htmltree');
+	var name = $win.find('input[name="name"]').val();
+	var _path = _PARSE.rule_xpath;
+	var newpath = $win.find('textarea[name="xpath"]').val();
+	
+	HtmlTree.onpreactive(HtmlTree, HtmlTree.active);
+	
+	if (_path != newpath && newpath != '')
+	{
+		_PARSE.rule_xpath = newpath;
+		/*
+		var nodes = evaluateXPath(rule, PARSE_RULE.doc);
+		for (var j=0; j<nodes.length; j++)
+		{
+			deselectBorder(nodes[j]);
+		//	if (rule.options.next)
+		//		deselectBorderNext(nodes[j]);
+		}
+		
+		_path = newpath;
+		
+		nodes = evaluateXPath(rule, PARSE_RULE.doc)
+		for (var j=0; j<nodes.length; j++)
+		{
+			selectBorder(nodes[j], PARSE_RULE.rule.type, false, false);
+		//	if (rule.options.next)
+		//		selectBorderNext(nodes[j], rule.type, false, false);
+		}
+		
+		//$('#rulestbl tbody #rule_'+name+' td:nth-child(5)').text(rule.path);
+		//$(elembyruleid(name)).find('td:nth-child(5)').text(PARSE_RULE.xpath);
+		SetNotSaved();
+		*/
+	}	
+	
+	$win.fadeOut('slow');
+}
+
 function cancelHtmlTree()
 {
 	HtmlTree.onpreactive(HtmlTree, HtmlTree.active);
