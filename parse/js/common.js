@@ -2032,7 +2032,11 @@ function pageExportItemAdd()
 	*/
 	alert('aaa');
 }
-
+function loadpage_nourl(save, refresh)
+{
+	var url = document.getElementById('js_url').value;//_PARSE.url;
+	request(url);
+}
 
 /**Translate**/
 function Translate()
@@ -2050,3 +2054,444 @@ Translate.prototype = {
 };
 var Lang = new Translate();
 /**Translate**/
+
+
+function getCursorPos(el)
+{
+	if (el.selectionStart) {
+		return (el.selectionStart <= el.selectionEnd) ? el.selectionStart : el.selectionEnd;
+		//return el.selectionStart;
+	} else if (document.selection) {
+		el.focus();
+
+		var r = document.selection.createRange();
+		if (r == null) {
+			return 0;
+		}
+
+		var re = el.createTextRange(),
+		rc = re.duplicate();
+		re.moveToBookmark(r.getBookmark());
+		rc.setEndPoint('EndToStart', re);
+
+		return rc.text.length;
+	} 
+	return 0;
+}
+function getLineColumn(el)
+{
+	var pos = getCursorPos(el);
+	var text = el.value;
+	var coord = {line: 0, column: 0};
+	for (var i=0; i<pos; i++)
+	{
+		if (text.charAt(i) == '\n')
+		{
+			coord.line++;
+			coord.column = 0;
+		}
+		else
+			coord.column++;
+	}
+	return coord;
+}
+
+function linecolumnEvent(el)
+{
+	var coord = getLineColumn(el);
+	$('#lineid').text(coord.line);
+	$('#columnid').text(coord.column);
+}
+
+function escapeStr(str)
+{
+	if (typeof str == 'string')
+		return str.replace(/([^\\])'/g, "$1\\'");
+	return str;
+}
+
+String.space = function (len) {
+	var t = [], i;
+	for (i = 0; i < len; i++) {
+		t.push(' ');
+	}
+	return t.join('');
+};
+var formatJSON = function (text) {
+				text = text.replace(/\n/g, ' ').replace(/\r/g, ' ');
+				var t = [];
+				var tab = 0;
+				var inString = false;
+				for (var i = 0, len = text.length; i < len; i++) {
+					var c = text.charAt(i);
+					if (inString && c === inString) {
+						// TODO: \\"
+						if (text.charAt(i - 1) !== '\\') {
+							inString = false;
+						}
+					} else if (!inString && (c === '"' || c === "'")) {
+						inString = c;
+					} else if (!inString && (c === ' ' || c === "\t")) {
+						c = '';
+					} else if (!inString && c === ':') {
+						c += ' ';
+					} else if (!inString && c === ',') {
+						c += "\n" + String.space(tab * 2);
+					} else if (!inString && (c === '[' || c === '{')) {
+						tab++;
+						c += "\n" + String.space(tab * 2);
+					} else if (!inString && (c === ']' || c === '}')) {
+						tab--;
+						c = "\n" + String.space(tab * 2) + c;
+					}
+					t.push(c);
+				}
+				return t.join('');
+			};
+function tabScriptClick()
+{
+	var data = formatJSON(JSON.stringify(_PARSE.sites.rule));
+	$('.js_rule_res').val(data)
+}
+
+
+/***TAB EXPORT***/
+function exportNew()
+{
+	$('#exportedit input[name="newedit"]').val('new');
+	$('#exportedit h3:nth-child(1)').show();
+	$('#exportedit h3:nth-child(2)').hide();
+	
+	$('#exportedit #tabCSV #exportName').prop('disabled', false);
+	$('#exportedit #tabXML #exportName').prop('disabled', false);
+	$('#exportedit #tabSQL #exportName').prop('disabled', false);
+	$('#exportedit #tabExcel #exportName').prop('disabled', false);
+	$('#exportedit #tabRDB #exportName').prop('disabled', false);
+	
+	$('#exportedit #tabCSV #exportName').val('');
+	$('#exportedit #tabCSV #exportExtension').val('csv');
+	$('#exportedit #tabCSV #exportDelimiter').val(',');
+	$('#exportedit #tabCSV #exportIssave').prop('checked', true);
+	
+	$('#exportedit #tabXML #exportName').val('');
+	$('#exportedit #tabXML #exportExtension').val('xml');
+	$('#exportedit #tabXML #exportTemplateHead').val('<?xml version="1.0" encoding="utf-8" ?>');
+	$('#exportedit #tabXML #exportTemplateBody').val('');
+	$('#exportedit #tabXML #exportTemplateTail').val('');
+	$('#exportedit #tabXML #exportIssave').prop('checked', true);
+	
+	$('#exportedit #tabSQL #exportName').val('');
+	$('#exportedit #tabSQL #exportExtension').val('sql');
+	$('#exportedit #tabSQL #exportTemplateHead').val('');
+	$('#exportedit #tabSQL #exportTemplateBody').val('');
+	$('#exportedit #tabSQL #exportTemplateTail').val('');
+	$('#exportedit #tabSQL #exportIssave').prop('checked', true);
+	
+	$('#exportedit #tabExcel #exportName').val('');
+	$('#exportedit #tabExcel #exportExtension').val('xls');
+	$('#exportedit #tabExcel #exportTemplateHead').val('');
+	$('#exportedit #tabExcel #exportinsimage').prop('checked', false);
+	
+	$('#exportedit #tabRDB #exportName').val('');
+	$('#exportedit #tabRDB #exportRDBType option:first-child').prop('selected', true);
+	$('#tabRDB #dbparams').show();
+	$('#tabRDB #dbparams #exportDBHost').val('');
+	$('#tabRDB #dbparams #exportDBUser').val('');
+	$('#tabRDB #dbparams #exportDBPass').val('');
+	$('#tabRDB #dbparams #exportDBName').val('');
+		
+	$('#exporttable').hide();
+	$('#exportedit').show();
+}
+function exportEdit(elem)
+{
+	$('#exportedit input[name="newedit"]').val('edit');
+	$('#exportedit h3:nth-child(1)').hide();
+	$('#exportedit h3:nth-child(2)').show();
+	
+	var name = $(elem).parent().parent().find('td:nth-child(1)').text();
+	
+	var exp = ExportRules.get(name);
+	$('#exportedit input[name="exportType"]').val(exp.type);
+	$('#exportedit #tabCSV #exportName').prop('disabled', true);
+	$('#exportedit #tabXML #exportName').prop('disabled', true);
+	$('#exportedit #tabSQL #exportName').prop('disabled', true);
+	$('#exportedit #tabExcel #exportName').prop('disabled', true);
+	$('#exportedit #tabRDB #exportName').prop('disabled', true);
+	
+	$('#exportedit #tabCSV #exportName').val(name);
+	$('#exportedit #tabCSV #exportExtension').val('csv');
+	$('#exportedit #tabCSV #exportDelimiter').val('');
+	$('#exportedit #tabCSV #exportIssave').prop('checked', true);
+	
+	$('#exportedit #tabXML #exportName').val(name);
+	$('#exportedit #tabXML #exportExtension').val('xml');
+	$('#exportedit #tabXML #exportTemplateHead').val('<?xml version="1.0" encoding="utf-8" ?>');
+	$('#exportedit #tabXML #exportTemplateBody').val('');
+	$('#exportedit #tabXML #exportTemplateTail').val('');
+	$('#exportedit #tabXML #exportIssave').prop('checked', true);
+	
+	$('#exportedit #tabSQL #exportName').val(name);
+	$('#exportedit #tabSQL #exportExtension').val('sql');
+	$('#exportedit #tabSQL #exportTemplateHead').val('');
+	$('#exportedit #tabSQL #exportTemplateBody').val('');
+	$('#exportedit #tabSQL #exportTemplateTail').val('');
+	$('#exportedit #tabSQL #exportIssave').prop('checked', true);
+	
+	$('#exportedit #tabExcel #exportName').val(name);
+	$('#exportedit #tabExcel #exportExtension').val('xls');
+	$('#exportedit #tabExcel #exportTemplateHead').val('');
+	
+	$('#exportedit #tabRDB #exportIssave').prop('checked', true);
+	$('#tabRDB #dbparams').show();
+	$('#tabRDB #dbparams #exportDBHost').val('');
+	$('#tabRDB #dbparams #exportDBUser').val('');
+	$('#tabRDB #dbparams #exportDBPass').val('');
+	$('#tabRDB #dbparams #exportDBName').val('');
+	
+	$('#exportedit #tabRDB #exportName').val(name);
+	
+	if (exp.type == 'csv')
+	{
+		$('#exportRadio a').each(function(i, el) {
+			if (el.href.search('#tabCSV') != -1)
+				$(el).tab('show');
+		});
+		
+		$('#exportedit #tabCSV #exportExtension').val(exp.extension);
+		$('#exportedit #tabCSV #exportDelimiter').val(exp.delimiter);
+		$('#exportedit #tabCSV #exportIssave').prop('checked', exp.issave);
+	}
+	else if (exp.type == 'xml')
+	{
+		$('#exportRadio a').each(function(i, el) {
+			if (el.href.search('#tabXML') != -1)
+				$(el).tab('show');
+		});
+		
+		$('#exportedit #tabXML #exportExtension').val(exp.extension);
+		$('#exportedit #tabXML #exportTemplateHead').val(exp.head);
+		$('#exportedit #tabXML #exportTemplateBody').val(exp.body);
+		$('#exportedit #tabXML #exportTemplateTail').val(exp.tail);
+		$('#exportedit #tabXML #exportIssave').prop('checked', exp.issave);
+	}
+	else if (exp.type == 'sql')
+	{
+		$('#exportRadio a').each(function(i, el) {
+			if (el.href.search('#tabSQL') != -1)
+				$(el).tab('show');
+		});
+		
+		$('#exportedit #tabSQL #exportExtension').val(exp.extension);
+		$('#exportedit #tabSQL #exportTemplateHead').val(exp.head);
+		$('#exportedit #tabSQL #exportTemplateBody').val(exp.body);
+		$('#exportedit #tabSQL #exportTemplateTail').val(exp.tail);
+		$('#exportedit #tabSQL #exportIssave').prop('checked', exp.issave);
+	}
+	else if (exp.type == 'excel')
+	{
+		$('#exportRadio a').each(function(i, el) {
+			if (el.href.search('#tabExcel') != -1)
+				$(el).tab('show');
+		});
+		
+		$('#exportedit #tabExcel #exportExtension').val(exp.extension);
+		$('#exportedit #tabExcel #exportTemplateHead').val(exp.head);
+		$('#exportedit #tabExcel #exportinsimage').prop('checked', exp.tail == 'true' ? true:false);
+	}
+	else if (exp.type == 'rdb')
+	{
+		$('#exportRadio a').each(function(i, el) {
+			if (el.href.search('#tabRDB') != -1)
+				$(el).tab('show');
+		});
+		
+		$('#exportedit #tabRDB #exportRDBType').val(exp.extension);
+		$('#exportedit #tabRDB #exportDataset').val(exp.head);
+		$('#exportedit #tabRDB #exportIssave').prop('checked', exp.issave);
+		
+		$('#tabRDB #dbparams #exportDBHost').val(exp.tail.host);
+		$('#tabRDB #dbparams #exportDBUser').val(exp.tail.user);
+		$('#tabRDB #dbparams #exportDBPass').val(exp.tail.pass);
+		$('#tabRDB #dbparams #exportDBName').val(exp.tail.dbname);
+		
+		if (exp.issave)
+			$('#tabRDB #dbparams').show();
+		else
+			$('#tabRDB #dbparams').hide();
+	}
+	
+	$('#exporttable').hide();
+	$('#exportedit').show();
+}
+
+
+function exportDelete(elem)
+{
+	$('#delexpModal #ok-del-exp').click(function() {
+		var name = $(elem).parent().parent().find('td:nth-child(1)').text();
+		//ExportRules.del(name);
+		//$(elem).parent().parent().remove();
+		alert(name);
+	});
+	$('#delexpModal').modal('show');
+}
+function exportEditOk()
+{
+	var newedit = $('#exportedit input[name="newedit"]').val();
+	var type = $('#exportedit input[name="exportType"]').val();
+	
+	var name;
+	var params = {};
+	if (type == 'csv')
+	{
+		name = $('#tabCSV #exportName').val();
+		params.extension = $('#tabCSV #exportExtension').val();
+		params.delimiter = $('#tabCSV #exportDelimiter').val();
+		params.issave = $('#tabCSV #exportIssave').prop('checked');
+	}
+	else if (type == 'xml')
+	{
+		name = $('#tabXML #exportName').val();
+		params.extension = $('#tabXML #exportExtension').val();
+		params.head = $('#tabXML #exportTemplateHead').val();
+		params.body = $('#tabXML #exportTemplateBody').val();
+		params.tail = $('#tabXML #exportTemplateTail').val();
+		params.issave = $('#tabXML #exportIssave').prop('checked');
+	}
+	else if (type == 'sql')
+	{
+		name = $('#tabSQL #exportName').val();
+		params.extension = $('#tabSQL #exportExtension').val();
+		params.head = $('#tabSQL #exportTemplateHead').val();
+		params.body = $('#tabSQL #exportTemplateBody').val();
+		params.tail = $('#tabSQL #exportTemplateTail').val();
+		params.issave = $('#tabSQL #exportIssave').prop('checked');
+	}
+	else if (type == 'excel')
+	{
+		name = $('#tabExcel #exportName').val();
+		params.extension = $('#tabExcel #exportExtension').val();
+		params.head = $('#tabExcel #exportTemplateHead').val();
+		params.tail = $('#tabExcel #exportinsimage').prop('checked') ? 'true':'false';
+		params.issave = true;
+	}
+	else if (type == 'rdb')
+	{
+		name = $('#tabRDB #exportName').val();
+		params.extension = $('#tabRDB #exportRDBType').val();
+		params.body = RDBFlat[params.extension];
+		params.head = $('#tabRDB #exportDataset').val();
+		params.issave = $('#tabRDB #exportIssave').prop('checked');
+		params.tail = {};
+		params.tail.host = $('#tabRDB #dbparams #exportDBHost').val();
+		params.tail.user = $('#tabRDB #dbparams #exportDBUser').val();
+		params.tail.pass = $('#tabRDB #dbparams #exportDBPass').val();
+		params.tail.dbname = $('#tabRDB #dbparams #exportDBName').val();
+	}
+	if (name == '') return;
+/*
+	ExportRules.add(name, type, params);
+	
+	if (PagesList.array.length>0 && newedit=='edit' && (type=='xml' || type=='sql'))
+	{
+		var varnames = params.body.match(/\$[A-Za-z][A-Za-z0-9_]/g);
+		deleteExportParams(PagesList.array[0], name, varnames);
+	}
+/*		
+	if (newedit == 'new')
+	{
+		$.ajax({url: '/main/exportrulenew',
+            type: 'POST',
+            dataType: 'html',
+            data: {scraperid: $('#tabScript input[name="scraperid"]').val(), name: name,
+            		type: type, params: params},
+            success: function(data) {
+            	$('#exporttbl tbody tr').remove();
+            	$('#exporttbl tbody').append(data);
+            }
+		});
+	}
+	else if (newedit == 'edit')
+	{
+		$.ajax({url: '/main/exportruleupdate',
+            type: 'POST',
+            dataType: 'html',
+            data: {scraperid: $('#tabScript input[name="scraperid"]').val(), name: name,
+            		type: type, params: params},
+            success: function(data) {
+            	$('#exporttbl tbody tr').remove();
+            	$('#exporttbl tbody').append(data);
+            }
+		});
+	}
+	
+*/
+	$('#exportedit').hide();
+	$('#exporttable').show();
+	alert('export TEST NOT SAVE');
+}
+
+function exportEditCancel()
+{
+	$('#exportedit').hide();
+	$('#exporttable').show();
+}
+/***TAB EXPORT***/
+
+
+/*******Loading*******/
+var LoadingProcessCount = 0;
+function showLoadingProcess()
+{
+	if (LoadingProcessCount <= 0)
+	{
+		var $layer = $('<div id="layer1" class="toplayer"></div>');
+		$layer.css('top', $('#header').height()-5);
+		$layer.width($(window).width());
+		$layer.height($(document).height());
+		$layer.appendTo('body');
+	
+		$('#loader').show();
+		var $win = $('#loader');
+		$win.css('left', ($(window).width()-$win[0].offsetWidth)/2);
+		$win.css('top', ($(window).height()-$win[0].offsetHeight-100)/2);
+		LoadingProcessCount = 0;
+	}
+	LoadingProcessCount++;
+}
+
+
+function closeLoadingProcess()
+{
+	LoadingProcessCount--;
+	if (LoadingProcessCount <= 0)
+	{
+		$('#loader').hide();
+		$('#layer1').remove();
+		LoadingProcessCount = 0;
+	}
+}
+/*******Loading********/
+
+
+function parseexec()
+{
+	if ($('#script').val() != '')
+	{
+		showLoadingProcess();
+		$('#output').val('');
+		closeLoadingProcess();
+		$('#output').val('test');
+	}
+}
+function rulesclose(loc)
+{
+		if (loc)
+		{
+			$('#closeModal').find('#yes-close-btn').attr('data-url', loc);
+			$('#closeModal').find('#no-close-btn').attr('data-url', loc);
+		}
+		$('#closeModal').modal('show');
+
+}
