@@ -200,7 +200,7 @@ clear:both;
 					<p>Вы действительно хотите удалить <span class="js_site_name js_block_name js_code_name"></span>?</p>
 				</div>
 				 <div class="modal-footer">
-					<a data-dismiss="modal" id="ok-del-btn" class="btn remove-item-btn js_del_site" href="/main/delete/955">OK</a>    <a data-dismiss="modal" id="cancel-del-btn" class="btn" href="#">Отмена</a></div>
+					<a data-dismiss="modal" id="ok-del-btn" class="btn remove-item-btn js_del_site" href="#/main/delete/955">OK</a>    <a data-dismiss="modal" id="cancel-del-btn" class="btn" href="#">Отмена</a></div>
 				</div>
 <!-- DEL-->
 <!-- DEL BLOCK-->				
@@ -236,7 +236,7 @@ clear:both;
 						<a class="close" data-dismiss="modal">×</a>
 						<h3>Добавить сайт</h3>
 					</div>
-					<div class="modal-body">
+					<div class="modal-body" >
 						<form class="form1 form-vertical" id="form" action="/main/create" method="post"> 
 						<fieldset>
 							<label for="CreateScraperForm_name" class="required">Название сайта<span class="required">*</span></label>
@@ -290,7 +290,7 @@ clear:both;
 						</fieldset>
 						<div class="title">Блоки</div>
 
-						<div id="block_list" class="grid-view">
+						<div id="block_list" class="grid-view" style="max-height:80%;">
 								<ul class="head_list">
 										<li class="">
 											<span class="sort col_3" id="yw0_c1" data-sort="name"><a href="#/main?Scrapers_sort=name" >Блок<span class="caret"></span></a></span>
@@ -335,6 +335,36 @@ clear:both;
 								<input type="text" id="title_input" name="title" class="red_text js_block_name" value="" required="required">
 								<div class="error-message" id="title-check-error"></div>
 							</div>
+							<div class="row block_box block_row highlight-box dimentions-box">
+							<!-- Block size -->
+							<div class="pull-right adv_block_sizes_help help_class" style="margin-right: 20px;" data-placement="top" data-trigger="hover" data-content="Настройте размеры рекламной области, которую выделили на сайте. В данной области через систему Advertone будут показываться все рекламные сети." data-original-title="" title=""></div>
+							<div class="span39 design_box block_box">
+								<p class="block-edit-form-label">Ширина блока</p>
+								<div class="form-field mb5">
+									<span>
+										<div class="axis-size-inputs">
+											<input class="template_block preview-input block-size-input js_block_horizontal" id="size_horizontal-input" type="text" name="size_horizontal" required="required" value="240px">
+											<div class="error-message" id="size_horizontal-errmsg">
+												
+											</div>
+											</div>
+									  </span>
+								</div>
+							</div>
+							<div class="span39 design_box block_box">
+								<p class="block-edit-form-label">Высота блока</p>
+								<div class="form-field mb5">
+									<div class="axis-size-inputs">
+										<input class="block-size-input template_block preview-input js_block_vertical" id="size_vertical-input" type="text" name="size_vertical" required="required" value="400px">
+										<div class="error-message" id="size_vertical-errmsg">
+										
+										</div>
+									</div>
+								</div>
+								
+							</div>
+							</div>
+							
 							<div style="clear:both;">
 							<ul id="sidetabs" class="nav nav-tabs">
 								<li class="active"><a id="tab-code" data-toggle="tab" href="#tabCode">Свой код</a></li>
@@ -342,37 +372,9 @@ clear:both;
 								<li><a id="tab-animation" data-toggle="tab" href="#tabAnimation">Анимация</a></li>
 							</ul>
 							
-							<div class="tab-content">
+							<div class="tab-content" style="min-height: 300px;">
 								<div id="tabCode" class="tab-pane active">
-									<div class="row block_box block_row highlight-box dimentions-box">
-									<!-- Block size -->
-									<div class="pull-right adv_block_sizes_help help_class" style="margin-right: 20px;" data-placement="top" data-trigger="hover" data-content="Настройте размеры рекламной области, которую выделили на сайте. В данной области через систему Advertone будут показываться все рекламные сети." data-original-title="" title=""></div>
-									<div class="span39 design_box block_box">
-										<p class="block-edit-form-label">Ширина блока</p>
-										<div class="form-field mb5">
-											<span>
-												<div class="axis-size-inputs">
-													<input class="template_block preview-input block-size-input js_block_horizontal" id="size_horizontal-input" type="text" name="size_horizontal" required="required" value="240px">
-													<div class="error-message" id="size_horizontal-errmsg">
-														
-													</div>
-													</div>
-											  </span>
-										</div>
-									</div>
-									<div class="span39 design_box block_box">
-										<p class="block-edit-form-label">Высота блока</p>
-										<div class="form-field mb5">
-											<div class="axis-size-inputs">
-												<input class="block-size-input template_block preview-input js_block_vertical" id="size_vertical-input" type="text" name="size_vertical" required="required" value="400px">
-												<div class="error-message" id="size_vertical-errmsg">
-												
-												</div>
-											</div>
-										</div>
-										
-									</div>
-									</div>
+
 									<div class="title">Код</div>
 									<div id="code_list" class="grid-view">
 											
@@ -387,7 +389,7 @@ clear:both;
 									</div>
 									<button id="additional-custom-block-button" class="btn green js_add_code" type="button">
 										<i class="icon-add-white"></i>
-										Еще один код
+										Добавить код баннера в блок
 									</button>
 									
 								
