@@ -389,7 +389,7 @@ border-radius: 3px;
 		<ul id="sidetabs" class="nav nav-tabs">
 			<li class="active"><a id="tab-browser" data-toggle="tab" href="#tabBrowser">Браузер</a></li>
 			<li ><a id="tab-script"  data-toggle="tab" href="#tabScript" onclick="tabScriptClick();">Скрипт</a></li>			
-			<li><a id="tab-export" data-toggle="tab" href="#tabExport">Экспорт</a></li>
+			<li><a id="tab-export" data-toggle="tab" href="#tabExport"  onclick="initExportList();" >Экспорт</a></li>
 			
 			<div id="rules-right-btns">
 				<div class="success">
@@ -923,6 +923,7 @@ border-radius: 3px;
 					<h3>Профили экспорта</h3>
 					<div style="margin-top: 20px;">
 					<div class="span6">
+<!--
 					<table id="exporttbl" class="table table-striped table-bordered">
 						<thead>
 							<tr>
@@ -945,19 +946,21 @@ border-radius: 3px;
 							</tr>
 						</tbody>
 					</table>
-					</div>
-					
+-->
 				<div id="export_list" class="grid-view">
 					<ul class="head_list">
 							<li class="">
-								<span class="sort col_5" data-sort="name" id="yw0_c1"><a href="/main?Scrapers_sort=name">Имя<span class="caret"></span></a></span>
-								<span class="sort col_5" data-sort="type"  id="yw0_c2"><a href="/main?Scrapers_sort=start_page">Тип<span class="caret"></span></a></span>
-								<span class="sort col_5" data-sort="format" id="yw0_c3"><a href="/main?Scrapers_sort=dtmodified">Расширение<span class="caret"></span></a></span>
+								<span class="sort col_5" data-sort="name" id="yw0_c1"><a href="#/main?Scrapers_sort=name">Имя<span class="caret"></span></a></span>
+								<span class="sort col_5" data-sort="type"  id="yw0_c2"><a href="#/main?Scrapers_sort=start_page">Тип<span class="caret"></span></a></span>
+								<span class="sort col_5" data-sort="extension" id="yw0_c3"><a href="#/main?Scrapers_sort=dtmodified">Расширение<span class="caret"></span></a></span>
 								<span class="button-column" id="yw0_c4" class="col_5"> <input type="text" class="search" placeholder="Search" /></span>
 							</li>
 					</ul>
 					<ul class="list"></ul>
 				</div>
+					</div>
+					
+
 				
 					
 					<div class="span2">
@@ -1318,7 +1321,10 @@ var _PARSE = function () {
 	
 	this.createTree = function(data,parent_id){
 		createTreeItem(data,parent_id);
-	}
+	};
+	this.getSite = function(){
+		return this.sites;
+	};
 	this.getExportRules = function(name){
 		for(var i in this.sites.export){
 			if(this.sites.export[i][name]){
@@ -1326,7 +1332,7 @@ var _PARSE = function () {
 			}
 		}
 		
-	}
+	};
 
 	return this;
 
@@ -1488,6 +1494,27 @@ $(document).on('click','.xpath',function(){
 $('#golink').click(function() {
 	_PARSE.golink = true;
 });
+
+
+/***TAB EXPORT***/
+var exportList = null;
+function initExportList(){
+	//http://www.listjs.com/examples/add-get-remove
+	var ExportOptions = {
+		valueNames: ['name', 'type', 'extension' ],
+		item: '<li class="">'+
+						'<span class="name col_5" id="yw0_c1"><a href="/main?Scrapers_sort=name"><span class="caret"></span></a></span>'+
+						'<span class="type col_5" id="yw0_c2"><a href="/main?Scrapers_sort=start_page"><span class="caret"></span></a></span>'+
+						'<span class="extension col_5" id="yw0_c3"><a href="/main?Scrapers_sort=dtmodified"><span class="caret"></span></a></span>'+
+						'<span class="button-column col_5" id="yw0_c4">'+ 
+									'<a style="margin-left: 5px;" class="edit" onclick="exportEdit(this);" rel="tooltip" href="#/edit/959" data-original-title="Редактировать"><i class="icon-pencil"></i></a>'+
+									'<a style="margin-left: 5px;" class="delete" onclick="exportDelete(this);" rel="tooltip" href="#/main/delete/959" data-original-title="Удалить"><i class="icon-trash"></i></a>'+
+						'</span>'+
+				'</li>'
+	};
+	// Init list
+	exportList = new List('export_list', ExportOptions);
+}
 
 
 

@@ -1835,7 +1835,8 @@ function rulessave(successfunc)
 	//	tabScriptClick();
 	console.log(getRule());
 	var parser = getlocalStorageParser();
-	parser[_PARSE.name]['rule'] =  getRule();
+	parser[_PARSE.name]['rule'] = getRule();
+	parser[_PARSE.name]['export'] = _PARSE.getSite()['export'] || [];
 	setlocalStorageParser(parser);	
 
 }
@@ -2191,11 +2192,12 @@ var formatJSON = function (text) {
 function tabScriptClick()
 {
 	var data = formatJSON(JSON.stringify(_PARSE.sites.rule));
-	$('.js_rule_res').val(data)
+	$('.js_rule_res').val(data);
 }
 
 
 /***TAB EXPORT***/
+
 function exportNew()
 {
 	$('#exportedit input[name="newedit"]').val('new');
@@ -2249,9 +2251,10 @@ function exportEdit(elem)
 	$('#exportedit h3:nth-child(1)').hide();
 	$('#exportedit h3:nth-child(2)').show();
 	
-	var name = $(elem).parent().parent().find('td:nth-child(1)').text();
-	
+	var name = $(elem).parent().parent().find('.name').text();
+
 	var exp = _PARSE.getExportRules(name);
+
 	$('#exportedit input[name="exportType"]').val(exp.type);
 	$('#exportedit #tabCSV #exportName').prop('disabled', true);
 	$('#exportedit #tabXML #exportName').prop('disabled', true);
@@ -2369,10 +2372,11 @@ function exportEdit(elem)
 function exportDelete(elem)
 {
 	$('#delexpModal #ok-del-exp').click(function() {
-		var name = $(elem).parent().parent().find('td:nth-child(1)').text();
+		var name = $(elem).parent().parent().find('.name').text();
+		exportList.remove('name', name);
 		//ExportRules.del(name);
 		//$(elem).parent().parent().remove();
-		alert(name + 'NOT DEL');
+
 	});
 	$('#delexpModal').modal('show');
 }
@@ -2430,6 +2434,33 @@ function exportEditOk()
 		params.tail.dbname = $('#tabRDB #dbparams #exportDBName').val();
 	}
 	if (name == '') return;
+	
+	params.name = name;
+	params.type = type;
+	var obj_export = {};
+	obj_export[name] = params;
+	
+	var _export = exportList.get('name', name)[0];
+	if(_export){
+		_export.values(params);
+		var arr = [];
+		for(var i in _PARSE.getSite()['export']){
+			if(_PARSE.getSite()['export'][i][name]){
+				continue;
+			}else{
+				arr.push(_PARSE.getSite()['export'][i]);
+			}
+		}
+		arr.push(obj_export);
+		_PARSE.getSite()['export'] = arr;
+		
+		
+	}else{
+		exportList.add(params);
+		var _export = _PARSE.getSite()['export'] || [];
+		_export.push(obj_export);
+		_PARSE.getSite()['export'] = _export;
+	}
 /*
 	ExportRules.add(name, type, params);
 	
@@ -2469,7 +2500,7 @@ function exportEditOk()
 */
 	$('#exportedit').hide();
 	$('#exporttable').show();
-	alert('export TEST NOT SAVE');
+
 }
 
 function exportEditCancel()
