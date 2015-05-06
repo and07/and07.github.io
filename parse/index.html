@@ -305,12 +305,12 @@ border-radius: 3px;
 					<div class="popup-body">
 							<fieldset style="overflow: hidden;">
 						<span class="line">
-							Парсер:&nbsp;<span id="scrname">cpainfo</span>
+							Парсер:&nbsp;<span id="scrname" class="js_name"></span>
 							<span style="width: 100px; display: inline-block;">&nbsp;</span>
-							Стартовая страница:&nbsp;<span id="startpage">http://cpainform.ru/programs/funservices/santa4me/</span>
+							Стартовая страница:&nbsp;<span id="startpage" class="js_url"></span>
 						</span>
 						<br>
-						Последний запуск:&nbsp;<span id="lastrun">01.01.1970, 4:00:00</span>
+						Последний запуск:&nbsp;<span id="lastrun" ></span>
 					</fieldset>
 					<fieldset>
 						<legend>Вывод</legend>
@@ -381,7 +381,7 @@ border-radius: 3px;
 				<div id="editModal" class="modal fade"  style="display: none; margin: 0px; top: 0px;left:0px; width:100%;">
 					<div class="modal-header">
 						<a class="close" data-dismiss="modal">×</a>
-						<h3 id = "js_name">Edit</h3>
+						<h3 class = "js_name">Edit</h3>
 					</div>
 					<div class="modal-body" style="max-height:80%;">
 									
@@ -428,7 +428,7 @@ border-radius: 3px;
 						<button onclick="loadnext();" class="btn" title="Вперёд">
 							<i class="icon-arrow-right"></i>
 						</button>
-						<input type="text" name="url" id="js_url" value="" placeholder="Введите url страницы" style="width: 300px;"/>
+						<input type="text" name="url" class="js_url" value="" placeholder="Введите url страницы" style="width: 300px;"/>
 						<button onclick="loadpage_nourl(false, true);" class="btn" title="Обновить страницу в кэше"><i class="icon-repeat"></i></button>
 						<button onclick="loadtree();" class="btn" title="Загружаемые страницы">
 							<i class="icon-th-list"></i>
@@ -1458,9 +1458,9 @@ $('a.create').click(function(e) {
 	$('#createModal').modal('show');
 });
 
-bindModelInput(_PARSE, 'url', document.getElementById('js_url'));
-bindModelInput(_PARSE, 'name', document.getElementById('js_name'));
-bindModelInput(_PARSE, 'html', document.getElementById('js_tpl'));
+bindModelInput(_PARSE, 'url', document.querySelectorAll('.js_url'));
+bindModelInput(_PARSE, 'name', document.querySelectorAll('.js_name'));
+bindModelInput(_PARSE, 'html', document.querySelectorAll('#js_tpl'));
 bindModelInput(_PARSE, 'date_edit', null);
 bindModelInput(_PARSE, 'rule_name', null);
 bindModelInput(_PARSE, 'rule_type', null);

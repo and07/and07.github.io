@@ -970,7 +970,13 @@ function showRunDialog(row)
 }
 function showResultDialog(row)
 {
-	var scrid = $(row).parent().parent().find('td:nth-child(1)').text();
+	
+	var scrid = $(row).parent().parent().find('.id').text();
+	var name = $(row).parent().parent().find('.name').text();
+	var url = $(row).parent().parent().find('.url').text();
+	console.log(row);
+	_PARSE.url = url;
+	_PARSE.name = name;
 	var data = {};
 	/*
 	$.ajax({url: '/main/runresult',
