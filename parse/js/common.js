@@ -1936,7 +1936,7 @@ function deselectBorder(elem)
 		$(elem).data('selected', 0);
 	}
 }
-function setHtmlTree()
+function setHtmlTree(obj)
 {
 	var $win = $('#htmltree');
 	var name = $win.find('input[name="name"]').val();
@@ -1948,29 +1948,9 @@ function setHtmlTree()
 	if (_path != newpath && newpath != '')
 	{
 		_PARSE.rule_xpath = newpath;
-		/*
-		var nodes = evaluateXPath(rule, PARSE_RULE.doc);
-		for (var j=0; j<nodes.length; j++)
-		{
-			deselectBorder(nodes[j]);
-		//	if (rule.options.next)
-		//		deselectBorderNext(nodes[j]);
-		}
+		var el = document.querySelector($(obj).attr('data-id'));
 		
-		_path = newpath;
-		
-		nodes = evaluateXPath(rule, PARSE_RULE.doc)
-		for (var j=0; j<nodes.length; j++)
-		{
-			selectBorder(nodes[j], PARSE_RULE.rule.type, false, false);
-		//	if (rule.options.next)
-		//		selectBorderNext(nodes[j], rule.type, false, false);
-		}
-		
-		//$('#rulestbl tbody #rule_'+name+' td:nth-child(5)').text(rule.path);
-		//$(elembyruleid(name)).find('td:nth-child(5)').text(PARSE_RULE.xpath);
-		SetNotSaved();
-		*/
+		el.querySelector('.xpath').value = newpath;
 	}	
 	
 	$win.fadeOut('slow');
@@ -2081,7 +2061,7 @@ function pageExportItemAdd()
 }
 function loadpage_nourl(save, refresh)
 {
-	var url = document.getElementById('js_url').value;//_PARSE.url;
+	var url = document.querySelector('input.js_url').value;//_PARSE.url;
 	request(url);
 }
 
@@ -2195,7 +2175,7 @@ var formatJSON = function (text) {
 				}
 				return t.join('');
 			};
-function tabScriptClick()
+function tabRuleClick()
 {
 	var data = formatJSON(JSON.stringify(_PARSE.sites.rule));
 	$('.js_rule_res').val(data);
@@ -2518,37 +2498,46 @@ function exportEditCancel()
 
 
 /*******Loading*******/
-var LoadingProcessCount = 0;
-function showLoadingProcess()
-{
-	if (LoadingProcessCount <= 0)
+var Loading = (function(){
+	var LoadingProcessCount = 0;
+	function showLoadingProcess()
 	{
-		var $layer = $('<div id="layer1" class="toplayer"></div>');
-		$layer.css('top', $('#header').height()-5);
-		$layer.width($(window).width());
-		$layer.height($(document).height());
-		$layer.appendTo('body');
+		if (LoadingProcessCount <= 0)
+		{
+			var $layer = $('<div id="layer1" class="toplayer"></div>');
+			$layer.css('top', $('#header').height()-5);
+			$layer.width($(window).width());
+			$layer.height($(document).height());
+			$layer.appendTo('body');
+		
+			$('#loader').show();
+			var $win = $('#loader');
+			$win.css('left', ($(window).width()-$win[0].offsetWidth)/2);
+			$win.css('top', ($(window).height()-$win[0].offsetHeight-100)/2);
+			LoadingProcessCount = 0;
+		}
+		LoadingProcessCount++;
+	};
+
+	function closeLoadingProcess()
+	{
+		LoadingProcessCount--;
+		if (LoadingProcessCount <= 0)
+		{
+			$('#loader').hide();
+			$('#layer1').remove();
+			LoadingProcessCount = 0;
+		}
+	};
 	
-		$('#loader').show();
-		var $win = $('#loader');
-		$win.css('left', ($(window).width()-$win[0].offsetWidth)/2);
-		$win.css('top', ($(window).height()-$win[0].offsetHeight-100)/2);
-		LoadingProcessCount = 0;
+	
+	return {
+		show : showLoadingProcess,
+		close : closeLoadingProcess
 	}
-	LoadingProcessCount++;
-}
 
+})();
 
-function closeLoadingProcess()
-{
-	LoadingProcessCount--;
-	if (LoadingProcessCount <= 0)
-	{
-		$('#loader').hide();
-		$('#layer1').remove();
-		LoadingProcessCount = 0;
-	}
-}
 /*******Loading********/
 
 
@@ -2556,9 +2545,9 @@ function parseexec()
 {
 	if ($('#script').val() != '')
 	{
-		showLoadingProcess();
+		Loading.show();
 		$('#output').val('');
-		closeLoadingProcess();
+		Loading.close();
 		$('#output').val('test');
 	}
 }

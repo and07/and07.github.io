@@ -511,6 +511,7 @@ span.warning {
 }
 
 #loader {
+	z-index: 10051;
 	margin: 0 auto;
 }
 
@@ -758,7 +759,7 @@ span.warning {
 }
 
 .toplayer {
-	z-index: 100;
+	z-index: 10050;
 	position: absolute;
 	background-color: #DDDDDD;
 	opacity: 0.5;

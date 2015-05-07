@@ -59,16 +59,15 @@ jQuery.ajax = function (d) {
 
 
 function request(url,callback) {
-	Loading.show();
 	callback = callback||null;
 	if(callback === null){
 		callback = function(res) {
 			_PARSE.html = res.responseText;
-			var html = populateIframe('html', res.responseText);
+			var html = populateIframe('html', _PARSE.html);
 			setEvenHoveredAll(html);
 			_PARSE.golink = false;
 			removeClass(document.querySelector('#golink'),'active');
-			Loading.close();
+			
 		};
 	}
 	$.ajax({
@@ -165,8 +164,6 @@ border-radius: 3px;
 .clear{
 clear:both;
 }
-
-
 </style>
 <style>
 .extracted-items-container {
@@ -391,8 +388,7 @@ border-radius: 3px;
 <div class="tabbable tabs-right">				
 		<ul id="sidetabs" class="nav nav-tabs">
 			<li class="active"><a id="tab-browser" data-toggle="tab" href="#tabBrowser">Браузер</a></li>
-			<li><a id="tab-rule"  data-toggle="tab" href="#tabRule" onclick="tabRuleClick();">Rule</a></li>
-			<li><a id="tab-html"  data-toggle="tab" href="#tabHTML" >HTML code</a></li>
+			<li ><a id="tab-script"  data-toggle="tab" href="#tabScript" onclick="tabScriptClick();">Скрипт</a></li>			
 			<li><a id="tab-export" data-toggle="tab" href="#tabExport"  onclick="initExportList();" >Экспорт</a></li>
 			
 			<div id="rules-right-btns">
@@ -455,6 +451,7 @@ border-radius: 3px;
 					</div>
 				</div>
 				
+				<textarea id="js_tpl" style="margin: 0px 0px 9px; width: 1079px; height: 82px;"></textarea>
 				<div id="iframes">
 					<div id="hovered-element" ><div id="hovered-element-info"></div></div>					
 					<iframe id="html" name="html" width="99%" height="350" ></iframe>
@@ -876,7 +873,7 @@ border-radius: 3px;
 					<input type="hidden" name="xpath" />
 					<div class="popup-btns">
 						<button class="btn" onclick="cancelHtmlTree();" style="float:right; margin-left:10px;">Отмена</button>
-						<button class="btn js_set_xpath" id="" onclick="setHtmlTree(this);" style="float:right;">OK</button>
+						<button class="btn" onclick="setHtmlTree();" style="float:right;">OK</button>
 						<div id="labels">
 							<span id="rulename"></span>&nbsp;&nbsp;&nbsp;&nbsp;
 							
@@ -892,10 +889,13 @@ border-radius: 3px;
 </div>								
 			</div>
 			
-			<div id="tabRule" class="tab-pane ">
+			<div id="tabScript" class="tab-pane ">
 				<div id="script-container">
 				<div class="btn-toolbar">
-					<div class="btn-group">
+					<!-- <div style="float: right; margin-top: 1px; border: 1px solid">
+						Строка: 0 Колонка: 0
+					</div>-->
+										<div class="btn-group">
 						<button class="btn" onclick="parseexec();">Выполнить</button>
 					</div>
 					<div class="btn-group">
@@ -914,28 +914,9 @@ border-radius: 3px;
 				<textarea id="output" wrap="off" spellcheck="false" readonly="readonly"></textarea>
 				
 				</div>
+				<input type="hidden" name="scraperid" value="955"/>
+								
 			</div>
-
-			<div id="tabHTML" class="tab-pane ">
-				<div style="height: 400px;">
-					<div class="btn-toolbar">
-						<div class="btn-group">
-							<button class="btn">Строка:</button>
-							<button class="btn" id="lineid">0</button>
-						</div>
-						<div class="btn-group">
-							<button class="btn">Колонка:</button>
-							<button class="btn" id="columnid">0</button>
-						</div>
-
-					</div>
-					
-					<textarea id="js_tpl" class="ldt-input" wrap="off" spellcheck="false"></textarea>
-				</div>
-			</div>			
-			
-
-			
 			
 			<div id="tabExport" class="tab-pane">
 				<div id="exporttable">
@@ -1168,6 +1149,47 @@ if(!supports_html5_storage()){
 	alert('обновите браузер');
 }
 
+function formatState (state) {
+	var icon = {
+		'text' : '<i class="icon-align-left"></i>',
+		'link' : '<i class="icon-font"></i>',
+		'img' : '<i class="icon-picture"></i>',
+		'html' : '<i class="icon-chevron-left"></i><i class="icon-chevron-right"></i>',
+		'table' : '',
+	};
+	if (!state.id) { return state.text; }
+	var $state = $(
+	'<span id="sel'+state.element.value.toLowerCase()+'">' + icon[state.element.value.toLowerCase()] + ' ' + state.text + '</span>'
+	);
+	return $state;
+};
+ 
+$(".js_type").select2({
+	templateResult: formatState,
+	placeholder: "Select a type",
+	minimumResultsForSearch: Infinity
+});
+
+function initParseList(){
+	//http://www.listjs.com/examples/add-get-remove
+	var ParseOptions = {
+	  valueNames: ['name', 'url', 'date_edit' ],
+		item: '<li class="">'+
+						'<span class="name col_5" id="yw0_c1"><a href="/main?Scrapers_sort=name"><span class="caret"></span></a></span>'+
+						'<span class="url col_5" id="yw0_c2"><a href="/main?Scrapers_sort=start_page"><span class="caret"></span></a></span>'+
+						'<span class="date_edit col_5" id="yw0_c3"><a href="/main?Scrapers_sort=dtmodified"><span class="caret"></span></a></span>'+
+						'<span class="button-column col_5" id="yw0_c4">'+ 
+									'<a style="margin-left: 5px;" class="edit" rel="tooltip" href="#/edit/959" data-original-title="Редактировать"><i class="icon-edit"></i></a>'+
+									'<a style="margin-left: 5px;" rel="tooltip" href="#/generate/959" data-original-title="Генерировать"><i class="icon-file"></i></a>'+
+									'<a style="margin-left: 5px;" onclick="showRunDialog(this);" rel="tooltip" href="#" data-original-title="Управление запуском"><i class="icon-play"></i></a>'+
+									'<a style="margin-left: 5px;" onclick="showResultDialog(this);" rel="tooltip" href="#" data-original-title="Результат выполнения"><i class="icon-folder-open"></i></a>'+
+									'<a style="margin-left: 5px;" class="delete" rel="tooltip" href="#/main/delete/959" data-original-title="Удалить"><i class="icon-remove"></i></a>'+
+						'</span>'+
+				'</li>'
+	};
+	// Init list
+	parseList = new List('parser_list', ParseOptions);
+}
 
 var _PARSE = function () {
 	var self = this;
@@ -1274,7 +1296,6 @@ var _PARSE = function () {
 	};
 	var editItem = function (){
 		var el = document.querySelector($(this).attr('data-id'));
-		$('.js_set_xpath').attr('data-id', $(this).attr('data-id'));
 		htmltree(el);
 	}
 	var delItem = function (){
@@ -1312,57 +1333,16 @@ var _PARSE = function () {
 		}
 		
 	};
-	
-	this.formatState = function(state) {
-		var icon = {
-			'text' : '<i class="icon-align-left"></i>',
-			'link' : '<i class="icon-font"></i>',
-			'img' : '<i class="icon-picture"></i>',
-			'html' : '<i class="icon-chevron-left"></i><i class="icon-chevron-right"></i>',
-			'table' : '',
-		};
-		if (!state.id) { return state.text; }
-		var $state = $(
-		'<span id="sel'+state.element.value.toLowerCase()+'">' + icon[state.element.value.toLowerCase()] + ' ' + state.text + '</span>'
-		);
-		return $state;
-	};
-	
-	this.initParseList = function (){
-		//http://www.listjs.com/examples/add-get-remove
-		var ParseOptions = {
-		  valueNames: ['name', 'url', 'date_edit' ],
-			item: '<li class="">'+
-							'<span class="name col_5" id="yw0_c1"><a href="/main?Scrapers_sort=name"><span class="caret"></span></a></span>'+
-							'<span class="url col_5" id="yw0_c2"><a href="/main?Scrapers_sort=start_page"><span class="caret"></span></a></span>'+
-							'<span class="date_edit col_5" id="yw0_c3"><a href="/main?Scrapers_sort=dtmodified"><span class="caret"></span></a></span>'+
-							'<span class="button-column col_5" id="yw0_c4">'+ 
-										'<a style="margin-left: 5px;" class="edit" rel="tooltip" href="#/edit/959" data-original-title="Редактировать"><i class="icon-edit"></i></a>'+
-										'<a style="margin-left: 5px;" rel="tooltip" href="#/generate/959" data-original-title="Генерировать"><i class="icon-file"></i></a>'+
-										'<a style="margin-left: 5px;" onclick="showRunDialog(this);" rel="tooltip" href="#" data-original-title="Управление запуском"><i class="icon-play"></i></a>'+
-										'<a style="margin-left: 5px;" onclick="showResultDialog(this);" rel="tooltip" href="#" data-original-title="Результат выполнения"><i class="icon-folder-open"></i></a>'+
-										'<a style="margin-left: 5px;" class="delete" rel="tooltip" href="#/main/delete/959" data-original-title="Удалить"><i class="icon-remove"></i></a>'+
-							'</span>'+
-					'</li>'
-		};
-		// Init list
-		return new List('parser_list', ParseOptions);
-	};
 
 	return this;
 
 }();
 
-$(".js_type").select2({
-	templateResult: _PARSE.formatState,
-	placeholder: "Select a type",
-	minimumResultsForSearch: Infinity
-});
 
 
 /************ParseList**************/
-var parseList = _PARSE.initParseList();
-
+var parseList = null;
+initParseList();
 
 var idField = $('#id-field');
 var nameField = $('#name-field');

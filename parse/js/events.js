@@ -360,24 +360,3 @@ $(document).ready(function() {
 });
 /***main-rules3.js***/
 
-
-/***main-rules5.js***/
-$(document).ready(function() {
-	
-	$('#helper').draggable({handle: '.tab-content'});
-	
-	$('#helper .close').click(function() {
-		$('#helper').fadeOut('slow');
-	});
-	
-	//$('#helper button.btn').click(insertFunc);
-	
-	var $win = $('#helper');
-	$win.css('left', $(window).width()-500);
-	$win.css('top', ($(window).height()-$win[0].offsetHeight)/2 - 250);
-	
-});
-/***main-rules5.js***/
-
-
-
