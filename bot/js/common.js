@@ -101,13 +101,12 @@ var _PARSE = (function () {
 	function createItem() {
 		scnt++;
 		var id = 'div#tree_item_'+scnt+'';
-		var _xpath = 'xpath';
-		var _name = 'name';
-		var _type = 'type';
 		return v(id, {}, [ 
-				v('input.form-control.type.selattr',{name:_type,'disabled':"disabled"}),
-				v('input.form-control.name',{type:'text',placeholder:'Name',name:_name,'disabled':"disabled"}),
-				v('input.form-control.xpath',{type:'text',placeholder:'Xpath',name:_xpath,'disabled':"disabled"}),
+				v('input.form-control.type.selattr',{name:'type','disabled':"disabled"}),
+				v('input.form-control.name',{type:'text',placeholder:'Name', name:'name','disabled':"disabled"}),
+				v('input.form-control.xpath',{type:'text',placeholder:'Xpath', name:'xpath','disabled':"disabled"}),
+				v('input.form-control.wait',{type:'text',placeholder:'Wait', name:'wait','disabled':"disabled"}),
+				v('input.form-control.input',{type:'text',placeholder:'Input', name:'input','disabled':"disabled"}),
 				v("button.btn.btn-default#edit_item", { onclick: editItem, 'data-id':id}, "EditItem"),
 				v('button.btn.del',{onclick: delItem, 'data-id':id},'X'),
 		]);
@@ -241,17 +240,105 @@ var _PARSE = (function () {
 
 /***RULE***/
 
+function parseURL(url) {
+    //url = decodeURIComponent( url );
+    url = decodeURI( url );
+    var a =  document.createElement('a');
+    a.href = url;
+    return {
+        source: url,
+        protocol: a.protocol.replace(':',''),
+        host: a.hostname,
+        port: a.port,
+        query: a.search,
+        params: (function(){
+            var ret = {},
+                seg = a.search.replace(/^\?/,'').split('&'),
+                len = seg.length, i = 0, s;
+            for (;i<len;i++) {
+                if (!seg[i]) { continue; }
+                s = seg[i].split('=');
+                ret[s[0]] = s[1];
+            }
+            return ret;
+        })(),
+        file: (a.pathname.match(/\/([^\/?#]+)$/i) || [,''])[1],
+        hash: a.hash.replace('#',''),
+        path: a.pathname.replace(/^([^\/])/,'/$1'),
+        relative: (a.href.match(/tps?:\/\/[^\/]+(.+)/) || [,''])[1],
+        segments: a.pathname.replace(/^\//,'').split('/'),
+
+    };
+}
+var getTreeData = function(el){
+	var getData = function(el){
+		var tmp = {};
+		var xpath = el.querySelector('.xpath');
+		var name = el.querySelector('.name');
+		var attr = el.querySelector('.selattr');
+		var wait = el.querySelector('.wait');
+		var input = el.querySelector('.input');
+		tmp[xpath.getAttribute("name")] = xpath.value;
+		tmp[name.getAttribute("name")] = name.value;
+		tmp[attr.getAttribute("name")] = attr.value;
+		tmp[wait.getAttribute("name")] = wait.value;
+		tmp[input.getAttribute("name")] = input.value;
+		return tmp;
+	}
+	
+	var sub_el = '.vtree-subtree';
+	if(el.tagName){
+		//obj[el.tagName] = [];
+		var arr = [];
+		if(el.childNodes){
+			var cnt = el.children.length;
+			if(cnt > 0){
+				for(var i=0; i<cnt;i++){
+					var child = el.children[i];
+					if(child.querySelector(sub_el)){
+						var tmp = getData(child);
+						tmp['children'] = {};
+					console.log(tmp);
+						//obj[el.tagName]['children']['parent'] = tmp;
+						tmp['children'] = getTreeData(child.querySelector(sub_el) );
+						arr.push(tmp);
+					}else{
+						var tmp = getData(child);
+						console.log(tmp);
+						arr.push(tmp);
+					}
+				}
+			}
+		}
+		return arr;
+	}
+}
+function getRule(){
+
+    var elements = document.querySelector('.vtree');
+    var data = getTreeData(elements); 
+    var url = document.querySelector('.js_url');
+    var name =  document.querySelector('.js_bot_name');;
+    var host = parseURL(url);
+    var domen = host.protocol + '://' + host.host;
+    var type = _PARSE.type;
+    
+	return {'url':url, 'data':data,'host':host['host'], 'name':name, 'domen':domen}
+
+}
 
 function setItem()
 {
-	var type = $('#itemNameParseModal select[name="type"]').val();
-	var name = $('#itemNameParseModal input[name="name"]').val();
-	var parent = $('#itemNameParseModal .js_parent').val() || null;
+	var type = $('#itemNameBotModal select[name="type"]').val();
+	var name = $('#itemNameBotModal input[name="name"]').val();
+	var parent = $('#itemNameBotModal .js_parent').val() || null;
+	var wait = $('#itemNameBotModal .js_wait').val() || null;
+	var input = $('#itemNameBotModal .js_input').val() || null;
 	
 	
 	if (name != '' && name.search(/^[A-Za-z][A-Za-z0-9_]*$/) != -1) 
 	{
-		$('#itemNameParseModal').fadeOut('slow');
+		$('#itemNameBotModal').fadeOut('slow');
 
 		var scnt = _PARSE.addRule(parent);
 		var parent_id = 'tree_'+scnt;
@@ -269,6 +356,8 @@ function setItem()
 		
 		el.querySelector('.type').value = type;
 		el.querySelector('.name').value = name;
+		el.querySelector('.wait').value = wait;
+		el.querySelector('.input').value = input;
 
 		fillSel('.js_parent', [{'text' : name , 'value' : parent_id}]);
 	}
@@ -344,9 +433,9 @@ function selectBorder(elem, type, e, dialog)
 {
 	if (dialog == undefined || dialog == true)
 	{
-		$('#itemNameParseModal').modal('show');
-		//$('#itemNameParseModal').css('left', e.clientX+50).css('top', e.clientY+10).fadeIn('slow');
-		$('#itemNameParseModal').css('top', e.clientY+10).fadeIn('slow');
+		$('#itemNameBotModal').modal('show');
+		//$('#itemNameBotModal').css('left', e.clientX+50).css('top', e.clientY+10).fadeIn('slow');
+		$('#itemNameBotModal').css('top', e.clientY+10).fadeIn('slow');
 	}
 	
 	$(elem).data('oldstyle2', $(elem).css('border'));
