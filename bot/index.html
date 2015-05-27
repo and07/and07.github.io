@@ -331,20 +331,11 @@ function request(url,callback) {
 <div class="tabbable tabs-right">
 		<ul id="sidetabs" class="nav nav-tabs">
 			<li class="active"><a id="tab-browser" data-toggle="tab" href="#tabBrowser">Браузер</a></li>
-			<li><a id="tab-rule"  data-toggle="tab" href="#tabRule" onclick="tabRuleClick();">Rule</a></li>
-			<li><a id="tab-html"  data-toggle="tab" href="#tabHTML" >HTML code</a></li>
-			<li><a id="tab-export" data-toggle="tab" href="#tabExport"  onclick="initExportList();" >Экспорт</a></li>
 		</ul>
 		
 		<div class="tab-content">
 			<div id="tabBrowser" class="tab-pane active">
 				<form class="form-inline">
-					<div class="form-group">
-							<input type="radio" name="type" value="1" checked="checked">HTML
-					</div>
-					<div class="form-group">
-							<input type="radio" name="type" value="2">XML
-					</div>
 					<div class="form-group">
 							<input type="checkbox" name="base" id="js_base_btn">BaseTag
 					</div>
@@ -375,9 +366,6 @@ function request(url,callback) {
 							<button id="golink" class="btn"><i class="icon-share-alt"></i>&nbsp;Загрузить ссылку</button>
 							
 						</div>
-						<div class="btn-group">
-							<button id="selre" class="btn" onclick="getregexp();">RegExp</button>
-						</div>
 					</div>
 				</div>
 				
@@ -387,14 +375,6 @@ function request(url,callback) {
 					<iframe id="html2" width="99%" style="display: none;"></iframe>
 				</div>
 				
-				<div class="btn-toolbar">
-					<div class="btn-group">
-						<button id="ruleexport" onclick="pageexport();" class="btn">Правило экспорта</button>
-					</div>
-					<div class="btn-group">
-						<button id="viewdata" onclick="pagedata();" class="btn">Собранные данные</button>
-					</div>
-				</div>
 				<div id="rules-container">
 					<div id="" class="js_items" ></div>
 <!--
@@ -417,171 +397,6 @@ function request(url,callback) {
 				
 			</div>
 			
-			<div id="tabRule" class="tab-pane ">
-				<div id="script-container">
-				<div class="btn-toolbar">
-					<div class="btn-group">
-						<button class="btn" onclick="Botexec();">Выполнить</button>
-					</div>
-					<div class="btn-group">
-						<button class="btn">Строка:</button>
-						<button class="btn" id="lineid">0</button>
-					</div>
-					<div class="btn-group">
-						<button class="btn">Колонка:</button>
-						<button class="btn" id="columnid">0</button>
-					</div>
-
-				</div>
-				
-				<textarea id="script" class="ldt-input js_rule_res" wrap="off" spellcheck="false"></textarea>
-				<br/><label>Вывод:</label>
-				<textarea id="output" wrap="off" spellcheck="false" readonly="readonly"></textarea>
-				
-				</div>
-			</div>
-
-			<div id="tabHTML" class="tab-pane ">
-				<div style="height: 400px;">
-					<div class="btn-toolbar">
-						<div class="btn-group">
-							<button class="btn">Строка:</button>
-							<button class="btn" id="lineid">0</button>
-						</div>
-						<div class="btn-group">
-							<button class="btn">Колонка:</button>
-							<button class="btn" id="columnid">0</button>
-						</div>
-
-					</div>
-					
-					<textarea id="js_tpl" class="ldt-input" wrap="off" spellcheck="false"></textarea>
-				</div>
-			</div>			
-			
-			
-			<div id="tabExport" class="tab-pane">
-				<div id="exporttable">
-					<h3>Профили экспорта</h3>
-					<div style="margin-top: 20px;">
-					<div class="span6">
-				<div id="export_list" class="grid-view">
-					<ul class="head_list">
-							<li class="">
-								<span class="sort col_5" data-sort="name" id="yw0_c1"><a href="#/main?Scrapers_sort=name">Имя<span class="caret"></span></a></span>
-								<span class="sort col_5" data-sort="type"  id="yw0_c2"><a href="#/main?Scrapers_sort=start_page">Тип<span class="caret"></span></a></span>
-								<span class="sort col_5" data-sort="extension" id="yw0_c3"><a href="#/main?Scrapers_sort=dtmodified">Расширение<span class="caret"></span></a></span>
-								<span class="button-column" id="yw0_c4" class="col_5"> <input type="text" class="search" placeholder="Search" /></span>
-							</li>
-					</ul>
-					<ul class="list"></ul>
-				</div>
-					</div>
-
-					<div class="span2">
-						<div class="right-panel" style="margin-top: 0px;">
-				    		<a href="#" onclick="exportNew();">Создать</a>
-				    	</div>
-				    	<div class="right-panel hint">Профили экспорта используются для задания шаблона сохранения собранных данных.</div>
-					</div>
-					</div>
-				</div>
-				<div id="exportedit">
-					<h3>Создание нового профиля экспорта</h3>
-					<h3>Редактирование профиля экспорта</h3>
-					<input type="hidden" name="newedit" value="new" />
-					<input type="hidden" name="exportType" value="csv" />
-					<br/>
-					<div class="tabbable">
-						<ul class="nav nav-tabs" id="exportRadio">
-							<li class="active"><a data-toggle="tab" href="#tabCSV">CSV</a></li>
-							<li><a data-toggle="tab" href="#tabXML">XML</a></li>
-							<li><a data-toggle="tab" href="#tabSQL">SQL</a></li>
-							<li><a data-toggle="tab" href="#tabExcel">Excel</a></li>
-							<li><a data-toggle="tab" href="#tabRDB">RDB</a></li>
-						</ul>
-						<div class="tab-content">
-							<div id="tabCSV" class="tab-pane active">
-								<label for="exportName">Имя профиля</label>
-								<input type="text" id="exportName" value="" />
-								<label for="exportExtension">Расширение файла</label>
-								<input type="text" id="exportExtension" value="" />
-								<label for="exportDelimiter">Разделитель</label>
-								<input class="span1" type="text" id="exportDelimiter" value="" />
-								<input type="checkbox" id="exportIssave" checked="checked"/>&nbsp;Записывать в файл<br/>
-							</div>
-							<div id="tabXML" class="tab-pane">
-								<label for="exportName">Имя профиля</label>
-								<input type="text" id="exportName" value="" />
-								<label for="exportExtension">Расширение файла</label>
-								<input type="text" id="exportExtension" value="" />
-								<label for="exportTemplateHead">Шапка</label>
-								<textarea id="exportTemplateHead" wrap="off" spellcheck="false"></textarea>
-								<label for="exportTemplateBody">Шаблон записи</label>
-								<textarea id="exportTemplateBody" wrap="off" spellcheck="false"></textarea>
-								<label for="exportTemplateTail">Подвал</label>
-								<textarea id="exportTemplateTail" wrap="off" spellcheck="false"></textarea>
-								<br/>
-								<input type="checkbox" id="exportIssave" checked="checked"/>&nbsp;Записывать в файл<br/>
-							</div>
-							<div id="tabSQL" class="tab-pane">
-								<label for="exportName">Имя профиля</label>
-								<input type="text" id="exportName" value="" />
-								<label for="exportExtension">Расширение файла</label>
-								<input type="text" id="exportExtension" value="" />
-								<label for="exportTemplateHead">Шапка</label>
-								<textarea id="exportTemplateHead" wrap="off" spellcheck="false"></textarea>
-								<label for="exportTemplateBody">Шаблон записи</label>
-								<textarea id="exportTemplateBody" wrap="off" spellcheck="false"></textarea>
-								<label for="exportTemplateTail">Подвал</label>
-								<textarea id="exportTemplateTail" wrap="off" spellcheck="false"></textarea>
-								<br/>
-								<input type="checkbox" id="exportIssave" checked="checked"/>&nbsp;Записывать в файл<br/>
-							</div>
-							<div id="tabExcel" class="tab-pane">
-								<label for="exportName">Имя профиля</label>
-								<input type="text" id="exportName" value="" />
-								<label for="exportExtension">Расширение файла</label>
-								<input type="text" id="exportExtension" value="" />
-								<label for="exportTemplateHead">Шапка (здесь можно задать названия столбцов через ;)</label>
-								<textarea id="exportTemplateHead" wrap="off" spellcheck="false"></textarea><br/>
-								<input type="checkbox" id="exportinsimage" />&nbsp;Вставлять картинки<br/>
-							</div>
-							<div id="tabRDB" class="tab-pane">
-								<div style="float: left; width: 300px;">
-									<label for="exportName">Имя профиля</label>
-									<input type="text" id="exportName" value="" />
-									<label for="exportRDBType">База данных</label>
-									<select id="exportRDBType">
-									</select>
-									<label for="exportDataset">Набор данных</label>
-									<select id="exportDataset">
-									</select>
-									<br/><br/>
-									<input type="checkbox" id="exportIssave" checked="checked"/>&nbsp;Записывать в БД<br/>
-									<div id="dbparams">
-										<label for="exportDBHost">Хост</label>
-										<input type="text" id="exportDBHost" value="" />
-										<label for="exportDBUser">Пользователь</label>
-										<input type="text" id="exportDBUser" value="" />
-										<label for="exportDBPass">Пароль</label>
-										<input type="text" id="exportDBPass" value="" />
-										<label for="exportDBName">Имя базы данных</label>
-										<input type="text" id="exportDBName" value="" />
-									</div>
-								</div>
-								<div id="rdbview" style="float: left">
-								</div>
-							</div>
-						</div>
-					</div>
-					<hr/>
-					<div class="myformbtns">
-						<button class="btn" onclick="exportEditOk();">OK</button>
-						<button class="btn" onclick="exportEditCancel();">Отмена</button>
-					</div>
-				</div>
-			</div>
 			
 		</div>
 	</div>
