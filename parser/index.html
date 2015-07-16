@@ -434,7 +434,7 @@ function request(url,callback) {
 
 				</div>
 				
-				<textarea id="script" class="ldt-input js_rule_res" wrap="off" spellcheck="false"></textarea>
+				<textarea id="script" class="ldt-input js_rule_res" wrap="off" spellcheck="false" style="margin: 0px; width: 1151px;  height: 431px;"></textarea>
 				<br/><label>Вывод:</label>
 				<textarea id="output" wrap="off" spellcheck="false" readonly="readonly"></textarea>
 				
@@ -587,7 +587,7 @@ function request(url,callback) {
 	</div>
 					</div>
 				<div class="modal-footer">
-					<button class="btn" >Сохранить</button>
+					<button class="btn js_save_rule"  >Сохранить</button>
 					<button id="btnclose" class="btn" >Закрыть</button>
 					<!--	<a data-dismiss="modal" id="add-btn" class="btn" href="/create/" >OK</a>    <a data-dismiss="modal" id="cancel-del-btn" class="btn" href="#">Отмена</a> -->
 				</div>
@@ -1203,6 +1203,12 @@ $('.js_loadpage_nourl').on('click',function(e){
 	var url = document.querySelector('input.js_url').value;//_PARSE.url;
 	request(url);
 	return false;
+});
+
+
+$('.js_save_rule').on('click',function(e){
+	e.preventDefault();
+	rulessave();
 });
 
 

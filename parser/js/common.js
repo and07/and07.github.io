@@ -37,6 +37,7 @@ function getIframeContent(id) {
     }
     return doc;
 } 
+
 function populateIframe(id,text) {
 	var doc = getIframeContent(id);
 
@@ -44,6 +45,172 @@ function populateIframe(id,text) {
 		
 	return doc;
 }
+
+
+/*****
+ * formatter
+ */
+function escapeStr(str)
+{
+	if (typeof str == 'string')
+		return str.replace(/([^\\])'/g, "$1\\'");
+	return str;
+}
+
+String.space = function (len) {
+	var t = [], i;
+	for (i = 0; i < len; i++) {
+		t.push(' ');
+	}
+	return t.join('');
+};
+var formatJSON = function (text) {
+				text = text.replace(/\n/g, ' ').replace(/\r/g, ' ');
+				var t = [];
+				var tab = 0;
+				var inString = false;
+				for (var i = 0, len = text.length; i < len; i++) {
+					var c = text.charAt(i);
+					if (inString && c === inString) {
+						// TODO: \\"
+						if (text.charAt(i - 1) !== '\\') {
+							inString = false;
+						}
+					} else if (!inString && (c === '"' || c === "'")) {
+						inString = c;
+					} else if (!inString && (c === ' ' || c === "\t")) {
+						c = '';
+					} else if (!inString && c === ':') {
+						c += ' ';
+					} else if (!inString && c === ',') {
+						c += "\n" + String.space(tab * 2);
+					} else if (!inString && (c === '[' || c === '{')) {
+						tab++;
+						c += "\n" + String.space(tab * 2);
+					} else if (!inString && (c === ']' || c === '}')) {
+						tab--;
+						c = "\n" + String.space(tab * 2) + c;
+					}
+					t.push(c);
+				}
+				return t.join('');
+			};
+
+function tabRuleClick()
+{
+	var data = formatJSON(JSON.stringify(_PARSE.rule));
+	$('.js_rule_res').val(data);
+}
+
+/***
+var myURL = parseURL('http://abc.com:8080/dir/index.html?id=255&m=hello#top');
+ 
+myURL.file;     // = 'index.html'
+myURL.hash;     // = 'top'
+myURL.host;     // = 'abc.com'
+myURL.query;    // = '?id=255&m=hello'
+myURL.params;   // = Object = { id: 255, m: hello }
+myURL.path;     // = '/dir/index.html'
+myURL.segments; // = Array = ['dir', 'index.html']
+myURL.port;     // = '8080'
+myURL.protocol; // = 'http'
+myURL.source;   // = 'http://abc.com:8080/dir/index.html?id=255&m=hello#top'
+
+****/
+
+function parseURL(url) {
+    //url = decodeURIComponent( url );
+    url = decodeURI( url );
+    var a =  document.createElement('a');
+    a.href = url;
+    return {
+        source: url,
+        protocol: a.protocol.replace(':',''),
+        host: a.hostname,
+        port: a.port,
+        query: a.search,
+        params: (function(){
+            var ret = {},
+                seg = a.search.replace(/^\?/,'').split('&'),
+                len = seg.length, i = 0, s;
+            for (;i<len;i++) {
+                if (!seg[i]) { continue; }
+                s = seg[i].split('=');
+                ret[s[0]] = s[1];
+            }
+            return ret;
+        })(),
+        file: (a.pathname.match(/\/([^\/?#]+)$/i) || [,''])[1],
+        hash: a.hash.replace('#',''),
+        path: a.pathname.replace(/^([^\/])/,'/$1'),
+        relative: (a.href.match(/tps?:\/\/[^\/]+(.+)/) || [,''])[1],
+        segments: a.pathname.replace(/^\//,'').split('/'),
+
+    };
+}
+var getTreeData =  function(el){
+	var getData = function(el){
+		var _xpath = {};
+		var _name = {};
+		var _attr = {};
+		var tmp = {};
+		var xpath = el.querySelector('.xpath');
+		var name = el.querySelector('.name');
+		var attr = el.querySelector('.selattr');
+		tmp[xpath.getAttribute("name")] = xpath.value;
+		tmp[name.getAttribute("name")] = name.value;
+		tmp[attr.getAttribute("name")] = attr.value;
+		return tmp;
+	}
+	
+	var sub_el = '.vtree-subtree';
+	if(el.tagName){
+		//obj[el.tagName] = [];
+		var arr = [];
+	if(el.childNodes){
+		var cnt = el.children.length;
+		if(cnt > 0){
+			for(var i=0; i<cnt;i++){
+				var child = el.children[i];
+				if(child.querySelector(sub_el)){
+					var tmp = getData(child);
+					tmp['children'] = {};
+				   
+					//obj[el.tagName]['children']['parent'] = tmp;
+								   
+					tmp['children'] = getTreeData(child.querySelector(sub_el) );
+					arr.push(tmp);
+				}else{
+					var tmp = getData(child);
+					arr.push(tmp);
+				}
+			}
+		}
+	}
+		return arr;
+	}
+}
+function getRule(){
+
+    var elements = document.querySelector('.vtree');
+    var data = getTreeData(elements); 
+    var url = $('input.js_url').val();
+    var name =  $('.js_parse_name').text();
+    var host = parseURL(url);
+    var domen = host.protocol + '://' + host.host;
+    var type = _PARSE.type;
+    
+	return {'url':url, 'data':data,'host':host['host'], 'name':name, 'domen':domen}
+
+}
+function rulessave(successfunc)
+{
+	//if (!$('#tab-script').parent().hasClass('active'))
+	//	tabScriptClick();
+	console.log(getRule());
+	_PARSE['rule'] = getRule();
+}
+
 function createXPathFromElement(elm) { 
     //var allNodes = document.getElementsByTagName('*'); 
     for (var segs = []; elm && elm.nodeType == 1; elm = elm.parentNode) 
