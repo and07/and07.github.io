@@ -93,7 +93,30 @@ function request(url,callback) {
 </script>
 
 <style>
+#htmltree-content {
+	margin-bottom: 10px;
+	border: 1px solid #DDDDDD;
+	overflow: auto;
+	height: 69%;
+	width: 98%;
+}
 
+#htmltree-content ul {
+	list-style: none;
+}
+
+#htmltree-content .plus {
+	margin-right: 5px;
+}
+
+#htmltree-content li {
+	cursor: pointer;
+}
+
+#htmltree-content .selected {
+	background: black;
+	color: white;
+}
 </style>
   </head>
   <body>
@@ -159,11 +182,11 @@ function request(url,callback) {
 		<div class="modal-content">
 				<div class="modal-header">
 					<a class="close" data-dismiss="modal">×</a>
-					<h3>Удаление парсера <span class="js_bot_name"></span></h3>
+					<h3>Удаление <span class="js_bot_name"></span></h3>
 				</div>
 				<div class="modal-body">
 					<input type="hidden" name="scrid" id="js_scrid" value="">
-					<p>Вы действительно хотите удалить парсер?</p>
+					<p>Вы действительно хотите удалить ?</p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -181,7 +204,7 @@ function request(url,callback) {
 		<div class="modal-content">
 			<div class="modal-header">
 				<a class="close" data-dismiss="modal">×</a>
-				<h3>Создать парсер <span class="js_Bot_id"></span></h3>
+				<h3>Создать <span class="js_Bot_id"></span></h3>
 			</div>
 			<div class="modal-body">
 				<form class="form1 form-vertical" id="form"  method="post"> 
@@ -331,6 +354,7 @@ function request(url,callback) {
 <div class="tabbable tabs-right">
 		<ul id="sidetabs" class="nav nav-tabs">
 			<li class="active"><a id="tab-browser" data-toggle="tab" href="#tabBrowser">Браузер</a></li>
+			<li><a id="tab-rule"  data-toggle="tab" href="#tabRule" onclick="tabRuleClick();">Rule</a></li>
 		</ul>
 		
 		<div class="tab-content">
@@ -339,21 +363,12 @@ function request(url,callback) {
 					<div class="form-group">
 							<input type="checkbox" name="base" id="js_base_btn">BaseTag
 					</div>
-				<form>
+				</form>
 				
 				<div id="panel">
 					<div class="_form-inline" style="float:left; margin-right:30px;">
-                        <button onclick="loadprev();" class="btn" title="Назад">
-							<i class="icon-arrow-left"></i>
-						</button>
-						<button onclick="loadnext();" class="btn" title="Вперёд">
-							<i class="icon-arrow-right"></i>
-						</button>
 						<input type="text" name="url" class="js_url" value="" placeholder="Введите url страницы" style="width: 300px;"/>
 						<button class="btn js_loadpage_nourl" title="Обновить страницу"><i class="icon-repeat"></i></button>
-						<button onclick="loadtree();" class="btn" title="Загружаемые страницы">
-							<i class="icon-th-list"></i>
-						</button>
 					</div>
 					<div class="btn-toolbar">
 						<div class="btn-group" data-toggle="buttons-radio">
@@ -372,31 +387,19 @@ function request(url,callback) {
 				<div id="iframes">
 					<div id="hovered-element" ><div id="hovered-element-info"></div></div>					
 					<iframe id="html" name="html" width="99%" height="350" ></iframe>
-					<iframe id="html2" width="99%" style="display: none;"></iframe>
 				</div>
 				
 				<div id="rules-container">
 					<div id="" class="js_items" ></div>
-<!--
-				<table id="rulestbl" class="table table-striped table-bordered">
-					<thead>
-						<tr>
-							<th style="width: 15px;"></th>
-							<th style="width: 100px;">Имя</th>
-							<th style="width: 80px;">Тип</th>
-							<th style="width: 80px;">Группа</th>
-							<th>XPath</th>
-							<th style="width: 80px;"></th>
-						</tr>
-					</thead>
-					<tbody>
-					</tbody>
-				</table>
--->
+
 				</div>
 				
 			</div>
-			
+			<div id="tabRule" class="tab-pane ">
+				<div id="script-container">			
+					<textarea id="script" class="ldt-input js_rule_res" wrap="off" spellcheck="false" style="margin: 0px; width: 1151px;  height: 431px;"></textarea>
+				</div>
+			</div>			
 			
 		</div>
 	</div>
@@ -842,7 +845,7 @@ function request(url,callback) {
 <!-- LOAD TREE BOT -->
 
 <!-- HTML TREE BOT -->
-<div id="htmlTreeBotModal" class="modal fade"   tabindex="-1" role="dialog" aria-hidden="true">
+<div id="htmlTreeParseModal" class="js_htmltree modal fade"   tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -850,7 +853,7 @@ function request(url,callback) {
 				<h3>Дерево html элементов</h3>
 			</div>
 			<div class="modal-body">
-							<div id="htmltree-content">
+					<div id="htmltree-content">
 					</div>
 					<!-- <span>XPath</span><input type="text" name="xpath" style="width: 90%; margin-left: 10px;"/>  -->
 					<textarea name="xpath" spellcheck="false" style="width: 97%"></textarea>
@@ -1039,7 +1042,7 @@ $('.js_set_item').on('click',function(e){
 
 $('.js_rule_save').on('click',function(e){
 	e.preventDefault();
-	console.log(getRule());
+	_PARSE.rule = getRule();
 });
 
 /**EDIT Bot**/
