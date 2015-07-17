@@ -8,6 +8,43 @@ Date.prototype.yyyymmdd = function() {
    var _ss = this.getSeconds().toString();  
    return yyyy + '-' + ( mm[1]?mm:"0"+ mm[0] ) +'-' + (dd[1]?dd:"0"+dd[0]) + ' '+ _hh+':'+_mm+':'+_ss; // padding
 };
+$.fn.getStyleObject = function(){
+    var dom = this.get(0);
+    var style;
+    var returns = {};
+    if(window.getComputedStyle){
+        var camelize = function(a,b){
+            return b.toUpperCase();
+        };
+        style = window.getComputedStyle(dom, null);
+		if(style && style.length){
+			for(var i = 0, l = style.length; i < l; i++){
+				var prop = style[i];
+				var camel = prop.replace(/\-([a-z])/, camelize);
+				var val = style.getPropertyValue(prop);
+				returns[camel] = val;
+			}
+		}
+        return returns;
+    }
+    if(dom.currentStyle){
+        style = dom.currentStyle;
+        for(var prop in style){
+            returns[prop] = style[prop];
+        }
+        return returns;
+    }
+    if(style = dom.style){
+        for(var prop in style){
+            if(typeof style[prop] != 'function'){
+                returns[prop] = style[prop];
+            }
+        }
+        return returns;
+    }
+    return returns;
+};
+	
 function delBaseTag(el){
 	var head = el.getElementsByTagName("head")[0]
 	var oldBase = el.getElementsByTagName("base")[0];
@@ -255,6 +292,40 @@ function createXPathFromElement(elm) {
     return segs.length ? '//' + segs.join('/') : null; 
 };
 
+
+var isIe = /MSIE [56789]/.test(navigator.userAgent) && (navigator.platform == "Win32");
+function evaluateXPath(xpath, doc, context) {
+	if (isIe)
+	{
+		//в IE в xpath в div[1] нумерация начинается с 0
+		var p = xpath.split('/');
+		for (var i=0; i<p.length; i++)
+		{
+			if (p[i] != '')
+			{
+				var result = p[i].match(/\[(\d+)\]/i);
+				if (result != null)
+				{
+					var num = parseInt(result[1])-1;
+					p[i] = p[i].replace(/\[\d+\]/i, '['+num+']');
+				}
+			}
+		}
+		xpath = p.join('/'); 
+	}
+	
+	var nodes = [];
+	if (context == undefined) context = doc;
+	var result = doc.evaluate(xpath, context, null, 0, null);
+    var node = result.iterateNext();
+    while (node) {
+    	nodes.push(node);
+    	node = result.iterateNext();
+    }
+    return nodes;
+}
+
+
 /***RULE***/
 var _PARSE = (function () {
 	var self = this;
@@ -272,11 +343,21 @@ var _PARSE = (function () {
 		var _name = 'name';
 		var _type = 'type';
 		return v(id, {}, [ 
-				v('input.form-control.type.selattr',{name:_type,'disabled':"disabled"}),
-				v('input.form-control.name',{type:'text',placeholder:'Name',name:_name,'disabled':"disabled"}),
-				v('input.form-control.xpath',{type:'text',placeholder:'Xpath',name:_xpath,'disabled':"disabled"}),
-				v("button.btn.btn-default#edit_item", { onclick: editItem, 'data-id':id}, "EditItem"),
-				v('button.btn.del',{onclick: delItem, 'data-id':id},'X'),
+				v( 'div.col-xs-2',{},[
+					v('input.form-control.type.selattr',{name:_type,'disabled':"disabled"}),
+				]),
+				v( 'div.col-xs-2',{},[
+					v('input.form-control.name',{type:'text',placeholder:'Name',name:_name,'disabled':"disabled"}),
+				]),
+				v( 'div.col-xs-4',{},[				
+					v('input.form-control.xpath',{type:'text',placeholder:'Xpath',name:_xpath,'disabled':"disabled"}),
+				]),
+				v( 'div.col-xs-1',{},[		
+					v("button.btn.btn-default#edit_item", { onclick: editItem, 'data-id':id}, "EditItem"),
+				]),
+				v( 'div.col-xs-1',{},[	
+					v('button.btn.del',{onclick: delItem, 'data-id':id},'X'),
+				]),
 		]);
 	};
 	
@@ -521,6 +602,8 @@ function selectBorder(elem, type, e, dialog)
 	$(elem).css('border', '3px dashed red');
 
 }
+
+
 function hasClass(ele,cls) {
 	return ele.className.match(new RegExp('(\\s|^)'+cls+'(\\s|$)'));
 }
@@ -699,3 +782,381 @@ var formatState = function(state) {
 		);
 		return $state;
 };
+
+
+/***TreeComponentClass***/
+function TreeComponentClass(div, data) {
+	this.div = div;
+	this.active = null;
+	this.activeInd = [];
+	this.data = data;
+	this.srcopened = 'images/icon-opened.gif';
+	this.srcclosed = 'images/icon-closed.gif';
+	this.srcempty = 'images/icon-empty.gif';
+	this.isclosed = true;
+	
+	var tree = this;
+	
+	tree.onactive = function(tree, el) {};
+	tree.onpreactive = function(tree, el) {};
+
+	$(div).on('click', 'img', function(e) {
+   		var $ul = $(this).parent().children('ul');
+   		if ($ul.length > 0)
+   		{
+   			if (this.src.search(tree.srcopened) != -1)
+   	    		this.src = tree.srcclosed;
+   	    	else
+   	    		this.src = tree.srcopened;
+   			$ul.slideToggle();
+   		}
+    });
+    
+    $(div).on('click', 'span', function(e) {
+    	tree.onpreactive(tree, this);
+    	if (tree.active)
+    		$(tree.active).removeClass('selected');
+    	tree.active = this;
+    	$(this).addClass('selected');
+    	tree.onactive(tree, this);
+    });
+    
+    tree.update();
+}
+
+TreeComponentClass.prototype = {
+	update: function(data, activeInd)
+	{
+		if (data == undefined)
+			data = this.data;
+		else
+			this.data = data;
+		
+		if (activeInd != undefined)
+			this.activeInd = activeInd;
+		
+		if (!data) return;
+		
+		var ul = document.createElement('ul');		
+		for (var i=0; i<data.length; i++)
+			this.createnode(data[i], ul, i, 0);
+		
+		$(this.div).empty().append(ul);
+		
+
+		if (this.activeInd.length > 0)
+		{
+			var li = $(this.div).children('ul').children('li')[this.activeInd[0]];
+			
+			for (var i=1; i<this.activeInd.length; i++)
+			{
+				$(li).children('img').prop('src', this.srcopened); 
+				$(li).children('ul').show();
+				var index = this.activeInd[i];
+				li = $(li).children('ul').children('li')[index];
+			}
+			var $span = $(li).children('span');
+			$span.addClass('selected');
+			this.active = $span[0];
+		}
+		else
+			this.active = null;
+	},
+	createnode: function(nodedata, parent, nodeindex, deep) {
+		var li = document.createElement('li');
+		
+		var img = document.createElement('img');
+		img.className = 'plus';
+		img.src = this.srcempty;
+		$(li).append(img);
+		
+		var span = document.createElement('span');
+		/*if (nodeindex == this.activeInd[deep] && deep == this.activeInd.length-1)
+		{
+			span.className = 'selected';
+			this.active = span;
+		}*/
+		$(span).text(nodedata.text);
+		$(span).attr('index', nodeindex);
+		$(li).append(span);
+		
+		if (nodedata.children.length > 0)
+		{
+			img.src = (this.isclosed /*&& nodeindex != this.activeInd[deep]*/) ? this.srcclosed : this.srcopened;
+			var ul = document.createElement('ul');		
+			for (var i=0; i<nodedata.children.length; i++)
+			{
+				this.createnode(nodedata.children[i], ul, i, deep+1);
+			}
+			$(li).append(ul);
+			if (this.isclosed /*&& nodeindex != this.activeInd[deep]*/)
+				$(ul).hide();
+		}
+		
+		$(parent).append(li);
+	},
+	getActiveByInd: function(ind)
+	{
+		var node = this.data[ind[0]];
+		for (var i=1; i<ind.length; i++)
+			node = node.children[ind[i]];
+		return node;
+	},
+	setActiveInd: function(activeInd)
+	{
+		this.activeInd = activeInd;
+		var node = this.getActiveByInd(activeInd);
+		if (node)
+		{
+			if (tree.active)
+				$(tree.active).removeClass('selected');
+			tree.active = node;
+			$(node).addClass('selected');
+		}
+	},
+	getActiveInd: function()
+	{
+		var ind = [];
+		if (this.active)
+		{
+			var $node = $(this.active).parent();
+			do {
+				ind.splice(0, 0, $node.children('span').attr('index'));
+				$node = $node.parent().parent();
+			} while ($node.attr('id') != $(this.div).attr('id'));
+		}
+		return ind;
+	}
+};
+
+/***TreeComponentClass***/
+/*****************************OBJ***********************************/
+    var LoadTree = new TreeComponentClass(document.getElementById('loadtree-content'), null);
+    LoadTree.onactive = function(tree, el)
+    {
+    	var activeInd = tree.getActiveInd();
+    	var lp = PagesList.array2[activeInd[0]];
+    	for (var i=1; i<activeInd.length; i++)
+    	{
+    		var name = lp.links.array2[activeInd[i]];
+    		if (typeof name == 'string')
+    			lp = lp.links.array[name];
+    		else
+    			lp = name;
+    	}
+    	if (PagesList.get() != lp)
+    	{
+    		PagesList.addObj(lp);
+    		loadpage(false, lp.url, lp.type, lp.params, lp.encoding, lp.index);
+    	}
+    };
+    
+    var HtmlTree = new TreeComponentClass(document.getElementById('htmltree-content'), null);
+	console.log(HtmlTree);
+    HtmlTree.onactive = function(tree, el)
+    {
+    	var activeInd = tree.getActiveInd();
+    	var obj = tree.getActiveByInd(activeInd);
+    	if (obj)
+    	{
+    		$(obj.node).data('oldstyle3', $(obj.node).getStyleObject());
+    		$(obj.node).data('selected2', 1);
+    		$(obj.node).css('border', '3px dashed blue');
+    		var xpath = createXPathFromElement(obj.node);
+    		//$('#htmltree input[name="xpath"]').val(xpath);
+    		$('.js_htmltree textarea[name="xpath"]').val(xpath);
+    	}
+    };
+    HtmlTree.onpreactive = function(tree, el)
+    {
+    	var activeInd = tree.getActiveInd();
+    	var obj = tree.getActiveByInd(activeInd);
+    	if (obj && $(obj.node).data('selected2') == 1)
+    	{
+    		$(obj.node).css($(obj.node).data('oldstyle3'));
+    		$(obj.node).data('selected2', 0);
+    	}
+    };
+	
+	
+/*****************************OBJ***********************************/
+
+function rdb2flat(rdbarray, ret)
+{
+	for (var name in rdbarray)
+		if (rdbarray[name] instanceof Object)
+		{
+			ret[name] = rdbarray[name];
+			rdb2flat(rdbarray[name], ret);
+		}
+}
+function rdb2text(rdbarray)
+{
+	var str = '<ul>';
+	for (var name in rdbarray)
+	{
+		if (rdbarray[name] instanceof Object)
+		{
+			str += '<li style="padding-top: 5px;"><p><strong>'+name+'</strong></p>';
+			str += rdb2text(rdbarray[name]);
+		}
+		else
+			str += '<li><p>'+name+'</p>';
+					
+		str += '</li>';
+	}
+	str += '</ul>';
+	return str;
+}
+
+function collectHtmlTree(node)
+{
+	var text = '';
+	if (node.nodeType == 1)
+	{
+		var attrs = '';
+		for (var i=0; i<node.attributes.length; i++)
+		{
+			if (node.attributes[i].name != 'style')
+				attrs += ' '+node.attributes[i].name+'="'+node.attributes[i].value+'"';
+		}
+		text = '<'+node.nodeName.toLowerCase()+attrs+'>';
+	}
+	else if (node.nodeType == 3)
+	{
+		text = trim(node.nodeValue);
+		if (text == '')
+			return null;
+	}
+	
+	var obj = {text: text, children: [], node: node};
+	for (i=0; i<node.childNodes.length; i++)
+	{
+		var n = node.childNodes[i];
+		if (n.nodeType == 1 || n.nodeType == 3)
+		{
+			var child = collectHtmlTree(n);
+			if (child)
+				obj.children.push(child);
+		}
+	}
+	return obj;
+}
+function loadXMLString(txt) 
+{
+	if (window.DOMParser)
+	  {
+	  var parser=new DOMParser();
+	  var xmlDoc=parser.parseFromString(txt,"text/xml");
+	  }
+	else // code for IE
+	  {
+	  var xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
+	  xmlDoc.async=false;
+	  xmlDoc.loadXML(txt); 
+	  }
+	return xmlDoc;
+}
+
+function htmltree(elem)
+{
+	
+	$('#htmlTreeParseModal').modal('show');
+	var $win = $('.js_htmltree');
+	var name = elem.querySelector('.name').value;
+	var rule = elem.querySelector('.xpath').value;
+
+	_PARSE.rule_name = elem.querySelector('.name').value;
+	_PARSE.rule_type = elem.querySelector('.type').value;
+	_PARSE.rule_xpath = elem.querySelector('.xpath').value;
+	
+	//var node = PagesList.get().rules.getNodesByName(name)[0];
+	var type = 1;//parseInt(getRadioVal('type'));
+	if(type === 1){
+		var doc =  document.getElementById('html').contentWindow.document;
+	}else if(type === 2){
+		var content = _PARSE.html ;
+		var doc =  loadXMLString(content);
+	}
+	_PARSE.doc = doc;
+	
+	var node = evaluateXPath(rule, doc)[0];
+
+	$win.find('textarea[name="xpath"]').val(rule);
+	$win.find('input[name="xpath"]').val(rule);
+	$win.find('input[name="name"]').val(name);
+	$win.find('#rulename').html('<b>'+name+'</b>');
+/*	
+	rulelables($win, rule.type);
+	*/
+	$win.fadeIn('slow').css('left', ($(window).width()-$win[0].offsetWidth)/2);
+	$win.css('top', ($(window).height()-$win[0].offsetHeight)/2);
+	$win.find('.popup-btns').css('top', $win[0].offsetHeight-40);
+
+	var ind = [0];
+	
+	if (node)
+	{
+		var node2 = node;
+		do {
+			var parent = node2.parentNode;
+			var index = 0;
+			for (var i=0; i<parent.childNodes.length; i++)
+			{
+				var child = parent.childNodes[i];
+				if (child == node2)
+					break;
+				if (child.nodeType == 1 || (child.nodeType == 3 && trim(child.nodeValue) != ''))
+					index++;
+			}
+			ind.splice(0, 0, index);
+			node2 = parent;
+		} while (node2 != doc);
+	}
+
+	var data = [];
+	var root;
+	if (/*PagesList.get() && PagesList.get().type == 'html'*/ false)
+	{
+		root = doc.body;
+		ind.splice(0, 1);
+		ind[0] = 0;
+	}
+	else
+		root = doc.documentElement;
+	
+	data.push(collectHtmlTree(root));
+	
+	HtmlTree.isclosed = true;
+	HtmlTree.update(data, ind);
+	
+}
+function trim(str)
+{
+    return str.replace(/^\s+|\s+$/g,"");
+}
+function setHtmlTree(obj)
+{
+	var $win = $('.js_htmltree');
+	var name = $win.find('input[name="name"]').val();
+	var _path = _PARSE.rule_xpath;
+	var newpath = $win.find('textarea[name="xpath"]').val();
+	
+	HtmlTree.onpreactive(HtmlTree, HtmlTree.active);
+	
+	if (_path != newpath && newpath != '')
+	{
+		_PARSE.rule_xpath = newpath;
+		var el = document.querySelector($(obj).attr('data-id'));
+		
+		el.querySelector('.xpath').value = newpath;
+	}	
+	
+	$('#htmlTreeParseModal').modal('hide');
+}
+
+function cancelHtmlTree()
+{
+	HtmlTree.onpreactive(HtmlTree, HtmlTree.active);
+	$('#htmlTreeParseModal').modal('hide');
+}
