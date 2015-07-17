@@ -343,20 +343,22 @@ var _PARSE = (function () {
 		var _name = 'name';
 		var _type = 'type';
 		return v(id, {}, [ 
-				v( 'div.col-xs-2',{},[
-					v('input.form-control.type.selattr',{name:_type,'disabled':"disabled"}),
-				]),
-				v( 'div.col-xs-2',{},[
-					v('input.form-control.name',{type:'text',placeholder:'Name',name:_name,'disabled':"disabled"}),
-				]),
-				v( 'div.col-xs-4',{},[				
-					v('input.form-control.xpath',{type:'text',placeholder:'Xpath',name:_xpath,'disabled':"disabled"}),
-				]),
-				v( 'div.col-xs-1',{},[		
-					v("button.btn.btn-default#edit_item", { onclick: editItem, 'data-id':id}, "EditItem"),
-				]),
-				v( 'div.col-xs-1',{},[	
-					v('button.btn.del',{onclick: delItem, 'data-id':id},'X'),
+				v('div.row', {}, [
+					v( 'div.col-xs-2',{},[
+						v('input.form-control.type.selattr',{name:_type,'disabled':"disabled"}),
+					]),
+					v( 'div.col-xs-2',{},[
+						v('input.form-control.name',{type:'text',placeholder:'Name',name:_name,'disabled':"disabled"}),
+					]),
+					v( 'div.col-xs-4',{},[				
+						v('input.form-control.xpath',{type:'text',placeholder:'Xpath',name:_xpath,'disabled':"disabled"}),
+					]),
+					v( 'div.col-xs-1',{},[		
+						v("button.btn.btn-default#edit_item", { onclick: editItem, 'data-id':id}, "EditItem"),
+					]),
+					v( 'div.col-xs-1',{},[	
+						v('button.btn.del',{onclick: delItem, 'data-id':id},'X'),
+					]),
 				]),
 		]);
 	};
