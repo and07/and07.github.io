@@ -409,7 +409,7 @@ function getRule(){
     var domen = host.protocol + '://' + host.host;
     var type = _PARSE.type;
     
-	return {'url':url, 'data':data,'host':host['host'], 'name':name, 'domen':domen}
+	return {'url':url, 'rule':data,'host':host['host'], 'name':name, 'domen':domen}
 
 }
 
