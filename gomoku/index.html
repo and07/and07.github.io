@@ -7,6 +7,64 @@
          <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     </head>
     <body>
+        <a id="js_play">Играть</a>
+        <a id="js_table_res">Таблица результатов</a>
         <canvas width="1000" height="1000" id="game"></canvas> 
     </body>
+    
+    
+    
+    
+ <script>
+ 
+ $('#js_play').on('click',function(){
+     
+    canvas=document.getElementById("game");
+    game = canvas.getContext("2d");
+           
+    for(i=0;i<AmountX+1;i++){
+        
+        game.moveTo(Size*i, 0);
+        game.lineTo(Size*i, AmountY*Size);
+        
+    }
+    
+    for(i=0;i<AmountY+1;i++){
+        
+        game.moveTo(0, Size*i);
+        game.lineTo(AmountY*Size, Size*i);
+        
+    }
+    
+    field=new Array(AmountX);
+    for (i=0; i<AmountX; i++) {
+        field[i]=new Array(AmountY);
+    }
+
+    for(i=0;i<AmountX;i++){
+        for(j=0;j<AmountY;j++){
+            field[i][j]=0;
+        }
+    }
+    
+    game.strokeStyle="#000";
+    game.stroke();
+    
+    listenTurns();
+    
+    canvas.addEventListener("click", canvasClick, false);    
+     
+ });
+ window.onload=function(){
+    
+    
+    //document.getElementById("game").style.width=AmountX*Size+"px";
+    //document.getElementById("game").style.height=AmountY*Size+"px";
+    
+
+      
+        
+}
+ 
+ </script>
 </html>
