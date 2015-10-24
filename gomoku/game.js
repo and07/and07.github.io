@@ -1,5 +1,5 @@
-var AmountX=17;
-var AmountY=17;
+var AmountX=20;
+var AmountY=20;
 var Size=20;
 
 var canvas;
@@ -161,48 +161,3 @@ function canvasClick(e){
     
 }
 
-
-window.onload=function(){
-    
-    
-    //document.getElementById("game").style.width=AmountX*Size+"px";
-    //document.getElementById("game").style.height=AmountY*Size+"px";
-    
-    
-    canvas=document.getElementById("game");
-    game = canvas.getContext("2d");
-           
-    for(i=0;i<AmountX+1;i++){
-        
-        game.moveTo(Size*i, 0);
-        game.lineTo(Size*i, AmountY*Size);
-        
-    }
-    
-    for(i=0;i<AmountY+1;i++){
-        
-        game.moveTo(0, Size*i);
-        game.lineTo(AmountY*Size, Size*i);
-        
-    }
-    
-    field=new Array(AmountX);
-    for (i=0; i<AmountX; i++) {
-        field[i]=new Array(AmountY);
-    }
-
-    for(i=0;i<AmountX;i++){
-        for(j=0;j<AmountY;j++){
-            field[i][j]=0;
-        }
-    }
-    
-    game.strokeStyle="#000";
-    game.stroke();
-    
-    listenTurns();
-    
-    canvas.addEventListener("click", canvasClick, false);
-      
-        
-}
