@@ -202,7 +202,7 @@ function canvasClick(e){
 }
 
 /*********BOT*********/
-//http://www.softholm.com/igra/Five-in-a-row.html
+
 
 var machSq = -1;
 
@@ -210,10 +210,6 @@ var machSq = -1;
 var w = new Array(0,20,17,15.4,14,10);
 var nPos = new Array();
 var dirA = new Array();
-
-var winningMove=9999999;
-var openFour   =8888888;
-var twoThrees  =7777777;
 
 
 function hasNeighbors(i,j) {
@@ -232,62 +228,6 @@ function hasNeighbors(i,j) {
 	return 0;
 }
 
-function winningPos(i,j,mySq) {
-	var test3=0;
-
-	L=1;
-	m=1; while (j+m<Size  && f[i][j+m]==mySq) {L++; m++} m1=m;
-	m=1; while (j-m>=0 && f[i][j-m]==mySq) {L++; m++} m2=m;   
-	if (L>4) { return winningMove; }
-	side1=(j+m1<Size && f[i][j+m1]==0);
-	side2=(j-m2>=0 && f[i][j-m2]==0);
-
-	if (L==4 && (side1 || side2)) test3++;
-	if (side1 && side2) {
-		if (L==4) return openFour;
-		if (L==3) test3++;
-	}
-
-	L=1;
-	m=1; while (i+m<Size  && f[i+m][j]==mySq) {L++; m++} m1=m;
-	m=1; while (i-m>=0 && f[i-m][j]==mySq) {L++; m++} m2=m;   
-	if (L>4) { return winningMove; }
-	side1=(i+m1<Size && f[i+m1][j]==0);
-	side2=(i-m2>=0 && f[i-m2][j]==0);
-	if (L==4 && (side1 || side2)) test3++;
-	if (side1 && side2) {
-		if (L==4) return openFour;
-		if (L==3) test3++;
-	}
-	if (test3==2) return twoThrees;
-
-	L=1;
-	m=1; while (i+m<Size && j+m<Size && f[i+m][j+m]==mySq) {L++; m++} m1=m;
-	m=1; while (i-m>=0 && j-m>=0 && f[i-m][j-m]==mySq) {L++; m++} m2=m;   
-	if (L>4) { return winningMove; }
-	side1=(i+m1<Size && j+m1<Size && f[i+m1][j+m1]==0);
-	side2=(i-m2>=0 && j-m2>=0 && f[i-m2][j-m2]==0);
-	if (L==4 && (side1 || side2)) test3++;
-	if (side1 && side2) {
-	 if (L==4) return openFour;
-	 if (L==3) test3++;
-	}
-	if (test3==2) return twoThrees;
-
-	L=1;
-	m=1; while (i+m<Size  && j-m>=0 && f[i+m][j-m]==mySq) {L++; m++} m1=m;
-	m=1; while (i-m>=0 && j+m<Size && f[i-m][j+m]==mySq) {L++; m++} m2=m; 
-	if (L>4) { return winningMove; }
-	side1=(i+m1<Size && j-m1>=0 && f[i+m1][j-m1]==0);
-	side2=(i-m2>=0 && j+m2<Size && f[i-m2][j+m2]==0);
-	if (L==4 && (side1 || side2)) test3++;
-	if (side1 && side2) {
-	 if (L==4) return openFour;
-	 if (L==3) test3++;
-	}
-	if (test3==2) return twoThrees;
-	return -1;
-}
 
 function evaluatePos(a,mySq) {
  maxA=-1;
@@ -295,10 +235,6 @@ function evaluatePos(a,mySq) {
   for (var j=0;j<AmountY;j++) {
 	if (f[i][j]!=0) {a[i][j]=-1; continue;}  
 	if (hasNeighbors(i,j)==0) {a[i][j]=-1; continue;}
- 
-	wp=winningPos(i,j,mySq);
-	if (wp==winningMove) {a[i][j]=winningMove; return winningMove;}
-	if (wp>=twoThrees)   {a[i][j]=wp; if (maxA<wp) maxA=wp; continue;}
 
    minM=i-4; if (minM<0) minM=0;
    minN=j-4; if (minN<0) minN=0;
@@ -385,10 +321,6 @@ function machineMove(iUser, jUser) {
 	}
 	c = c == 1 ? 0 : 1;
 
-/*
- if (winningPos(iMach,jMach,machSq)==winningMove) setTimeout("alert('Победил компьютер!')",900);
- else setTimeout("myTurn=false;",950);
-*/
 }
 
 
