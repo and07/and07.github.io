@@ -1,7 +1,4 @@
 <?php
-//used https://github.com/LovagiasParaszt/gomoku-php/blob/master/game.php
-//http://labaka.ru/likbez/primer-raboty-s-sessiey-igra-krestiki-noliki
-
 $param = $_GET + $_POST;
 session_start();
 require_once(dirname(__FILE__) . '/classes.php');
