@@ -1,0 +1,24 @@
+﻿.param1 img
+{
+    border: 0;
+    height: 61;
+    width: 56;
+}
+.param2 font
+{
+    size: 1;
+}
+.param3 font input
+{
+    size: 5;
+}
+table
+{
+    border: 0px; /* border="0" */
+    border-collapse: collapse; /* cellspacing="0" */
+}
+
+table td
+{
+    padding: 0px; /* cellpadding="0" */
+}

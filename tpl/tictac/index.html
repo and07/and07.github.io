@@ -1,0 +1,86 @@
+<html>
+<head>
+    <meta content = "text/html; charset = windows-1251" http-equiv = "Content-Type">
+    <script language = "JavaScript" src = "js/script.js"></script>
+    <title> X-O </title>
+	<style>
+.param1 img
+{
+    border: 0;
+    height: 61;
+    width: 56;
+}
+.param2 font
+{
+    size: 1;
+}
+.param3 font input
+{
+    size: 5;
+}
+table
+{
+    border: 0px; /* border="0" */
+    border-collapse: collapse; /* cellspacing="0" */
+}
+
+table td
+{
+    padding: 0px; /* cellpadding="0" */
+}
+	</style>
+</head>
+    <body bgColor="#ffffff">
+        <p><br></p>
+        <form name="game">
+            <div align="center"><center><table>
+                <TBODY>
+                    <tr>
+                        <td><table>
+                            <TBODY class = "param1">
+                                <tr>
+                                    <td><a href = "javascript:yourChoice('A')"><img name = "A" src = "images/blank.jpg"></a></td>
+                                    <td><a href = "javascript:yourChoice('B')"><img name = "B" src = "images/blank.jpg"></a></td>
+                                    <td><a href = "javascript:yourChoice('C')"><img name = "C" src = "images/blank.jpg"></a></td>
+                                </tr>
+                                <tr>
+                                    <td><a href = "javascript:yourChoice('D')"><img name = "D" src = "images/blank.jpg"></a></td>
+                                    <td><a href = "javascript:yourChoice('E')"><img name = "E" src = "images/blank.jpg"></a></td>
+                                    <td><a href = "javascript:yourChoice('F')"><img name = "F" src = "images/blank.jpg"></a></td>
+                                </tr>
+                                <tr>
+                                    <td><a href = "javascript:yourChoice('G')"><img name = "G" src = "images/blank.jpg"></a></td>
+                                    <td><a href = "javascript:yourChoice('H')"><img name = "H" src = "images/blank.jpg"></a></td>
+                                    <td><a href = "javascript:yourChoice('I')"><img name = "I" src = "images/blank.jpg"></a></td>
+                                </tr>
+                            </TBODY>
+                        </table></td>
+                        <td><table>
+                            <TBODY class = "param2" class = "param3">
+                                <tr colspan="2">
+                                    <td><font><b> Count: </b></font></td>
+                                </tr>
+                                <tr>
+                                    <td><font><input style = "font-family: MS Sans Serif; font-size: 1"></font></td>
+                                    <td><font> You </font></td>
+                                </tr>
+                                <tr>
+                                    <td><font><input style = "font-family: MS Sans Serif; font-size: 1"></font></td>
+                                    <td><font> Computer </font></td>
+                                </tr>
+                                <tr>
+                                    <td><font><input style = "font-family: MS Sans Serif; font-size: 1"></font></td>
+                                    <td><font> Tie </font></td>
+                                </tr>
+                            </TBODY>
+                        </table></td>
+                        </tr>
+                </TBODY>
+            </table></center></div>
+            <div align = "center"><center><p>
+                <input onclick = "playAgain();" type = "button" value = "New game" 
+                style = "font-family: MS Sans Serif; font-size: 1; font-weight: bold"></p>
+            </center></div>
+        </form>
+    </body>
+</html>
