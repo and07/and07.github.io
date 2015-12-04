@@ -239,8 +239,8 @@ var Home = {
   		var host = document.querySelector('#js_block'),
           	template = document.querySelector('#js_parser_list'),
           	shadow = host.createShadowRoot();
-      		shadow.appendChild(template.content);	
-        //return m("div", m.trust(document.querySelector('#js_parser_list').innerHTML))
+      		shadow.appendChild(template.content);
+        return m("div", m.trust(document.querySelector('#js_parser_list').innerHTML))
     }
 };
 
