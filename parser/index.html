@@ -41,8 +41,9 @@
 	
 	<link  href="datepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 	<script src="datepicker/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="js/mithril.js"></script>
 <script>
-
+/*
 //http://javascript.ru/forum/dom-window/21288-nuzhna-pomoshh-s-ochen-prostymi-veshhami-3.html
 jQuery.ajax = function (d) {
     var b = location.protocol,
@@ -68,8 +69,24 @@ jQuery.ajax = function (d) {
         return d.apply(this, arguments)
     }
 }(jQuery.ajax);
+*/
+function addScript(el,url,param){
+	param = param || "";
+	var script = el.createElement("script");
+	script.src = url+'/'+param;
+	script.async = true;
+	el.getElementsByTagName("head")[0].appendChild(script);
+};
 
-
+var jsonp_set_html = function(data) {
+	_PARSE.golink = false;
+	console.log(data);
+	var html = populateIframe('html', data.res);
+	setEvenHoveredAll(html);
+	removeClass(document.querySelector('#golink'),'active');
+	Loading.close();
+};
+	
 function request(url,callback) {
 	Loading.show();
 	callback = callback||null;
@@ -82,11 +99,14 @@ function request(url,callback) {
 			Loading.close();
 		};
 	}
+	/*
 	$.ajax({
 		url: url,
 		type: 'GET',
 		success: callback
 	});
+	*/
+	addScript(document,'https://peaceful-retreat-5894.herokuapp.com/get-content/habrahabr.ru','?jsonp_callback=jsonp_set_html');
 
 }	
 
@@ -1069,6 +1089,39 @@ $('.js_set_item').on('click',function(e){
 
 /**PARSE LIST**/
 
+
+
+
+
+
+var Home = {
+    controller: function() {
+        return {
+            onunload: function() {
+                console.log("unloading home component");
+            }
+        };
+    },
+    view: function() {
+        return m("div", "Home")
+    }
+};
+
+var Dashboard = {
+    controller: function() {},
+    view: function() {}
+};
+
+m.route.mode = "hash";
+//m.route.mode = "search";
+//go to the default route (home)
+m.route(document.body, "/", {
+    "/x": Home,
+    "/dashboard": Dashboard,
+});
+
+//re-route to dashboard
+//m.route("/dashboard"); // logs "unloading home"
 </script>
   </body>
 </html>
