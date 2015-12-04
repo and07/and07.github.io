@@ -142,7 +142,9 @@ function request(url,callback) {
 </style>
   </head>
   <body>
-
+<template id="js_parser_list">
+	<div>test</div>
+</template>
 <div id="main">
 	<div id="header">
 	<div class="container-fluid">
@@ -182,7 +184,7 @@ var Home = {
         };
     },
     view: function() {
-        return m("div", "Home")
+        return m("div", m.trust(document.querySelector('#js_parser_list').innerHTML))
     }
 };
 
