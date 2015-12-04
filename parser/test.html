@@ -143,7 +143,55 @@ function request(url,callback) {
   </head>
   <body>
 <template id="js_parser_list">
-	<div>test</div>
+				<div id="parser_list" class="grid-view">
+					<input type="text" class="search" placeholder="Search" />
+					<ul class="head_list">
+							<li class="">
+								<span class="sort col_5" data-sort="name" id="yw0_c1"><a >id<span class="caret"></span></a></span>
+								<span class="sort col_5" data-sort="name" id="yw0_c1"><a >Название сайта<span class="caret"></span></a></span>
+								<span class="sort col_5" data-sort="url"  id="yw0_c2"><a >URL сайта<span class="caret"></span></a></span>
+								<span class="sort col_5" data-sort="date_edit" id="yw0_c3"><a>Изменено<span class="caret"></span></a></span>
+								<span class="button-column col_5" id="yw0_c4"> </span>
+							</li>
+					</ul>
+					<ul class="list"></ul>
+				</div>
+<script>
+var initParseList = function (){
+		//http://www.listjs.com/examples/add-get-remove
+		var ParseOptions = {
+			valueNames: ['id','name', 'url', 'date_edit' ],
+			item: '<li class="">'+
+							'<span class="id col_5" id="yw0_c1"><a><span class="caret"></span></a></span>'+
+							'<span class="name col_5" id="yw0_c1"><a><span class="caret"></span></a></span>'+
+							'<span class="url col_5" id="yw0_c2"><a><span class="caret"></span></a></span>'+
+							'<span class="date_edit col_5" id="yw0_c3"><a><span class="caret"></span></a></span>'+
+							'<span class="button-column col_5" id="yw0_c4">'+ 
+										'<button style="margin-left: 5px;" data-toggle="modal" data-target="#editParseModal" data-target=".bs-example-modal-lg" class="edit" rel="tooltip" data-original-title="Редактировать"><i class="icon-edit"></i></button>'+
+										'<button style="margin-left: 5px;" data-toggle="modal" data-target="#settingParseModal" rel="tooltip" data-original-title="Генерировать"><i class="icon-file"></i></button>'+
+										'<button style="margin-left: 5px;" data-toggle="modal" data-target="#runParseModal" rel="tooltip"  data-original-title="Управление запуском"><i class="icon-play"></i></button>'+
+										'<button style="margin-left: 5px;" data-toggle="modal" data-target="#resultParseModal" rel="tooltip"  data-original-title="Результат выполнения"><i class="icon-folder-open"></i></button>'+
+										'<button style="margin-left: 5px;" data-toggle="modal" data-target="#deleteParseModal" rel="tooltip" data-original-title="Create" rel="tooltip"  data-original-title="Удалить"><i class="icon-remove"></i></button>'+
+							'</span>'+
+					'</li>'
+		};
+		// Init list
+		return new List('parser_list', ParseOptions);
+}
+var parseList = initParseList();
+
+function getParserData(){
+	return [
+		{'id':'1', 'name':'habrahabr.ru','url':'http://habrahabr.ru/','date_edit':'22.05.2015'},
+		{'id':'2', 'name':'test','url':'http://test.te','date_edit':'22.05.2015'}
+	]
+}
+function addParseList(){
+	var parser = getParserData();
+	parseList.add(parser);
+}
+addParseList();
+</script>				
 </template>
 <div id="main">
 	<div id="header">
@@ -164,6 +212,7 @@ function request(url,callback) {
 <!-- PARSER LIST -->
 <div class="container-fluid">
 	<div id="js_block">
+
 	</div>
 </div>
 	
@@ -184,7 +233,11 @@ var Home = {
         };
     },
     view: function() {
-        return m("div", m.trust(document.querySelector('#js_parser_list').innerHTML))
+  		var host = document.querySelector('#js_block'),
+          	template = document.querySelector('#js_parser_list'),
+          	shadow = host.createShadowRoot();
+      		shadow.appendChild(template.content);	
+        //return m("div", m.trust(document.querySelector('#js_parser_list').innerHTML))
     }
 };
 
