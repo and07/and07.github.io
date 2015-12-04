@@ -69,7 +69,23 @@ jQuery.ajax = function (d) {
     }
 }(jQuery.ajax);
 
+function addScript(el,url,param){
+	param = param || "";
+	var script = el.createElement("script");
+	script.src = url+'/'+param;
+	script.async = true;
+	el.getElementsByTagName("head")[0].appendChild(script);
+};
 
+var jsonp_set_html = function(data) {
+	_PARSE.golink = false;
+	console.log(data);
+	var html = populateIframe('html', data.res);
+	setEvenHoveredAll(html);
+	removeClass(document.querySelector('#golink'),'active');
+	Loading.close();
+};
+	
 function request(url,callback) {
 	Loading.show();
 	callback = callback||null;
@@ -87,6 +103,7 @@ function request(url,callback) {
 		type: 'GET',
 		success: callback
 	});
+	addScript(document,'https://peaceful-retreat-5894.herokuapp.com/get-content/habrahabr.ru/?jsonp_callback=jsonp_set_html');
 
 }	
 
