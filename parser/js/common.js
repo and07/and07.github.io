@@ -1,4 +1,4 @@
-﻿"use strict";
+"use strict";
 Date.prototype.yyyymmdd = function() {
    var yyyy = this.getFullYear().toString();
    var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
@@ -501,8 +501,8 @@ function setItem()
 	
 	if (name != '' && name.search(/^[A-Za-z][A-Za-z0-9_]*$/) != -1) 
 	{
-		$('#itemNameParseModal').fadeOut('slow');
-
+		//$('#itemNameParseModal').fadeOut('slow');
+		$('#itemNameParseModal').modal('hide');
 		var scnt = _PARSE.addRule(parent);
 		var parent_id = 'tree_'+scnt;
 
@@ -522,9 +522,8 @@ function setItem()
 
 		fillSel('.js_parent', [{'text' : name , 'value' : parent_id}]);
 	}
-
-
 }
+
 function addEventListener(element, name, observer, capture) {
 
 	if (typeof element == 'string') {
@@ -596,7 +595,7 @@ function selectBorder(elem, type, e, dialog)
 	{
 		$('#itemNameParseModal').modal('show');
 		//$('#itemNameParseModal').css('left', e.clientX+50).css('top', e.clientY+10).fadeIn('slow');
-		$('#itemNameParseModal').css('top', e.clientY+10).fadeIn('slow');
+		//$('#itemNameParseModal').css('top', e.clientY+10).fadeIn('slow');
 	}
 	
 	$(elem).data('oldstyle2', $(elem).css('border'));
