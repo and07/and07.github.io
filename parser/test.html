@@ -237,12 +237,10 @@ var Home = {
 		var host = document.querySelector('#js_block');
 		var template = document.querySelector('#js_parser_list');
 		var clone = document.importNode(template.content, true);
-		document.querySelector('#js_block').appendChild(clone);          	
-          	
-          	alert('xxx');
-          	return ;
+		//document.querySelector('#js_block').appendChild(clone);
+          	//return ;
       		//shadow.appendChild(template.content);
-        //return m("div", m.trust(document.querySelector('#js_parser_list').innerHTML))
+        return m("div", m.trust(clone))
     }
 };
 
