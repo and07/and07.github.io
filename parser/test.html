@@ -42,6 +42,7 @@
 	<link  href="datepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 	<script src="datepicker/js/bootstrap-datetimepicker.min.js"></script>
 	<script src="js/mithril.js"></script>
+
 <script>
 /*
 //http://javascript.ru/forum/dom-window/21288-nuzhna-pomoshh-s-ochen-prostymi-veshhami-3.html
@@ -81,7 +82,6 @@ function addScript(el,url,param){
 
 var jsonp_set_html = function(data) {
 	_PARSE.golink = false;
-	console.log(data);
 	var html = populateIframe('html', data.res);
 	setEvenHoveredAll(html);
 	removeClass(document.querySelector('#golink'),'active');
@@ -107,7 +107,8 @@ function request(url,callback) {
 		success: callback
 	});
 	*/
-	addScript(document,'https://peaceful-retreat-5894.herokuapp.com/get-content/habrahabr.ru','?jsonp_callback=jsonp_set_html');
+	url = encodeURIComponent(url);
+	addScript(document,'https://peaceful-retreat-5894.herokuapp.com/get-content/test','?url='+url+'&jsonp_callback=jsonp_set_html');
 
 }	
 
@@ -142,57 +143,7 @@ function request(url,callback) {
 </style>
   </head>
   <body>
-<template id="js_parser_list">
-				<div id="parser_list" class="grid-view">
-					<input type="text" class="search" placeholder="Search" />
-					<ul class="head_list">
-							<li class="">
-								<span class="sort col_5" data-sort="name" id="yw0_c1"><a >id<span class="caret"></span></a></span>
-								<span class="sort col_5" data-sort="name" id="yw0_c1"><a >Название сайта<span class="caret"></span></a></span>
-								<span class="sort col_5" data-sort="url"  id="yw0_c2"><a >URL сайта<span class="caret"></span></a></span>
-								<span class="sort col_5" data-sort="date_edit" id="yw0_c3"><a>Изменено<span class="caret"></span></a></span>
-								<span class="button-column col_5" id="yw0_c4"> </span>
-							</li>
-					</ul>
-					<ul class="list"></ul>
-				</div>
-<script>
-	var initParseList = function (){
-			//http://www.listjs.com/examples/add-get-remove
-			var ParseOptions = {
-				valueNames: ['id','name', 'url', 'date_edit' ],
-				item: '<li class="">'+
-								'<span class="id col_5" id="yw0_c1"><a><span class="caret"></span></a></span>'+
-								'<span class="name col_5" id="yw0_c1"><a><span class="caret"></span></a></span>'+
-								'<span class="url col_5" id="yw0_c2"><a><span class="caret"></span></a></span>'+
-								'<span class="date_edit col_5" id="yw0_c3"><a><span class="caret"></span></a></span>'+
-								'<span class="button-column col_5" id="yw0_c4">'+ 
-											'<button style="margin-left: 5px;" data-toggle="modal" data-target="#editParseModal" data-target=".bs-example-modal-lg" class="edit" rel="tooltip" data-original-title="Редактировать"><i class="icon-edit"></i></button>'+
-											'<button style="margin-left: 5px;" data-toggle="modal" data-target="#settingParseModal" rel="tooltip" data-original-title="Генерировать"><i class="icon-file"></i></button>'+
-											'<button style="margin-left: 5px;" data-toggle="modal" data-target="#runParseModal" rel="tooltip"  data-original-title="Управление запуском"><i class="icon-play"></i></button>'+
-											'<button style="margin-left: 5px;" data-toggle="modal" data-target="#resultParseModal" rel="tooltip"  data-original-title="Результат выполнения"><i class="icon-folder-open"></i></button>'+
-											'<button style="margin-left: 5px;" data-toggle="modal" data-target="#deleteParseModal" rel="tooltip" data-original-title="Create" rel="tooltip"  data-original-title="Удалить"><i class="icon-remove"></i></button>'+
-								'</span>'+
-						'</li>'
-			};
-			// Init list
-			return new List('parser_list', ParseOptions);
-	}
-	var parseList = initParseList();
-	
-	function getParserData(){
-		return [
-			{'id':'1', 'name':'habrahabr.ru','url':'http://habrahabr.ru/','date_edit':'22.05.2015'},
-			{'id':'2', 'name':'test','url':'http://test.te','date_edit':'22.05.2015'}
-		]
-	}
-	function addParseList(){
-		var parser = getParserData();
-		parseList.add(parser);
-	}
-	addParseList();    
-</script>				
-</template>
+
 <div id="main">
 	<div id="header">
 	<div class="container-fluid">
@@ -211,39 +162,451 @@ function request(url,callback) {
 
 <!-- PARSER LIST -->
 <div class="container-fluid">
-	<div id="js_block">
-
+	<div class="span2">
+		<div class="right-panel hint">
+			Это список ваших парсеров.		
+		</div>	
 	</div>
 </div>
 	
-<div class="clear"></div>
 
 
+<!-- PARSER LIST -->
+<template id="js_parse_list" style="display:none">
+				<div id="parser_list" class="grid-view">
+					<input type="text" class="search" placeholder="Search" />
+					<ul class="head_list">
+							<li class="">
+								<span class="sort col_5" data-sort="name" id="yw0_c1"><a >id<span class="caret"></span></a></span>
+								<span class="sort col_5" data-sort="name" id="yw0_c1"><a >Название сайта<span class="caret"></span></a></span>
+								<span class="sort col_5" data-sort="url"  id="yw0_c2"><a >URL сайта<span class="caret"></span></a></span>
+								<span class="sort col_5" data-sort="date_edit" id="yw0_c3"><a>Изменено<span class="caret"></span></a></span>
+								<span class="button-column col_5" id="yw0_c4"> </span>
+							</li>
+					</ul>
+					<ul class="list"></ul>
+				</div>
+<script>
+  
+</script>					
+</template>
+<!-- PARSER LIST -->
 
 
+<!-- EDIT PARSE -->
+<template id="js_parse_edit" style="display:none">
+	<div class="">
+		<div class="">
+					<div class="">
+						<h3>Edit <span class="js_parse_name"></span></h3>
+					</div>
+					<div class="" style="max-height:80%;">
+									
+<div class="tabbable tabs-right">
+		<ul id="sidetabs" class="nav nav-tabs">
+			<li class="active"><a id="tab-browser" data-toggle="tab" href="#tabBrowser">Браузер</a></li>
+			<li><a id="tab-rule"  data-toggle="tab" href="#tabRule" onclick="tabRuleClick();">Rule</a></li>
+			<li><a id="tab-html"  data-toggle="tab" href="#tabHTML" >HTML code</a></li>
+		</ul>
+		
+		<div class="tab-content">
+			<div id="tabBrowser" class="tab-pane active">
+				<form class="form-inline">
+					<div class="form-group">
+							<input type="checkbox" name="base" id="js_base_btn">BaseTag
+					</div>
+				</form>
+				
+				<div id="panel">
+					<div class="_form-inline" style="float:left; margin-right:30px;">
+						<input type="text" name="url" class="js_url" value="" placeholder="Введите url страницы" style="width: 300px;"/>
+						<button class="btn js_loadpage_nourl" title="Обновить страницу"><i class="icon-repeat"></i></button>
+					</div>
+					<div class="btn-toolbar">
+						<div class="btn-group" data-toggle="buttons-radio">
+							<button id="golink" class="btn"><i class="icon-share-alt"></i>&nbsp;Загрузить ссылку</button>
+							
+						</div>
+					</div>
+				</div>
+				
+				<div id="iframes">
+					<div id="hovered-element" ><div id="hovered-element-info"></div></div>					
+					<iframe id="html" name="html" width="99%" height="350" ></iframe>
+				</div>
+				
+				<div id="rules-container">
+					<div id="" class="js_items" ></div>
+				</div>
+				
+			</div>
+			
+			<div id="tabRule" class="tab-pane ">
+				<div id="script-container">			
+					<textarea id="script" class="ldt-input js_rule_res" wrap="off" spellcheck="false" style="margin: 0px; width: 1151px;  height: 431px;"></textarea>
+				</div>
+			</div>
 
+			<div id="tabHTML" class="tab-pane ">
+				<div style="height: 400px;">	
+					<textarea id="js_tpl" class="ldt-input" wrap="off" spellcheck="false"></textarea>
+				</div>
+			</div>			
+			
+		</div>
+	</div>
+					</div>
+				<div class="">
+					<button class="btn js_save_rule"  >Сохранить</button>
+					<button id="btnclose" class="btn" >Закрыть</button>
+					<!--	<a data-dismiss="modal" id="add-btn" class="btn" href="/create/" >OK</a>    <a data-dismiss="modal" id="cancel-del-btn" class="btn" href="#">Отмена</a> -->
+				</div>
+		</div>
+	</div>
+			
+</template>				
+<!-- EDIT PARSE -->
+
+<!-- MODAL -->
+	<!-- ITEM NAME PARSE -->
+	<div id="itemNameParseModal" class="modal fade modal-draggable"   tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<a class="close" data-dismiss="modal">×</a>
+				</div>
+				<div class="modal-body">
+					<form class="form-inline">
+						<div class="form-group">
+							<label for="exampleInputName1">Name</label>
+							<input type="text" id="exampleInputName1" class = "js_name" name="name" placeholder="Jane Doe" />
+						</div>
+						<div class="form-group">
+							<label for="exampleInputName2">Тип</label>
+							<select class="form-control type js_type selattr" name="type" id="exampleInputName2">
+								<option value=""></option>
+								<option value="link">Ссылка</option>
+								<option value="text">Текст</option>
+								<option value="html">HTML</option>
+								<option value="img">Картинка</option>
+								<option value="table">table</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="exampleInputName3">Parent</label>
+							<select class="form-control parent js_parent selattr" id="exampleInputName3" name="parent" style="width:50px;" >
+								<option value=""></option>
+							</select>
+						</div>
+						<button class="btn js_set_item" >OK</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ITEM NAME PARSE -->
+	<!-- LOAD TREE PARSE -->
+	<div id="loadTreeParseModal" class="modal fade"   tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<a class="close" data-dismiss="modal">×</a>
+					<h3>Загружаемые страницы</h3>
+				</div>
+				<div class="modal-body">
+								<div id="loadtree-content">
+							<ul>
+								<li><img class="plus" src="images/icon-opened.gif"/><span>page1</span><br/>
+									<ul>
+										<li><img class="plus" src="images/icon-opened.gif"/><span class="selected">page1_1</span></li>
+										<li><img class="plus" src="images/icon-opened.gif"/><span>page1_2</span></li>
+									</ul>
+								</li>
+								<li><img class="plus" src="images/icon-opened.gif"/><span>page2</span></li>
+							</ul>
+						</div>
+						<div class="popup-btns">
+							<button class="btn" onclick="cancelLoadTree();" style="float:right; margin-left:10px;">Отмена</button>
+							<button class="btn" onclick="setLoadTree();" style="float:right;">OK</button>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- LOAD TREE PARSE -->
+	<!-- HTML TREE PARSE -->
+	<div id="htmlTreeParseModal" class="js_htmltree modal fade"   tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<a class="close" data-dismiss="modal">×</a>
+					<h3>Дерево html элементов</h3>
+				</div>
+				<div class="modal-body">
+								<div id="htmltree-content">
+						</div>
+						<!-- <span>XPath</span><input type="text" name="xpath" style="width: 90%; margin-left: 10px;"/>  -->
+						<textarea name="xpath" spellcheck="false" style="width: 97%"></textarea>
+						<input type="hidden" name="name" />
+						<input type="hidden" name="xpath" />
+						<div class="popup-btns">
+							<button class="btn" onclick="cancelHtmlTree();" style="float:right; margin-left:10px;">Отмена</button>
+							<button class="btn js_set_xpath" id="" onclick="setHtmlTree(this);" style="float:right;">OK</button>
+							<div id="labels">
+								<span id="rulename"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+								
+								<span class="label" id="text">Текст</span>
+								<span class="label" id="link">Ссылка</span>
+								<span class="label" id="image">Картинка</span>
+								<span class="label" id="regexp">RegExp</span>
+								<span class="label" id="htmltype">HTML</span>
+								
+							</div>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- HTML TREE PARSE -->
+<!-- MODAL -->
+
+
+	<div class="clear"></div>
+	
+		<div class="container-fluid">
+				<div id="js_block"></div>
+		</div>
+	<div class="clear"></div>
+
+	<div id="loader" class="popup2">
+		<img src="images/ajax-loader2.gif" />
+	</div>
+</body>
+<script type="text/javascript" src="js/common.js" ></script>
 <script>
 
-var Home = {
-    controller: function() {
+$(document).ready(function() {
 
-        return {
-            onunload: function() {
-                console.log("unloading home component");
-            }
-        };
+	$(".datetimepicker" ).datetimepicker({ language: 'ru'});
+	
+	$(".modal-draggable .modal-dialog").draggable({
+		handle: ".modal-header"
+	});
+	
+	$('#js_base_btn').change(function() {
+		if($(this).is(":checked")) {
+			addBaseTag(getIframeContent('html'), $('input.js_url').val());
+			var html = populateIframe('html', getIframeContent('html').body.innerHTML);
+			setEvenHoveredAll(html);
+		}else{
+			delBaseTag(getIframeContent('html'));
+			var html = populateIframe('html', getIframeContent('html').body.innerHTML);
+			setEvenHoveredAll(html);
+		}
+	});
+	
+	$(".js_type").select2({
+		templateResult: formatState,
+		placeholder: "Select a type",
+		minimumResultsForSearch: Infinity
+	});
+});
+
+
+
+/**SAVE PARSER**/
+$('.js_site_save').on('click',function(e){
+	e.preventDefault();
+	var data = {
+		'id' : '3',
+		'name': $('#js-name-field').val(),
+		'url': $('#js-url-field').val(),
+		'date_edit' : new Date().yyyymmdd()
+	};
+	parseList.add(data);
+	
+});
+/**SAVE PARSER**/
+
+
+
+/**DELETE PARSER**/
+
+$('.js_site_del').on('click',function(e){
+	e.preventDefault();
+	var itemId = $('#js_scrid').val();
+	parseList.remove('id', itemId);
+});
+/**DELETE PARSER**/
+
+
+
+/**RUN PARSER**/
+$('.js_btnrun').on('click',function(e){
+	e.preventDefault();
+	$(this).hide();
+	$('.js_btnstop').show();
+	console.log('dont work');
+});
+$('.js_btnstop').on('click',function(e){
+	e.preventDefault();
+	$(this).hide();
+	$('.js_btnrun').show();
+	console.log('dont work');
+});
+/**RUN PARSER**/
+
+
+
+/**RESULT PARSE**/
+$('.js_res_save').on('click',function(e){
+	e.preventDefault();
+	console.log('dont work');
+});
+$('.js_res_del').on('click',function(e){
+	e.preventDefault();
+	console.log('dont work');
+});
+
+/**RESULT PARSE**/
+
+
+
+
+
+
+function getParserData(){
+	return [
+		{'id':'1', 'name':'habrahabr.ru','url':'http://habrahabr.ru/','date_edit':'22.05.2015'},
+		{'id':'2', 'name':'test','url':'http://test.te','date_edit':'22.05.2015'}
+	]
+}
+function getParse(id){
+	for(var i in getParserData()){
+		if(getParserData()[i]['id'] == id) return getParserData()[i];
+	}
+	return false;
+}
+
+/**PARSE LIST**/
+var ParseList = {
+    controller: function() {
+		//alert('fgh');
     },
     view: function() {
 		var host = document.querySelector('#js_block');
-		var template = document.querySelector('#js_parser_list');
+		var template = document.querySelector('#js_parse_list');
+		var clone = document.importNode(template.content, true);	
+        return m("div", {config: ParseList.config}, m.trust(document.querySelector('#js_parse_list').innerHTML));
+    },
+    config: function(el, isInit, ctx) {
+		/*var host = document.querySelector('#js-block');
+		var template = document.querySelector('#js-list');
 		var clone = document.importNode(template.content, true);
-		//document.querySelector('#js_block').appendChild(clone);
-          	//return ;
-      		//shadow.appendChild(template.content);
-        return m("div", m.trust(clone))
+		document.querySelector('#js-block').appendChild(clone);	*/	
+		var initParseList = function (){
+				//http://www.listjs.com/examples/add-get-remove
+				var ParseOptions = {
+					valueNames: ['id','name', 'url', 'date_edit' ],
+					item: '<li class="">'+
+									'<span class="id col_5" id="yw0_c1"><a><span class="caret"></span></a></span>'+
+									'<span class="name col_5" id="yw0_c1"><a><span class="caret"></span></a></span>'+
+									'<span class="url col_5" id="yw0_c2"><a><span class="caret"></span></a></span>'+
+									'<span class="date_edit col_5" id="yw0_c3"><a><span class="caret"></span></a></span>'+
+									'<span class="button-column col_5" id="yw0_c4">'+ 
+												'<button style="margin-left: 5px;" data-toggle="modal" data-target="#editParseModal" data-target=".bs-example-modal-lg" class="js-parse-edit edit" rel="tooltip" data-original-title="Редактировать"><i class="icon-edit"></i></button>'+
+												'<button style="margin-left: 5px;" data-toggle="modal" data-target="#settingParseModal" rel="tooltip" data-original-title="Генерировать"><i class="icon-file"></i></button>'+
+												'<button style="margin-left: 5px;" data-toggle="modal" data-target="#runParseModal" rel="tooltip"  data-original-title="Управление запуском"><i class="icon-play"></i></button>'+
+												'<button style="margin-left: 5px;" data-toggle="modal" data-target="#resultParseModal" rel="tooltip"  data-original-title="Результат выполнения"><i class="icon-folder-open"></i></button>'+
+												'<button style="margin-left: 5px;" data-toggle="modal" data-target="#deleteParseModal" rel="tooltip" data-original-title="Create" rel="tooltip"  data-original-title="Удалить"><i class="icon-remove"></i></button>'+
+									'</span>'+
+							'</li>'
+				};
+				// Init list
+				return new List('parser_list', ParseOptions);
+		}
+		
+		
+		function addParseList(){
+			var parser = getParserData();
+			parseList.add(parser);
+		}
+		
+		function initEven(event){
+					var el = event.target || event.srcElement;
+					var button = $(el);
+					var id = button.parent().parent().parent().find('.id').text();
+					var name = button.parent().parent().parent().find('.name').text();
+					var url = button.parent().parent().parent().find('.url').text();
+					//alert(id);
+					m.route("/parse/edit/"+id);
+					var modal = $(this);
+					modal.find('#js_scrid').val(id);
+					modal.find('span.js_url').text(url);
+					modal.find('input.js_url').val(url);
+					modal.find('.js_parse_id, .js_parse_name').text(name);	
+		}
+		
+		var parseList = initParseList();
+		addParseList();
+		document.querySelector('.js-parse-edit').onclick = function(event){
+			initEven(event);
+		}
+		$('#deleteParseModal, #runParseModal , #resultParseModal, #editParseModal').on('show.bs.modal', function (event) {
+			var button = $(event.relatedTarget);
+			var id = button.parent().parent().find('.id').text();
+			var name = button.parent().parent().find('.name').text();
+			var url = button.parent().parent().find('.url').text();
+			var modal = $(this);
+			modal.find('#js_scrid').val(id);
+			modal.find('span.js_url').text(url);
+			modal.find('input.js_url').val(url);
+			modal.find('.js_parse_id, .js_parse_name').text(name);
+		});		
     }
 };
 
+
+
+var ParseEdit = {
+    controller: function() {
+		
+	},
+    view: function() {
+        return m("div", {config: ParseEdit.config}, m.trust(document.querySelector('#js_parse_edit').innerHTML));
+	},
+	config : function(el, isInit, ctx){
+		var data = getParse(m.route.param("id"));
+		$('#js_scrid').val(data.id);
+		$('span.js_url').text(data.url);
+		$('input.js_url').val(data.url);
+		$('.js_parse_id, .js_parse_name').text(data.name);		
+		/**EDIT PARSE**/
+		$('.js_loadpage_nourl').on('click',function(e){
+			e.preventDefault();
+			var url = document.querySelector('input.js_url').value;//_PARSE.url;
+			request(url);
+			return false;
+		});
+		
+		$('.js_save_rule').on('click',function(e){
+			e.preventDefault();
+			rulessave();
+		});
+		
+		$('#golink').on('click',function(e){
+			e.preventDefault();
+			_PARSE.golink = true;
+		});
+		
+		$('.js_set_item').on('click', function(e){
+			e.preventDefault();
+			setItem();
+			return false;
+		});
+		/**EDIT PARSE**/		
+	}
+};
 var Dashboard = {
     controller: function() {},
     view: function() {}
@@ -252,14 +615,14 @@ var Dashboard = {
 //m.route.mode = "hash";
 //m.route.mode = "search";
 //go to the default route (home)
-/*
 m.route(document.querySelector('#js_block'), "/", {
-    "/": Home,
+    "/": ParseList,
+	"/parse/edit/:id" : ParseEdit,
     "/dashboard": Dashboard,
 });
-*/
+
 //re-route to dashboard
 //m.route("/dashboard"); // logs "unloading home"
 </script>
-  </body>
+
 </html>
