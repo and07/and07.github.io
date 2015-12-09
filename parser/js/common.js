@@ -464,7 +464,7 @@ var _PARSE = (function () {
 		
 	};
 	return {
-		sites : {},
+		sites : [],
 		_url : null,
 		_html : null,
 		_name : null,
