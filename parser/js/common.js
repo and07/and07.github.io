@@ -330,7 +330,6 @@ function evaluateXPath(xpath, doc, context) {
 var _PARSE = (function () {
 	var self = this;
 	
-	
 	var cnt = 0;
 	var scnt = 0;
 	var tree = null;
