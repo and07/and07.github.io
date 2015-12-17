@@ -109,11 +109,11 @@ function request(url, callback) {
 	});
 	*/
 	url = encodeURIComponent(url);
-	var type_request = document.querySelector('input[name="genderS"]:checked').value;
+	var type_request = document.querySelector('input[name="request"]:checked').value;
 	if(type_request == 'curl'){
 		addScript(document,'https://peaceful-retreat-5894.herokuapp.com/get-content','?url='+url+'&jsonp_callback=jsonp_set_html');
 	}else{
-		addScript(document,'https://peaceful-retreat-5894.herokuapp.com/get-content','?url='+url+'&jsonp_callback=jsonp_set_html');
+		addScript(document,'https://voyage-madame-4519.herokuapp.com/api/getHtml','?url='+url+'&jsonp_callback=jsonp_set_html');
 	}
 }	
 
@@ -217,6 +217,10 @@ function request(url, callback) {
 		
 		<div class="">
 			<div id="" class="tab-pane active">
+<div>
+	<input type="radio" name="request" value="curl" checked="checked"> Curl<Br>
+	<input type="radio" name="request" value="phantomjs"> phantomjs
+</div>
 				<form class="form-inline">
 					<div class="form-group">
 							<input type="checkbox" name="base" id="js_base_btn">BaseTag
@@ -234,10 +238,7 @@ function request(url, callback) {
 							
 						</div>
 						<div><input type="checkbox" name="golink" id="js_golink" ><i class="icon-share-alt"></i>&nbsp;Загрузить ссылку</div>	
-<div>
-	<input type="radio" name="request" value="curl"> Curl<Br>
-	<input type="radio" name="request" value="phantomjs"> phantomjs
-</div>	
+	
 					</div>
 				</div>
 				
