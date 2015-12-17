@@ -89,7 +89,7 @@ var jsonp_set_html = function(data) {
 	Loading.close();
 };
 	
-function request(url,callback) {
+function request(url, callback) {
 	Loading.show();
 	callback = callback||null;
 	if(callback === null){
@@ -109,8 +109,12 @@ function request(url,callback) {
 	});
 	*/
 	url = encodeURIComponent(url);
-	addScript(document,'https://peaceful-retreat-5894.herokuapp.com/get-content','?url='+url+'&jsonp_callback=jsonp_set_html');
-
+	var type_request = document.querySelector('input[name="genderS"]:checked').value;
+	if(type_request == 'curl'){
+		addScript(document,'https://peaceful-retreat-5894.herokuapp.com/get-content','?url='+url+'&jsonp_callback=jsonp_set_html');
+	}else{
+		addScript(document,'https://peaceful-retreat-5894.herokuapp.com/get-content','?url='+url+'&jsonp_callback=jsonp_set_html');
+	}
 }	
 
 </script>
@@ -229,7 +233,11 @@ function request(url,callback) {
 							<!-- <button id="golink" class="btn"><i class="icon-share-alt"></i>&nbsp;Загрузить ссылку</button>	 -->
 							
 						</div>
-						<div><input type="checkbox" name="golink" id="js_golink" ><i class="icon-share-alt"></i>&nbsp;Загрузить ссылку</div>		
+						<div><input type="checkbox" name="golink" id="js_golink" ><i class="icon-share-alt"></i>&nbsp;Загрузить ссылку</div>	
+<div>
+	<input type="radio" name="request" value="curl"> Curl<Br>
+	<input type="radio" name="request" value="phantomjs"> phantomjs
+</div>	
 					</div>
 				</div>
 				
