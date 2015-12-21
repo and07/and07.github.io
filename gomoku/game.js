@@ -218,12 +218,12 @@ function showHint () {
  if (document.images) {
   drawCross(iHint,jHint,blinkHint);
  }
-}
+};
 
 function hideHint() {
  hintShown=0;
  drawCross(iHint,jHint,f[iHint][jHint]);
-}
+};
 
 function autoplay() {
  if (autoplayOn) {
@@ -245,7 +245,7 @@ function autoplay() {
    else { myTurn=true; timerAP=setTimeout("autoplay()",950); }
   }
  }
-}
+};
 
 var autoplayOn=0;
 var timerAP=0;
@@ -346,8 +346,8 @@ function evaluatePos(a, mySq) {
 }
 
 function getBestMachMove() {
- maxS=evaluatePos(s,userSq);
- maxQ=evaluatePos(q,machSq);
+ maxS=evaluatePos(s,1);
+ maxQ=evaluatePos(q,-1);
 
  // alert ('maxS='+maxS+', maxQ='+maxQ);
 
@@ -381,8 +381,8 @@ function getBestMachMove() {
 }
 
 function getBestUserMove() {
- maxQ=evaluatePos(q,machSq);
- maxS=evaluatePos(s,userSq);
+ maxQ=evaluatePos(q,-1);
+ maxS=evaluatePos(s,1);
 
  if (maxS==-1) {
   center=Math.floor(boardSize/2);
