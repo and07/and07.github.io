@@ -265,6 +265,9 @@ function setAutoplay() {
 
 
 var machSq = -1;
+var iMax=new Array();
+var jMax=new Array();
+var nMax=0;
 
 
 var w = new Array(0,20,17,15.4,14,10);
