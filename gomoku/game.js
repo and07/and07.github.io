@@ -200,6 +200,61 @@ function canvasClick(e){
     }
     
 }
+/*********************/
+hintShown=false;
+iHint=jHint=6;
+
+function showHint () {
+ if (myTurn && autoplayOn) return;
+ if (hintShown) {hideHint();return;}
+ hintShown=1;
+ getBestUserMove();
+
+ if (document.images) {
+  drawSquare(iHint,jHint,blinkHint);
+ }
+}
+
+function hideHint() {
+ hintShown=0;
+ drawSquare(iHint,jHint,f[iHint][jHint]);
+}
+
+function autoplay() {
+ if (autoplayOn) {
+  if (myTurn) {
+   getBestMachMove();
+   f[iMach][jMach]=machSq;
+   drawSquare(iMach,jMach,blinkSq);
+   timerDR=setTimeout("drawSquare(iMach,jMach,machSq);",900);
+   if (winningPos(iMach,jMach,machSq)==winningMove) setTimeout('gameOver=1;alert("Player O won!")',900);
+   else if (drawPos) setTimeout('alert("It\'s a draw!")',900);
+   else { myTurn=false; timerAP=setTimeout("autoplay()",950); }
+  }
+  else {
+   getBestUserMove();
+   f[iHint][jHint]=userSq;
+   drawSquare(iHint,jHint,blinkHint);
+   timerDR=setTimeout("drawSquare(iHint,jHint,userSq)",900);
+   if (winningPos(iHint,jHint,userSq)==winningMove) setTimeout('gameOver=1;alert("Player X won!")',900);
+   else { myTurn=true; timerAP=setTimeout("autoplay()",950); }
+  }
+ }
+}
+
+var autoplayOn=0;
+var timerAP=0;
+var buf='';
+function setAutoplay() {
+ if (gameOver) resetGame();
+ if (autoplayOn) {
+  if (myTurn) { setTimeout("setAutoplay()",950); return; }
+  autoplayOn=0;clearTimeout(timerAP);return;
+ }
+ if (document.images) setTimeout("hideHint();autoplayOn=1;autoplay();",100);
+ else alert('Sorry, Autoplay Mode is not supported for your browser!');
+}
+
 
 /*********BOT*********/
 
@@ -285,7 +340,98 @@ function evaluatePos(a,mySq) {
  return maxA;
 }
 
+function getBestMachMove() {
+ maxS=evaluatePos(s,userSq);
+ maxQ=evaluatePos(q,machSq);
+
+ // alert ('maxS='+maxS+', maxQ='+maxQ);
+
+ if (maxQ>=maxS) {
+  maxS=-1;
+  for (i=0;i<boardSize;i++) {
+   for (j=0;j<boardSize;j++) {
+    if (q[i][j]==maxQ) {
+     if (s[i][j]>maxS) {maxS=s[i][j]; nMax=0}
+     if (s[i][j]==maxS) {iMax[nMax]=i;jMax[nMax]=j;nMax++} 
+    }
+   }
+  }
+ }
+ else {
+  maxQ=-1;
+  for (i=0;i<boardSize;i++) {
+   for (j=0;j<boardSize;j++) {
+    if (s[i][j]==maxS) {
+     if (q[i][j]>maxQ) {maxQ=q[i][j]; nMax=0}
+     if (q[i][j]==maxQ) {iMax[nMax]=i;jMax[nMax]=j;nMax++} 
+    }
+   }
+  }
+ }
+ // alert('nMax='+nMax+'\niMax: '+iMax+'\njMax: '+jMax)
+
+ randomK=Math.floor(nMax*Math.random());
+ iMach=iMax[randomK];
+ jMach=jMax[randomK];
+}
+
+function getBestUserMove() {
+ maxQ=evaluatePos(q,machSq);
+ maxS=evaluatePos(s,userSq);
+
+ if (maxS==-1) {
+  center=Math.floor(boardSize/2);
+  s[center][center]=1
+  maxS=1; 
+ }
+
+ if (maxS>=maxQ) {
+  maxQ=-1;
+  for (i=0;i<boardSize;i++) {
+   for (j=0;j<boardSize;j++) {
+    if (s[i][j]==maxS) {
+     if (q[i][j]>maxQ) {maxQ=q[i][j]; nMax=0}
+     if (q[i][j]==maxQ) {iMax[nMax]=i;jMax[nMax]=j;nMax++} 
+    }
+   }
+  }
+ }
+ else {
+  maxS=-1;
+  for (i=0;i<boardSize;i++) {
+   for (j=0;j<boardSize;j++) {
+    if (q[i][j]==maxQ) {
+     if (s[i][j]>maxS) {maxS=s[i][j]; nMax=0}
+     if (s[i][j]==maxS) {iMax[nMax]=i;jMax[nMax]=j;nMax++} 
+    }
+   }
+  }
+ }
+
+ // alert('nMax='+nMax+'\niMax: '+iMax+'\njMax: '+jMax)
+
+ randomK=Math.floor(nMax*Math.random());
+ iHint=iMax[randomK];
+ jHint=jMax[randomK];
+}
+
 function machineMove(iUser, jUser) {
+/*
+ getBestMachMove();
+ f[iMach][jMach]=machSq;
+ if (document.images) {
+  drawSquare(iMach,jMach,blinkSq);
+  setTimeout("drawSquare(iMach,jMach,machSq)",900);
+ }
+ else {
+  drawSquare(iMach,jMach,machSq);
+ }
+ if (winningPos(iMach,jMach,machSq)==winningMove) setTimeout('gameOver=1;alert("I won!")',900);
+ else if (drawPos) setTimeout('gameOver=1;alert("It\'s a draw!")',900);
+ else setTimeout("myTurn=false;",950);
+*/	
+	
+	
 	maxS=evaluatePos(s,1);
 	maxQ=evaluatePos(q,-1);
 
