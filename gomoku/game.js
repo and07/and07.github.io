@@ -353,8 +353,8 @@ function getBestMachMove() {
 
  if (maxQ>=maxS) {
   maxS=-1;
-  for (i=0;i<boardSize;i++) {
-   for (j=0;j<boardSize;j++) {
+  for (i=0;i<Size;i++) {
+   for (j=0;j<Size;j++) {
     if (q[i][j]==maxQ) {
      if (s[i][j]>maxS) {maxS=s[i][j]; nMax=0}
      if (s[i][j]==maxS) {iMax[nMax]=i;jMax[nMax]=j;nMax++} 
@@ -364,8 +364,8 @@ function getBestMachMove() {
  }
  else {
   maxQ=-1;
-  for (i=0;i<boardSize;i++) {
-   for (j=0;j<boardSize;j++) {
+  for (i=0;i<Size;i++) {
+   for (j=0;j<Size;j++) {
     if (s[i][j]==maxS) {
      if (q[i][j]>maxQ) {maxQ=q[i][j]; nMax=0}
      if (q[i][j]==maxQ) {iMax[nMax]=i;jMax[nMax]=j;nMax++} 
@@ -385,15 +385,15 @@ function getBestUserMove() {
  maxS=evaluatePos(s,1);
 
  if (maxS==-1) {
-  center=Math.floor(boardSize/2);
+  center=Math.floor(Size/2);
   s[center][center]=1
   maxS=1; 
  }
 
  if (maxS>=maxQ) {
   maxQ=-1;
-  for (i=0;i<boardSize;i++) {
-   for (j=0;j<boardSize;j++) {
+  for (i=0;i<Size;i++) {
+   for (j=0;j<Size;j++) {
     if (s[i][j]==maxS) {
      if (q[i][j]>maxQ) {maxQ=q[i][j]; nMax=0}
      if (q[i][j]==maxQ) {iMax[nMax]=i;jMax[nMax]=j;nMax++} 
@@ -403,8 +403,8 @@ function getBestUserMove() {
  }
  else {
   maxS=-1;
-  for (i=0;i<boardSize;i++) {
-   for (j=0;j<boardSize;j++) {
+  for (i=0;i<Size;i++) {
+   for (j=0;j<Size;j++) {
     if (q[i][j]==maxQ) {
      if (s[i][j]>maxS) {maxS=s[i][j]; nMax=0}
      if (s[i][j]==maxS) {iMax[nMax]=i;jMax[nMax]=j;nMax++} 
