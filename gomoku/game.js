@@ -201,8 +201,13 @@ function canvasClick(e){
     
 }
 /*********************/
-hintShown=false;
-iHint=jHint=6;
+var drawPos=0;
+var myTurn=0;
+var autoplayOn=0;
+var gameOver=0;
+
+var hintShown=false;
+var iHint=jHint=6;
 
 function showHint () {
  if (myTurn && autoplayOn) return;
