@@ -216,13 +216,13 @@ function showHint () {
  getBestUserMove();
 
  if (document.images) {
-  drawSquare(iHint,jHint,blinkHint);
+  drawCross(iHint,jHint,blinkHint);
  }
 }
 
 function hideHint() {
  hintShown=0;
- drawSquare(iHint,jHint,f[iHint][jHint]);
+ drawCross(iHint,jHint,f[iHint][jHint]);
 }
 
 function autoplay() {
@@ -230,8 +230,8 @@ function autoplay() {
   if (myTurn) {
    getBestMachMove();
    f[iMach][jMach]=machSq;
-   drawSquare(iMach,jMach,blinkSq);
-   timerDR=setTimeout("drawSquare(iMach,jMach,machSq);",900);
+   drawCross(iMach,jMach,blinkSq);
+   timerDR=setTimeout("drawCross(iMach,jMach,machSq);",900);
    if (winningPos(iMach,jMach,machSq)==winningMove) setTimeout('gameOver=1;alert("Player O won!")',900);
    else if (drawPos) setTimeout('alert("It\'s a draw!")',900);
    else { myTurn=false; timerAP=setTimeout("autoplay()",950); }
@@ -239,8 +239,8 @@ function autoplay() {
   else {
    getBestUserMove();
    f[iHint][jHint]=userSq;
-   drawSquare(iHint,jHint,blinkHint);
-   timerDR=setTimeout("drawSquare(iHint,jHint,userSq)",900);
+   drawCross(iHint,jHint,blinkHint);
+   timerDR=setTimeout("drawCross(iHint,jHint,userSq)",900);
    if (winningPos(iHint,jHint,userSq)==winningMove) setTimeout('gameOver=1;alert("Player X won!")',900);
    else { myTurn=true; timerAP=setTimeout("autoplay()",950); }
   }
@@ -289,7 +289,7 @@ function hasNeighbors(i,j) {
 }
 
 
-function evaluatePos(a,mySq) {
+function evaluatePos(a, mySq) {
  maxA=-1;
  for (var i=0;i<AmountX;i++) {
   for (var j=0;j<AmountY;j++) {
