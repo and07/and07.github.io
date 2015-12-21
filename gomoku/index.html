@@ -8,8 +8,9 @@
     </head>
     <body>
 		<div>
-        <a id="js_play">Играть</a><br>
-        <a id="js_table_res">Таблица результатов</a>
+        <button id="js_play">Play</button><br>
+        <button id="js_autoplay">Autoplay</button>
+        <button id="js_table_res">Result</button><br>
 		</div>
 		<div>
 			<canvas width="1000" height="500" id="game"></canvas> 
@@ -47,39 +48,43 @@
     
     
  <script>
+function initBoard(){
+	canvas=document.getElementById("game");
+	canvas.width = canvas.width;
+	init();
+	game = canvas.getContext("2d");
+	
+	for(i=0;i<AmountX+1;i++){
+	game.moveTo(Size*i, 0);
+	game.lineTo(Size*i, AmountY*Size);
+	
+	}
+	
+	for(i=0;i<AmountY+1;i++){
+	game.moveTo(0, Size*i);
+	game.lineTo(AmountY*Size, Size*i); 
+	}
+	
+	game.strokeStyle="#000";
+	game.stroke();	
+}
 
 	$('#js_table_res').on('click', function(){
 		alert('table');
-
-
+	
+	
 	});
+ 	
+ 	$('#js_autoplay').on('click', function(){
+ 		initBoard();
+ 		
+ 	});
  
- $('#js_play').on('click',function(){
-     
-    canvas=document.getElementById("game");
-	canvas.width = canvas.width;
-	init();
-    game = canvas.getContext("2d");
-      
-    for(i=0;i<AmountX+1;i++){
-        game.moveTo(Size*i, 0);
-        game.lineTo(Size*i, AmountY*Size);
-        
-    }
-
-    for(i=0;i<AmountY+1;i++){
-        game.moveTo(0, Size*i);
-        game.lineTo(AmountY*Size, Size*i); 
-    }
-   
-    game.strokeStyle="#000";
-    game.stroke();
-
-    //listenTurns();
-
-    canvas.addEventListener("click", canvasClick, false);    
-     
- });
+	$('#js_play').on('click',function(){
+		initBoard();
+		canvas.addEventListener("click", canvasClick, false);    
+	
+	});
  window.onload=function(){
     
     
