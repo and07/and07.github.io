@@ -15,6 +15,13 @@ var q = new Array();
 
 function init(){
 
+drawPos=0;
+myTurn=0;
+autoplayOn=0;
+gameOver=0;
+timerAP=0;
+buf='';
+
 	for (i=0;i<AmountX;i++) {
 		f[i]=new Array();
 		s[i]=new Array();
@@ -205,7 +212,8 @@ var drawPos=0;
 var myTurn=0;
 var autoplayOn=0;
 var gameOver=0;
-
+var timerAP=0;
+var buf='';
 var hintShown=false;
 var iHint=jHint=6;
 
@@ -244,29 +252,28 @@ function autoplay() {
    getBestMachMove();
    f[iMach][jMach]=machSq;
    drawCross(iMach,jMach,blinkSq);
-   timerDR=setTimeout("drawCross(iMach,jMach,machSq);",900);
-   if (checkWin(machSq)) setTimeout('gameOver=1;alert("Player O won!")',900);
-   else if (drawPos) setTimeout('alert("It\'s a draw!")',900);
+   //timerDR=setTimeout("drawCross(iMach,jMach,machSq);",900);
+   if (checkWin(machSq)) {gameOver=1;alert("Player X won!");}
+   else if (drawPos) {alert("It\'s a draw!");}
    else { myTurn=false; timerAP=setTimeout("autoplay()",950); }
   }
   else {
    getBestUserMove();
    f[iHint][jHint]=userSq;
    drawCicle(iHint,jHint,blinkHint);
-   timerDR=setTimeout("drawCicle(iHint,jHint,userSq)",900);
-   if (checkWin(userSq)) setTimeout('gameOver=1;alert("Player X won!")',900);
+   //timerDR=setTimeout("drawCicle(iHint,jHint,userSq)",900);
+   if (checkWin(userSq)) {gameOver=1;alert("Player O won!");}
+   else if (drawPos) {alert("It\'s a draw!");}
    else { myTurn=true; timerAP=setTimeout("autoplay()",950); }
   }
  }
 };
 
-var autoplayOn=0;
-var timerAP=0;
-var buf='';
+
 function setAutoplay() {
  if (gameOver) initBoard();
  if (autoplayOn) {
-  if (myTurn) { setTimeout("setAutoplay()",950); return; }
+  if (myTurn) { setAutoplay(); return; }
   autoplayOn=0;clearTimeout(timerAP);return;
  }
  if (document.images) setTimeout("hideHint();autoplayOn=1;autoplay();",100);
