@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!-- saved from url=(0040)http://www.convertcsv.com/csv-to-sql.htm -->
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
 <!-- Copyright 2013 ConvertCsv.com -->
@@ -8,19 +8,30 @@
 <meta http-equiv="Expires" content="0">
 <meta name="description" content="Convert CSV to SQL">
 <!--script async="" type="text/javascript" src="ca-pub-2674404638298268.js"></script-->
-<script src="strsup.js"></script>
-<script src="localread.js"></script>
-<script src="csvparse.js"></script>
-<script src="csvsup.js"></script>
-<script src="blob.js"></script>
-<script src="filesaver.js"></script>
-<script src="storagesup.js"></script>
-<link href="layout3col.css" rel="stylesheet" type="text/css">
-<script src="RedQueryBuilder.nocache.js">//</script>
+<script src="js/strsup.js"></script>
+<script src="js/localread.js"></script>
+<script src="js/csvparse.js"></script>
+<script src="js/csvsup.js"></script>
+<script src="js/blob.js"></script>
+<script src="js/filesaver.js"></script>
+<script src="js/storagesup.js"></script>
+<link href="css/layout3col.css" rel="stylesheet" type="text/css">
+<script src="js/RedQueryBuilder.nocache.js">//</script>
 <!--script src="6BAB7BE0E9D548D71DDB27B9D2B4EC7A.cache.js"></script-->
-<link href="dark.css" rel="stylesheet" type="text/css">
-<script src="RedQueryBuilderFactory.nocache.js">//</script>
-<script src="csvquery.js"></script>
+<link href="css/dark.css" rel="stylesheet" type="text/css">
+<script src="js/RedQueryBuilderFactory.nocache.js">//</script>
+<script src="js/csvquery.js"></script>
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
 
 <script type="text/javascript">
    function runit(verb, frm) {
@@ -173,11 +184,7 @@
     <td><select id="selSortAsc3" onchange="sortStr()"><option value="">Ascending</option><option value="D">Descending</option></select></td>
     </tr>
      </tbody></table>
-    <br>
-<input type="button" id="btnRun" value="Convert CSV To SQL Insert" title="Convert CSV To SQL Insert" onclick="runit(&#39;I&#39;,this.form)">
-<input type="button" value="Convert CSV To SQL Update" title="Convert CSV To SQL Update" onclick="runit(&#39;U&#39;,this.form)">
-<input type="button" value="Convert CSV To SQL Delete" title="Convert CSV To SQL Delete" onclick="runit(&#39;D&#39;, this.form)">
-<br>
+
  <br><label>Table Name: <input type="text" name="tabname" id="tabname" value="mytable" placeholder="Table_Name" onchange="this.value=this.value.replace(/\s/g,&#39;_&#39;)"></label>
   <!--
     <label>Database Target 
@@ -209,13 +216,20 @@
     <br> &nbsp;NULL value: <label><input type="checkbox" name="chkNull" id="chkNull" value="Y"> Consider value of NULL in CSV to be NULL in SQL </label>
     <br>NOTE - you can change the column names below by overwriting the Field Name value.<br>
   <div id="divOptions"></div>
+  
+    <br>
+<input type="button" id="btnRun" value="Convert CSV To SQL Insert" title="Convert CSV To SQL Insert" onclick="runit(&#39;I&#39;,this.form)">
+<input type="button" value="Convert CSV To SQL Update" title="Convert CSV To SQL Update" onclick="runit(&#39;U&#39;,this.form)">
+<input type="button" value="Convert CSV To SQL Delete" title="Convert CSV To SQL Delete" onclick="runit(&#39;D&#39;, this.form)">
+<br>
 </form>
 <hr>
 </div>
     <center>
     <label><input type="text" size="15" id="fn" value="convertcsv" title="Enter filename without extension">.sql</label>
     <label><input type="button" value="Save to Disk" onclick="saveFile(document.getElementById(&#39;txta&#39;).value,&#39;sql&#39;)"></label><br>
-   <textarea id="txta" rows="15" cols="100" wrap="off" placeholder="Output Results"></textarea></center>
+   <textarea id="txta" rows="15" cols="100" wrap="off" placeholder="Output Results"></textarea>
+   </center>
 </div>
 
 <div class="footer">
@@ -224,4 +238,5 @@
 </div>
 
 
-<iframe src="javascript:""" id="RedQueryBuilder" tabindex="-1" style="position: absolute; width: 0px; height: 0px; border: none; left: -1000px; top: -1000px;"></iframe></body></html>
+</body>
+</html>
