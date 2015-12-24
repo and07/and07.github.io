@@ -1,0 +1,174 @@
+﻿<!-- http://cturt.github.io/ -->
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="../../css/core.css" />
+        
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+        <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/9.0.0/styles/default.min.css"> -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/9.0.0/styles/railscasts.min.css">
+        <script src="https://cdn.jsdelivr.net/highlight.js/9.0.0/highlight.min.js"></script>
+        
+		<title>Pattern</title>
+	</head>
+	
+	<body>
+		<div class="page">
+			<div class="container">
+				
+				<h1>Pattern</h1>
+				<hr>
+                <h2>Mediator</h2>
+                <pre><code class="javascript">
+"use strict";
+
+var Mediator = function() {
+        
+        var debug = function() {
+            // console.log or air.trace as desired
+        };
+        
+        var components = {};
+        
+        var broadcast = function(event, args, source) {
+            if (!event) {
+                return;
+            }
+            args = args || [];
+            //debug(["Mediator received", event, args].join(' '));
+            for (var c in components) {
+                if (typeof components[c]["on" + event] == "function") {
+                    try {
+                        //debug("Mediator calling " + event + " on " + c);
+                        source = source || components[c];
+                        components[c]["on" + event].apply(source, args);
+                    } catch (err) {
+                        debug(["Mediator error.", event, args, source, err].join(' '));
+                    }
+                }
+            }
+        };
+        
+        var addComponent = function(name, component, replaceDuplicate) {
+            if (name in components) {
+                if (replaceDuplicate) {
+                    removeComponent(name);
+                } else {
+                    throw new Error('Mediator name conflict: ' + name);
+                }
+            }
+            components[name] = component;
+        };
+        
+        var removeComponent = function(name) {
+            if (name in components) {
+                delete components[name];
+            }
+        };
+        
+        var getComponent = function(name) {
+            return components[name]; // undefined if component has not been added
+        };
+        
+        var contains = function(name) {
+            return (name in components);
+        };
+        
+        return {
+            name      : "Mediator",
+            broadcast : broadcast,
+            add       : addComponent,
+            rem       : removeComponent,
+            get       : getComponent,
+            has       : contains
+        };
+    }();
+                
+                </code></pre>
+                
+				
+				<br>
+
+                <h2>Native Javascript Data Binding</h2>
+                <pre><code class="javascript">
+    function bindModelInput(obj, property, domElem) { 
+        Object.defineProperty(obj, property, {
+            get: function() { return domElem.value; },
+            set: function(newValue) { domElem.value = newValue; },
+            configurable:true 
+        }); 
+    }; //< input id="foo" > 
+    user = {};
+    bindModelInput(user,'name',document.getElementById('foo'));
+                </code></pre>		
+        
+				<br>
+
+                <h2>Module</h2>
+        <pre><code class="javascript">
+var basketModule = (function () {
+ 
+  // privates
+ 
+  var basket = [];
+ 
+  function doSomethingPrivate() {
+    //...
+  }
+ 
+  function doSomethingElsePrivate() {
+    //...
+  }
+ 
+  // Return an object exposed to the public
+  return {
+ 
+    // Add items to our basket
+    addItem: function( values ) {
+      basket.push(values);
+    },
+ 
+    // Get the count of items in the basket
+    getItemCount: function () {
+      return basket.length;
+    },
+ 
+    // Public alias to a  private function
+    doSomething: doSomethingPrivate,
+ 
+    // Get the total value of items in the basket
+    getTotal: function () {
+ 
+      var q = this.getItemCount(),
+          p = 0;
+ 
+      while (q--) {
+        p += basket[q].price;
+      }
+ 
+      return p;
+    },
+    onSetName: function(){
+        alert('setName');
+    }
+  };
+})();
+        </code></pre>
+        
+        
+			</div>
+		</div>
+	</body>
+<script>
+$(document).ready(function() {
+  $('pre code').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+</script>    
+</html>
