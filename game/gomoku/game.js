@@ -263,7 +263,6 @@ function autoplay() {
    drawCicle(iHint,jHint,blinkHint);
    //timerDR=setTimeout("drawCicle(iHint,jHint,userSq)",900);
    if (checkWin(userSq)) {gameOver=1;alert("Player O won!");}
-   else if (drawPos) {alert("It\'s a draw!");}
    else { myTurn=true; timerAP=setTimeout("autoplay()",950); }
   }
  }
@@ -306,6 +305,8 @@ function hasNeighbors(i,j) {
 
 function evaluatePos(a, mySq) {
  maxA=-1;
+ drawPos=true;
+
  for (var i=0;i<AmountX;i++) {
   for (var j=0;j<AmountY;j++) {
 	if (f[i][j]!=0) {a[i][j]=-1; continue;}  
@@ -321,24 +322,32 @@ function evaluatePos(a, mySq) {
    if (j+m>=Size || f[i][j+m]==-mySq) A1-=(f[i][j+m-1]==mySq)?(w[5]*mySq):0;
    m=1; while (j-m>=minN && f[i][j-m]!=-mySq) {nPos[1]++; A1+=w[m]*f[i][j-m]; m++}   
    if (j-m<0 || f[i][j-m]==-mySq) A1-=(f[i][j-m+1]==mySq)?(w[5]*mySq):0;
+   if (nPos[1]>4) drawPos=false;
+
 
    nPos[2]=1; A2=0;
    m=1; while (i+m<maxM  && f[i+m][j]!=-mySq) {nPos[2]++; A2+=w[m]*f[i+m][j]; m++}
    if (i+m>=Size || f[i+m][j]==-mySq) A2-=(f[i+m-1][j]==mySq)?(w[5]*mySq):0;
    m=1; while (i-m>=minM && f[i-m][j]!=-mySq) {nPos[2]++; A2+=w[m]*f[i-m][j]; m++}   
    if (i-m<0 || f[i-m][j]==-mySq) A2-=(f[i-m+1][j]==mySq)?(w[5]*mySq):0;
+   if (nPos[2]>4) drawPos=false;
+
 
    nPos[3]=1; A3=0;
    m=1; while (i+m<maxM  && j+m<maxN  && f[i+m][j+m]!=-mySq) {nPos[3]++; A3+=w[m]*f[i+m][j+m]; m++}
    if (i+m>=Size || j+m>=Size || f[i+m][j+m]==-mySq) A3-=(f[i+m-1][j+m-1]==mySq)?(w[5]*mySq):0;
    m=1; while (i-m>=minM && j-m>=minN && f[i-m][j-m]!=-mySq) {nPos[3]++; A3+=w[m]*f[i-m][j-m]; m++}   
    if (i-m<0 || j-m<0 || f[i-m][j-m]==-mySq) A3-=(f[i-m+1][j-m+1]==mySq)?(w[5]*mySq):0;
+   if (nPos[3]>4) drawPos=false;
+
 
    nPos[4]=1; A4=0;
    m=1; while (i+m<maxM  && j-m>=minN && f[i+m][j-m]!=-mySq) {nPos[4]++; A4+=w[m]*f[i+m][j-m]; m++;}
    if (i+m>=Size || j-m<0 || f[i+m][j-m]==-mySq) A4-=(f[i+m-1][j-m+1]==mySq)?(w[5]*mySq):0;
    m=1; while (i-m>=minM && j+m<maxN  && f[i-m][j+m]!=-mySq) {nPos[4]++; A4+=w[m]*f[i-m][j+m]; m++;} 
    if (i-m<0 || j+m>=Size || f[i-m][j+m]==-mySq) A4-=(f[i-m+1][j+m-1]==mySq)?(w[5]*mySq):0;
+   if (nPos[4]>4) drawPos=false;
+
 
    dirA[1] = (nPos[1]>4) ? A1*A1 : 0;
    dirA[2] = (nPos[2]>4) ? A2*A2 : 0;
