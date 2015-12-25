@@ -96,15 +96,44 @@ var Mediator = function() {
 
                 <h2>Native Javascript Data Binding</h2>
                 <pre><code class="javascript">
+    function is_null( mixed_var ){	// Finds whether a variable is NULL
+        // 
+        // +   original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+        return ( mixed_var === null );
+    };
+    function setValDomElem(domElem,newValue){
+        if(domElem.length){
+            for(var i in domElem){
+                    var tag = domElem[i].tagName|| null;
+                    if(is_null(tag))
+                        continue;
+                    tag = tag.toLowerCase();
+                    if(tag == 'input' || tag == 'textarea' || tag == 'select'){
+                        domElem[i].value = newValue;
+                    }else{
+                        domElem[i].innerHTML = newValue;
+                    }
+            }
+        }else{
+            var tag = domElem.tagName.toLowerCase() || null;
+            if(tag == 'input' || tag == 'textarea' || tag == 'select'){
+                domElem.value = newValue;
+            }else{
+                domElem.innerHTML = newValue; 
+            }
+        }
+
+    };
     function bindModelInput(obj, property, domElem) { 
         Object.defineProperty(obj, property, {
-            get: function() { return domElem.value; },
-            set: function(newValue) { domElem.value = newValue; },
-            configurable:true 
+            get: function() { return this['_'+property];  },
+            set: function(newValue) { this['_'+property] = newValue; setValDomElem(domElem, newValue); },
+            enumerable: false,
+            configurable: true 
         }); 
     }; //< input id="foo" > 
     user = {};
-    bindModelInput(user,'name',document.getElementById('foo'));
+    bindModelInput(user,'name', document.querySelectorAll('#foo'));
                 </code></pre>		
         
 				<br>
