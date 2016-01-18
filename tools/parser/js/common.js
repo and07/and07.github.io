@@ -1,4 +1,63 @@
 "use strict";
+
+var getElementByXpathAll = function(xpathToExecute){
+  var result = [];
+  var nodesSnapshot = document.evaluate(xpathToExecute, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null );
+  for ( var i=0 ; i < nodesSnapshot.snapshotLength; i++ ){
+    result.push( nodesSnapshot.snapshotItem(i) );
+  }
+  return result;
+};
+
+
+function getElementByXpath (path) {
+    return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+};
+
+//console.log( getElementByXpath("//html[1]/body[1]/div[1]").innerHTML );
+
+function addScript(el,url,param){
+	param = param || "";
+	var script = el.createElement("script");
+	script.src = url+'/'+param;
+	script.async = true;
+	el.getElementsByTagName("head")[0].appendChild(script);
+};
+
+var jsonp_set_html = function(data) {
+	_PARSE.golink = false;
+	var html = populateIframe('html', data.res);
+    var obj = {};
+    obj[data.url] = data.res;
+    _PARSE.pages.push(obj)
+	setEvenHoveredAll(html);
+	//removeClass(document.querySelector('#js_golink'),'active');
+	document.querySelector('#js_golink').checked = false;
+	Loading.close();
+};
+	
+function request(url, callback) {
+	Loading.show();
+	callback = callback||null;
+	if(callback === null){
+		callback = function(res) {
+			_PARSE.golink = false;
+			var html = populateIframe('html', res.responseText);
+			setEvenHoveredAll(html);
+			document.querySelector('#js_golink').checked = false;
+			Loading.close();
+		};
+	}
+	url = encodeURIComponent(url);
+	var type_request = document.querySelector('input[name="request"]:checked').value;
+	if(type_request == 'curl'){
+		addScript(document,'https://peaceful-retreat-5894.herokuapp.com/get-content','?url='+url+'&jsonp_callback=jsonp_set_html');
+	}else{
+		addScript(document,'https://voyage-madame-4519.herokuapp.com/api/getHtml','?url='+url+'&callback=jsonp_set_html&time=5000');
+	}
+};
+
+
 Date.prototype.yyyymmdd = function() {
    var yyyy = this.getFullYear().toString();
    var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
