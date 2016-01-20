@@ -246,16 +246,15 @@ function parseURL(url) {
 }
 var getTreeData =  function(el){
 	var getData = function(el){
-		var _xpath = {};
-		var _name = {};
-		var _attr = {};
 		var tmp = {};
 		var xpath = el.querySelector('.xpath');
 		var name = el.querySelector('.name');
-		var attr = el.querySelector('.selattr');
+		var attr = el.querySelector('.attr');
+		var selattr = el.querySelector('.selattr');
 		tmp[xpath.getAttribute("name")] = xpath.value;
 		tmp[name.getAttribute("name")] = name.value;
 		tmp[attr.getAttribute("name")] = attr.value;
+		tmp[selattr.getAttribute("name")] = selattr.value;
 		return tmp;
 	}
 	
@@ -400,6 +399,7 @@ var _PARSE = (function () {
 		var _xpath = 'xpath';
 		var _name = 'name';
 		var _type = 'type';
+		var _attr = 'attr';
 		return v(id, {}, [ 
 				v('div.row', {}, [
 					v( 'div.col-xs-2',{},[
@@ -411,6 +411,9 @@ var _PARSE = (function () {
 					v( 'div.col-xs-4',{},[				
 						v('input.form-control.xpath',{type:'text',placeholder:'Xpath',name:_xpath,'disabled':"disabled"}),
 					]),
+					v( 'div.col-xs-4',{},[				
+						v('input.form-control.attr',{type:'hidden',placeholder:'Attr',name:_attr,'disabled':"disabled"}),
+					]),					
 					v( 'div.col-xs-1',{},[		
 						v("button.btn.btn-default#edit_item", { onclick: editItem, 'data-id':id}, "EditItem"),
 					]),
@@ -555,6 +558,7 @@ function setItem()
 {
 	var type = $('#itemNameParseModal select[name="type"]').val();
 	var name = $('#itemNameParseModal input[name="name"]').val();
+	var attr =  $('#itemNameParseModal .js_attr').val() || null;
 	var parent = $('#itemNameParseModal .js_parent').val() || null;
 	
 	
@@ -578,7 +582,8 @@ function setItem()
 		
 		el.querySelector('.type').value = type;
 		el.querySelector('.name').value = name;
-
+		el.querySelector('.attr').value = attr;
+		
 		fillSel('.js_parent', [{'text' : name , 'value' : parent_id}]);
 	}
 }
@@ -631,6 +636,11 @@ function setEvenHoveredAll(html){
 						}else{
 							_PARSE.rule_xpath = createXPathFromElement(_target);
 							selectBorder(_target, 'text', e, true);
+							//attr
+							$('.js_attr').html('<option value=""></option>');
+							for (var i = 0, atts = _target.attributes, n = atts.length, arr = []; i < n; i++){
+								fillSel('.js_attr', [{ 'text' : atts[i].nodeName , 'value' : atts[i].nodeName }]);
+							}	
 						}
 						
 						 e.preventDefault();
@@ -656,7 +666,7 @@ function selectBorder(elem, type, e, dialog)
 		$('#itemNameParseModal').modal('show');
 		//$('#itemNameParseModal').css('left', e.clientX+50).css('top', e.clientY+10).fadeIn('slow');
 		//$('#itemNameParseModal').css('top', e.clientY+10).fadeIn('slow');
-	}
+	}	
 	
 	$(elem).data('oldstyle2', $(elem).css('border'));
 	$(elem).data('selected', 1);
@@ -835,7 +845,7 @@ var formatState = function(state) {
 			'link' : '<i class="icon-font"></i>',
 			'img' : '<i class="icon-picture"></i>',
 			'html' : '<i class="icon-chevron-left"></i><i class="icon-chevron-right"></i>',
-			'table' : '',
+			'attr' : '',
 		};
 		if (!state.id) { return state.text; }
 		var $state = $(
