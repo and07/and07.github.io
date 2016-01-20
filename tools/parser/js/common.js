@@ -251,7 +251,9 @@ var getTreeData =  function(el){
 		var name = el.querySelector('.name');
 		var attr = el.querySelector('.attr');
 		var selattr = el.querySelector('.selattr');
-		tmp[xpath.getAttribute("name")] = xpath.value;
+		var all = document.querySelector('#js_all').checked;
+		
+		tmp[xpath.getAttribute("name")] = all ? xpath.value.replace(/\[1\]/g, '') : xpath.value;
 		tmp[name.getAttribute("name")] = name.value;
 		tmp[attr.getAttribute("name")] = attr.value;
 		tmp[selattr.getAttribute("name")] = selattr.value;
@@ -294,8 +296,9 @@ function getRule(){
     var host = parseURL(url);
     var domen = host.protocol + '://' + host.host;
     var type = _PARSE.type;
-    
-	return {'url':url, 'rule':data,'host':host['host'], 'name':name, 'domen':domen}
+	var all = document.querySelector('#js_all').checked;
+    var limit = document.querySelector('#js_limit').value || 1;
+	return {'url':url, 'all':all, 'rule':data,'host':host['host'], 'name':name, 'domen':domen, 'limit':limit}
 
 }
 function rulessave(successfunc)
@@ -636,6 +639,8 @@ function setEvenHoveredAll(html){
 						}else{
 							_PARSE.rule_xpath = createXPathFromElement(_target);
 							selectBorder(_target, 'text', e, true);
+							//limit
+							//document.querySelector('#js_limit').value = document.evaluate(_PARSE.rule_xpath, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null).snapshotLength
 							//attr
 							$('.js_attr').html('<option value=""></option>');
 							for (var i = 0, atts = _target.attributes, n = atts.length, arr = []; i < n; i++){

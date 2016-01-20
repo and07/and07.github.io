@@ -1,4 +1,6 @@
-﻿$(document).ready(function() {
+﻿"use strict";
+
+$(document).ready(function() {
 	
 	$(".modal-draggable .modal-dialog").draggable({
 		handle: ".modal-header"

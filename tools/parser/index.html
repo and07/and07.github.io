@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Bootstrap 101 Template</title>
+    <title>xpath rule for parser</title>
 
     <!-- Bootstrap -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -104,41 +104,47 @@
 		
 		<div class="">
 			<div id="" class="tab-pane active">
-<div>
-	<input type="radio" name="request" value="curl" checked="checked"> Curl<Br>
-	<input type="radio" name="request" value="phantomjs"> phantomjs
-</div>
+				<div>
+					<input type="radio" name="request" value="curl" checked="checked"> Curl<Br>
+					<input type="radio" name="request" value="phantomjs"> phantomjs
+				</div>
 				<form class="form-inline">
-					<div class="form-group">
+					<div class="checkbox">
 							<input type="checkbox" name="base" id="js_base_btn">BaseTag
+					</div>
+					<div class="checkbox">
+							<input type="checkbox" name="allelem" id="js_all" >&nbsp;All element
+					</div>					
+					<div class="form-group">
+						<label class="sr-only" for="js_limit" >Limit parsing</label>
+						<input type="text" name="limit" id="js_limit" placeholder="Limit parsing" value="1" >
 					</div>
 				</form>
 				
-				<div id="panel">
-					<div class="_form-inline" style="float:left; margin-right:30px;">
-						<input type="text" name="url" class="js_url" value="" placeholder="Введите url страницы" style="width: 300px;"/>
-						<button class="btn js_loadpage_nourl" title="Обновить страницу"><i class="icon-repeat"></i></button>
+				<form class="form-inline">
+					<div class="form-group">
+						<label class="sr-only" for="js_url" >Url page</label>
+						<input type="text" name="url" class="js_url" value="" placeholder="Url page" style="width: 300px;"/>
 					</div>
-					<div class="btn-toolbar">	
-						<div class="btn-group" data-toggle="buttons-radio">	
-							<!-- <button id="golink" class="btn"><i class="icon-share-alt"></i>&nbsp;Загрузить ссылку</button>	 -->
-							
-						</div>
-						<div><input type="checkbox" name="golink" id="js_golink" ><i class="icon-share-alt"></i>&nbsp;Загрузить ссылку</div>	
-	
+					<button class="btn js_loadpage_nourl" title="refrash"><i class="icon-repeat"></i></button>
+					<div class="checkbox">
+						<input type="checkbox" name="golink" id="js_golink" ><i class="icon-share-alt"></i>&nbsp;simulate click	
 					</div>
-				</div>
-				
+				</form>
+
 				<div class="clear"></div>
-				<div id="iframes">
-								
+				
+				<div id="iframes">			
 					<iframe id="html" name="html" width="99%" height="350" ></iframe>
 					<div id="hovered-element" style="position:relative;" ><div id="hovered-element-info" style="position:absolute;" ></div></div>			
 				</div>
+				
 				<div class="clear" style="height:40px;"></div>
+				
 				<div id="rules-container">
 					<div id="" class="js_items" ></div>
 				</div>
+				
 				<div class="clear"></div>
 			</div>
 		
