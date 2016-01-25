@@ -1,5 +1,3 @@
-﻿"use strict";
-
 $(document).ready(function() {
 	
 	$(".modal-draggable .modal-dialog").draggable({
