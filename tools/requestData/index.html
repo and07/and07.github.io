@@ -27,7 +27,7 @@
     <h1>Request Data</h1>
 </div>
 <div class ="well content-main">
-    <div class="response-info"></div>
+    <div class="response-info"><pre class="prettyprint"></pre></div>
 </div>
 
 <div>
@@ -93,14 +93,19 @@ function _ajax_request(url, data, contentType, callback, method) {
 		data: data,
 		statusCode: {
 			200: function (response) {
-
+                console.log(response);
 			},
 			201: function (response) {
-
+                console.log(response);
+			},
+			204: function (response) {
+                console.log(response);
 			},
 			400: function (response) {
+                console.log(response);
 			},
 			403 : function(response){
+                console.log(response);
 			},
 			404: function (response) {
 				var mess = JSON.parse(response.responseText);
@@ -131,9 +136,45 @@ jQuery.extend({
 	delete: function(url, data, contentType, callback) {
 		return _ajax_request(url, data, contentType, callback, 'DELETE'); //delete data
 	}
-
 });
-
+String.space = function (len) {
+	var t = [], i;
+	for (i = 0; i < len; i++) {
+		t.push(' ');
+	}
+	return t.join('');
+};
+var formatJSON = function (text) {
+    text = text.replace(/\n/g, ' ').replace(/\r/g, ' ');
+    var t = [];
+    var tab = 0;
+    var inString = false;
+    for (var i = 0, len = text.length; i < len; i++) {
+        var c = text.charAt(i);
+        if (inString && c === inString) {
+            // TODO: \\"
+            if (text.charAt(i - 1) !== '\\') {
+                inString = false;
+            }
+        } else if (!inString && (c === '"' || c === "'")) {
+            inString = c;
+        } else if (!inString && (c === ' ' || c === "\t")) {
+            c = '';
+        } else if (!inString && c === ':') {
+            c += ' ';
+        } else if (!inString && c === ',') {
+            c += "\n" + String.space(tab * 2);
+        } else if (!inString && (c === '[' || c === '{')) {
+            tab++;
+            c += "\n" + String.space(tab * 2);
+        } else if (!inString && (c === ']' || c === '}')) {
+            tab--;
+            c = "\n" + String.space(tab * 2) + c;
+        }
+        t.push(c);
+    }
+    return t.join('');
+};
 
 $('.js_request').on('click',function(){
     var _url = $('[name="_url"]').val();
@@ -142,8 +183,8 @@ $('.js_request').on('click',function(){
     var _content = $('[name="_content"]').val();
     
     $[_request](_url, _content, _content_type, function(result) {
-				console.log(result);
-			});
+        $('.response-info > pre').text(formatJSON(JSON.stringify(result)));
+	});
 });
 </script>
 </html>
