@@ -184,13 +184,15 @@ var formatJSON = function (text) {
 };
 
 $('.js_request').on('click',function(){
-    var _url = $('[name="_url"]').val();
-    var _request = $('[name="_request"]').val();
-    var _content_type = $('[name="_content_type"]').val();
-    var _content = $('[name="_content"]').val();
+	var _url = $('[name="_url"]').val();
+	var _request = $('[name="_request"]').val();
+	var _content_type = $('[name="_content_type"]').val();
+	var _content = $('[name="_content"]').val();
     
-    $[_request](_url, _content, _content_type, function(result) {
-        $('.response-info > pre').text(formatJSON(JSON.stringify(result)));
+    	$[_request](_url, _content, _content_type, function(result) {
+	        $('.response-info').html('<pre class="prettyprint"></pre>');
+	        $('.response-info > pre').text(formatJSON(JSON.stringify(result)));
+	        PR.prettyPrint();
 	});
 });
 </script>
