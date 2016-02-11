@@ -55,6 +55,7 @@
                     <option value="get" selected="selected">GET</option>
                     <option value="post">POST</option>
                     <option value="put">PUT</option>
+                    <option value="patch">PATCH</option>
                     <option value="delete">DELETE</option>
                 </select>
                 <span class="help-block"></span>
@@ -127,7 +128,16 @@ function _ajax_request(url, data, contentType, callback, method) {
 				console.log(mess);
 			}
 		},
-		success: callback
+		success: callback,
+        error: function (xhr, status, error) {
+            console.log(xhr);
+            console.log(error);
+            console.log(status);
+            $('.response-info').html('<pre class="prettyprint"></pre>');
+            console.log(request.getResponseHeader());
+            $('.response-info > pre').text(formatJSON(xhr.responseText));
+            PR.prettyPrint();
+        }
 	});
 };
 jQuery.extend({
@@ -137,6 +147,9 @@ jQuery.extend({
 	put: function(url, data, contentType, callback) {
 		return _ajax_request(url, data, contentType, callback, 'PUT'); //update data
 	},
+	patch: function(url, data, contentType, callback) {
+		return _ajax_request(url, data, contentType, callback, 'PATCH'); //update data
+	},    
 	post: function(url, data, contentType, callback) {
 		return _ajax_request(url, data, contentType, callback, 'POST'); //create data
 	},
@@ -184,15 +197,18 @@ var formatJSON = function (text) {
 };
 
 $('.js_request').on('click',function(){
-	var _url = $('[name="_url"]').val();
-	var _request = $('[name="_request"]').val();
-	var _content_type = $('[name="_content_type"]').val();
-	var _content = $('[name="_content"]').val();
+    var _url = $('[name="_url"]').val();
+    var _request = $('[name="_request"]').val();
+    var _content_type = $('[name="_content_type"]').val();
+    var _content = $('[name="_content"]').val();
     
-    	$[_request](_url, _content, _content_type, function(result) {
-	        $('.response-info').html('<pre class="prettyprint"></pre>');
-	        $('.response-info > pre').text(formatJSON(JSON.stringify(result)));
-	        PR.prettyPrint();
+    $[_request](_url, _content, _content_type, function(result, textStatus, request) {
+        $('.response-info').html('<pre class="prettyprint"></pre>');
+        console.log(request);
+        console.log(request.getAllResponseHeaders());
+        console.log(textStatus);
+        $('.response-info > pre').text(formatJSON(JSON.stringify(result)));
+        PR.prettyPrint();
 	});
 });
 </script>
