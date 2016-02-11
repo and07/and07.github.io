@@ -133,9 +133,9 @@ function _ajax_request(url, data, contentType, callback, method) {
             console.log(xhr);
             console.log(error);
             console.log(status);
-            $('.response-info').html('<pre class="prettyprint"></pre>');
             console.log(xhr.getResponseHeader());
-            $('.response-info > pre').text(formatJSON(xhr.responseText));
+            $( ".response-info > pre" ).removeClass( "prettyprint" ).removeClass( "prettyprinted" ).addClass('prettyprint');
+            $('.response-info > pre').text(xhr.getAllResponseHeaders()+""+formatJSON(xhr.responseText));
             PR.prettyPrint();
         }
 	});
@@ -207,7 +207,8 @@ $('.js_request').on('click',function(){
         console.log(request);
         console.log(request.getAllResponseHeaders());
         console.log(textStatus);
-        $('.response-info > pre').text(formatJSON(JSON.stringify(result)));
+        $( ".response-info > pre" ).removeClass( "prettyprint" ).removeClass( "prettyprinted" ).addClass('prettyprint');
+        $('.response-info > pre').text(request.getAllResponseHeaders() +""+ formatJSON(JSON.stringify(result)));
         PR.prettyPrint();
 	});
 });
