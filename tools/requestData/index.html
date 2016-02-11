@@ -134,7 +134,7 @@ function _ajax_request(url, data, contentType, callback, method) {
             console.log(error);
             console.log(status);
             $('.response-info').html('<pre class="prettyprint"></pre>');
-            console.log(request.getResponseHeader());
+            console.log(xhr.getResponseHeader());
             $('.response-info > pre').text(formatJSON(xhr.responseText));
             PR.prettyPrint();
         }
