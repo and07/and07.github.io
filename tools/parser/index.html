@@ -1,226 +1,189 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>xpath rule for parser</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
 
-    <!-- Bootstrap -->
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <title>Parser GUI</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/navbar-fixed-top.css" rel="stylesheet">
+    
     <link href="css/icon.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-	
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-	
-	<!-- http://jsfiddle.net/jcosnn6u/3/ -->
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="bootstrap/js/bootstrap.min.js"></script>
-	
-	<!-- https://select2.github.io/ -->
-	<link href="js/select2/dist/css/select2.min.css" rel="stylesheet" />
-	<script src="js/select2/dist/js/select2.min.js"></script>
 
-	<!-- http://www.listjs.com/ -->
-	<script type="text/javascript" src="js/list.js"></script>
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="js/ie-emulation-modes-warning.js"></script>
 
-	<!-- https://github.com/finom/vanillatree -->
-	<link href="js/vanillatree/vanillatree.css" rel="stylesheet" />
-	<script src="js/vanillatree/vanillatree.js"></script>
-    
-	<script src="js/mithril.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
   </head>
+
   <body>
-<div class="container">
-<div id="main">
-	<div id="header">
-	<div class="container-fluid">
-		<div id="userinfo">
-			<!--prio@hotbox.ru&nbsp;&nbsp;|&nbsp;&nbsp;<a target="_blank" href="#/ru/docs">Документация</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#/ru/site/logout">Выход</a>	-->	
-		</div>
-		<div id="logo">
-			<a href="/">
-				<h1>Parser</h1>
-			</a>
-		</div>
-	</div>	
-	</div><!-- header -->
-</div>	
-<div class="clear"></div>
-	
 
-<!-- PARSER LIST -->
-<template id="js_parse_list" style="display:none">
-				<div class="">
-					<div class="right-panel">
-						<a href="#/parse/create"   class="btn btn-primary btn-lg" title="Create"><i class="icon-plus"></i>&nbsp;Создать парсер</a>
-					</div>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Project</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li>
+                <div class="row pt_10">
+                    <div class="col-lg-8">  
+				        <input type="text" name="url" class="js_url" value="" placeholder="Url page"/>
+				     </div>
+                     <div class="col-lg-2">  
+                        <button class="js_loadpage_nourl" title="refrash"><i class="icon-repeat"></i></button>
+                     </div>
+                </div>
+            </li>
+            <li>
+                <div class="row pt_5">
+                    <div  class="pr_15">
+                        <input type="radio" name="request" value="curl" checked="checked"> curl<Br>
+                        <input type="radio" name="request" value="phantomjs"> phantomjs
+                    </div>
 				</div>
-				<div class="clear"></div>
-				<div class="">
-					<div class="span2">
-						<div class="right-panel hint">
-							Это список ваших парсеров.		
-						</div>	
-					</div>
-				</div>	
-				<div class="clear"></div>
-				<div class="title">Sites</div>
-				<br>
-				<div id="parser_list" class="grid-view">
-					<input type="text" class="search" placeholder="Search" />
-					<ul class="head_list">
-							<li class="">
-								<span class="sort col_5" data-sort="name" id="yw0_c1"><a >id<span class="caret"></span></a></span>
-								<span class="sort col_5" data-sort="name" id="yw0_c1"><a >Название сайта<span class="caret"></span></a></span>
-								<span class="sort col_5" data-sort="url"  id="yw0_c2"><a >URL сайта<span class="caret"></span></a></span>
-								<span class="sort col_5" data-sort="date_edit" id="yw0_c3"><a>Изменено<span class="caret"></span></a></span>
-								<span class="button-column col_5" id="yw0_c4"> </span>
-							</li>
-					</ul>
-					<ul class="list"></ul>
-				</div>
-<script>
-  
-</script>					
-</template>
-<!-- PARSER LIST -->
-
-
-<!-- EDIT PARSE -->
-<template id="js_parse_edit" style="display:none">
-	<div class="">
-		<div class="">
-					<div class="">
-						<h3>Edit <span class="js_parse_name"></span></h3>
-					</div>
-					<div class="" style="max-height:80%;">
-									
-<div class="tabbable tabs-right">
-		
-		<div class="">
-			<div id="" class="tab-pane active">
-				<div>
-					<input type="radio" name="request" value="curl" checked="checked"> Curl<Br>
-					<input type="radio" name="request" value="phantomjs"> phantomjs
-				</div>
-				<form class="form-inline">
-					<div class="checkbox">
-							<input type="checkbox" name="base" id="js_base_btn">BaseTag
-					</div>
-					<div class="checkbox">
-							<input type="checkbox" name="allelem" id="js_all" >&nbsp;All element
-					</div>					
-					<div class="form-group">
-						<label class="sr-only" for="js_limit" >Limit parsing</label>
-						<input type="text" name="limit" id="js_limit" placeholder="Limit parsing" value="1" >
-					</div>
-				</form>
-				
-				<form class="form-inline">
-					<div class="form-group">
-						<label class="sr-only" for="js_url" >Url page</label>
-						<input type="text" name="url" class="js_url" value="" placeholder="Url page" style="width: 300px;"/>
-					</div>
-					<button class="btn js_loadpage_nourl" title="refrash"><i class="icon-repeat"></i></button>
-					<div class="checkbox">
+            </li>
+            <li class="dropdown">
+              <a href="/#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="icon-gear" title="Settings"></span> <span class="caret"></span></a>
+              <ul class="dropdown-menu" style="padding:0 0 0 30px;">
+                <li>
+                    <div class="checkbox">
 						<input type="checkbox" name="golink" id="js_golink" ><i class="icon-share-alt"></i>&nbsp;simulate click	
 					</div>
-				</form>
-
-				<div class="clear"></div>
-				
-				<div id="iframes">			
-					<iframe id="html" name="html" width="99%" height="350" ></iframe>
-					<div id="hovered-element" style="position:relative;" ><div id="hovered-element-info" style="position:absolute;" ></div></div>			
-				</div>
-				
-				<div class="clear" style="height:40px;"></div>
-				
-				<div id="rules-container">
-					<div id="" class="js_items" ></div>
-				</div>
-				
-				<div class="clear"></div>
-			</div>
-		
-		</div>
-	</div>
+                </li>
+                <li>
+                    <div class="checkbox">
+							<input type="checkbox" name="base" id="js_base_btn">BaseTag
 					</div>
-				<div class="">
-					<button class="btn js_save_rule"  >Сохранить</button>
-					<!--	<button id="btnclose" class="btn" >Закрыть</button>
-					<!--	<a data-dismiss="modal" id="add-btn" class="btn" href="/create/" >OK</a>    <a data-dismiss="modal" id="cancel-del-btn" class="btn" href="#">Отмена</a> -->
-				</div>
-		</div>
-	</div>
-			
-</template>				
-<!-- EDIT PARSE -->
+                </li>
+                <li>
+					<div class="checkbox">
+							<input type="checkbox" name="allelem" id="js_all" >&nbsp;All element
+					</div>	
+                </li>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><input type="text" name="limit" id="js_limit" placeholder="Limit parsing" value="1" ></li>
+              </ul>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><div class="row pt_10">
+                <div class="col-lg-3 js_pagination icon-pagination btn_view " title="Pagination" style=""></div>
+                <div class="col-lg-3 js_extractor icon-extractor btn_view " title="Extractor" style=""></div>
+                <div class="col-lg-3 js_data_model icon-model btn_view " title="Data model" style=""></div>
+                <div class="col-lg-3 js_data_raw icon-res btn_view " title="Raw Data" style=""></div>
+                <div  class="col-lg-3"><button class="btn btn-default btn-xs js_save_rule"  >Done</button><div>
+             </li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
 
-<!-- EDIT RES -->
+    <div class="">
+        <div id="hovered-element" style="position:relative;" ><div id="hovered-element-info" style="position:absolute;" ></div></div>			
+        <!-- Main component for a primary marketing message or call to action -->
+        <div id="iframes">			
+            <iframe id="html" name="html" style="position: absolute; height: 100%; width:100%; border: none; top:140px;" ></iframe>
+        </div>
+    </div> <!-- /container -->
+    
+    
+    
+<!-- RULE -->
 <template id="js_parse_res" style="display:none">
-		<div id="script-container">			
-			<textarea id="script" class="ldt-input js_rule_res" wrap="off" spellcheck="false" style="margin: 0px; width: 1151px;  height: 431px;"></textarea>
-		</div>	
-		<a href ="#/">ListParser</a><a href ="#/parse/run">run parse data</a>
+		<div id="script-container" class="container">	
+            <div class="white">Rule</div>		
+			<div>
+                <textarea id="script" class="ldt-input js_rule_res" wrap="off" spellcheck="false" style="margin: 0px; width: 1151px;  height: 431px;"></textarea>
+		    </div>
+        </div>	
 </template>
-<!-- EDIT RES -->
+<!-- RULE --> 
 
+<!-- MODEL DATA -->
+<template1 id="js_model_data" style="display:none">
+		<div id="" class="container white">	
+            <div class="collection_info">
+                <div calass="row">
+                    <div class="col-md-4">
+                        <h1>Collection</h1>
+                        <ul class="nav nav-pills">
+                            <li role="presentation" class="active" ><a href="#edit"  role="tab" data-toggle="tab" >Edit</a></li>
+                            <li role="presentation" ><a href="#profile"  role="tab" data-toggle="tab" >Profile</a></li>
+                        </ul>
+                     </div>
+                    <div class="col-md-8">
+                        <div class="tab-content">
+                                <div class="tab-pane fade active in" id="edit">
+                                        <h2>EDIT</h2>
+                                </div> 
+                                <div class="tab-pane fade" id="profile">
+                                    <h2>Profile Content Goes Here</h2>
+                                    <img src="http://lorempixel.com/400/400/cats/2" alt="Cats"/>
+                                </div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>	
+</template1>
+<!-- MODEL DATA --> 
 
-<!-- CREATE PARSE -->	
-<template id="js_parse_create" style="display:none">
-	<div class="">
-		<div class="">
-			<div class="">
-				<h3>Создать парсер <span class="js_parse_id"></span></h3>
-			</div>
-			<div class="">
-				<form class="form1 form-vertical" id="form"  method="post"> 
-				<div class="form-group">
-					<label for="js-name-field" class="required">Название <span class="required">*</span></label>
-					<input class="form-control" name="name-field" id="js-name-field" type="text" placeholder="name">
-				</div>
-				<div class="form-group">
-					<label for="js-url-field" class="required">Стартовая страница <span class="required">*</span></label>
-					<input class="form-control" name="url-field" id="js-url-field" type="text" placeholder="site.ru">
-				</div>
-				<br>
-				</form>
-			</div>
-			<div class="">
-					<!--	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
-					<button type="button" class="btn btn-primary js_site_save" data-dismiss="modal">Save changes</button>
-			</div>
-		</div>
-	</div>
+<!-- RAW DATA -->
+<template id="js_raw_data" style="display:none">
+		<div id="" class="container white">	
+            <div class="collection_info">
+                <div calass="row">
+                    <div class="col-md-4">
+                        <h1>Collection</h1>
+                        <ul class="nav nav-pills"">
+                            <li role="presentation" class="active" ><a href="#messages"  role="tab" data-toggle="tab" >Messages</a></li>
+                            <li role="presentation" ><a href="#settings"  role="tab" data-toggle="tab" >Settings</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="tab-content">
+                                <div class="tab-pane fade active in" id="messages">
+                                    <h2>Messages Content Goes Here</h2>
+                                    <img src="http://lorempixel.com/400/400/cats/3" alt="Cats"/>
+                                </div>
+                                <div class="tab-pane fade" id="settings">
+                                    <h2>Settings Content Goes Here</h2>
+                                    <img src="http://lorempixel.com/400/400/cats/4" alt="Cats"/>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>	
 </template>
-<!-- CREATE PARSE-->
-
-<!-- DEL PARSE -->				
-<template id="js_parse_delete" style="display:none">
-	<div class="">
-		<div class="">
-				<div class="">
-					<h3>Удаление парсера <span class="js_parse_name"></span></h3>
-				</div>
-				<div class="">
-					<input type="hidden" name="scrid" id="js_scrid" value="">
-					<p>Вы действительно хотите удалить парсер?</p>
-				</div>
-				<div class="">
-					<!--	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
-					<button type="button" class="btn btn-primary js_site_del" data-dismiss="modal">Save changes</button>
-				</div>
-		</div>
-	</div>
-</template>
-<!-- DEL PARSE-->	
-
+<!-- RAW DATA --> 
+    
 <!-- MODAL -->
 	<!-- ITEM NAME PARSE -->
 	<div id="itemNameParseModal" class="modal fade modal-draggable"   tabindex="-1" role="dialog" aria-hidden="true">
@@ -239,7 +202,6 @@
 							<label for="exampleInputName2">Тип</label>
 							<select class="form-control type js_type selattr" name="type" id="exampleInputName2">
 								<option value=""></option>
-								<option value="link">Ссылка</option>
 								<option value="text">Текст</option>
 								<option value="html">HTML</option>
 								<option value="img">Картинка</option>
@@ -329,20 +291,32 @@
 	</div>
 	<!-- HTML TREE PARSE -->
 <!-- MODAL -->
-
-
-	<div class="clear"></div>
-	
-		<div class="container-fluid">
-				<div id="js_block"></div>
-		</div>
-	<div class="clear"></div>
-</div>
+    <div class="clear"></div>
+    <div id="rules-container">
+        <div id="" class="js_items" style="display:none;" ></div>
+    </div>    
+    <div class="clear"></div>
+    
 	<div id="loader" class="popup2">
 		<img src="images/ajax-loader2.gif" />
 	</div>
-</body>
-<script type="text/javascript" src="js/common.js" ></script>
-<script type="text/javascript" src="js/main.js" ></script>
 
-</html>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="js/ie10-viewport-bug-workaround.js"></script>
+	<!-- https://github.com/finom/vanillatree -->
+	<link href="js/vanillatree/vanillatree.css" rel="stylesheet" />
+	<script src="js/vanillatree/vanillatree.js"></script>
+	<!-- https://select2.github.io/ -->
+	<link href="js/select2/dist/css/select2.min.css" rel="stylesheet" />
+	<script src="js/select2/dist/js/select2.min.js"></script>
+    <script type="text/javascript" src="js/common.js" ></script>
+    <script type="text/javascript" src="js/main2.js" ></script>
+  
+
+</body></html>
