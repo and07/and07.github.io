@@ -1,9 +1,0 @@
-[submodule "tools/xpath-gui"]
-	path = tools/xpath-gui
-	url = https://github.com/and07/xpath-gui.git
-[submodule "tools/api-gui"]
-	path = tools/api-gui
-	url = https://github.com/and07/api-gui.git
-[submodule "tools/csv-convert"]
-	path = tools/csv-convert
-	url = https://github.com/and07/csv-convert.git
