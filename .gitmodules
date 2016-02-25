@@ -1,0 +1,3 @@
+[submodule "tools/xpath-gui"]
+	path = tools/xpath-gui
+	url = https://github.com/and07/xpath-gui
