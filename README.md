@@ -7,5 +7,5 @@
  
  **tools**
  - csv converter
- - xpath rule for parser
+ - gui for parser generate rule (xpath or css selector)
  - getXPath
