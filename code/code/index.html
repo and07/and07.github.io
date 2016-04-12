@@ -30,6 +30,7 @@
 					<li><a href="#pattern3">Module</a></li>
 					<li><a href="#pattern4">Data Binding</a></li>
 					<li><a href="#pattern5">Mediator</a></li>
+					<li><a href="#pattern6">Promise</a></li>
 				</ul>
 <hr>
 <!--
@@ -298,10 +299,72 @@ var Mediator = function() {
                 </code></pre>		
 </div>
 				<br> 
-                <h2></h2>
+                <h2><a name="pattern6">Promise</a></h2>
 <div class="">
         <pre><code class="javascript">
+var	deferred = function() {
+        var none = {};
+        function identity(value) {return value};
+		var resolvers = [], rejecters = [], resolved = none, rejected = none;
+        var   promise = function() {
+			if (arguments.length) store = arguments[0]
+			return store
+		};
+		var object = {
+			resolve: function(value) {
+                if (resolved === {}) promise(resolved = value)
+				for (var i = 0; i < resolvers.length; i++) resolvers[i](value)
+				resolvers.length = rejecters.length = 0
+			},
+			reject: function(value) {
+                if (rejected === {}) rejected = value
+				for (var i = 0; i < rejecters.length; i++) rejecters[i](value)
+				resolvers.length = rejecters.length = 0
+			},
+			promise: promise
+		}
+		object.promise.resolvers = resolvers
+		object.promise.then = function(success, error) {
+			var next = deferred()
+			if (!success) success = identity
+			if (!error) error = identity
+			function callback(method, callback) {
+				return function(value) {
+					try {
+						var result = callback(value)
+						if (result && typeof result.then == "function") result.then(next[method], error)
+						else next[method](result !== undefined ? result : value)
+					}
+					catch (e) {
+						if (e instanceof Error && e.constructor !== Error) throw e
+						else next.reject(e)
+					}
+				}
+			}
+			if (resolved !== none) callback("resolve", success)(resolved)
+			else if (rejected !== none) callback("reject", error)(rejected)
+			else {
+				resolvers.push(callback("resolve", success))
+				rejecters.push(callback("reject", error))
+			}
+			return next.promise
+		}
+		return object
+	}
+	
 
+
+var greetAsync = function() {
+    var _deferred = deferred();
+    setTimeout(function() {
+        _deferred.resolve("hello");
+    }, 1000);
+    return _deferred.promise;
+};
+
+greetAsync()
+    .then(function(value) {return value + " world"})
+    .then(function(value) {console.log(value)}); //logs "hello world"
         </code></pre>		
 </div>
 				<br> 
