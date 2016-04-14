@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/9.0.0/styles/railscasts.min.css">
         <script src="https://cdn.jsdelivr.net/highlight.js/9.0.0/highlight.min.js"></script>
         
-		<title>Code</title>
+		<title>DesignPatterns</title>
 	</head>
 	
 	<body>
@@ -103,6 +103,21 @@ DI.prototype.inject = function (func) {
     }
  
 }
+
+var deps = {
+  'dep1': function () {return 'this is dep1';},
+  'dep2': function () {return 'this is dep2';},
+  'dep3': function () {return 'this is dep3';},
+  'dep4': function () {return 'this is dep4';}
+};
+  
+var di = new DI(deps);
+
+var myFunc = di.inject(function (dep3, dep1, dep2) {
+  return [dep1(), dep2(), dep3()].join(' -> ');
+});
+
+Test.assertEquals(myFunc(), 'this is dep1 -> this is dep2 -> this is dep3');
                 </code></pre>		
 </div>
 				<br> 
