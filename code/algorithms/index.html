@@ -27,6 +27,7 @@
 				<ul>
 					<li><a href="#alg1">Find Count of Most Frequent Item in an Array</a></li>
 					<li><a href="#alg2">Double Cola</a></li>
+					<li><a href="#alg3">Objectify a URL Query String</a></li>
 				</ul>
 <hr>
 
@@ -69,6 +70,89 @@ function whoIsNext(names, r){
 </div>
 
 				<br> 
+                <h2><a name="alg3">Objectify a URL Query String</a></h2>
+<div class="">
+	<pre><code class="php">
+	$arr['data_|_multilanguage_|_en_|_field'] = 23;
+	
+	foreach ($arr as $outer_key => $outer_value) {
+	
+	    $parts = explode('_|_', $outer_key);
+	
+	    $reference =& $arr;
+	    $final_key = count($parts) - 1;
+	
+	    foreach ($parts as $key => $part) {
+	
+	        if ($final_key != $key) { 
+	
+	            if (empty($reference[$part])) {
+	                $reference[$part] = array();
+	            }
+	
+	            $reference =& $reference[$part];
+	
+	        } else {
+	            $reference[$part] = $outer_value;
+	            unset($arr[$outer_key]);
+	        }
+	    }
+	}
+	return '<pre>'.print_r($arr,true).'</pre>';
+	 </code></pre>		
+        <pre><code class="javascript">
+function convertQueryToMap(query) {
+    if (query === '') return {};
+
+    var assign = function(obj, keyPath, value) {
+        var lastKeyIndex = keyPath.length - 1;
+
+        for (var i = 0; i < lastKeyIndex; ++i) {
+            var key = keyPath[i];
+            if (!(key in obj)) obj[key] = {};
+            obj = obj[key];
+        }
+
+        obj[keyPath[lastKeyIndex]] = value;
+    };
+
+    var objCreate = function(k) {
+        var args = k.split('&'),
+            cont = {};
+
+        for (var j = 0; j < args.length; j++) {
+            var tuple = args[j].split('='),
+                names = tuple[0].split('.');
+            assign(cont, names, decodeURIComponent(tuple[1]));
+        }
+
+        return cont;
+    };
+
+    var terms = objCreate(query);
+    return terms;
+}
+var q = 'user.name.firstname=Bob&user.name.lastname=Smith&user.favoritecolor=Light%20Blue',
+    out = {
+      'user': {
+        'name': {
+          'firstname': 'Bob',
+          'lastname': 'Smith'
+        },
+        'favoritecolor': 'Light Blue'
+      }
+    };
+assertSimilarObjects(convertQueryToMap(q), out);
+        </code></pre>		
+</div>
+
+				<br> 
+                <h2></h2>
+<div class="">
+        <pre><code class="javascript">
+        </code></pre>		
+</div>
+				<br> 
                 <h2></h2>
 <div class="">
         <pre><code class="javascript">
@@ -81,6 +165,7 @@ function whoIsNext(names, r){
         <pre><code class="javascript">
         </code></pre>		
 </div>
+
 			</div>
 		</div>
 	</body>
