@@ -134,7 +134,23 @@ function round(decimals) {
     });
   }
 }
+var filterDecorator = new Decorator({
+  before : filter
+});
 
+var filterNoNumbersDecorator = new Decorator({
+  before : filterNoNumbers
+});
+
+var roundDecorator = new Decorator({
+  after: round
+});
+
+var decoratedSum = filterDecorator.decorate(sum, 1, 9); // 1 and 9 are the min and max parameters passed to the filter function
+decoratedSum = filterNoNumbersDecorator.decorate(decoratedSum);
+decoratedSum = roundDecorator.decorate(decoratedSum, 2); // rounded to two decimals
+
+decoratedSum(-3, 1.016, 0, 4, NaN, 8.041, '27', 9, 12); // "22.06"
 Test.assertEquals(sum(1, 4, 8, 9), 22, 'sum(1, 4, 8, 9) should return 22');
 Test.assertSimilar(filter(1, 9, -3, 1, 0, 4, 8, 9, 12), [1, 4, 8, 9], 'filter removes values that are not between the minimum and maximum');
 Test.assertSimilar(filterNoNumbers(-3, NaN, 1, 0, "2", 4, 8, 9, 12), [-3, 1, 0, 4, 8, 9, 12], 'invalid numbers are filtered');
