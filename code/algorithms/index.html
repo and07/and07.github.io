@@ -1,0 +1,94 @@
+<!-- http://cturt.github.io/ -->
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="../../css/core.css" />
+		<!--<link rel="stylesheet" type="text/css" href="css/application.css" />-->
+        
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+        <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/9.0.0/styles/default.min.css"> -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/9.0.0/styles/railscasts.min.css">
+        <script src="https://cdn.jsdelivr.net/highlight.js/9.0.0/highlight.min.js"></script>
+        
+		<title>Algorithms</title>
+	</head>
+	
+	<body>
+		<div class="page">
+			<div class="container">
+				
+				<h1>Algorithms</h1>
+				<hr>
+				<ul>
+					<li><a href="#alg1">Find Count of Most Frequent Item in an Array</a></li>
+					<li><a href="#alg2">Double Cola</a></li>
+				</ul>
+<hr>
+
+                <h2><a name="alg1">Find Count of Most Frequent Item in an Array</a></h2>
+<div class="">
+                <pre><code class="mbx">
+function mostFrequentItemCount(collection) {
+  var obj = {};
+  for(var i = 0; i < collection.length; i++){
+     if(!obj[collection[i]])obj[collection[i]] =0;
+     obj[collection[i]] += 1;
+  }
+  var max =0;
+  for(var k in obj){
+    if(obj[k] > max)max = obj[k];
+  }
+  
+  return max;
+}
+                </code></pre>		
+</div>
+				<br>
+                <h2><a name="alg2">Double Cola</a></h2>
+<div class="">
+                <pre><code class="mbx">
+function whoIsNext(names, r){
+  var i = 0;
+  var j = 1;
+  var k = names.length;
+   
+  while (i <= r){
+      i += k;
+      k += k;
+      j += j;
+  }
+  var res = Math.ceil((r - (i - k * 0.5)) / (j * 0.5));
+  return names[parseInt(res - 1)]
+}
+                </code></pre>		
+</div>
+
+				<br> 
+                <h2></h2>
+<div class="">
+        <pre><code class="javascript">
+        </code></pre>		
+</div>
+
+				<br> 
+                <h2></h2>
+<div class="">
+        <pre><code class="javascript">
+        </code></pre>		
+</div>
+			</div>
+		</div>
+	</body>
+<script>
+$(document).ready(function() {
+  $('pre code').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+</script>    
+</html>
