@@ -33,46 +33,7 @@
 					<li><a href="#pattern6">Promise</a></li>
 				</ul>
 <hr>
-<!--
-                <h2>Find Count of Most Frequent Item in an Array</h2>
-<div class="">
-                <pre><code class="mbx">
-function mostFrequentItemCount(collection) {
-  var obj = {};
-  for(var i = 0; i < collection.length; i++){
-     if(!obj[collection[i]])obj[collection[i]] =0;
-     obj[collection[i]] += 1;
-  }
-  var max =0;
-  for(var k in obj){
-    if(obj[k] > max)max = obj[k];
-  }
-  
-  return max;
-}
-                </code></pre>		
-</div>
-				<br>
-                <h2>Double Cola</h2>
-<div class="">
-                <pre><code class="mbx">
-function whoIsNext(names, r){
-  var i = 0;
-  var j = 1;
-  var k = names.length;
-   
-  while (i <= r){
-      i += k;
-      k += k;
-      j += j;
-  }
-  var res = Math.ceil((r - (i - k * 0.5)) / (j * 0.5));
-  return names[parseInt(res - 1)]
-}
-                </code></pre>		
-</div>
-				<br>
--->
+
                 <h2><a name="pattern1">Dependency Injection</a></h2>
 <div class="">
                 <pre><code class="javascript">
@@ -143,6 +104,46 @@ Decorator.prototype.decorate = function decorate(fn) {
     return res;
   }
 };
+
+
+function sum() {
+  return Array.prototype.reduce.call(arguments, function(sum, value) {
+    return sum + value;
+  }, 0);
+}
+
+function filter(min, max) {
+  return Array.prototype.slice.call(arguments, 2).filter(function(value) {
+    return value >= min && value <= max;
+  });
+}
+
+
+function filterNoNumbers() {
+  return Array.prototype.filter.call(arguments, function(value) {
+    return typeof value === 'number' && value === value && value !== Number.POSITIVE_INFINITY && value !== Number.NEGATIVE_INFINITY;
+  });
+}
+
+function round(decimals) {
+  if (arguments.length === 2) {
+    return arguments[1].toFixed(decimals);
+  } else {
+    return Array.prototype.splice.call(arguments, 1).map(function(value) {
+      return value.toFixed(decimals);
+    });
+  }
+}
+
+Test.assertEquals(sum(1, 4, 8, 9), 22, 'sum(1, 4, 8, 9) should return 22');
+Test.assertSimilar(filter(1, 9, -3, 1, 0, 4, 8, 9, 12), [1, 4, 8, 9], 'filter removes values that are not between the minimum and maximum');
+Test.assertSimilar(filterNoNumbers(-3, NaN, 1, 0, "2", 4, 8, 9, 12), [-3, 1, 0, 4, 8, 9, 12], 'invalid numbers are filtered');
+Test.assertSimilar(round(2, 1, 2.1, 2.346), ["1.00", "2.10", "2.35"], 'round function returns the argument numbers formatted to the specified decimals');
+
+Test.assertEquals(sum.apply(null, filter(1, 9, -3, 1, 0, 4, 8, 9, 12)), 22, 'sum.apply(null, filter(1, 9, -3, 1, 0, 4, 8, 9, 12)) should return 22');
+Test.assertEquals(sum.apply(null, filter.apply(null, [1, 9].concat(filterNoNumbers(-3, NaN, 1, 0, "2", 4, 8, 9, 12)))), 22, 'filter.apply(null, [1, 9].concat(filterNoNumbers(-3, NaN, 1, 0, "2", 4, 8, 9, 12)))) should return 22');
+Test.assertEquals(round.apply(null, [2].concat(sum.apply(null, filter.apply(null, [1, 9].concat(filterNoNumbers(-3, 1.016, 0, 4, NaN, 8.041, '27', 9, 12)))))), "22.06", 'round.apply(null, [2].concat(sum.apply(null, filter.apply(null, [1, 9].concat(filterNoNumbers(-3, 1.016, 0, 4, NaN, 8.041, "27", 9, 12)))))) should return "22.06"');
+
         </code></pre>	
 </div>
 				<br> 
