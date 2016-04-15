@@ -28,6 +28,7 @@
 					<li><a href="#alg1">Find Count of Most Frequent Item in an Array</a></li>
 					<li><a href="#alg2">Double Cola</a></li>
 					<li><a href="#alg3">Objectify a URL Query String</a></li>
+					<li><a href="#alg4">binarySearch</a></li>
 				</ul>
 <hr>
 
@@ -147,9 +148,21 @@ assertSimilarObjects(convertQueryToMap(q), out);
 </div>
 
 				<br> 
-                <h2></h2>
+                <h2><a name="alg4">binarySearch</a></h2>
 <div class="">
         <pre><code class="javascript">
+function binarySearch(arr, find) {
+  var low = 0, high = arr.length - 1;
+  while (low <= high) {
+    var i = (low + high) >> 1;
+    if (arr[i] < find) { low = i + 1; continue; };
+    if (arr[i] > find) { high = i - 1; continue; };
+    return i;
+  }
+  return null;
+};
+
+console.log(binarySearch([1,2,3,4,4,4,5,6,7,8,9,9,11,44,44,44,444,555], 444));
         </code></pre>		
 </div>
 				<br> 
