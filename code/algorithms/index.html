@@ -29,6 +29,7 @@
 					<li><a href="#alg2">Double Cola</a></li>
 					<li><a href="#alg3">Objectify a URL Query String</a></li>
 					<li><a href="#alg4">binarySearch</a></li>
+					<li><a href="#alg5">sumStrings</a></li>
 				</ul>
 <hr>
 
@@ -166,9 +167,40 @@ console.log(binarySearch([1,2,3,4,4,4,5,6,7,8,9,9,11,44,44,44,444,555], 444));
         </code></pre>		
 </div>
 				<br> 
-                <h2></h2>
+                <h2><a name="alg5">sumStrings</a></h2>
 <div class="">
         <pre><code class="javascript">
+function sumStrings(a,b) { 
+  var remove_zero = function(str){
+    str = str.split('');
+    while(str.length > 0){
+      if(str[0] == '0')
+        str.shift();
+      else
+        break;
+    }
+    return str.join('');
+  };
+  a = remove_zero(a).split('');
+  b = remove_zero(b).split('');
+  var str_t = [];
+  var carry = 0;
+
+  while(a.length > 0 || b.length > 0){
+    var left = a == '' ? 0 : parseInt(a.pop());
+    var right = b == '' ? 0 : parseInt(b.pop());
+    var result = left + right + carry;
+    str_t.unshift(result % 10);
+    result > 9 ? carry = 1 : carry = 0;
+  }
+
+  if(carry == 1)
+    str_t.unshift(1)
+
+  return str_t.join('');
+}
+        	
+        	
         </code></pre>		
 </div>
 
@@ -178,7 +210,18 @@ console.log(binarySearch([1,2,3,4,4,4,5,6,7,8,9,9,11,44,44,44,444,555], 444));
         <pre><code class="javascript">
         </code></pre>		
 </div>
-
+				<br> 
+                <h2></h2>
+<div class="">
+        <pre><code class="javascript">
+        </code></pre>		
+</div>
+				<br> 
+                <h2></h2>
+<div class="">
+        <pre><code class="javascript">
+        </code></pre>		
+</div>
 			</div>
 		</div>
 	</body>
