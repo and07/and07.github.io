@@ -40,6 +40,7 @@
 					<li><a href="#alg5">sumStrings</a></li>
 					<li><a href="#alg6">SubstringSearch</a></li>
 					<li><a href="#alg7">quickSortR</a></li>
+					<li><a href="#alg8">KMP</a></li>
 				</ul>
 <hr>
 
@@ -270,9 +271,50 @@ console.log(quickSort(array, 0, array.length -1));
         </code></pre>		
 </div>
 				<br> 
-                <h2><a name=""></a></h2>
+                <h2><a name="alg8">KMP</a></h2>
 <div class="">
         <pre><code class="javascript">
+function PrefFunc(x)
+{
+    var res = [];
+    var i = 0;
+    var j = -1;
+    res[0] = -1;
+
+    while (i < x.length - 1)
+    {
+        while ((j >= 0) && (x[j] != x[i])){
+            j = res[j];
+        }
+        i++;
+        j++;
+        if (x[i] == x[j]){
+            res[i] = res[j];
+        }else{
+            res[i] = j;
+        }
+    }
+    return res;
+}
+
+function KMP(x, s)
+{
+    if (x.length > s.length) return -1;
+    var d = PrefFunc(x);
+    var i = 0, j;
+    while (i < s.length)
+    {
+        for (j = 0; (i < s.length) && (j < x.length); i++, j++)
+            while ((j >= 0) && (x[j] != s[i]))
+                j = d[j];
+        if (j == x.length)
+            return (i - j);
+    }
+
+    return -1;
+}
+
+console.log(KMP('abcabdaab', 'acbcabdaababcabvdaababcabdaabcccc'));
         </code></pre>		
 </div>
 				<br> 
