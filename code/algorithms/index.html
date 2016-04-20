@@ -301,12 +301,14 @@ function KMP(x, s)
 {
     if (x.length > s.length) return -1;
     var d = PrefFunc(x);
-    var i = 0, j;
+    var i = 0;
+    var j=0;
     while (i < s.length)
     {
-        for (j = 0; (i < s.length) && (j < x.length); i++, j++)
-            while ((j >= 0) && (x[j] != s[i]))
-                j = d[j];
+	while ((j >= 0) && (x[j] != s[i]))
+	    j = d[j];
+        i++;
+        j++;
         if (j == x.length)
             return (i - j);
     }
