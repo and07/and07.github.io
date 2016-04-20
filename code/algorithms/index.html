@@ -38,6 +38,7 @@
 					<li><a href="#alg3">Objectify a URL Query String</a></li>
 					<li><a href="#alg4">binarySearch</a></li>
 					<li><a href="#alg5">sumStrings</a></li>
+					<li><a href="#alg6">SubstringSearch</a></li>
 				</ul>
 <hr>
 
@@ -213,9 +214,22 @@ function sumStrings(a,b) {
 </div>
 
 				<br> 
-                <h2></h2>
+                <h2><a name="alg6">SubstringSearch</a></h2>
 <div class="">
         <pre><code class="javascript">
+function SubstringSearch(sub, str)    
+{
+    var i, j, n = sub.length,
+        N = str.length - n + 1;
+    
+    for (i = 0; i < N; i++)
+    {  j = 0;
+       while (j < n && sub[j] === str[i+j]) j++;
+       if (j === n) return i;
+    }                                
+    return -1;
+}
+console.log(SubstringSearch('ips', 'Lorem ipsum'));
         </code></pre>		
 </div>
 				<br> 
