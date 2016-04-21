@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/9.0.0/styles/railscasts.min.css">
         <script src="https://cdn.jsdelivr.net/highlight.js/9.0.0/highlight.min.js"></script>
         
-		<title>Algorithms</title>
+		<title>Algorithms Javascript</title>
 	</head>
 	
 	<body>
@@ -41,6 +41,7 @@
 					<li><a href="#alg6">SubstringSearch</a></li>
 					<li><a href="#alg7">quickSortR</a></li>
 					<li><a href="#alg8">KMP</a></li>
+					<li><a href="#alg9">InsertionSort</a></li>
 				</ul>
 <hr>
 
@@ -320,9 +321,23 @@ console.log(KMP('abcabdaab', 'acbcabdaababcabvdaababcabdaabcccc'));
         </code></pre>		
 </div>
 				<br> 
-                <h2><a name=""></a></h2>
+                <h2><a name="alg9">InsertionSort</a></h2>
 <div class="">
         <pre><code class="javascript">
+function InsertionSort(values) {
+  var length = values.length;
+  for(var i = 1; i < length; ++i) {
+    var temp = values[i];
+    var j = i - 1;
+    while(j >= 0 && values[j] > temp) {
+      values[j+1] = values[j];
+      --j;
+    }
+    values[j+1] = temp;
+  }
+  return values;
+};
+console.log(InsertionSort([7, 4, 5, 2, 9, 1]));
         </code></pre>		
 </div>
 				<br> 
