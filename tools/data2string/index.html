@@ -55,19 +55,19 @@
      <label><input type="radio" name="outsep" id="outSepOther" value="o"> Other-Choose</label>
      <label><input type="text" size="2" id="outSepOtherVal" value="*"></label>
 
-    <br> <label><input id="js_add_quotes" type="checkbox"> add values in double quotes</label>
+    <br> <label><input id="js_add_quotes" type="checkbox"> add values in quotes</label>
 </fieldset>
 
  <h3 class="headerBlue">Step 3: Generate output</h3>
  <div>
-   <input type="button" id="btnRun" class="btn btn-primary" value="Convert Data To String" title="Convert Data To String" onclick="runit(document.getElementById(&#39;txt1&#39;).value);return false">
+   <input type="button" id="js_btn_run" class="btn btn-primary" value="Convert Data To String" title="Convert Data To String" >
 
 </div>
 </div>
 
 	<div class="form-group">
-		<label for="txta" class="control-label">Result Data:</label><br>
-		<textarea id="txta" rows="10" cols="80" wrap="off" placeholder="Output Results" class="form-control"></textarea>
+		<label for="js_txta" class="control-label">Result Data:</label><br>
+		<textarea id="js_txta" rows="10" cols="80" wrap="off" placeholder="Output Results" class="form-control"></textarea>
 	</div> <br>
 	<div class="form-group form-inline">
 		<label>Save your result</label>
@@ -103,9 +103,36 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
 <script type="text/javascript">
+
+function runExample(n){
+    var data = [
+        "test\ntest1\ntest2\ntest3\ntest4\ntest5\ntest6\ntest7",
+        "test\ntest1\ntest2\ntest3\ntest4\ntest5\ntest6\ntest7",
+        "test\ntest1\ntest2\ntest3\ntest4\ntest5\ntest6\ntest7"
+    ];
+    document.getElementById('txt1').value = data[n];
+}
+
 function assignText(s) {
    document.getElementById('txt1').value = s;
 }
+document.getElementById('js_btn_run').onclick = function(){
+    var txt_input = document.getElementById('txt1').value;
+    var separator = document.querySelector('input[name="outsep"]:checked').value;
+    var quotes = document.querySelector('#js_add_quotes').checked;
+    if(quotes){
+        var data = txt_input.split('\n');
+        for(var i in data){
+            data[i] = '\''+data[i]+ '\'';
+        }
+        var res = data.join(separator);
+    }else{
+        var res = txt_input.split('\n').join(separator);
+    }
+    
+    document.getElementById('js_txta').value = res;
+};
+
 
 </script>
 </body></html>
