@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Convert Data to String">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>Convert Data to String</title>
+
+</head> 
+<body style="">
+<div class="container">
+    <div class="row">
+        <div class="page-header">
+                <h1 class="text-center">Data to String</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="container-fluid pageSubheader">
+            <h2>Use this tool to convert Data into String.</h2>
+        </div>
+    </div>
+	<div class="row">
+    <div class="col-md-8">
+
+    <p> 
+
+    </p>
+<h3 class="headerBlue">Step 1: Select your input</h3>
+<form id="frm1" name="frm1" class="form-inline" role="form" onsubmit="return false">
+<div class="form-group">
+   <b>Option 1 - paste into Text Box below</b><br>
+
+<textarea class="form-control" rows="10" cols="80" id="txt1" wrap="off"></textarea>
+   <br><input type="button" class="btn btn-primary" value="Clear Input" onclick="window.location.reload(true)">
+   &nbsp; Examples: 
+      <input type="button" class="btn btn-primary" value="1" title="Load and run example" onclick="runExample(1)">
+    <br>
+    <h3 class="headerBlue">Step 2: Choose output options <small>(optional)</small></h3>
+    <a href="#" onclick="return false" data-toggle="collapse" data-target="#p4" class="collapsed" aria-expanded="false"> <span class="glyphicon glyphicon-chevron-down"></span></a>
+    <hr>
+<fieldset class="scheduler-border collapse" id="p4" aria-expanded="false" style="height: 9px;">
+        <legend class="scheduler-border">Output Options</legend>
+    Output Field Separator: 
+     <label><input type="radio" name="outsep" id="outSepComma" value="," checked="checked"> ,</label> &nbsp;    
+     <label><input type="radio" name="outsep" id="outSepSemicolon" value=";"> ;</label> &nbsp;
+     <label><input type="radio" name="outsep" id="outSepSemicolon" value=":"> :</label> &nbsp;
+     <label><input type="radio" name="outsep" id="outSepPipe" value="|"> Bar-|</label> &nbsp;
+     <label><input type="radio" name="outsep" id="outSepTab" value=" " onclick="this.value=&#39;\t&#39;"> Tab</label> &nbsp;
+     <label><input type="radio" name="outsep" id="outSepOther" value="o"> Other-Choose</label>
+     <label><input type="text" size="2" id="outSepOtherVal" value="*"></label>
+
+    <br> <label><input id="js_add_quotes" type="checkbox"> add values in double quotes</label>
+</fieldset>
+
+ <h3 class="headerBlue">Step 3: Generate output</h3>
+ <div>
+   <input type="button" id="btnRun" class="btn btn-primary" value="Convert Data To String" title="Convert Data To String" onclick="runit(document.getElementById(&#39;txt1&#39;).value);return false">
+
+</div>
+</div>
+
+	<div class="form-group">
+		<label for="txta" class="control-label">Result Data:</label><br>
+		<textarea id="txta" rows="10" cols="80" wrap="off" placeholder="Output Results" class="form-control"></textarea>
+	</div> <br>
+	<div class="form-group form-inline">
+		<label>Save your result</label>
+
+    </div> 
+
+
+   </form>
+
+
+ <br>
+
+</div>
+
+    <div class="row">
+	    <div class="col-md-12">
+
+	        <div class="panel-footer">
+                Copyright © 2013-2015
+            </div>
+	    </div>
+    </div>	
+    </div>
+</div>
+<script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script> 
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+function assignText(s) {
+   document.getElementById('txt1').value = s;
+}
+
+</script>
+</body></html>
