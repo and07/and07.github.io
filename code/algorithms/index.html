@@ -33,21 +33,22 @@
 				<h1>Algorithms</h1>
 				<hr>
 				<ul>
-					<li><a href="#alg1">binarySearch</a></li>
-					<li><a href="#alg2">SubstringSearch</a></li>
-					<li><a href="#alg3">quickSortR</a></li>
-					<li><a href="#alg4">InsertionSort</a></li>
-					<li><a href="#alg5">BM</a></li>
-					<li><a href="#alg6">KMP</a></li>
-					<li><a href="#alg7">ZFunction</a></li>
-					<li><a href="#alg1000">shift</a></li>
-					<li><a href="#alg1001">sumStrings</a></li>
-					<li><a href="#alg1002">Find Count of Most Frequent Item in an Array</a></li>
-					<li><a href="#alg1003">Double Cola</a></li>
-					<li><a href="#alg1004">Objectify a URL Query String</a></li>
+					<li><a href="#alg01">binarySearch</a></li>
+					<li><a href="#alg02">SubstringSearch</a></li>
+					<li><a href="#alg03">quickSortR</a></li>
+					<li><a href="#alg04">InsertionSort</a></li>
+					<li><a href="#alg05">HeapSort</a></li>
+					<li><a href="#alg001">BM</a></li>
+					<li><a href="#alg002">KMP</a></li>
+					<li><a href="#alg003">ZFunction</a></li>
+					<li><a href="#alg0001">shift</a></li>
+					<li><a href="#alg0002">sumStrings</a></li>
+					<li><a href="#alg0003">Find Count of Most Frequent Item in an Array</a></li>
+					<li><a href="#alg0004">Double Cola</a></li>
+					<li><a href="#alg0005">Objectify a URL Query String</a></li>
 				</ul>
 <hr>
-                <h2><a name="alg1">binarySearch</a></h2>
+                <h2><a name="alg01">binarySearch</a></h2>
 <div class="">
         <pre><code class="javascript">
 function binarySearch(arr, find) {
@@ -65,7 +66,7 @@ console.log(binarySearch([1,2,3,4,4,4,5,6,7,8,9,9,11,44,44,44,444,555], 444));
         </code></pre>		
 </div>
 				<br> 
-                <h2><a name="alg2">SubstringSearch</a></h2>
+                <h2><a name="alg02">SubstringSearch</a></h2>
 <div class="">
         <pre><code class="javascript">
 function SubstringSearch(sub, str)    
@@ -84,7 +85,7 @@ console.log(SubstringSearch('ips', 'Lorem ipsum'));
         </code></pre>		
 </div>
 				<br> 
-                <h2><a name="alg3">quickSortR</a></h2>
+                <h2><a name="alg03">quickSortR</a></h2>
 <div class="">
         <pre><code class="javascript">
 /* recursion */
@@ -120,7 +121,7 @@ console.log(quickSort(array, 0, array.length -1));
         </code></pre>		
 </div>
 				<br> 
-                <h2><a name="alg4">InsertionSort</a></h2>
+                <h2><a name="alg04">InsertionSort</a></h2>
 <div class="">
         <pre><code class="javascript">
 function InsertionSort(values) {
@@ -139,8 +140,60 @@ function InsertionSort(values) {
 console.log(InsertionSort([7, 4, 5, 2, 9, 1]));
         </code></pre>		
 </div>
+
 				<br> 
-                <h2><a name="alg5">BM</a></h2>
+                <h2><a name="alg05">HeapSort</a></h2>
+<div class="">
+        <pre><code class="javascript">
+function swap(data, i, j) {
+    var tmp = data[i];
+    data[i] = data[j];
+    data[j] = tmp;
+}
+ 
+ function heap_sort(arr) {
+    put_array_in_heap_order(arr);
+    end = arr.length - 1;
+    while(end > 0) {
+        swap(arr, 0, end);
+        sift_element_down_heap(arr, 0, end);
+        end --;
+    }
+}
+ 
+function put_array_in_heap_order(arr) {
+    var i;
+    i = arr.length / 2 - 1;
+    i = Math.floor(i);
+    while (i >= 0) {
+        sift_element_down_heap(arr, i, arr.length);
+        i --;
+    }
+}
+ 
+function sift_element_down_heap(heap, i, max) {
+    var i_big, c1, c2;
+    while(i < max) {
+        i_big = i;
+        c1 = 2*i + 1;
+        c2 = c1 + 1;
+        if (c1 < max && heap[c1] > heap[i_big])
+            i_big = c1;
+        if (c2 < max && heap[c2] > heap[i_big])
+            i_big = c2;
+        if (i_big == i) return;
+        swap(heap,i, i_big);
+        i = i_big;
+    }
+}
+arr = [12, 11, 15, 10, 9, 1, 2, 3, 13, 14, 4, 5, 6, 7, 8,];
+heap_sort(arr);
+console.log(arr);
+        	
+        </code></pre>		
+</div>
+				<br> 
+                <h2><a name="alg001">BM</a></h2>
 <div class="">
         <pre><code class="javascript">
 function BM(S, P) {
@@ -176,7 +229,7 @@ console.log(BM('ABACABADABACABA', 'ABA'));
         </code></pre>		
 </div>
 				<br> 
-                <h2><a name="alg6">KMP</a></h2>
+                <h2><a name="alg002">KMP</a></h2>
 <div class="">
         <pre><code class="javascript">
 function PrefFunc(x)
@@ -226,7 +279,7 @@ console.log(KMP('abcabdaab', 'acbcabdaababcabvdaababcabdaabcccc'));
 </div>
 
 				<br> 
-                <h2><a name="alg7">Zfunction</a></h2>
+                <h2><a name="alg003">Zfunction</a></h2>
 <div class="">
         <pre><code class="javascript">
 
@@ -283,7 +336,7 @@ console.log(substringZF('ABACABADABACABA', 'ABA'));
         </code></pre>		
 </div>
 				<br> 
-                <h2><a name="alg1000">Shift</a></h2>
+                <h2><a name="alg0001">Shift</a></h2>
 <div class="">
         <pre><code class="javascript">
 function shift(arr, move){
@@ -304,7 +357,7 @@ console.log(shift([1,2,3],3));
         </code></pre>		
 </div>
 				<br> 
-                <h2><a name="alg1001">sumStrings</a></h2>
+                <h2><a name="alg0002">sumStrings</a></h2>
 <div class="">
         <pre><code class="javascript">
 function sumStrings(a,b) { 
@@ -341,7 +394,7 @@ function sumStrings(a,b) {
         </code></pre>		
 </div>
 			<br> 
-                <h2><a name="alg1002">Find Count of Most Frequent Item in an Array</a></h2>
+                <h2><a name="alg0003">Find Count of Most Frequent Item in an Array</a></h2>
 <div class="">
                 <pre><code class="mbx">
 function mostFrequentItemCount(collection) {
@@ -360,7 +413,7 @@ function mostFrequentItemCount(collection) {
                 </code></pre>		
 </div>
 				<br>
-                <h2><a name="alg1003">Double Cola</a></h2>
+                <h2><a name="alg0004">Double Cola</a></h2>
 <div class="">
                 <pre><code class="mbx">
 function whoIsNext(names, r){
@@ -380,7 +433,7 @@ function whoIsNext(names, r){
 </div>
 
 				<br> 
-                <h2><a name="alg1004">Objectify a URL Query String</a></h2>
+                <h2><a name="alg0005">Objectify a URL Query String</a></h2>
 <div class="">
 	<pre><code class="php">
 	$arr['data_|_multilanguage_|_en_|_field'] = 23;
@@ -453,13 +506,6 @@ var q = 'user.name.firstname=Bob&user.name.lastname=Smith&user.favoritecolor=Lig
       }
     };
 assertSimilarObjects(convertQueryToMap(q), out);
-        </code></pre>		
-</div>
-
-				<br> 
-                <h2><a name="alg13"></a></h2>
-<div class="">
-        <pre><code class="javascript">
         </code></pre>		
 </div>
 				<br> 
