@@ -70,8 +70,9 @@
 		<textarea id="js_txta" rows="10" cols="80" wrap="off" placeholder="Output Results" class="form-control"></textarea>
 	</div> <br>
 	<div class="form-group form-inline">
-		<label>Save your result</label>
-
+		
+        <a href="" id="a"><label>Save your result</label></a>
+<button class="btn btn-primary" onclick="saveFile();return false"><span class="glyphicon glyphicon-save-file"></span> Download Result</button>
     </div> 
 
 
@@ -116,10 +117,8 @@ function runExample(n){
 function assignText(s) {
    document.getElementById('txt1').value = s;
 }
-document.getElementById('js_btn_run').onclick = function(){
-    var txt_input = document.getElementById('txt1').value;
-    var separator = document.querySelector('input[name="outsep"]:checked').value;
-    var quotes = document.querySelector('#js_add_quotes').checked;
+
+function convertData2String(txt_input,separator,quotes){
     if(quotes){
         var data = txt_input.split('\n');
         for(var i in data){
@@ -129,10 +128,31 @@ document.getElementById('js_btn_run').onclick = function(){
     }else{
         var res = txt_input.split('\n').join(separator);
     }
+    return res;
+}
+
+document.getElementById('js_btn_run').onclick = function(){
+    var txt_input = document.getElementById('txt1').value;
+    var separator = document.querySelector('input[name="outsep"]:checked').value;
+    var quotes = document.querySelector('#js_add_quotes').checked;
+    var res = convertData2String(txt_input,separator,quotes);
     
     document.getElementById('js_txta').value = res;
 };
 
-
+function download(text, name, type) {
+  var a = document.getElementById("a");
+  var file = new Blob([text], {type: type});
+  a.href = URL.createObjectURL(file);
+  a.download = name;
+}
+function saveFile(){
+    var txt_input = document.getElementById('txt1').value;
+    var separator = document.querySelector('input[name="outsep"]:checked').value;
+    var quotes = document.querySelector('#js_add_quotes').checked;
+    var res = convertData2String(txt_input,separator,quotes);
+    download(res, 'myfilename.txt',  'text/plain');
+    document.getElementById('a').click();
+}
 </script>
 </body></html>
