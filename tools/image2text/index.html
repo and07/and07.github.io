@@ -25,10 +25,17 @@
             <h2>Use this tool to convert Image to Text.</h2>
         </div>
     </div>
-	<div class="row" id="wow">
-
-        <img class="js_to_ocr" src="img/eng.png">
-
+	<div class="row">
+      <div class="col-md-6">
+        <div class="running">
+            <textarea class="out" rows="10" cols="80" wrap="off" placeholder="Output Results" class="form-control">Initializing ...</textarea>
+            <div class="prog"><div></div></div>
+        </div>
+       </div> 
+       <div class="col-md-6">
+            <!-- <input type="text" value="" name="img" id="js_path_img"><button id="js_set_new_image">set new image</button> -->
+            <img class="js_to_ocr" src="img/eng.png" style="width:500px;">
+       </div> 
     </div>
 
     <div class="row">
@@ -56,11 +63,44 @@
 <script type="text/javascript">
 'use strict';
 
+function setrunning(v) {
+    if (v == 1) {
+        document.querySelector('.running').style.display = 'none';
+    } else {
+        document.querySelector('.running').style.display = 'block';
+    }
+}
+function show_progress(p) {
+    var prog = document.querySelector('.prog');
+    prog.setValue = function (v) {
+        prog.querySelector('div').style.width = v * 100 + '%';
+    };
+    var out = document.querySelector('.out');
+    setrunning(0);
+    console.log(p);
+    if (p.loaded_lang_model) prog.setValue(p.loaded_lang_model);
+    if (p.recognized) prog.setValue(p.recognized);
+    out.value = JSON.stringify(p);
+}
+function getTextFromImage(img){
+    Tesseract
+    .recognize( img, { progress: show_progress }, function(err,res){
+        //setrunning(1);
+        console.log(res);
+        document.querySelector('.out').value = res.text;
+        });   
+}
+
 var img = document.querySelector('img.js_to_ocr');
+getTextFromImage(img);
 
-Tesseract
-  .recognize( img, function(err,res){console.log(res);});
-
-                   
+/*
+document.querySelector('#js_set_new_image').onclick = function () {
+    var src = document.querySelector('#js_path_img').value;
+    var img = document.querySelector('img.js_to_ocr');
+    img.src = src;
+    getTextFromImage(img);
+};
+*/                 
 </script>
 </body></html>
