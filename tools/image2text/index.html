@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Convert Image to Text">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>Convert Image to Text</title>
+
+</head> 
+<body style="">
+<div class="container">
+    <div class="row">
+        <div class="page-header">
+                <h1 class="text-center">Convert Image to Text</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="container-fluid pageSubheader">
+            <h2>Use this tool to convert Image to Text.</h2>
+        </div>
+    </div>
+	<div class="row" id="wow">
+
+        <img class="js_to_ocr" src="img/eng.png">
+
+    </div>
+
+    <div class="row">
+	    <div class="col-md-12">
+
+	        <div class="panel-footer">
+                Copyright © 2013-2015
+            </div>
+	    </div>
+    </div>	
+    </div>
+</div>
+<script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script> 
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+<!-- http://tesseract.projectnaptha.com/ -->
+<script src="http://tenso.rs/tesseract.js"></script>
+<script type="text/javascript">
+'use strict';
+
+var img = document.querySelector('img.js_to_ocr');
+
+Tesseract
+  .recognize( img, function(err,res){console.log(res);});
+
+                   
+</script>
+</body></html>
