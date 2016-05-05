@@ -10,19 +10,19 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<title>Convert Image to Text</title>
+<title>Get text from image</title>
 
 </head> 
 <body style="">
 <div class="container">
     <div class="row">
         <div class="page-header">
-                <h1 class="text-center">Convert Image to Text</h1>
+                <h1 class="text-center">Get text from image</h1>
         </div>
     </div>
     <div class="row">
         <div class="container-fluid pageSubheader">
-            <h2>Use this tool to convert Image to Text.</h2>
+            <h2>Result text</h2>
         </div>
     </div>
 	<div class="row">
@@ -36,7 +36,7 @@
             <input type="file" name="file" id="js_img_load"  />
             <input type="text" value="" name="img" id="js_path_img"><br>
             <button id="js_set_new_image">set new image</button>
-            <img class="js_to_ocr" src="" alt="image" style="width:500px;">
+            <img class="js_to_ocr" src="img/eng.png" style="width:500px;">
        </div> 
     </div>
 
@@ -107,19 +107,79 @@ getDataUri('/logo.png', function(dataUri) {
 });
 */
 
+function getBase64FromImageUrl(url,el) {
+    var img = new Image();
 
+    img.setAttribute('crossOrigin', 'anonymous');
+
+    img.onload = function () {
+        var canvas = document.createElement("canvas");
+        canvas.width =this.width;
+        canvas.height =this.height;
+
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(this, 0, 0);
+
+        var dataURL = canvas.toDataURL("image/png");
+        el.src = dataURL;
+        //alert(dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
+    };
+
+    img.src = url;
+};
+
+function setrunning(v) {
+    if (v == 1) {
+        document.querySelector('.running').style.display = 'none';
+    } else {
+        document.querySelector('.running').style.display = 'block';
+    }
+};
+
+function show_progress(p) {
+    var prog = document.querySelector('.prog');
+    prog.setValue = function (v) {
+        prog.querySelector('div').style.width = v * 100 + '%';
+    };
+    var out = document.querySelector('.out');
+    setrunning(0);
+    console.log(p);
+    if (p.loaded_lang_model) prog.setValue(p.loaded_lang_model);
+    if (p.recognized) prog.setValue(p.recognized);
+    out.value = JSON.stringify(p);
+};
+
+function getTextFromImage(img){
+    Tesseract
+    .recognize( img, { progress: show_progress }, function(err,res){
+        //setrunning(1);
+        console.log(res);
+        document.querySelector('.out').value = res.text;
+        });   
+};
+
+function getText(){
+  var img = document.querySelector('img.js_to_ocr');
+  getTextFromImage(img);  
+};
 
 $('#js_img_load').on('change',function(){
     var img = document.querySelector('img.js_to_ocr');
-	readURL(this, function(res){ img.src = res; document.querySelector('.out').value = res;});
+	readURL(this, function(res){ img.src = res;});
 });
 
 $('#js_path_img').on('change',function(){
     var img = document.querySelector('img.js_to_ocr');
     var url = $(this).val();
     //getBase64FromImageUrl(url, img);
-    getDataUri(url, function(res){ img.src = res; document.querySelector('.out').value = res;})
+    getDataUri(url, function(res){ img.src = res;})
 });
 
+document.querySelector('#js_set_new_image').onclick = function () {
+    //var new_src = document.querySelector('#js_path_img').value;
+    getText();
+};
+   
+ getText();         
 </script>
 </body></html>
