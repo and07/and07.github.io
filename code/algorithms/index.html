@@ -35,10 +35,10 @@
 				<ul>
 					<li><a href="#alg00">binarySearch</a></li>
 					<li><a href="#alg01">InterpolationSearch</a></li>
-					<li><a href="#alg02">SubstringSearch</a></li>
-					<li><a href="#alg03">quickSortR</a></li>
-					<li><a href="#alg04">InsertionSort</a></li>
-					<li><a href="#alg05">HeapSort</a></li>
+					<li><a href="#alg02">quickSortR</a></li>
+					<li><a href="#alg03">InsertionSort</a></li>
+					<li><a href="#alg04">HeapSort</a></li>
+					<li><a href="#alg000">SubstringSearch</a></li>
 					<li><a href="#alg001">BM</a></li>
 					<li><a href="#alg002">KMP</a></li>
 					<li><a href="#alg003">ZFunction</a></li>
@@ -115,26 +115,7 @@ console.log(interpolation_search(list, x));
         </code></pre>		
 </div>
 				<br> 
-                <h2><a name="alg02">SubstringSearch</a></h2>
-<div class="">
-        <pre><code class="javascript">
-function SubstringSearch(sub, str)    
-{
-    var i, j, n = sub.length,
-        N = str.length - n + 1;
-    
-    for (i = 0; i < N; i++)
-    {  j = 0;
-       while (j < n && sub[j] === str[i+j]) j++;
-       if (j === n) return i;
-    }                                
-    return -1;
-}
-console.log(SubstringSearch('ips', 'Lorem ipsum'));
-        </code></pre>		
-</div>
-				<br> 
-                <h2><a name="alg03">quickSortR</a></h2>
+                <h2><a name="alg02">quickSortR</a></h2>
 <div class="">
         <pre><code class="javascript">
 /* recursion */
@@ -170,7 +151,7 @@ console.log(quickSort(array, 0, array.length -1));
         </code></pre>		
 </div>
 				<br> 
-                <h2><a name="alg04">InsertionSort</a></h2>
+                <h2><a name="alg03">InsertionSort</a></h2>
 <div class="">
         <pre><code class="javascript">
 function InsertionSort(values) {
@@ -190,7 +171,7 @@ console.log(InsertionSort([7, 4, 5, 2, 9, 1]));
         </code></pre>		
 </div>
 				<br> 
-                <h2><a name="alg05">HeapSort</a></h2>
+                <h2><a name="alg04">HeapSort</a></h2>
                 <a href="img/heapsort.jpg">img</a>
                 </br>
                 <a href="img/heapsort1.png">img1</a>
@@ -242,6 +223,25 @@ arr = [12, 11, 15, 10, 9, 1, 2, 3, 13, 14, 4, 5, 6, 7, 8,];
 heap_sort(arr);
 console.log(arr);
         	
+        </code></pre>		
+</div>
+				<br> 
+                <h2><a name="alg000">SubstringSearch</a></h2>
+<div class="">
+        <pre><code class="javascript">
+function SubstringSearch(sub, str)    
+{
+    var i, j, n = sub.length,
+        N = str.length - n + 1;
+    
+    for (i = 0; i < N; i++)
+    {  j = 0;
+       while (j < n && sub[j] === str[i+j]) j++;
+       if (j === n) return i;
+    }                                
+    return -1;
+}
+console.log(SubstringSearch('ips', 'Lorem ipsum'));
         </code></pre>		
 </div>
 				<br> 
