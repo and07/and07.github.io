@@ -39,6 +39,8 @@
 					<li><a href="#alg03">InsertionSort</a></li>
 					<li><a href="#alg04">HeapSort</a></li>
 					<li><a href="#alg05">ShellSort</a></li>
+					<li><a href="#alg06">mergeSort</a></li>
+					<li><a href="#alg07">bubbleSort</a></li>
 					<li><a href="#alg000">SubstringSearch</a></li>
 					<li><a href="#alg001">BM</a></li>
 					<li><a href="#alg002">KMP</a></li>
@@ -260,6 +262,73 @@ function shell_sort(arr)
 
 var input = [6, 5, 3, 1, 8, 7, 2, 4];
 console.log(shell_sort(input));// 1, 2, 3, 4, 5, 6, 7, 8
+        </code></pre>		
+</div>
+				<br> 
+                <h2><a name="alg06">mergeSort</a></h2>
+<div class="">
+        <pre><code class="javascript">
+function mergeSort(arr)
+{
+    if (arr.length < 2)
+        return arr;
+ 
+    var middle = parseInt(arr.length / 2);
+    var left   = arr.slice(0, middle);
+    var right  = arr.slice(middle, arr.length);
+ 
+    return merge(mergeSort(left), mergeSort(right));
+}
+ 
+function merge(left, right)
+{
+    var result = [];
+ 
+    while (left.length && right.length) {
+        if (left[0] <= right[0]) {
+            result.push(left.shift());
+        } else {
+            result.push(right.shift());
+        }
+    }
+ 
+    while (left.length)
+        result.push(left.shift());
+ 
+    while (right.length)
+        result.push(right.shift());
+ 
+    return result;
+}
+
+var a = [34, 203, 3, 746, 200, 984, 198, 764, 9];
+console.log(mergeSort(a));
+
+        </code></pre>		
+</div>
+				<br> 
+                <h2><a name="alg07"></a></h2>
+<div class="">
+        <pre><code class="javascript">
+function bubbleSort(a)
+{
+    var swapped;
+    do {
+        swapped = false;
+        for (var i=0; i < a.length-1; i++) {
+            if (a[i] > a[i+1]) {
+                var temp = a[i];
+                a[i] = a[i+1];
+                a[i+1] = temp;
+                swapped = true;
+            }
+        }
+    } while (swapped);
+}
+
+var a = [34, 203, 3, 746, 200, 984, 198, 764, 9]; 
+bubbleSort(a);
+console.log(a);
         </code></pre>		
 </div>
 				<br> 
