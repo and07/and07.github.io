@@ -1,0 +1,154 @@
+Skip to content
+This repository
+Search
+Pull requests
+Issues
+Gist
+ @and07
+ Watch 0
+  Star 1
+  Fork 0 and07/and07.github.io
+ Code  Issues 0  Pull requests 0  Wiki  Pulse  Graphs  Settings
+Branch: master Find file Copy path
+and07.github.io/code/algorithms/index.html
+4c99451  a minute ago
+@and07 and07 Update index.html
+1 contributor
+RawBlameHistory     705 lines (630 sloc)  16.1 KB
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="../../css/core.css" />
+		<!--<link rel="stylesheet" type="text/css" href="css/application.css" />-->
+        
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+        <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/9.0.0/styles/default.min.css"> -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/9.0.0/styles/railscasts.min.css">
+        <script src="https://cdn.jsdelivr.net/highlight.js/9.0.0/highlight.min.js"></script>
+        
+		<title>A Data Structure Javascript</title>
+	</head>
+	
+	<body>
+		<div class="page">
+			<div class="container">
+				<div class="header">
+					<a href="/other.html" class="header-element">
+						Other
+					</a>
+					
+					<a href="/index.html" class="header-element">
+						Home
+					</a>
+				</div>
+				<h1>A Data Structure</h1>
+				<hr>
+				<ul>
+					<li><a href="#data00">Stack</a></li>
+				</ul>
+<hr>
+
+                <h2><a name="data00">Stack</a></h2>
+<div class="">
+        <pre><code class="javascript">
+var node = function()
+{
+    var data;
+    var next = null;
+}
+ 
+var stack = function()
+{
+    this.top = null;
+ 
+    this.push = function(data) {
+        if (this.top == null) {
+            this.top = new node();
+            this.top.data = data;
+        } else {
+            var temp = new node();
+            temp.data = data;
+            temp.next = this.top;
+            this.top = temp;
+        }
+    }
+ 
+    this.pop = function() {
+        var temp = this.top;
+        var data = this.top.data;
+        this.top = this.top.next;
+        temp = null;
+        return data;
+    }
+ 
+    this.print = function() {
+        var node = this.top;
+        while (node != null) {
+            console.log(node.data);
+            node = node.next;
+        }
+    }
+}
+ 
+var s = new stack();
+ 
+s.push(1);
+s.push(2);
+s.push(3);
+ 
+s.print();
+ 
+var a = s.pop();
+ 
+s.print();
+        </code></pre>		
+</div>
+				<br> 
+                <h2><a name=""></a></h2>
+<div class="">
+        <pre><code class="javascript">
+        </code></pre>		
+</div>
+				<br> 
+                <h2><a name=""></a></h2>
+<div class="">
+        <pre><code class="javascript">
+        </code></pre>		
+</div>
+				<br> 
+                <h2><a name=""></a></h2>
+<div class="">
+        <pre><code class="javascript">
+        </code></pre>		
+</div>
+				<br> 
+                <h2><a name=""></a></h2>
+<div class="">
+        <pre><code class="javascript">
+        </code></pre>		
+</div>
+				<br> 
+                <h2><a name=""></a></h2>
+<div class="">
+        <pre><code class="javascript">
+        </code></pre>		
+</div>
+
+			</div>
+		</div>
+	</body>
+<script>
+$(document).ready(function() {
+  $('pre code').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+</script>    
+</html>
+Status API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Contact Help
