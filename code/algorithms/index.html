@@ -230,8 +230,8 @@ function qsort(arr)
         var pivot = temp[0];
         var left = [], right = [];
  
-        for (var i = 1; i &lt; tl; i++) {
-            if (temp[i] &lt; pivot) {
+        for (var i = 1; i < tl; i++) {
+            if (temp[i] < pivot) {
                 left.push(temp[i]);
             } else {
                 right.push(temp[i]);
@@ -247,10 +247,10 @@ function qsort(arr)
  
     }
  
-    console.log(sorted);
+    return sorted;
 }
 var a = [8,4,6,2,1,9,5,5,4,3,4,3];
-qsort(a);
+console.log(qsort(a));
         </code></pre>		
 </div>
 				<br> 
