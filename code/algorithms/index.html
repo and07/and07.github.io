@@ -38,6 +38,7 @@
 					<li><a href="#alg02">quickSortR</a></li>
 					<li><a href="#alg03">InsertionSort</a></li>
 					<li><a href="#alg04">HeapSort</a></li>
+					<li><a href="#alg05">ShellSort</a></li>
 					<li><a href="#alg000">SubstringSearch</a></li>
 					<li><a href="#alg001">BM</a></li>
 					<li><a href="#alg002">KMP</a></li>
@@ -223,6 +224,42 @@ arr = [12, 11, 15, 10, 9, 1, 2, 3, 13, 14, 4, 5, 6, 7, 8,];
 heap_sort(arr);
 console.log(arr);
         	
+        </code></pre>		
+</div>
+
+				<br> 
+                <h2><a name="alg05">ShellSort</a></h2>
+<div class="">
+        <pre><code class="javascript">
+ 
+function shell_sort(arr)
+{
+  var len  = arr.length;
+	var gap  = len>>1;
+ 
+	while(gap > 0)
+	{
+		for(var i = gap; i < len; i++) {
+ 
+			temp = arr[i];
+			j = i;
+ 
+			while(j >= gap && arr[j - gap] > temp) {
+				arr[j] = arr[j - gap];
+				j -= gap;
+			}
+ 
+			arr[j] = temp;
+		}
+ 
+		gap = gap>>1;
+	}
+ 
+	return arr;
+}
+
+var input = [6, 5, 3, 1, 8, 7, 2, 4];
+console.log(shell_sort(input));// 1, 2, 3, 4, 5, 6, 7, 8
         </code></pre>		
 </div>
 				<br> 
