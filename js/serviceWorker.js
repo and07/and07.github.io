@@ -5,6 +5,7 @@
 var config = {
   version: 'achilles',
   staticCacheItems: [
+    '/index.html',
     '/images/GitHub.png',
     '/images/2040077.png',
     '/css/core.css',
