@@ -11,7 +11,9 @@ var config = {
     '/js/site.js',
     '/tools/',
     '/game/',
+    '/game/index.html',
     '/code/',
+    '/code/index.html',
     '/'
   ],
   cachePathPattern: /^\/(?:(20[0-9]{2}|about|blog|css|images|js)\/(.+)?)?$/,
