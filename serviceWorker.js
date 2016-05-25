@@ -3,7 +3,7 @@
 'use strict';
 
 var config = {
-  version: 'achillesaaa',
+  version: 'achillesaa',
   staticCacheItems: [
     '/',
     '/images/GitHub.png',
