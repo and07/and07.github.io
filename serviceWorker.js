@@ -60,8 +60,9 @@ function offlineResponse (resourceType, opts) {
     );
   } else if (resourceType === 'content') {
     for(var i in opts.offlinePage){
-      return caches.match(opts.offlinePage[i]);
+      console.log(caches.match(opts.offlinePage[i]));
     }
+    return caches.match(opts.offlinePage[0]);
   }
   return undefined;
 }
