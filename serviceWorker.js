@@ -6,7 +6,6 @@ var config = {
   version: 'achillesaaa',
   staticCacheItems: [
     '/index.html',
-    'other.html',
     '/images/GitHub.png',
     '/images/2040077.png',
     '/css/core.css',
@@ -16,6 +15,9 @@ var config = {
     '/game/index.html',
     '/code/',
     '/code/index.html',
+    'other.html',
+    '/other',
+    'other',
     '/'
   ],
   cachePathPattern: /^\/(?:(20[0-9]{2}|css|images|js)\/(.+)?)?$/,
