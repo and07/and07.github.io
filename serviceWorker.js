@@ -3,7 +3,7 @@
 'use strict';
 
 var config = {
-  version: 'achillesa',
+  version: 'achillesaas',
   staticCacheItems: [
     '/index.html',
     '/other.html',
