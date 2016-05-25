@@ -107,7 +107,7 @@ self.addEventListener('fetch', event => {
     var resourceType = 'static';
     var cacheKey;
     console.log(acceptHeader);
-    if (acceptHeader.indexOf('text/html') !== -1) {
+    if (acceptHeader.indexOf('text/html') !== -1 || acceptHeader.indexOf('text/css') !== -1) {
       resourceType = 'content';
     } else if (acceptHeader.indexOf('image') !== -1) {
       resourceType = 'image';
