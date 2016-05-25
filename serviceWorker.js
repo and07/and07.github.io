@@ -27,7 +27,7 @@ var config = {
     + '<g fill="none" fill-rule="evenodd"><path fill="#D8D8D8" d="M0 0h400v300H0z"/>'
     + '<text fill="#9B9B9B" font-family="Times New Roman,Times,serif" font-size="72" font-weight="bold">'
     + '<tspan x="93" y="172">offline</tspan></text></g></svg>',
-  offlinePage: '/'
+  offlinePage: ['/','/code/','/other.html']
 };
 
 function cacheName (key, opts) {
@@ -59,7 +59,9 @@ function offlineResponse (resourceType, opts) {
       { headers: { 'Content-Type': 'image/svg+xml' } }
     );
   } else if (resourceType === 'content') {
-    return caches.match(opts.offlinePage);
+    for(var i in opts.offlinePage){
+      return caches.match(opts.offlinePage[i]);
+    }
   }
   return undefined;
 }
