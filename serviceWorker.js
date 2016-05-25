@@ -3,8 +3,9 @@
 'use strict';
 
 var config = {
-  version: 'achillesaaa',
+  version: 'achillesaaaa',
   staticCacheItems: [
+    '/',
     '/index.html',
     '/images/GitHub.png',
     '/images/2040077.png',
@@ -17,8 +18,7 @@ var config = {
     '/code/index.html',
     'other.html',
     '/other',
-    'other',
-    '/'
+    'other'
   ],
   cachePathPattern: /^\/(?:(20[0-9]{2}|css|images|js)\/(.+)?)?$/,
   offlineImage: '<svg role="img" aria-labelledby="offline-title"'
