@@ -3,10 +3,10 @@
 'use strict';
 
 var config = {
-  version: 'achillesaas',
+  version: 'achillesaaa',
   staticCacheItems: [
     '/index.html',
-    '/other.html',
+    'other.html',
     '/images/GitHub.png',
     '/images/2040077.png',
     '/css/core.css',
