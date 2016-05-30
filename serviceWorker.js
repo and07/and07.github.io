@@ -53,7 +53,7 @@ function offlineResponse (resourceType, opts) {
     for(var i in opts.offlinePage){
       console.log(caches.match(opts.offlinePage[i]));
     }
-    return caches.match(opts.offlinePage[0]);
+    return caches.match(opts.offlinePage[1]);
   }
   return undefined;
 }
@@ -106,7 +106,7 @@ self.addEventListener('fetch', event => {
     var acceptHeader = request.headers.get('Accept');
     var resourceType = 'static';
     var cacheKey;
-    console.log(request.headers);
+    console.log(acceptHeader);
     if (acceptHeader.indexOf('text/html') !== -1) {
       resourceType = 'content';
     } else if (acceptHeader.indexOf('image') !== -1) {
