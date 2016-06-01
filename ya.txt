@@ -1,0 +1,190 @@
+﻿http://demo.phpmyadmin.net/
+
+
+CREATE TABLE `employees` (
+  `person_id` int(10) NOT NULL,
+  `departament` varchar(45) NOT NULL,
+  `office` varchar(45) NOT NULL,
+  PRIMARY KEY (`person_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO employees(person_id,departament,office) VALUES (1,'Developers','Main office');
+INSERT INTO employees(person_id,departament,office) VALUES (2,'Developers','North office');
+INSERT INTO employees(person_id,departament,office) VALUES (3,'Developers','West office');
+INSERT INTO employees(person_id,departament,office) VALUES (4,'Admins','Main office');
+INSERT INTO employees(person_id,departament,office) VALUES (5,'Managers','West office');
+
+
+
+CREATE TABLE `employees_data` (
+  `person_id` int(11) NOT NULL,
+  `data_type` enum('PHONE','CAR','BIRTHDAY') NOT NULL,
+  `data_value` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO employees_data(person_id,data_type,data_value) VALUES (1,'PHONE','79031231212');
+INSERT INTO employees_data(person_id,data_type,data_value) VALUES (1,'CAR','Outroad');
+INSERT INTO employees_data(person_id,data_type,data_value) VALUES (1,'BIRTHDAY','15 may');
+INSERT INTO employees_data(person_id,data_type,data_value) VALUES (2,'CAR','Sedan');
+INSERT INTO employees_data(person_id,data_type,data_value) VALUES (2,'PHONE','79091231212');
+INSERT INTO employees_data(person_id,data_type,data_value) VALUES (4,'PHONE','79163331212');
+INSERT INTO employees_data(person_id,data_type,data_value) VALUES (3,'PHONE','79051112323');
+INSERT INTO employees_data(person_id,data_type,data_value) VALUES (3,'PHONE','79072221212');
+INSERT INTO employees_data(person_id,data_type,data_value) VALUES (3,'BIRTHDAY','17 june');
+INSERT INTO employees_data(person_id,data_type,data_value) VALUES (4,'BIRTHDAY','21 april');
+
+
+
+CREATE TABLE `courses_reports` (
+  `date` date NOT NULL,
+  `person_id` int(10) NOT NULL,
+  `course` varchar(45) NOT NULL,
+  `status` enum('ASSIGN','PROGRESS','DONE') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO courses_reports(date,person_id,course,status) VALUES ('2015-01-13',1,'PHP','ASSIGN');
+INSERT INTO courses_reports(date,person_id,course,status) VALUES ('2015-01-13',2,'PHP','ASSIGN');
+INSERT INTO courses_reports(date,person_id,course,status) VALUES ('2015-01-14',3,'PHP','ASSIGN');
+INSERT INTO courses_reports(date,person_id,course,status) VALUES ('2015-01-14',1,'PHP','PROGRESS');
+INSERT INTO courses_reports(date,person_id,course,status) VALUES ('2015-01-16',3,'PHP','PROGRESS');
+INSERT INTO courses_reports(date,person_id,course,status) VALUES ('2015-01-15',2,'PHP','PROGRESS');
+INSERT INTO courses_reports(date,person_id,course,status) VALUES ('2015-01-20',3,'PHP','DONE');
+INSERT INTO courses_reports(date,person_id,course,status) VALUES ('2015-01-15',4,'Time management','ASSIGN');
+INSERT INTO courses_reports(date,person_id,course,status) VALUES ('2015-01-15',5,'Time management','ASSIGN');
+INSERT INTO courses_reports(date,person_id,course,status) VALUES ('2015-01-16',4,'Time management','PROGRESS');
+INSERT INTO courses_reports(date,person_id,course,status) VALUES ('2015-01-17',5,'Time management','PROGRESS');
+INSERT INTO courses_reports(date,person_id,course,status) VALUES ('2015-01-20',4,'Time management','DONE');
+INSERT INTO courses_reports(date,person_id,course,status) VALUES ('2015-01-22',5,'Time management','DONE');
+
+
+/*
+
+select e.*,
+(select  data_value from `employees_data` as ed where e.person_id = ed.person_id and  ed.data_type = 'CAR') as car,
+(select  data_value from `employees_data` as ed1 where  e.person_id = ed1.person_id and  ed1.data_type = 'BIRTHDAY' limit 1) as birthday,
+(select  max(data_value) from `employees_data` as ed2 where e.person_id = ed2.person_id and   ed2.data_type = 'PHONE' limit 1) as phone,
+(select  min(data_value) from `employees_data` as ed3 where  e.person_id = ed3.person_id and  ed3.data_type = 'PHONE' limit 1) as phone1
+FROM `employees` e
+group by e.person_id  
+ORDER BY e.departament
+
+select e.*, car.val, birthday.val, phone.val, phone1.val
+FROM `employees` e,
+(select  data_value as val from `employees_data` as ed ON ed.person_id = e.person_id AND ed.data_type = 'CAR') as car,
+(select  data_value as val from `employees_data` as ed1 ON ed1.person_id = e.person_id AND ed1.data_type = 'BIRTHDAY') as birthday,
+(select  data_value as val from `employees_data` as ed2 ON ed2.person_id = e.person_id AND ed2.data_type = 'PHONE') as phone,
+(select  data_value as val from `employees_data` as ed3 ON ed3.person_id = e.person_id AND ed3.data_type = 'PHONE') as phone1,
+group by e.person_id  
+ORDER BY e.departament
+
+--#3
+select e.*, 
+MAX(IF(ed.data_type = 'CAR', ed.data_value, NULL)) as car, 
+MAX(IF(ed.data_type = 'BIRTHDAY', ed.data_value, NULL)) as birthday,
+MAX(IF(ed.data_type = 'PHONE', ed.data_value, NULL)) as phone
+FROM `employees` e
+left join  `employees_data` as ed ON ed.person_id = e.person_id
+group by e.person_id  
+ORDER BY e.departament
+
+*/
+
+Задача #1 
+
+Получите плоский список сотрудников опредёленного офиса с указанием номера телефона, автомобиля и даты рождения (в отдельных колонках). 
+Сотрудники должны быть отсортированы по отделам. 
+Приведите несколько вариантов решения задачи. 
+Какой из них будет работать быстрее? Как поведёт себя запрос, если сотрудников и офисов будет значительно больше? 
+
+--#1
+select e.*, MAX(ed.data_value) as car, MAX(ed1.data_value) as birthday, MAX(ed2.data_value) as phone, MIN(ed3.data_value) as phone1
+FROM `employees` e
+left join  `employees_data` as ed ON ed.person_id = e.person_id AND ed.data_type = 'CAR'
+left join  `employees_data` as ed1 ON ed1.person_id = e.person_id AND ed1.data_type = 'BIRTHDAY'
+left join  `employees_data` as ed2 ON ed2.person_id = e.person_id AND ed2.data_type = 'PHONE'
+left join  `employees_data` as ed3 ON ed3.person_id = e.person_id AND ed3.data_type = 'PHONE' and ed2.data_value != ed3.data_value
+group by e.person_id  
+ORDER BY e.departament;
+
+--#2
+select e.person_id ,e.departament,e.office,ed.car,ed.birthday,ed.phone,
+(case when ed.phone = ed.phone1 then null else ed.phone1 end) as phone1
+FROM `employees` e
+left join (
+select ed.person_id,
+MAX(case when ed.data_type = 'CAR' then ed.data_value else NULL end) as car, 
+MAX(case when ed.data_type = 'BIRTHDAY' then ed.data_value else NULL end) as birthday,
+MAX(case when ed.data_type = 'PHONE' then ed.data_value else NULL end) as phone,
+MIN(case when ed.data_type = 'PHONE' then ed.data_value else NULL end) as phone1
+from `employees_data` as ed
+group by ed.person_id  ) as ed ON ed.person_id = e.person_id
+group by e.person_id  
+ORDER BY e.departament;
+
+-- 
+в #1 слабое место это много обращений к таблице
+но индексы его сглаживают (если  добавить составной индекс person_id, data_value)
+а #2 обращений не много
+но индексы работать не будут
+
+Задача #2 
+
+Курс повышения квалификации считается пройденным, если все сотрудники успешно завершили обучение. 
+
+Необходимо выбрать сотрудников, у которых вся группа прошла курс, и тех, у которых ещё не вся группа сдала экзамены. 
+
+Какие индексы вы добавили бы в эти таблицы (в том числе для ускорения указанных запросов)? 
+
+--у которых вся группа прошла курс
+select person_id from courses_reports
+where course in (
+        select t.course from (
+            SELECT count(cr.`course`) cnt,cr.`course`,cr.`status` from courses_reports cr
+            where cr.`status` = 'ASSIGN'
+            group by cr.`status`,cr.`course`  
+            ORDER BY `cr`.`course` ASC
+        ) t1
+        JOIN (
+            SELECT count(`course`) cnt,`course`,`status` from courses_reports cr
+            where `status` = 'DONE'
+            group by `status`,`course`  
+            ORDER BY `cr`.`course` ASC
+        ) t ON t.cnt = t1.cnt and t.course = t1.course
+   )
+   group by `person_id`;
+
+--у которых ещё не вся группа сдала экзамены
+select person_id from courses_reports
+where course in (
+        select t.course from (
+            SELECT count(cr.`course`) cnt,cr.`course`,cr.`status` from courses_reports cr
+            where cr.`status` = 'ASSIGN'
+            group by cr.`status`,cr.`course`  
+            ORDER BY `cr`.`course` ASC
+        ) t1
+        JOIN (
+            SELECT count(`course`) cnt,`course`,`status` from courses_reports cr
+            where `status` = 'DONE'
+            group by `status`,`course`  
+            ORDER BY `cr`.`course` ASC
+        ) t ON  t1.cnt > 1 and t.cnt != t1.cnt and t.course = t1.course
+   )
+   group by `person_id` ;
+   
+-- индекс составной status,course
+
+ 
+
+Задача #3 
+
+В ходе обучения сотрудники объединяются в пары для решения задач. 
+
+Напишите запрос, который покажет все возможные пары для каждого курса. 
+
+При решении следует учесть, что пары (x, y) и (y, x) равны. 
+
+SELECT e.person_id as id,e1.person_id as id1
+FROM `courses_reports` e INNER JOIN  `courses_reports` e1 ON e.course=e1.course
+WHERE e.person_id<e1.person_id  
+group by e.person_id,e1.person_id
+ORDER BY `e`.`person_id` ASC;
