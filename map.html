@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en" ng-app="plannerApp">
+
+<head>
+<title>IT talk - DataArt - Voronezh - Trip Planner</title>
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://rawgit.com/kuhnza/angular-google-places-autocomplete/master/dist/autocomplete.min.css">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+<script
+	src="https://rawgit.com/kuhnza/angular-google-places-autocomplete/0.2.7/src/autocomplete.js"></script>
+<script
+	src="https://maps.googleapis.com/maps/api/js?libraries=places&language=en"></script>
+<style>
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak,
+	.x-ng-cloak {
+	display: none !important;
+}
+</style>
+</head>
+
+<body ng-controller="plannerCtrl" ng-cloak>
+
+	<div class="container">
+		<h1>Trip Planner</h1>
+		<hr>
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<input type="text" class="form-control input-lg"
+					g-places-autocomplete ng-model="destinationData"
+					placeholder="Enter destination">
+				<button ng-click="showDestination = !showDestination"
+					class="btn btn-block btn-default btn-xs">destinationData</button>
+				<pre ng-show="showDestination">{{destination|json}}</pre>
+				<div id="map" style="height: 200px;"></div>
+			</div>
+		</div>
+		<div ng-show="destination" class="row">
+			<div class="col-md-9">
+				<h2>{{destination.formatted_address}}</h2>
+				<div ng-repeat="point in popularPoints track by $index">
+					<div class="caption">
+						<p>
+							<button ng-click="addPoint(point)" class="btn btn-info"
+								role="button">+</button>
+							{{point.name}}
+						</p>
+					</div>
+				</div>
+				<div ng-repeat="point in points track by $index">
+					<h3>{{point.name}}</h3>
+					<div class="row">
+						<div ng-repeat="photo in point.photos.slice(0, 4)"
+							class="col-xs-6 col-md-3">
+							<img
+								ng-src="{{photo.getUrl({'maxWidth': 200, 'maxHeight': 100})}}">
+						</div>
+					</div>
+				</div>
+				<hr>
+				<button ng-show="points.length > 1" ng-click="tripCalc()"
+					class="btn btn-warning btn-block">Calculate trip</button>
+				<pre ng-show="route">{{route|json}}</pre>
+			</div>
+		</div>
+
+		<script>
+			var app = angular.module("plannerApp", [ 'google.places' ]);
+			app.controller("plannerCtrl", function($scope) {
+				$scope.destinationData = null;
+				$scope.points = [];
+				$scope.$watch('destinationData', function(destinationData, old) {
+					if (!destinationData || typeof destinationData !== "object") {
+						$scope.destination = null;
+						return;
+					}
+					if (destinationData !== old) {
+						$scope.destination = destinationData;
+					}
+				})
+				$scope.$watch('destination', function(destination, old) {
+					if (destination && destination !== old) {
+						$scope.destinationOptions = {
+							location : destination.geometry.location,
+							radius : 50000
+						};
+						$scope.popularPoints = [];
+						$scope.map = new google.maps.Map(document.getElementById('map'), {
+							center : $scope.destinationOptions.location,
+							zoom : 5
+						});
+						var service = new google.maps.places.PlacesService($scope.map);
+						var radarOptions = {
+							location : $scope.destinationOptions.location,
+							radius : $scope.destinationOptions.radius,
+							types : [ 'airport', 'amusement_park', 'aquarium', 'art_gallery', 'casino', 'church',
+									'city_hall', 'courthouse', 'hindu_temple', 'library', 'museum', 'night_club',
+									'park', 'stadium', 'synagogue', 'university', 'zoo' ]
+						};
+						service.radarSearch(radarOptions, function(points) {
+							points.slice(0, 8).forEach(function(point) {
+								service.getDetails({
+									placeId : point.place_id
+								}, function(details) {
+									$scope.popularPoints.push(details);
+								});
+							});
+							$scope.$digest();
+						});
+					}
+				})
+				$scope.addPoint = function(point) {
+					$scope.points.push(point);
+				}
+				$scope.tripCalc = function() {
+					var directionsService = new google.maps.DirectionsService();
+					directionsService.route({
+						origin : $scope.points[0].geometry.location,
+						destination : $scope.points[$scope.points.length - 1].geometry.location,
+						waypoints : $scope.points.slice(1, $scope.points.length - 1).map(function(point) {
+							return {
+								location : point.geometry.location
+							};
+						}),
+						travelMode: google.maps.TravelMode.DRIVING
+					}, function(result) {
+						$scope.route = result;
+						$scope.$digest();
+					});
+				}
+			});
+		</script>
+</body>
+
+</html>
