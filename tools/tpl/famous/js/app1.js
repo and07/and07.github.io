@@ -2334,330 +2334,328 @@ C("app", "require exports module 0/4 0/c 0/2 0/9 0/e 0/f 0/1 0/5 0/7 0/6 0/g 1/i
         G = p
     }
 
-    if (!("WebKitCSSMatrix"in window) || !("m11"in new WebKitCSSMatrix))window.location.pathname = "" + window.location.pathname; else {
+    if (!("WebKitCSSMatrix"in window) || !("m11"in new WebKitCSSMatrix) )console.log('Not WebKitCSSMatrix');
     
-        
-        
-        document.title = param.doc_title || "fala.me Stress Test Demo";
-        
-        
-        var A = "Common"in window && "API"in Common, G = w, P = c("0/4"), E = c("0/c"), Eb = c("0/2"), m = c("0/9"), u = c("0/e"), Fb = c("0/f"), ja = c("0/1"), Pa = c("0/5"), Gb = c("0/7"), ua = c("0/6"), ra = c("0/g"), Hb = c("1/i");
-        c("1/j");
-        var Qa = c("1/s"), Ib = c("1/r"), Jb = c("1/p"), ka = c("1/l"), Kb = c("1/q"), va = c("1/n"), ca = c("1/o"), Lb = c("1/m"), la = c("3/14"), Mb = c("3/15"), Nb = c("3/16");
-        c("3/19");
-        var Ob = c("3/1a"), Pb = c("6/1i"), Qb = c("6/1k"), Rb = c("6/1j");
-        c("2/z");
-        
-        var  Ra = c("6/1l").xf, Tb = c("6/1l").uf, nb = c("6/1l").wf, ob = c("6/1l").vf;
-        
-        Ra = [];
-        nb = [];
-        ob = [];
-        
-        for(var i=0; i< 100; i++)
-        {
-            Ra.unshift('<img src="img/Koala.jpg" width ="90%" >');
-            nb.unshift('Koala'+i);
-            ob.unshift('best'+i);
-        }
-        
-        Ra.push('<img src="img/Koala.jpg" width ="200px">');
-        nb.push('Klast');
-        ob.push('last');
- 
-        Ra.unshift('XXX');
-        nb.unshift('test');
-        ob.unshift('100');  
-        
+    document.title = param.doc_title || "fala.me Stress Test Demo";
+    
+    
+    var A = "Common"in window && "API"in Common, G = w, P = c("0/4"), E = c("0/c"), Eb = c("0/2"), m = c("0/9"), u = c("0/e"), Fb = c("0/f"), ja = c("0/1"), Pa = c("0/5"), Gb = c("0/7"), ua = c("0/6"), ra = c("0/g"), Hb = c("1/i");
+    c("1/j");
+    var Qa = c("1/s"), Ib = c("1/r"), Jb = c("1/p"), ka = c("1/l"), Kb = c("1/q"), va = c("1/n"), ca = c("1/o"), Lb = c("1/m"), la = c("3/14"), Mb = c("3/15"), Nb = c("3/16");
+    c("3/19");
+    var Ob = c("3/1a"), Pb = c("6/1i"), Qb = c("6/1k"), Rb = c("6/1j");
+    c("2/z");
+    
+    var  Ra = c("6/1l").xf, Tb = c("6/1l").uf, nb = c("6/1l").wf, ob = c("6/1l").vf;
+    
+    Ra = [];
+    nb = [];
+    ob = [];
+    
+    for(var i=0; i< 100; i++)
+    {
+        Ra.unshift('<img src="img/Koala.jpg" width ="90%" >');
+        nb.unshift('Koala'+i);
+        ob.unshift('best'+i);
+    }
+    
+    Ra.push('<img src="img/Koala.jpg" width ="200px">');
+    nb.push('Klast');
+    ob.push('last');
 
-        
-        for (var L = c("4/1d"), Sb = c("4/1c"), ma = Ra.length, Sa = Array(ma), Ta = 0; Ta < ma; Ta++)Sa[Ta] = 0.1 + 0.7 * Math.random();
-        for (var aa, Ua = Array(ma), S = 0; S < Ua.length; S++) {
-            var wa = new E([160, 120]); // proportion
-            wa.Bb({backgroundColor: "rgba(73,160,154," + Sa[S] + ")"});
-            wa.j("periodic-item");
-            wa.R('<div class="number">' + /*(S + 1) */ ''+ '</div><div class="symbol">' + Ra[S] + '</div><div class="name">' + nb[S] + '</div><div class="mass">' +
-                ob[S] + "</div>");
-            Ua[S] = wa
-        }
-        aa = Ua;
-        for (var Q, Va = Array(ma), T = 0; T < Va.length; T++) {
-            var xa = new E([480,360]); // proportion
-            xa.Bb({backgroundColor: "rgba(73,160,154," + Sa[T] + ")"});
-            xa.j("periodic-item-hq");
-            xa.R('<div class="number">' + /*(T + 1)*/'' + '</div><div class="symbol">' + Ra[T] + '</div><div class="name">' + nb[T] + '</div><div class="mass">' + ob[T] + "</div>");
-            Va[T] = xa
-        }
-        Q = Va;
-        var r = new Hb;
-        r.A([0, 0, 5E3]);
-        r.F([0, 0, 0]);
-        r.O([0, -3 * Math.PI, 0]);
-        var H = new Lb(r), 
-            Ub = new Qa(r), 
-            Vb = new Ib(r, {N: 700, $: 2 * Math.PI, Z: 2 * Math.PI, qd: 200, yd: 200, sd: p, zd: p, Wa: p}),
-            Wb = new Jb(r, {Wa: p}), 
-            Xb = new Qa(r, {N: 900, D: ca, md: {duration: 2E3, h: ra.H.Vd}, Wa: p}), 
-            Yb = new Qa(r, {N: 700, eb: 200 / Math.PI, D: ca, Wa: p});
-        A && (ka = Kb);
-        var Zb = new ka(r), 
-        pb = new ka(r, {v: p}), 
-        $b = new ka(r, {N: 700, eb: 200 / Math.PI, v: p, X: p, D: ca}), 
-        ac = new ka(r, {N: 900, v: p, D: ca}), bc = new va(r, {Aa: p}), 
-        qb = new va(r, {Aa: p, v: p}), cc = new va(r, {Aa: p, N: 700, eb: 200 / Math.PI, v: p, X: p, D: ca}), 
-        dc = new va(r, {Aa: p, N: 900, v: p, D: ca}), 
-        fa = new Nb(function () {
-            function a() {
-                d.ub && setTimeout(function ec() {
-                    if (d.ub) {
-                        var a = r.ja().slice(0), b = a.slice(0), c = 0.5 > Math.random() ?
-                            -1 : 1;
-                        0.5 > Math.random() ? b[0] += 2 * c * Math.PI : b[1] += 2 * c * Math.PI;
-                        r.F(b, {duration: 3E3}, function () {
-                            r.F(a);
-                            setTimeout(ec, 1E4)
-                        })
-                    }
-                }, 1E4)
-            }
+    Ra.unshift('XXX');
+    nb.unshift('test');
+    ob.unshift('100');  
+    
 
-            function c() {
-                d.ub && (z.de(z.all()), b(4, a))
-            }
-
-            var d = this;
-            0 == J ? c() : (b(0), setTimeout(c, 200))
-        }, 15E3);
-        fa.disable();
-        P.I(fa);
-        var V = new Qb(300, 2E3, 1);
-        V.disable();
-        for (var hb = 270, ib = 350, jb = 400, kb, ya = [], rb = Math.floor(7), Wa = 0; Wa <= rb; Wa++) {
-            var sb = Math.PI / 2 - Wa * (Math.PI / rb), za = Math.floor(1400 * Math.PI * Math.cos(sb) / 160);
-            0 == za && (za = 1);
-            for (var Xa = 0; Xa < za; Xa++) {
-                var fc = Xa * (2 * Math.PI / za) - Math.PI;
-                ya.push(m.multiply(m.translate(0,
-                    0, 700), m.Ce(sb), m.Za(fc)))
-            }
-        }
-        for (; 118 > ya.length;)ya.push(m.W);
-        kb = function (a) {
-            return 118 <= a ? m.scale(0, 0, 0) : ya[a]
-        };
-        var W = new Pa(4);
-        W.Q(3).m([Ub, pb, qb]);
-        W.Q(0).m([Vb, pb, qb]);
-        W.Q(4).m([Wb, Zb, bc]);
-        W.Q(1).m([Yb, $b, cc]);
-        W.Q(2).m([Xb, ac, dc]);
-        var tb = new ua;
-        tb.k("keyup", function (a) {
-            if (G)if (A) {
-                var c = new Common.API.TVKeyValue;
-                a.keyCode == c.KEY_ENTER && b()
-            } else 32 == a.keyCode && b()
-        });
-        var J = 4, Aa = new ua([new L, new Sb]);
-        Aa.k("click", function (a) {
-            a.target == document.body && d()
-        });
-        Aa.k("pinch", function () {
-            d()
-        });
-        Aa.k("keyup",
-            function (a) {
-                27 == a.keyCode ? d() : 32 == a.keyCode && ga.Zb()
-            });
-        var $ = new Pa(0), z = new Ob(aa);
-        z.cb(h);
-        z.bb(0);
-        for (var gc = new Rb(z, 0.1), Ba = new Pb(z, Tb), Ma = new la(0, w), ga = new Mb, K = -1, Ka = l, lb = l, La = l, mb = l, O = 0; O < aa.length; O++)(function (a, b) {
-            b.m(new L);
-            b.k("click", function () {
-                G && (0 > K ? g(a) : (x(K), g(a), Ka = [0, 0, 600], beforeRotate = [0, 0, 0], La = [0, 0, 0]))
-            });
-            b.k("hold", function () {
-                if (G) {
-                    var b = Ba.nf(a)[0];
-                    Ba.Nf(a) ? Ba.fg(b) : Ba.Mc(b)
+    
+    for (var L = c("4/1d"), Sb = c("4/1c"), ma = Ra.length, Sa = Array(ma), Ta = 0; Ta < ma; Ta++)Sa[Ta] = 0.1 + 0.7 * Math.random();
+    for (var aa, Ua = Array(ma), S = 0; S < Ua.length; S++) {
+        var wa = new E([160, 120]); // proportion
+        wa.Bb({backgroundColor: "rgba(73,160,154," + Sa[S] + ")"});
+        wa.j("periodic-item");
+        wa.R('<div class="number">' + /*(S + 1) */ ''+ '</div><div class="symbol">' + Ra[S] + '</div><div class="name">' + nb[S] + '</div><div class="mass">' +
+            ob[S] + "</div>");
+        Ua[S] = wa
+    }
+    aa = Ua;
+    for (var Q, Va = Array(ma), T = 0; T < Va.length; T++) {
+        var xa = new E([480,360]); // proportion
+        xa.Bb({backgroundColor: "rgba(73,160,154," + Sa[T] + ")"});
+        xa.j("periodic-item-hq");
+        xa.R('<div class="number">' + /*(T + 1)*/'' + '</div><div class="symbol">' + Ra[T] + '</div><div class="name">' + nb[T] + '</div><div class="mass">' + ob[T] + "</div>");
+        Va[T] = xa
+    }
+    Q = Va;
+    var r = new Hb;
+    r.A([0, 0, 5E3]);
+    r.F([0, 0, 0]);
+    r.O([0, -3 * Math.PI, 0]);
+    var H = new Lb(r), 
+        Ub = new Qa(r), 
+        Vb = new Ib(r, {N: 700, $: 2 * Math.PI, Z: 2 * Math.PI, qd: 200, yd: 200, sd: p, zd: p, Wa: p}),
+        Wb = new Jb(r, {Wa: p}), 
+        Xb = new Qa(r, {N: 900, D: ca, md: {duration: 2E3, h: ra.H.Vd}, Wa: p}), 
+        Yb = new Qa(r, {N: 700, eb: 200 / Math.PI, D: ca, Wa: p});
+    A && (ka = Kb);
+    var Zb = new ka(r), 
+    pb = new ka(r, {v: p}), 
+    $b = new ka(r, {N: 700, eb: 200 / Math.PI, v: p, X: p, D: ca}), 
+    ac = new ka(r, {N: 900, v: p, D: ca}), bc = new va(r, {Aa: p}), 
+    qb = new va(r, {Aa: p, v: p}), cc = new va(r, {Aa: p, N: 700, eb: 200 / Math.PI, v: p, X: p, D: ca}), 
+    dc = new va(r, {Aa: p, N: 900, v: p, D: ca}), 
+    fa = new Nb(function () {
+        function a() {
+            d.ub && setTimeout(function ec() {
+                if (d.ub) {
+                    var a = r.ja().slice(0), b = a.slice(0), c = 0.5 > Math.random() ?
+                        -1 : 1;
+                    0.5 > Math.random() ? b[0] += 2 * c * Math.PI : b[1] += 2 * c * Math.PI;
+                    r.F(b, {duration: 3E3}, function () {
+                        r.F(a);
+                        setTimeout(ec, 1E4)
+                    })
                 }
-            })
-        }).call(this, O, aa[O]);
-        for (O = 0; O < Q.length; O++)Q[O].m(new L), Q[O].k("click", function () {
-            ga.Zb(1)
-        });
-        new Fb(0);
-        var ba = new E([480,360], "Reserved for Future Examples");
-        ba.j("periodic-item-hq");
-        ba.j("periodic-item-back");
-        ba.m(new L);
-        ba.k("click", function () {
-            ga.Zb(0)
-        });
-        var ub = new E([200, 32], param.name);
-        ub.j("caption");
-        var Na = new E([600, 50], "");
-        Na.j("shape-flash");
-        var Oa = new la(0, {duration: 1E3, h: ra.H.Ud}), U = new u(m.translate(-120, 0, 0), 1, "b");
-        U.De({duration: 250, h: ra.H.Qa});
-        var vb = new E([60, 60], '<div class="shape-button-indicator-box"></div>');
-        vb.j("shape-button-indicator");
-        var hc = t(4, '<img src="content/icons/paraflow.png" alt="PF" />',
-            "paraflow"), ic = t(3, '<img src="content/icons/periodic.png" alt="P" />', param.name), jc = t(0, '<img src="content/icons/sphere.png" alt="S" />', "sphere"), kc = t(1, '<img src="content/icons/helix.png" alt="H" />', "helix"), lc = t(2, '<img src="content/icons/wall.png" alt="W" />', "wall of fame"), Ya = new E([window.innerWidth, window.innerHeight]);
-        Ya.j("obscure");
-        var ha = new la(0, {duration: 700, h: k}), Ca = new E([200, 60], "fun things to do &nbsp;&#9432;");
-        Ca.j("info-button");
-        var sa = new la(0, {duration: 500, h: k});
-        Ca.m(new L);
-        Ca.k("click", function () {
-            G && (ha.show(), sa.show(), R.Ia(1), window._gaq && _gaq.push(["_trackEvent", "sign-up", "info", , , p]))
-        });
-        sessionStorage.getItem("signedUp") ? (G = p, P.Xc(v)) : (G = w, P.Xc(D));
-        var wb = new E([600, 400], "<h3>Fun Things to Do</h3><ul><li>One finger to scroll</li><li>Two fingers to pinch zoom</li><li>Three fingers to plane in 3D</li><li>Touch any object to navigate to that object in 3D space</li><li>Touch-hold an object to disassemble any shape</li></ul><ul><li>Space key to shapeshift</li><li>WASD keys to move forward, left, backward, and right</li><li>Shift + W/S keys to move up/down</li><li>Arrow keys to rotate or spin</li><li>Hold Ctrl to enable mouse rotation</li></ul>");
-        wb.j("info");
-        var Za = new ua([new L]);
-        Za.k("keyup", F);
-        Za.k("click", F);
-        var ia = new u(m.W), 
-        xb = new E([600, 500], '<h3>Welcome to <strong>famo.us</strong><br /><span class="sub">a javascript engine and framework that solves HTML5 performance</span></h3><p>40-60fps on phones, tablets, PCs, and televisions<br /> mod a template, or piece together components<br /> no plug-ins, no WebGL, no Canvas<br /> works on modern browsers<br />everything is DOM<br /> 65KB footprint</p><p class="experience">sign up for the beta, then experience famo.us</p>');
-        xb.j("signup-box");
-        var $a = new E([600, 150], '<form method="POST" action="#"><div class="input"><input id="email" type="text" size="30" name="email" maxlength="75" placeholder="enter email to sign up for beta" size="35" /><input id="github" class="half" type="text" size="30" name="github" maxlength="75" placeholder="github account" size="35" /><input id="github"  class="half" type="text" size="30" name="twitter" maxlength="75" placeholder="twitter account" size="35" /></div><input class="button" type="submit" value="sign up" /></form>');
-        $a.j("signup");
-        var X = new E([600, 20]);
-        X.j("signup-error");
-        var Da = new E([100, 100], '<img src="content/icons/circle-x.png" alt="x" />');
-        Da.j("signup-hide");
-        Da.m(new L);
-        Da.k("click", function () {
-            v();
-            window._gaq && _gaq.push(["_trackEvent", "sign-up", "hide", , , w])
-        });
-        var Ea = new E([120, 30], "sign up for beta");
-        Ea.j("signup-show");
-        Ea.m(new L);
-        Ea.k("click", function () {
-            D();
-            window._gaq && _gaq.push(["_trackEvent", "sign-up", "show", , , w])
-        });
-        var ta = new la(0), 
-        ab = new E([160, 30], '<a href="/privateBeta" target="_blank">private beta</a>');
-        ab.j("signup-show");
-        ab.m(new L);
-        var na = new ja;
-        na.i(xb);
-        na.i(new u(m.translate(0, 145, 0.01))).f($a);
-        na.i(new u(m.translate(0, 210, 0.01))).f(X);
-        na.i(new u(m.translate(275, -225, 0.01))).f(Da);
-        window.addEventListener("submit", function (a) {
-            a.preventDefault();
-            for (var b = {}, c = p, a = a.target.querySelectorAll("input"), d = 0; d < a.length; d++) {
-                var e = a[d];
-                e.name && (b[e.name] = e.value)
-            }
-            /^$|^[a-zA-Z0-9_]{1,15}$/.test(b.twitter) == w && (c = w);
-            /^$|^[a-zA-Z0-9][a-zA-Z0-9-]{0,38}$/.test(b.github) == w && (c = w);
-            a = document.location.href.split("/");
-            b.referrerId = 2 <= a.length && "r" == a[a.length - 2] ? a[a.length - 1] : "";
-            window._gaq && _gaq.push(["_trackEvent", "sign-up", "submit", , 1, p]);
-            a = new XMLHttpRequest;
-            a.open("POST", "/developers");
-            a.setRequestHeader("Content-Type", "application/json");
-            a.onreadystatechange = function () {
-                if (4 == this.readyState)if (200 == this.status) {
-                    var a = JSON.parse(this.responseText);
-                    "OK" == a.status ? (X.R(""), $a.R("<p><strong>Success!</strong> We just sent you an email with some more information. We'll send you updates soon.</p>" + ('<div class="tweet-button">' +
-                        y("Tweet", a.socialId) + "</div>")), Fa.R(B(a.socialId)), sessionStorage.setItem("signedUp", p), window._gaq && _gaq.push(["_trackEvent", "sign-up", "success", , , w])) : X.R(a.msg)
-                } else X.R("Ooops! Something went wrong. Try again."), window._gaq && _gaq.push(["_trackEvent", "sign-up", "error", , , p])
-            };
-            c ? a.send(JSON.stringify(b)) : (X.R("Ooops! Something went wrong. Try again."), window._gaq && _gaq.push(["_trackEvent", "sign-up", "error", , , p]))
-        });
-        var yb = new ua;
-        yb.k("keyup", function (a) {
-            if (A) {
-                var b = new Common.API.TVKeyValue;
-                a.keyCode ==
-                    b.KEY_EXIT && v()
-            } else 27 == a.keyCode && v(), 13 == a.keyCode && (document.activeElement && "INPUT" != document.activeElement.nodeName) && v()
-        });
-        var R = new Pa(0);
-        R.Q(0).m($);
-        R.Q(1).m(Za);
-        R.Q(2).m(yb);
-        var zb = new E([100, 60], param.site);
-        zb.j("overlay-text");
-        var Ga = new E([80, 60], '<a href="http://angel.co/famo-us" target="_blank">jobs</a>');
-        Ga.j("jobs-button");
-        Ga.j("overlay-text");
-        Ga.k("click", function () {
-            window._gaq && _gaq.push(["_trackEvent", "sign-up", "jobs", , , p]);
-            return false;
-        });
-        var Fa = new E([60, 60], B());
-        Fa.j("shape-button");
-        Fa.k("click",
-            function () {
-                window._gaq && _gaq.push(["_trackEvent", "demo", "tweet", , , w])
-            });
-        var Ab = new E([300, 60], param.copyright);
-        Ab.j("copyright");
-        var mc = P.Pd(document.querySelector("#main")), Bb = P.Pd(document.querySelector("#overlay")), bb = new ja;
-        bb.i(new u(m.move(m.scale(3, 3, 3), [0, -1E3, 0]))).f(ub);
-        bb.i(H).f(V).f(z);
-        var cb = new ja;
-        cb.i(r).f(bb);
-        cb.i(Ma).f(new u(m.translate(0, 0, 200))).f(ga).f(function () {
-            var a = {transform: m.scale(1 / 3, 1 / 3, 1 / 3), target: 0 <= K ? Q[K].z() : s}, b = {transform: m.scale(1 / 3, 1 / 3, 1 /
-                3), target: ba.z()};
-            return[a, b]
-        });
-        var Ha = new Eb([window.innerWidth, 60]);
-        Ha.j("bottom-bar");
-        Bb.k("resize", function () {
-            Ha.pa([window.innerWidth, 60]);
-            Ya.pa([window.innerWidth, window.innerHeight])
-        });
-        var M = new ja;
-        M.i(new u(m.translate(240, 0), 1, "b")).f(Fa);
-        M.i(new u(m.translate(-120, 0), 1, "b")).f(hc);
-        M.i(new u(m.translate(120, 0), 1, "b")).f(ic);
-        M.i(new u(m.translate(0, 0), 1, "b")).f(kc);
-        M.i(new u(m.translate(60, 0), 1, "b")).f(lc);
-        M.i(new u(m.translate(-60, 0), 1, "b")).f(jc);
-        M.i(new u(m.translate(0, 0, 0.01), 1, "b")).f(U).f(vb);
-        M.i(new u(m.W, 1, "br")).f(Ca);
-        M.i(new u(m.W, 1, "bl")).f(Ab);
-        Ha.Qb(M);
-        var N = new ja;
-        N.i(Oa).f(Na);
-        N.i(new u(m.W, 1, "tl")).f(zb);
-        N.i(new u(m.W, 1, "tr")).f(Ga);
-        N.i(new u(m.translate(0, 0, 0), 1, "b")).f(Ha);
-        N.i(new u(m.translate(0, 0, 0.09))).f(ha).f(Ya);
-        N.i(new u(m.translate(0, 0, 1))).f(sa).f(wb);
-        N.i(new u(m.translate(0, 0, 1))).f(ia).f(na);
-        N.i(new u(m.move(m.vd(Math.PI / 2), [-45, 0]), 1, "l")).f(ta).f(Ea);
-        N.i(new u(m.move(m.vd(-Math.PI / 2), [65, 0]), 1, "r")).f(ta).f(ab);
-        mc.Qb(cb);
-        Bb.Qb(N);
-        $.Q(0).Ga(W);
-        $.Q(0).Ga(tb);
-        $.Q(1).m(Aa);
-        var db = new Gb;
-        db.Ga(R);
-        db.Ga(fa);
-        P.m(db);
-        P.I(function () {
-            if (4 == J) {
-                var a = Math.ceil(ma / 15) * hb, b = 5 * ib, c = 3 * jb, d = r.ja(), e = 0.5 * Math.abs(Math.sin(d[1]) + 1), d = 0.5 * Math.abs(-Math.sin(d[0]) + 1);
-                H.Cb([(e - 1) * a, e * a], w);
-                H.Db([(d - 1) * b, d * b], w);
-                H.Eb([-c + 400, 400], w);
-                gc.update()
-            }
-        });
-        b(4);
+            }, 1E4)
+        }
+
+        function c() {
+            d.ub && (z.de(z.all()), b(4, a))
+        }
+
+        var d = this;
+        0 == J ? c() : (b(0), setTimeout(c, 200))
+    }, 15E3);
+    fa.disable();
+    P.I(fa);
+    var V = new Qb(300, 2E3, 1);
+    V.disable();
+    for (var hb = 270, ib = 350, jb = 400, kb, ya = [], rb = Math.floor(7), Wa = 0; Wa <= rb; Wa++) {
+        var sb = Math.PI / 2 - Wa * (Math.PI / rb), za = Math.floor(1400 * Math.PI * Math.cos(sb) / 160);
+        0 == za && (za = 1);
+        for (var Xa = 0; Xa < za; Xa++) {
+            var fc = Xa * (2 * Math.PI / za) - Math.PI;
+            ya.push(m.multiply(m.translate(0,
+                0, 700), m.Ce(sb), m.Za(fc)))
+        }
+    }
+    for (; 118 > ya.length;)ya.push(m.W);
+    kb = function (a) {
+        return 118 <= a ? m.scale(0, 0, 0) : ya[a]
     };
+    var W = new Pa(4);
+    W.Q(3).m([Ub, pb, qb]);
+    W.Q(0).m([Vb, pb, qb]);
+    W.Q(4).m([Wb, Zb, bc]);
+    W.Q(1).m([Yb, $b, cc]);
+    W.Q(2).m([Xb, ac, dc]);
+    var tb = new ua;
+    tb.k("keyup", function (a) {
+        if (G)if (A) {
+            var c = new Common.API.TVKeyValue;
+            a.keyCode == c.KEY_ENTER && b()
+        } else 32 == a.keyCode && b()
+    });
+    var J = 4, Aa = new ua([new L, new Sb]);
+    Aa.k("click", function (a) {
+        a.target == document.body && d()
+    });
+    Aa.k("pinch", function () {
+        d()
+    });
+    Aa.k("keyup",
+        function (a) {
+            27 == a.keyCode ? d() : 32 == a.keyCode && ga.Zb()
+        });
+    var $ = new Pa(0), z = new Ob(aa);
+    z.cb(h);
+    z.bb(0);
+    for (var gc = new Rb(z, 0.1), Ba = new Pb(z, Tb), Ma = new la(0, w), ga = new Mb, K = -1, Ka = l, lb = l, La = l, mb = l, O = 0; O < aa.length; O++)(function (a, b) {
+        b.m(new L);
+        b.k("click", function () {
+            G && (0 > K ? g(a) : (x(K), g(a), Ka = [0, 0, 600], beforeRotate = [0, 0, 0], La = [0, 0, 0]))
+        });
+        b.k("hold", function () {
+            if (G) {
+                var b = Ba.nf(a)[0];
+                Ba.Nf(a) ? Ba.fg(b) : Ba.Mc(b)
+            }
+        })
+    }).call(this, O, aa[O]);
+    for (O = 0; O < Q.length; O++)Q[O].m(new L), Q[O].k("click", function () {
+        ga.Zb(1)
+    });
+    new Fb(0);
+    var ba = new E([480,360], "Reserved for Future Examples");
+    ba.j("periodic-item-hq");
+    ba.j("periodic-item-back");
+    ba.m(new L);
+    ba.k("click", function () {
+        ga.Zb(0)
+    });
+    var ub = new E([200, 32], param.name);
+    ub.j("caption");
+    var Na = new E([600, 50], "");
+    Na.j("shape-flash");
+    var Oa = new la(0, {duration: 1E3, h: ra.H.Ud}), U = new u(m.translate(-120, 0, 0), 1, "b");
+    U.De({duration: 250, h: ra.H.Qa});
+    var vb = new E([60, 60], '<div class="shape-button-indicator-box"></div>');
+    vb.j("shape-button-indicator");
+    var hc = t(4, '<img src="content/icons/paraflow.png" alt="PF" />',
+        "paraflow"), ic = t(3, '<img src="content/icons/periodic.png" alt="P" />', param.name), jc = t(0, '<img src="content/icons/sphere.png" alt="S" />', "sphere"), kc = t(1, '<img src="content/icons/helix.png" alt="H" />', "helix"), lc = t(2, '<img src="content/icons/wall.png" alt="W" />', "wall of fame"), Ya = new E([window.innerWidth, window.innerHeight]);
+    Ya.j("obscure");
+    var ha = new la(0, {duration: 700, h: k}), Ca = new E([200, 60], "fun things to do &nbsp;&#9432;");
+    Ca.j("info-button");
+    var sa = new la(0, {duration: 500, h: k});
+    Ca.m(new L);
+    Ca.k("click", function () {
+        G && (ha.show(), sa.show(), R.Ia(1), window._gaq && _gaq.push(["_trackEvent", "sign-up", "info", , , p]))
+    });
+    sessionStorage.getItem("signedUp") ? (G = p, P.Xc(v)) : (G = w, P.Xc(D));
+    var wb = new E([600, 400], "<h3>Fun Things to Do</h3><ul><li>One finger to scroll</li><li>Two fingers to pinch zoom</li><li>Three fingers to plane in 3D</li><li>Touch any object to navigate to that object in 3D space</li><li>Touch-hold an object to disassemble any shape</li></ul><ul><li>Space key to shapeshift</li><li>WASD keys to move forward, left, backward, and right</li><li>Shift + W/S keys to move up/down</li><li>Arrow keys to rotate or spin</li><li>Hold Ctrl to enable mouse rotation</li></ul>");
+    wb.j("info");
+    var Za = new ua([new L]);
+    Za.k("keyup", F);
+    Za.k("click", F);
+    var ia = new u(m.W), 
+    xb = new E([600, 500], '<h3>Welcome to <strong>famo.us</strong><br /><span class="sub">a javascript engine and framework that solves HTML5 performance</span></h3><p>40-60fps on phones, tablets, PCs, and televisions<br /> mod a template, or piece together components<br /> no plug-ins, no WebGL, no Canvas<br /> works on modern browsers<br />everything is DOM<br /> 65KB footprint</p><p class="experience">sign up for the beta, then experience famo.us</p>');
+    xb.j("signup-box");
+    var $a = new E([600, 150], '<form method="POST" action="#"><div class="input"><input id="email" type="text" size="30" name="email" maxlength="75" placeholder="enter email to sign up for beta" size="35" /><input id="github" class="half" type="text" size="30" name="github" maxlength="75" placeholder="github account" size="35" /><input id="github"  class="half" type="text" size="30" name="twitter" maxlength="75" placeholder="twitter account" size="35" /></div><input class="button" type="submit" value="sign up" /></form>');
+    $a.j("signup");
+    var X = new E([600, 20]);
+    X.j("signup-error");
+    var Da = new E([100, 100], '<img src="content/icons/circle-x.png" alt="x" />');
+    Da.j("signup-hide");
+    Da.m(new L);
+    Da.k("click", function () {
+        v();
+        window._gaq && _gaq.push(["_trackEvent", "sign-up", "hide", , , w])
+    });
+    var Ea = new E([120, 30], "sign up for beta");
+    Ea.j("signup-show");
+    Ea.m(new L);
+    Ea.k("click", function () {
+        D();
+        window._gaq && _gaq.push(["_trackEvent", "sign-up", "show", , , w])
+    });
+    var ta = new la(0), 
+    ab = new E([160, 30], '<a href="/privateBeta" target="_blank">private beta</a>');
+    ab.j("signup-show");
+    ab.m(new L);
+    var na = new ja;
+    na.i(xb);
+    na.i(new u(m.translate(0, 145, 0.01))).f($a);
+    na.i(new u(m.translate(0, 210, 0.01))).f(X);
+    na.i(new u(m.translate(275, -225, 0.01))).f(Da);
+    window.addEventListener("submit", function (a) {
+        a.preventDefault();
+        for (var b = {}, c = p, a = a.target.querySelectorAll("input"), d = 0; d < a.length; d++) {
+            var e = a[d];
+            e.name && (b[e.name] = e.value)
+        }
+        /^$|^[a-zA-Z0-9_]{1,15}$/.test(b.twitter) == w && (c = w);
+        /^$|^[a-zA-Z0-9][a-zA-Z0-9-]{0,38}$/.test(b.github) == w && (c = w);
+        a = document.location.href.split("/");
+        b.referrerId = 2 <= a.length && "r" == a[a.length - 2] ? a[a.length - 1] : "";
+        window._gaq && _gaq.push(["_trackEvent", "sign-up", "submit", , 1, p]);
+        a = new XMLHttpRequest;
+        a.open("POST", "/developers");
+        a.setRequestHeader("Content-Type", "application/json");
+        a.onreadystatechange = function () {
+            if (4 == this.readyState)if (200 == this.status) {
+                var a = JSON.parse(this.responseText);
+                "OK" == a.status ? (X.R(""), $a.R("<p><strong>Success!</strong> We just sent you an email with some more information. We'll send you updates soon.</p>" + ('<div class="tweet-button">' +
+                    y("Tweet", a.socialId) + "</div>")), Fa.R(B(a.socialId)), sessionStorage.setItem("signedUp", p), window._gaq && _gaq.push(["_trackEvent", "sign-up", "success", , , w])) : X.R(a.msg)
+            } else X.R("Ooops! Something went wrong. Try again."), window._gaq && _gaq.push(["_trackEvent", "sign-up", "error", , , p])
+        };
+        c ? a.send(JSON.stringify(b)) : (X.R("Ooops! Something went wrong. Try again."), window._gaq && _gaq.push(["_trackEvent", "sign-up", "error", , , p]))
+    });
+    var yb = new ua;
+    yb.k("keyup", function (a) {
+        if (A) {
+            var b = new Common.API.TVKeyValue;
+            a.keyCode ==
+                b.KEY_EXIT && v()
+        } else 27 == a.keyCode && v(), 13 == a.keyCode && (document.activeElement && "INPUT" != document.activeElement.nodeName) && v()
+    });
+    var R = new Pa(0);
+    R.Q(0).m($);
+    R.Q(1).m(Za);
+    R.Q(2).m(yb);
+    var zb = new E([100, 60], param.site);
+    zb.j("overlay-text");
+    var Ga = new E([80, 60], '<a href="http://angel.co/famo-us" target="_blank">jobs</a>');
+    Ga.j("jobs-button");
+    Ga.j("overlay-text");
+    Ga.k("click", function () {
+        window._gaq && _gaq.push(["_trackEvent", "sign-up", "jobs", , , p]);
+        return false;
+    });
+    var Fa = new E([60, 60], B());
+    Fa.j("shape-button");
+    Fa.k("click",
+        function () {
+            window._gaq && _gaq.push(["_trackEvent", "demo", "tweet", , , w])
+        });
+    var Ab = new E([300, 60], param.copyright);
+    Ab.j("copyright");
+    var mc = P.Pd(document.querySelector("#main")), Bb = P.Pd(document.querySelector("#overlay")), bb = new ja;
+    bb.i(new u(m.move(m.scale(3, 3, 3), [0, -1E3, 0]))).f(ub);
+    bb.i(H).f(V).f(z);
+    var cb = new ja;
+    cb.i(r).f(bb);
+    cb.i(Ma).f(new u(m.translate(0, 0, 200))).f(ga).f(function () {
+        var a = {transform: m.scale(1 / 3, 1 / 3, 1 / 3), target: 0 <= K ? Q[K].z() : s}, b = {transform: m.scale(1 / 3, 1 / 3, 1 /
+            3), target: ba.z()};
+        return[a, b]
+    });
+    var Ha = new Eb([window.innerWidth, 60]);
+    Ha.j("bottom-bar");
+    Bb.k("resize", function () {
+        Ha.pa([window.innerWidth, 60]);
+        Ya.pa([window.innerWidth, window.innerHeight])
+    });
+    var M = new ja;
+    M.i(new u(m.translate(240, 0), 1, "b")).f(Fa);
+    M.i(new u(m.translate(-120, 0), 1, "b")).f(hc);
+    M.i(new u(m.translate(120, 0), 1, "b")).f(ic);
+    M.i(new u(m.translate(0, 0), 1, "b")).f(kc);
+    M.i(new u(m.translate(60, 0), 1, "b")).f(lc);
+    M.i(new u(m.translate(-60, 0), 1, "b")).f(jc);
+    M.i(new u(m.translate(0, 0, 0.01), 1, "b")).f(U).f(vb);
+    M.i(new u(m.W, 1, "br")).f(Ca);
+    M.i(new u(m.W, 1, "bl")).f(Ab);
+    Ha.Qb(M);
+    var N = new ja;
+    N.i(Oa).f(Na);
+    N.i(new u(m.W, 1, "tl")).f(zb);
+    N.i(new u(m.W, 1, "tr")).f(Ga);
+    N.i(new u(m.translate(0, 0, 0), 1, "b")).f(Ha);
+    N.i(new u(m.translate(0, 0, 0.09))).f(ha).f(Ya);
+    N.i(new u(m.translate(0, 0, 1))).f(sa).f(wb);
+    N.i(new u(m.translate(0, 0, 1))).f(ia).f(na);
+    N.i(new u(m.move(m.vd(Math.PI / 2), [-45, 0]), 1, "l")).f(ta).f(Ea);
+    N.i(new u(m.move(m.vd(-Math.PI / 2), [65, 0]), 1, "r")).f(ta).f(ab);
+    mc.Qb(cb);
+    Bb.Qb(N);
+    $.Q(0).Ga(W);
+    $.Q(0).Ga(tb);
+    $.Q(1).m(Aa);
+    var db = new Gb;
+    db.Ga(R);
+    db.Ga(fa);
+    P.m(db);
+    P.I(function () {
+        if (4 == J) {
+            var a = Math.ceil(ma / 15) * hb, b = 5 * ib, c = 3 * jb, d = r.ja(), e = 0.5 * Math.abs(Math.sin(d[1]) + 1), d = 0.5 * Math.abs(-Math.sin(d[0]) + 1);
+            H.Cb([(e - 1) * a, e * a], w);
+            H.Db([(d - 1) * b, d * b], w);
+            H.Eb([-c + 400, 400], w);
+            gc.update()
+        }
+    });
+    b(4);
+    
 });
 
 var falame = function(opt){
