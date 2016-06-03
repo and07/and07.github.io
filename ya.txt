@@ -1,4 +1,4 @@
-﻿http://demo.phpmyadmin.net/
+http://demo.phpmyadmin.net/
 
 
 CREATE TABLE `employees` (
@@ -57,38 +57,6 @@ INSERT INTO courses_reports(date,person_id,course,status) VALUES ('2015-01-20',4
 INSERT INTO courses_reports(date,person_id,course,status) VALUES ('2015-01-22',5,'Time management','DONE');
 
 
-/*
-
-select e.*,
-(select  data_value from `employees_data` as ed where e.person_id = ed.person_id and  ed.data_type = 'CAR') as car,
-(select  data_value from `employees_data` as ed1 where  e.person_id = ed1.person_id and  ed1.data_type = 'BIRTHDAY' limit 1) as birthday,
-(select  max(data_value) from `employees_data` as ed2 where e.person_id = ed2.person_id and   ed2.data_type = 'PHONE' limit 1) as phone,
-(select  min(data_value) from `employees_data` as ed3 where  e.person_id = ed3.person_id and  ed3.data_type = 'PHONE' limit 1) as phone1
-FROM `employees` e
-group by e.person_id  
-ORDER BY e.departament
-
-select e.*, car.val, birthday.val, phone.val, phone1.val
-FROM `employees` e,
-(select  data_value as val from `employees_data` as ed ON ed.person_id = e.person_id AND ed.data_type = 'CAR') as car,
-(select  data_value as val from `employees_data` as ed1 ON ed1.person_id = e.person_id AND ed1.data_type = 'BIRTHDAY') as birthday,
-(select  data_value as val from `employees_data` as ed2 ON ed2.person_id = e.person_id AND ed2.data_type = 'PHONE') as phone,
-(select  data_value as val from `employees_data` as ed3 ON ed3.person_id = e.person_id AND ed3.data_type = 'PHONE') as phone1,
-group by e.person_id  
-ORDER BY e.departament
-
---#3
-select e.*, 
-MAX(IF(ed.data_type = 'CAR', ed.data_value, NULL)) as car, 
-MAX(IF(ed.data_type = 'BIRTHDAY', ed.data_value, NULL)) as birthday,
-MAX(IF(ed.data_type = 'PHONE', ed.data_value, NULL)) as phone
-FROM `employees` e
-left join  `employees_data` as ed ON ed.person_id = e.person_id
-group by e.person_id  
-ORDER BY e.departament
-
-*/
-
 Задача #1 
 
 Получите плоский список сотрудников опредёленного офиса с указанием номера телефона, автомобиля и даты рождения (в отдельных колонках). 
@@ -124,8 +92,15 @@ ORDER BY e.departament;
 -- 
 в #1 слабое место это много обращений к таблице
 но индексы его сглаживают (если  добавить составной индекс person_id, data_value)
++ не будет выбирать в память всю таблицу
 а #2 обращений не много
 но индексы работать не будут
+
++ не указано что делать если у сотрудника 2 машины или 2 номере телефона в данных запросах добавляю их в отдельные колонки но можно испльзавать  
+GROUP_CONCAT
+
+
+
 
 Задача #2 
 
@@ -175,6 +150,8 @@ where course in (
 
  
 
+ 
+ 
 Задача #3 
 
 В ходе обучения сотрудники объединяются в пары для решения задач. 
