@@ -842,7 +842,8 @@ $(document).ready(function() {
 			if (window.scrollTo) {
 				var target = document.querySelector('[name='+this.getAttribute("href").substring(1)+']');
 				e.preventDefault();
-				window.scrollTo({"behavior": "smooth", "top": target.offsetTop});
+				//window.scrollTo({"behavior": "smooth", "top": target.offsetTop});
+				window.scrollTo(0, target.offsetTop);
 			}
 		}.bind(anchorLinks[i]));
 	};
