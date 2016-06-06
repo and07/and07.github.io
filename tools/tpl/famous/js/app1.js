@@ -1,4 +1,3 @@
-
 //define l as undefined, p as true, s as null, w as false, da as undefined, and C as undefined
 var l = void 0, p = !0, s = null, w = !1, da, C;
 function ea(c, k) {
@@ -2187,11 +2186,9 @@ C("6/1l", {
         }
     });
 
-C("app", "require exports module 0/4 0/c 0/2 0/9 0/e 0/f 0/1 0/5 0/7 0/6 0/g 1/i 1/j 1/s 1/r 1/p 1/l 1/q 1/n 1/o 1/m 3/14 3/15 3/16 3/19 3/1a 6/1i 6/1k 6/1j 2/z 4/1d 4/1c 6/1l 6/1l 6/1l 6/1l".split(" "),
- function (c,o) {
+//C("app", "require exports module 0/4 0/c 0/2 0/9 0/e 0/f 0/1 0/5 0/7 0/6 0/g 1/i 1/j 1/s 1/r 1/p 1/l 1/q 1/n 1/o 1/m 3/14 3/15 3/16 3/19 3/1a 6/1i 6/1k 6/1j 2/z 4/1d 4/1c 6/1l 6/1l 6/1l 6/1l".split(" "),
+var app = function (c, opt) {
  
-    var param = c("6/1l").param;
-
     function k(a) {
         var b = 1.70158;
         return 1 > (a /= 0.5) ? 0.5 * a * a * (((b *= 1.525) + 1) * a - b) : 0.5 * ((a -= 2) * a * (((b *= 1.525) + 1) * a + b) + 2)
@@ -2228,13 +2225,13 @@ C("app", "require exports module 0/4 0/c 0/2 0/9 0/e 0/f 0/1 0/5 0/7 0/6 0/g 1/i
         r.o();
         z.Kf();
         var g = {duration: 1E3, h: ra.H.Ca};
-        3 == J ? (z.cb(h, g, c), z.bb(1, g), r.A([0, 0, 700], g), r.F([0, 0, 0], g), r.O([0, 0, 0], g), H.Cb([-5E3, 5E3], g), H.Db([-3E3, 3E3], g), H.Eb([-5E3, 5E3], g), U.setTransform(m.translate(120, 0, 0), p), d && q(param.name)) : 1 == J ? (r.A([0, 0, 700], g), r.F([0, 0, 0], g), r.O([0, 0, 0], g), z.cb(e, g, c), z.bb(1, g), H.Cb([-5E3, 5E3], g), H.Db([-3E3, 3E3], g), H.Eb([-5E3, 5E3], g), U.setTransform(m.translate(0,
+        3 == J ? (z.cb(h, g, c), z.bb(1, g), r.A([0, 0, 700], g), r.F([0, 0, 0], g), r.O([0, 0, 0], g), H.Cb([-5E3, 5E3], g), H.Db([-3E3, 3E3], g), H.Eb([-5E3, 5E3], g), U.setTransform(m.translate(120, 0, 0), p), d && q("periodic")) : 1 == J ? (r.A([0, 0, 700], g), r.F([0, 0, 0], g), r.O([0, 0, 0], g), z.cb(e, g, c), z.bb(1, g), H.Cb([-5E3, 5E3], g), H.Db([-3E3, 3E3], g), H.Eb([-5E3, 5E3], g), U.setTransform(m.translate(0,
             0, 0), p), d && q("helix")) : 2 == J ? (r.A([0, 0, -500], g), r.F([0, 0, 0], g), r.O([0, 0, 0], g), z.cb(a, g, c), z.bb(1, g), H.Cb([-5E3, 5E3], g), H.Db([-3E3, 3E3], g), H.Eb([-5E3, 5E3], g), U.setTransform(m.translate(60, 0, 0), p), d && q("wall of fame")) : 0 == J ? (r.A([0, 0, 800], g), r.F([0, 0, 0], g), r.O([0, 0, 0], g), z.cb(f, g, c), z.bb(1, g), H.Cb([-5E3, 5E3], g), H.Db([-3E3, 3E3], g), H.Eb([-5E3, 5E3], g), U.setTransform(m.translate(-60, 0, 0), p), d && q("sphere")) : 4 == J && (r.A([0, 0, -600], g), r.F([0, -Math.PI / 11, 0], g), r.O([0, 0, 0], g), z.cb(j, g, c), z.bb(1, g), U.setTransform(m.translate(-120,
             0, 0), p), d && q("paraflow"));
         4 == J ? V.enable() : V.disable();
-        W.Ia(J)
+        W.Ia(J);
     }
-
+    
     function d() {
         var a = {duration: 1E3};
         x(K);
@@ -2293,7 +2290,7 @@ C("app", "require exports module 0/4 0/c 0/2 0/9 0/e 0/f 0/1 0/5 0/7 0/6 0/g 1/i
         c.j("shape-button");
         c.m(new L);
         c.k("click", function () {
-            G && (b(a), window._gaq && _gaq.push(["_trackEvent", "demo", "shapeshift", d, , w]))
+            G && b(a)
         });
         return c
     }
@@ -2333,11 +2330,9 @@ C("app", "require exports module 0/4 0/c 0/2 0/9 0/e 0/f 0/1 0/5 0/7 0/6 0/g 1/i
         R.Ia(0);
         G = p
     }
+    
 
     if (!("WebKitCSSMatrix"in window) || !("m11"in new WebKitCSSMatrix) )console.log('Not WebKitCSSMatrix');
-    
-    document.title = param.doc_title || "fala.me Stress Test Demo";
-    
     
     var A = "Common"in window && "API"in Common, G = w, P = c("0/4"), E = c("0/c"), Eb = c("0/2"), m = c("0/9"), u = c("0/e"), Fb = c("0/f"), ja = c("0/1"), Pa = c("0/5"), Gb = c("0/7"), ua = c("0/6"), ra = c("0/g"), Hb = c("1/i");
     c("1/j");
@@ -2346,29 +2341,13 @@ C("app", "require exports module 0/4 0/c 0/2 0/9 0/e 0/f 0/1 0/5 0/7 0/6 0/g 1/i
     var Ob = c("3/1a"), Pb = c("6/1i"), Qb = c("6/1k"), Rb = c("6/1j");
     c("2/z");
     
-    var  Ra = c("6/1l").xf, Tb = c("6/1l").uf, nb = c("6/1l").wf, ob = c("6/1l").vf;
-    
-    Ra = [];
-    nb = [];
-    ob = [];
-    
-    for(var i=0; i< 100; i++)
-    {
-        Ra.unshift('<img src="img/Koala.jpg" width ="90%" >');
-        nb.unshift('Koala'+i);
-        ob.unshift('best'+i);
-    }
-    
-    Ra.push('<img src="img/Koala.jpg" width ="200px">');
-    nb.push('Klast');
-    ob.push('last');
-
-    Ra.unshift('XXX');
-    nb.unshift('test');
-    ob.unshift('100');  
-    
-
-    
+    //var  Ra = c("6/1l").xf, Tb = c("6/1l").uf, nb = c("6/1l").wf, ob = c("6/1l").vf;
+    var  Ra = opt.data, Tb = opt.uf, nb = opt.name, ob = opt.message;
+    var param = opt.param;
+    var _type = {"sphere":0,"helix":1,"wall of fame":2,"periodic":3,"paraflow":4}; 
+    console.log(_type[opt.param.type]);
+    var type = (opt.param.type && _type[opt.param.type] != undefined) ? _type[opt.param.type] : 4;
+      
     for (var L = c("4/1d"), Sb = c("4/1c"), ma = Ra.length, Sa = Array(ma), Ta = 0; Ta < ma; Ta++)Sa[Ta] = 0.1 + 0.7 * Math.random();
     for (var aa, Ua = Array(ma), S = 0; S < Ua.length; S++) {
         var wa = new E([160, 120]); // proportion
@@ -2497,31 +2476,22 @@ C("app", "require exports module 0/4 0/c 0/2 0/9 0/e 0/f 0/1 0/5 0/7 0/6 0/g 1/i
     ub.j("caption");
     var Na = new E([600, 50], "");
     Na.j("shape-flash");
-    var Oa = new la(0, {duration: 1E3, h: ra.H.Ud}), U = new u(m.translate(-120, 0, 0), 1, "b");
+    var Oa = new la(0, {duration: 1E3, h: ra.H.Ud}); 
+    var U = new u(m.translate(-120, 0, 0), 1, "b");
     U.De({duration: 250, h: ra.H.Qa});
-    var vb = new E([60, 60], '<div class="shape-button-indicator-box"></div>');
-    vb.j("shape-button-indicator");
-    var hc = t(4, '<img src="content/icons/paraflow.png" alt="PF" />',
-        "paraflow"), ic = t(3, '<img src="content/icons/periodic.png" alt="P" />', param.name), jc = t(0, '<img src="content/icons/sphere.png" alt="S" />', "sphere"), kc = t(1, '<img src="content/icons/helix.png" alt="H" />', "helix"), lc = t(2, '<img src="content/icons/wall.png" alt="W" />', "wall of fame"), Ya = new E([window.innerWidth, window.innerHeight]);
+        
+    var Ya = new E([window.innerWidth, window.innerHeight]);
     Ya.j("obscure");
-    var ha = new la(0, {duration: 700, h: k}), Ca = new E([200, 60], "fun things to do &nbsp;&#9432;");
-    Ca.j("info-button");
-    var sa = new la(0, {duration: 500, h: k});
-    Ca.m(new L);
-    Ca.k("click", function () {
-        G && (ha.show(), sa.show(), R.Ia(1), window._gaq && _gaq.push(["_trackEvent", "sign-up", "info", , , p]))
-    });
+    var ha = new la(0, {duration: 700, h: k});
+
     sessionStorage.getItem("signedUp") ? (G = p, P.Xc(v)) : (G = w, P.Xc(D));
-    var wb = new E([600, 400], "<h3>Fun Things to Do</h3><ul><li>One finger to scroll</li><li>Two fingers to pinch zoom</li><li>Three fingers to plane in 3D</li><li>Touch any object to navigate to that object in 3D space</li><li>Touch-hold an object to disassemble any shape</li></ul><ul><li>Space key to shapeshift</li><li>WASD keys to move forward, left, backward, and right</li><li>Shift + W/S keys to move up/down</li><li>Arrow keys to rotate or spin</li><li>Hold Ctrl to enable mouse rotation</li></ul>");
-    wb.j("info");
     var Za = new ua([new L]);
     Za.k("keyup", F);
     Za.k("click", F);
     var ia = new u(m.W), 
-    xb = new E([600, 500], '<h3>Welcome to <strong>famo.us</strong><br /><span class="sub">a javascript engine and framework that solves HTML5 performance</span></h3><p>40-60fps on phones, tablets, PCs, and televisions<br /> mod a template, or piece together components<br /> no plug-ins, no WebGL, no Canvas<br /> works on modern browsers<br />everything is DOM<br /> 65KB footprint</p><p class="experience">sign up for the beta, then experience famo.us</p>');
+    xb = new E([600, 500], '<h3>Welcome to <strong>famo.us</strong><br /><span class="sub">a javascript engine and framework that solves HTML5 performance</span></h3><p>40-60fps on phones, tablets, PCs, and televisions<br /> mod a template, or piece together components<br /> no plug-ins, no WebGL, no Canvas<br /> works on modern browsers<br />everything is DOM<br /> 65KB footprint</p><p class="experience">for the beta</p>');
     xb.j("signup-box");
-    var $a = new E([600, 150], '<form method="POST" action="#"><div class="input"><input id="email" type="text" size="30" name="email" maxlength="75" placeholder="enter email to sign up for beta" size="35" /><input id="github" class="half" type="text" size="30" name="github" maxlength="75" placeholder="github account" size="35" /><input id="github"  class="half" type="text" size="30" name="twitter" maxlength="75" placeholder="twitter account" size="35" /></div><input class="button" type="submit" value="sign up" /></form>');
-    $a.j("signup");
+
     var X = new E([600, 20]);
     X.j("signup-error");
     var Da = new E([100, 100], '<img src="content/icons/circle-x.png" alt="x" />');
@@ -2529,47 +2499,19 @@ C("app", "require exports module 0/4 0/c 0/2 0/9 0/e 0/f 0/1 0/5 0/7 0/6 0/g 1/i
     Da.m(new L);
     Da.k("click", function () {
         v();
-        window._gaq && _gaq.push(["_trackEvent", "sign-up", "hide", , , w])
     });
     var Ea = new E([120, 30], "sign up for beta");
     Ea.j("signup-show");
     Ea.m(new L);
     Ea.k("click", function () {
         D();
-        window._gaq && _gaq.push(["_trackEvent", "sign-up", "show", , , w])
     });
-    var ta = new la(0), 
-    ab = new E([160, 30], '<a href="/privateBeta" target="_blank">private beta</a>');
-    ab.j("signup-show");
-    ab.m(new L);
+    var ta = new la(0);
     var na = new ja;
     na.i(xb);
-    na.i(new u(m.translate(0, 145, 0.01))).f($a);
     na.i(new u(m.translate(0, 210, 0.01))).f(X);
     na.i(new u(m.translate(275, -225, 0.01))).f(Da);
-    window.addEventListener("submit", function (a) {
-        a.preventDefault();
-        for (var b = {}, c = p, a = a.target.querySelectorAll("input"), d = 0; d < a.length; d++) {
-            var e = a[d];
-            e.name && (b[e.name] = e.value)
-        }
-        /^$|^[a-zA-Z0-9_]{1,15}$/.test(b.twitter) == w && (c = w);
-        /^$|^[a-zA-Z0-9][a-zA-Z0-9-]{0,38}$/.test(b.github) == w && (c = w);
-        a = document.location.href.split("/");
-        b.referrerId = 2 <= a.length && "r" == a[a.length - 2] ? a[a.length - 1] : "";
-        window._gaq && _gaq.push(["_trackEvent", "sign-up", "submit", , 1, p]);
-        a = new XMLHttpRequest;
-        a.open("POST", "/developers");
-        a.setRequestHeader("Content-Type", "application/json");
-        a.onreadystatechange = function () {
-            if (4 == this.readyState)if (200 == this.status) {
-                var a = JSON.parse(this.responseText);
-                "OK" == a.status ? (X.R(""), $a.R("<p><strong>Success!</strong> We just sent you an email with some more information. We'll send you updates soon.</p>" + ('<div class="tweet-button">' +
-                    y("Tweet", a.socialId) + "</div>")), Fa.R(B(a.socialId)), sessionStorage.setItem("signedUp", p), window._gaq && _gaq.push(["_trackEvent", "sign-up", "success", , , w])) : X.R(a.msg)
-            } else X.R("Ooops! Something went wrong. Try again."), window._gaq && _gaq.push(["_trackEvent", "sign-up", "error", , , p])
-        };
-        c ? a.send(JSON.stringify(b)) : (X.R("Ooops! Something went wrong. Try again."), window._gaq && _gaq.push(["_trackEvent", "sign-up", "error", , , p]))
-    });
+
     var yb = new ua;
     yb.k("keyup", function (a) {
         if (A) {
@@ -2582,23 +2524,7 @@ C("app", "require exports module 0/4 0/c 0/2 0/9 0/e 0/f 0/1 0/5 0/7 0/6 0/g 1/i
     R.Q(0).m($);
     R.Q(1).m(Za);
     R.Q(2).m(yb);
-    var zb = new E([100, 60], param.site);
-    zb.j("overlay-text");
-    var Ga = new E([80, 60], '<a href="http://angel.co/famo-us" target="_blank">jobs</a>');
-    Ga.j("jobs-button");
-    Ga.j("overlay-text");
-    Ga.k("click", function () {
-        window._gaq && _gaq.push(["_trackEvent", "sign-up", "jobs", , , p]);
-        return false;
-    });
-    var Fa = new E([60, 60], B());
-    Fa.j("shape-button");
-    Fa.k("click",
-        function () {
-            window._gaq && _gaq.push(["_trackEvent", "demo", "tweet", , , w])
-        });
-    var Ab = new E([300, 60], param.copyright);
-    Ab.j("copyright");
+
     var mc = P.Pd(document.querySelector("#main")), Bb = P.Pd(document.querySelector("#overlay")), bb = new ja;
     bb.i(new u(m.move(m.scale(3, 3, 3), [0, -1E3, 0]))).f(ub);
     bb.i(H).f(V).f(z);
@@ -2609,33 +2535,17 @@ C("app", "require exports module 0/4 0/c 0/2 0/9 0/e 0/f 0/1 0/5 0/7 0/6 0/g 1/i
             3), target: ba.z()};
         return[a, b]
     });
-    var Ha = new Eb([window.innerWidth, 60]);
-    Ha.j("bottom-bar");
+
     Bb.k("resize", function () {
-        Ha.pa([window.innerWidth, 60]);
         Ya.pa([window.innerWidth, window.innerHeight])
     });
-    var M = new ja;
-    M.i(new u(m.translate(240, 0), 1, "b")).f(Fa);
-    M.i(new u(m.translate(-120, 0), 1, "b")).f(hc);
-    M.i(new u(m.translate(120, 0), 1, "b")).f(ic);
-    M.i(new u(m.translate(0, 0), 1, "b")).f(kc);
-    M.i(new u(m.translate(60, 0), 1, "b")).f(lc);
-    M.i(new u(m.translate(-60, 0), 1, "b")).f(jc);
-    M.i(new u(m.translate(0, 0, 0.01), 1, "b")).f(U).f(vb);
-    M.i(new u(m.W, 1, "br")).f(Ca);
-    M.i(new u(m.W, 1, "bl")).f(Ab);
-    Ha.Qb(M);
     var N = new ja;
     N.i(Oa).f(Na);
-    N.i(new u(m.W, 1, "tl")).f(zb);
-    N.i(new u(m.W, 1, "tr")).f(Ga);
-    N.i(new u(m.translate(0, 0, 0), 1, "b")).f(Ha);
+
     N.i(new u(m.translate(0, 0, 0.09))).f(ha).f(Ya);
-    N.i(new u(m.translate(0, 0, 1))).f(sa).f(wb);
     N.i(new u(m.translate(0, 0, 1))).f(ia).f(na);
     N.i(new u(m.move(m.vd(Math.PI / 2), [-45, 0]), 1, "l")).f(ta).f(Ea);
-    N.i(new u(m.move(m.vd(-Math.PI / 2), [65, 0]), 1, "r")).f(ta).f(ab);
+    N.i(new u(m.move(m.vd(-Math.PI / 2), [65, 0]), 1, "r")).f(ta);
     mc.Qb(cb);
     Bb.Qb(N);
     $.Q(0).Ga(W);
@@ -2654,12 +2564,57 @@ C("app", "require exports module 0/4 0/c 0/2 0/9 0/e 0/f 0/1 0/5 0/7 0/6 0/g 1/i
             gc.update()
         }
     });
-    b(4);
     
-});
+    b(type);
 
-var falame = function(opt){
-    da(["app"]);
+    return {
+      setType : function(a){b(a);},
+      init : function(){v();} 
+    };
+
+};
+
+
+var opt =  {
+        data:[],
+        name:[],
+        message:[],
+        uf: {   
+                Ag: [0, 5, 6, 7, 14, 15, 33], 
+                zg: [1, 9, 17, 35, 53, 85, 117], 
+                tg: [8, 16, 34, 52, 84, 116], 
+                xg: [4, 13, 31, 32, 50, 51, 83], 
+                Ib: [20, 21, 22, 23, 24, 25, 26, 27, 28, 29,38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 71, 72, 73, 74, 75, 76, 77, 78, 79, 103, 104, 105, 106, 107, 108, 109, 110, 111], 
+                Cg: [12, 30, 48, 49, 80, 81, 82, 112, 113, 114, 115], 
+                lg: [2, 10, 18, 36, 54, 86], 
+                mg: [3, 11, 19, 37, 55, 87], 
+                vg: [56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70], 
+                kg: [88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102]
+        }, 
+        param: {
+            name: 'DEMO', 
+            type:"paraflow"//default paraflow more "sphere","helix","wall of fame","periodic","paraflow"
+        }
+    };
+ 
+/* 
+<h3>Fun Things to Do</h3><ul><li>One finger to scroll</li><li>Two fingers to pinch zoom</li><li>Three fingers to plane in 3D</li><li>Touch any object to navigate to that object in 3D space</li><li>Touch-hold an object to disassemble any shape</li></ul><ul><li>Space key to shapeshift</li><li>WASD keys to move forward, left, backward, and right</li><li>Shift + W/S keys to move up/down</li><li>Arrow keys to rotate or spin</li><li>Hold Ctrl to enable mouse rotation</li></ul>");
+ */
+//data name message
+for(var i=0; i< 100; i++)
+{
+    opt.data.unshift('<img src="img/Koala.jpg" width ="90%" >');
+    opt.name.unshift('Koala'+i);
+    opt.message.unshift('best'+i);
 }
 
-falame();
+opt.data.push('<img src="img/Koala.jpg" width ="200px">');
+opt.name.push('Klast');
+opt.message.push('last');
+
+opt.data.unshift('XXX');
+opt.name.unshift('test');
+opt.message.unshift('100');
+
+var a = app(da, opt) ;
+//a.init();
