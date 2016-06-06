@@ -2159,34 +2159,8 @@ C("4/1c", ["require", "exports", "module"], function (c, k, j) {
     j.e = f
 });
 
-C("6/1l", {
-        xf: "H He Li Be B C N O F Ne Na Mg Al Si P S Cl Ar K Ca Sc Ti V Cr Mn Fe Co Ni Cu Zn Ga Ge As Se Br Kr Rb Sr Y Zr Nb Mo Tc Ru Rh Pd Ag Cd In Sn Sb Te I Xe Cs Ba La Ce Pr Nd Pm Sm Eu Gd Tb Dy Ho Er Tm Yb Lu Hf Ta W Re Os Ir Pt Au Hg Tl Pb Bi Po At Rn Fr Ra Ac Th Pa U Np Pu Am Cm Bk Cf Es Fm Md No Lr Rf Db Sg Bh Hs Mt Ds Rg Cn Rv Fl Uup Lv Uus Ur".split(" "),
-        uf: {   
-                Ag: [0, 5, 6, 7, 14, 15, 33], 
-                zg: [1, 9, 17, 35, 53, 85, 117], 
-                tg: [8, 16, 34, 52, 84, 116], 
-                xg: [4, 13, 31, 32, 50, 51, 83], 
-                Ib: [20, 21, 22, 23, 24, 25, 26, 27, 28, 29,38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 71, 72, 73, 74, 75, 76, 77, 78, 79, 103, 104, 105, 106, 107, 108, 109, 110, 111], 
-                Cg: [12, 30, 48, 49, 80, 81, 82, 112, 113, 114, 115], 
-                lg: [2, 10, 18, 36, 54, 86], 
-                mg: [3, 11, 19, 37, 55, 87], 
-                vg: [56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70], 
-                kg: [88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102]
-        }, 
-        wf: "Hydrogen Helium Lithium Beryllium Boron Carbon Nitrogen Oxygen Fluorine Neon Sodium Magnesium Aluminium Silicon Phosphorus Sulfur Chlorine Argon Potassium Calcium Scandium Titanium Vanadium Chromium Manganese Iron Cobalt Nickel Copper Zinc Gallium Germanium Arsenic Selenium Bromine Krypton Rubidium Strontium Yttrium Zirconium Niobium Molybdenum Technetium Ruthenium Rhodium Palladium Silver Cadmium Indium Tin Antimony Tellurium Iodine Xenon Cesium Barium Lanthanum Cerium Praseodymium Neodymium Promethium Samarium Europium Gadolinium Terbium Dysprosium Holmium Erbium Thulium Ytterbium Lutetium Hafnium Tantalum Tungsten Rhenium Osmium Iridium Platinum Gold Mercury Thallium Lead Bismuth Polonium Astatine Radon Francium Radium Actinium Thorium Protactinium Uranium Neptunium Plutonium Americium Curium Berkelium Californium Einsteinium Fermium Mendelevium Nobelium Lawrencium Rutherfordium Dubnium Seaborgium Bohrium Hassium Meitnerium Darmstadtium Roentgenium Copernicium Ravikantium Flerovium Ununpentium Livermorium Ununseptium Urasium".split(" "),
-        vf: "1.008;4.003;6.941;9.012;10.812;12.011;14.007;15.999;18.998;20.180;22.990;24.305;26.982;28.086;30.974;32.066;35.453;39.948;39.098;40.078;44.956;47.867;50.942;51.996;54.938;55.845;58.933;58.693;63.546;65.382;69.723;72.631;74.922;78.963;79.904;83.798;85.468;87.621;88.906;91.224;92.906;95.962;(98);101.072;102.916;106.421;107.868;112.411;114.818;118.712;121.760;127.603;126.904;131.294;132.905;137.328;138.905;140.116;140.908;144.242;(145);150.362;151.964;157.253;158.925;162.500;164.930;167.259;168.934;173.055;174.967;178.492;180.948;183.841;186.207;190.233;192.217;195.085;196.967;200.592;204.383;207.21;208.980;(209);(210);(222);(223);(226);(227);232.038;231.036;238.029;(237);(244);(243);(247);(247);(251);(252);(257);(258);(259);(262);(267);(268);(269);(270);(269);(278);(281);(281);(285);Angellist Maximus;(289);(288);(293);(294);Michael Arrington".split(";"),
-        param: {
-            site: 'fla.me' , 
-            name: 'periodic table 11', 
-            doc_title:'fla.me', 
-            title:'test test', 
-            copyright:"&copy; 2016 Famous Industries, Inc.",
-            content : '',
-            
-        }
-    });
 
-//C("app", "require exports module 0/4 0/c 0/2 0/9 0/e 0/f 0/1 0/5 0/7 0/6 0/g 1/i 1/j 1/s 1/r 1/p 1/l 1/q 1/n 1/o 1/m 3/14 3/15 3/16 3/19 3/1a 6/1i 6/1k 6/1j 2/z 4/1d 4/1c 6/1l 6/1l 6/1l 6/1l".split(" "),
+//C("app", "require exports module 0/4 0/c 0/2 0/9 0/e 0/f 0/1 0/5 0/7 0/6 0/g 1/i 1/j 1/s 1/r 1/p 1/l 1/q 1/n 1/o 1/m 3/14 3/15 3/16 3/19 3/1a 6/1i 6/1k 6/1j 2/z 4/1d 4/1c".split(" "),
 var app = function (c, opt) {
  
     function k(a) {
@@ -2347,11 +2321,12 @@ var app = function (c, opt) {
     var _type = {"sphere":0,"helix":1,"wall of fame":2,"periodic":3,"paraflow":4}; 
     console.log(_type[opt.param.type]);
     var type = (opt.param.type && _type[opt.param.type] != undefined) ? _type[opt.param.type] : 4;
-      
+    var rgb = opt.param.rgb || [73,160,154];
+    
     for (var L = c("4/1d"), Sb = c("4/1c"), ma = Ra.length, Sa = Array(ma), Ta = 0; Ta < ma; Ta++)Sa[Ta] = 0.1 + 0.7 * Math.random();
     for (var aa, Ua = Array(ma), S = 0; S < Ua.length; S++) {
         var wa = new E([160, 120]); // proportion
-        wa.Bb({backgroundColor: "rgba(73,160,154," + Sa[S] + ")"});
+        wa.Bb({backgroundColor: "rgba("+rgb.join(',')+","+ Sa[S] + ")"});
         wa.j("periodic-item");
         wa.R('<div class="number">' + /*(S + 1) */ ''+ '</div><div class="symbol">' + Ra[S] + '</div><div class="name">' + nb[S] + '</div><div class="mass">' +
             ob[S] + "</div>");
@@ -2360,7 +2335,7 @@ var app = function (c, opt) {
     aa = Ua;
     for (var Q, Va = Array(ma), T = 0; T < Va.length; T++) {
         var xa = new E([480,360]); // proportion
-        xa.Bb({backgroundColor: "rgba(73,160,154," + Sa[T] + ")"});
+        xa.Bb({backgroundColor: "rgba("+rgb.join(',')+"," + Sa[T] + ")"});
         xa.j("periodic-item-hq");
         xa.R('<div class="number">' + /*(T + 1)*/'' + '</div><div class="symbol">' + Ra[T] + '</div><div class="name">' + nb[T] + '</div><div class="mass">' + ob[T] + "</div>");
         Va[T] = xa
@@ -2593,7 +2568,8 @@ var opt =  {
         }, 
         param: {
             name: 'DEMO', 
-            type:"paraflow"//default paraflow more "sphere","helix","wall of fame","periodic","paraflow"
+            type:"paraflow",//default paraflow more "sphere","helix","wall of fame","periodic","paraflow"
+            rgb: [23,152,202]
         }
     };
  
