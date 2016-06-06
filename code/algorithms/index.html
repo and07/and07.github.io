@@ -836,9 +836,20 @@ assertSimilarObjects(convertQueryToMap(q), out);
 	</body>
 <script>
 $(document).ready(function() {
-  $('pre code').each(function(i, block) {
-    hljs.highlightBlock(block);
-  });
+	var anchorLinks = document.querySelectorAll("a[href^='#']");
+	for(var i = 0; i < anchorLinks.length; i++){
+		anchorLinks[i].addEventListener("click", function(e) {
+			if (window.scrollTo) {
+				var target = document.getElementById(this.getAttribute("href").substring(1));
+				e.preventDefault();
+				window.scrollTo({"behavior": "smooth", "top": target.offsetTop});
+			}
+		}.bind(anchorLinks[i]));
+	};
+	
+	$('pre code').each(function(i, block) {
+		hljs.highlightBlock(block);
+	});
 });
 </script>
 <script async src="/js/site.js"></script>
