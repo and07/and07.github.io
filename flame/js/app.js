@@ -1,3 +1,4 @@
+var  flame = (function(el,opt){
 //define l as undefined, p as true, s as null, w as false, da as undefined, and C as undefined
 var l = void 0, p = !0, s = null, w = !1, da, C;
 function ea(c, k) {
@@ -242,7 +243,8 @@ C("0/c", ["require", "exports", "module", "./7", "./6"], function (c, k, j) {
         return f.he[a]
     };
     f.Qe = ["touchstart", "touchmove", "touchend", "touchcancel", "click"];
-    f.prototype = {k: function (a, b) {
+    f.prototype = {
+       k: function (a, b) {
         this.pb.k(a, b)
     }, d: function (a, b) {
         b && (b.origin = this);
@@ -307,7 +309,7 @@ C("0/c", ["require", "exports", "module", "./7", "./6"], function (c, k, j) {
     }, pa: function (a) {
         this.size = a.slice(0, 2);
         this.Ba = p
-    }};
+    } };
     j.e = f
 });
 C("0/9", ["require", "exports", "module"], function (c, k, j) {
@@ -2159,9 +2161,7 @@ C("4/1c", ["require", "exports", "module"], function (c, k, j) {
     j.e = f
 });
 
-
-//C("app", "require exports module 0/4 0/c 0/2 0/9 0/e 0/f 0/1 0/5 0/7 0/6 0/g 1/i 1/j 1/s 1/r 1/p 1/l 1/q 1/n 1/o 1/m 3/14 3/15 3/16 3/19 3/1a 6/1i 6/1k 6/1j 2/z 4/1d 4/1c".split(" "),
-var app = function (c, opt) {
+var app = function (c, el, opt) {
  
     function k(a) {
         var b = 1.70158;
@@ -2259,52 +2259,31 @@ var app = function (c, opt) {
         Oa.Ua()
     }
 
-    function t(a, c, d) {
-        c = new E([60, 60], c);
-        c.j("shape-button");
-        c.m(new L);
-        c.k("click", function () {
-            G && b(a)
-        });
-        return c
-    }
 
     function F() {
         sa.Of(1) && (ha.Ua(), sa.Ua(),
             R.Ia(0))
     }
 
-    function y(a, b, c) {
-        var d = "http://famo.us";
-        b && (d += "/r/" + b);
-        c || (b = ["Wow! HTML5 performance solved. Check out famo.us Beta + Demo", "I can't believe what I saw HTML5 do. Check out famo.us Beta + Demo", "The famo.us demo just blew me away. Check out famo.us Beta + Demo", "If I hadn't seen it, I wouldn't believe it: famo.us HTML5 Beta + Demo", "I'm gunna go with holy shitsnacks! famo.us HTML5 Beta + Demo"], c = b[Math.floor(Math.random() * b.length)]);
-        return'<a href="https://twitter.com/share?text=' + encodeURIComponent(c) +
-            "&url=" + encodeURIComponent(d) + "&via=befamous\" onclick=\"event.preventDefault(); window.open(event.currentTarget.href, '_blank', 'width=700,height=260');\">" + a + "</a>"
-    }
-
-    function B(a) {
-        return y('<img src="content/icons/twitter.png" alt="Tweet" />', a, l)
-    }
-
     function D() {
-        X.R("");
         ha.show();
-        ia.ab(1);
-        ia.setTransform(m.W, {duration: 500, h: k});
         ta.Ua();
         R.Ia(2)
     }
 
     function v() {
         ha.Ua();
-        ia.setTransform(m.move(m.scale(0.0010, 0.0010, 0.0010), [-0.5 * window.innerWidth, 0, 0]), {duration: 500, h: k}, function () {
-            ia.ab(0)
-        });
         ta.show();
         R.Ia(0);
-        G = p
+        G = p;
     }
     
+    function init(){
+        setTimeout(function () {
+                    R.Ia(0);
+                    G = p;
+            }, 30);
+    }
 
     if (!("WebKitCSSMatrix"in window) || !("m11"in new WebKitCSSMatrix) )console.log('Not WebKitCSSMatrix');
     
@@ -2315,28 +2294,30 @@ var app = function (c, opt) {
     var Ob = c("3/1a"), Pb = c("6/1i"), Qb = c("6/1k"), Rb = c("6/1j");
     c("2/z");
     
-    //var  Ra = c("6/1l").xf, Tb = c("6/1l").uf, nb = c("6/1l").wf, ob = c("6/1l").vf;
     var  Ra = opt.data, Tb = opt.uf, nb = opt.name, ob = opt.message;
     var param = opt.param;
     var _type = {"sphere":0,"helix":1,"wall of fame":2,"periodic":3,"paraflow":4}; 
     console.log(_type[opt.param.type]);
+    
     var type = (opt.param.type && _type[opt.param.type] != undefined) ? _type[opt.param.type] : 4;
     var rgb = opt.param.rgb || [73,160,154];
+    var size_items = opt.param.size_items || {small:[160, 120], big:[480,360]}
     
     for (var L = c("4/1d"), Sb = c("4/1c"), ma = Ra.length, Sa = Array(ma), Ta = 0; Ta < ma; Ta++)Sa[Ta] = 0.1 + 0.7 * Math.random();
     for (var aa, Ua = Array(ma), S = 0; S < Ua.length; S++) {
-        var wa = new E([160, 120]); // proportion
+        var wa = new E(size_items.small); // proportion
         wa.Bb({backgroundColor: "rgba("+rgb.join(',')+","+ Sa[S] + ")"});
-        wa.j("periodic-item");
+        wa.j("fg-item");
         wa.R('<div class="number">' + /*(S + 1) */ ''+ '</div><div class="symbol">' + Ra[S] + '</div><div class="name">' + nb[S] + '</div><div class="mass">' +
             ob[S] + "</div>");
+        console.log(wa);
         Ua[S] = wa
     }
     aa = Ua;
     for (var Q, Va = Array(ma), T = 0; T < Va.length; T++) {
-        var xa = new E([480,360]); // proportion
+        var xa = new E(size_items.big); // proportion
         xa.Bb({backgroundColor: "rgba("+rgb.join(',')+"," + Sa[T] + ")"});
-        xa.j("periodic-item-hq");
+        xa.j("fg-item-hq");
         xa.R('<div class="number">' + /*(T + 1)*/'' + '</div><div class="symbol">' + Ra[T] + '</div><div class="name">' + nb[T] + '</div><div class="mass">' + ob[T] + "</div>");
         Va[T] = xa
     }
@@ -2436,16 +2417,19 @@ var app = function (c, opt) {
             }
         })
     }).call(this, O, aa[O]);
-    for (O = 0; O < Q.length; O++)Q[O].m(new L), Q[O].k("click", function () {
-        ga.Zb(1)
-    });
+    for (O = 0; O < Q.length; O++){
+        Q[O].m(new L), 
+        Q[O].k("click", function () {
+            ga.Zb(1);
+        });
+    }
     new Fb(0);
-    var ba = new E([480,360], "Reserved for Future Examples");
-    ba.j("periodic-item-hq");
-    ba.j("periodic-item-back");
+    var ba = new E(size_items.big, "Reserved for Future Examples",{size:'ffgh'});
+    ba.j("fg-item-hq");
+    ba.j("fg-item-back");
     ba.m(new L);
     ba.k("click", function () {
-        ga.Zb(0)
+        ga.Zb(0);
     });
     var ub = new E([200, 32], param.name);
     ub.j("caption");
@@ -2455,38 +2439,14 @@ var app = function (c, opt) {
     var U = new u(m.translate(-120, 0, 0), 1, "b");
     U.De({duration: 250, h: ra.H.Qa});
         
-    var Ya = new E([window.innerWidth, window.innerHeight]);
-    Ya.j("obscure");
     var ha = new la(0, {duration: 700, h: k});
 
     sessionStorage.getItem("signedUp") ? (G = p, P.Xc(v)) : (G = w, P.Xc(D));
     var Za = new ua([new L]);
     Za.k("keyup", F);
     Za.k("click", F);
-    var ia = new u(m.W), 
-    xb = new E([600, 500], '<h3>Welcome to <strong>famo.us</strong><br /><span class="sub">a javascript engine and framework that solves HTML5 performance</span></h3><p>40-60fps on phones, tablets, PCs, and televisions<br /> mod a template, or piece together components<br /> no plug-ins, no WebGL, no Canvas<br /> works on modern browsers<br />everything is DOM<br /> 65KB footprint</p><p class="experience">for the beta</p>');
-    xb.j("signup-box");
 
-    var X = new E([600, 20]);
-    X.j("signup-error");
-    var Da = new E([100, 100], '<img src="content/icons/circle-x.png" alt="x" />');
-    Da.j("signup-hide");
-    Da.m(new L);
-    Da.k("click", function () {
-        v();
-    });
-    var Ea = new E([120, 30], "sign up for beta");
-    Ea.j("signup-show");
-    Ea.m(new L);
-    Ea.k("click", function () {
-        D();
-    });
     var ta = new la(0);
-    var na = new ja;
-    na.i(xb);
-    na.i(new u(m.translate(0, 210, 0.01))).f(X);
-    na.i(new u(m.translate(275, -225, 0.01))).f(Da);
-
     var yb = new ua;
     yb.k("keyup", function (a) {
         if (A) {
@@ -2500,7 +2460,8 @@ var app = function (c, opt) {
     R.Q(1).m(Za);
     R.Q(2).m(yb);
 
-    var mc = P.Pd(document.querySelector("#main")), Bb = P.Pd(document.querySelector("#overlay")), bb = new ja;
+    var mc = P.Pd(document.querySelector(el)), 
+        bb = new ja;
     bb.i(new u(m.move(m.scale(3, 3, 3), [0, -1E3, 0]))).f(ub);
     bb.i(H).f(V).f(z);
     var cb = new ja;
@@ -2511,18 +2472,7 @@ var app = function (c, opt) {
         return[a, b]
     });
 
-    Bb.k("resize", function () {
-        Ya.pa([window.innerWidth, window.innerHeight])
-    });
-    var N = new ja;
-    N.i(Oa).f(Na);
-
-    N.i(new u(m.translate(0, 0, 0.09))).f(ha).f(Ya);
-    N.i(new u(m.translate(0, 0, 1))).f(ia).f(na);
-    N.i(new u(m.move(m.vd(Math.PI / 2), [-45, 0]), 1, "l")).f(ta).f(Ea);
-    N.i(new u(m.move(m.vd(-Math.PI / 2), [65, 0]), 1, "r")).f(ta);
     mc.Qb(cb);
-    Bb.Qb(N);
     $.Q(0).Ga(W);
     $.Q(0).Ga(tb);
     $.Q(1).m(Aa);
@@ -2536,20 +2486,24 @@ var app = function (c, opt) {
             H.Cb([(e - 1) * a, e * a], w);
             H.Db([(d - 1) * b, d * b], w);
             H.Eb([-c + 400, 400], w);
-            gc.update()
+            gc.update();
         }
     });
     
     b(type);
-
+    init();
     return {
-      setType : function(a){b(a);},
-      init : function(){v();} 
+        setType : function(a){ b(a); }
     };
-
 };
+return app(da, el, opt);
+});
 
 
+
+/**
+ * DEMO
+ */
 var opt =  {
         data:[],
         name:[],
@@ -2569,7 +2523,8 @@ var opt =  {
         param: {
             name: 'DEMO', 
             type:"paraflow",//default paraflow more "sphere","helix","wall of fame","periodic","paraflow"
-            rgb: [23,152,202]
+            rgb: [23,152,202], //default 73,160,154
+            //size_items : {small:[160, 120], big: [880,660]},
         }
     };
  
@@ -2577,9 +2532,13 @@ var opt =  {
 <h3>Fun Things to Do</h3><ul><li>One finger to scroll</li><li>Two fingers to pinch zoom</li><li>Three fingers to plane in 3D</li><li>Touch any object to navigate to that object in 3D space</li><li>Touch-hold an object to disassemble any shape</li></ul><ul><li>Space key to shapeshift</li><li>WASD keys to move forward, left, backward, and right</li><li>Shift + W/S keys to move up/down</li><li>Arrow keys to rotate or spin</li><li>Hold Ctrl to enable mouse rotation</li></ul>");
  */
 //data name message
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+var img = ['Koala.jpg','Desert.jpg','Jellyfish.jpg','Lighthouse.jpg','Penguins.jpg'];
 for(var i=0; i< 100; i++)
 {
-    opt.data.unshift('<img src="img/Koala.jpg" width ="90%" >');
+    opt.data.unshift('<img src="img/'+img[getRandomInt(0,5)]+'" width ="95%" >');
     opt.name.unshift('Koala'+i);
     opt.message.unshift('best'+i);
 }
@@ -2592,5 +2551,4 @@ opt.data.unshift('XXX');
 opt.name.unshift('test');
 opt.message.unshift('100');
 
-var a = app(da, opt) ;
-//a.init();
+var a = flame("#main", opt);
