@@ -282,6 +282,7 @@ C("0/c", ["require", "exports", "module", "./7", "./6"], function (c, k, j) {
         this.Gd(a);
         for (var d = 0; d < b.length; d++)a.classList.add(b[d]);
         this.Rd(a);
+        this.setAttribute(a);
         this.cf(a);
         this.Ba = w;
         this.Kb = a
@@ -297,9 +298,9 @@ C("0/c", ["require", "exports", "module", "./7", "./6"], function (c, k, j) {
         this.Kb = l
     }, Rd: function (a) {
         a.innerHTML = this.content;
-        for(var k in this.attr) a.setAttribute(k,this.attr[k]);
         this.d("deploy", a)
-    }, nd: function () {
+    }, 
+     nd: function () {
     }, Sc: function () {
         if (this.size)return this.size.slice(0);
         if (this.Kb) {
@@ -315,7 +316,9 @@ C("0/c", ["require", "exports", "module", "./7", "./6"], function (c, k, j) {
         this.Ba = p
     }, setAttr: function(attr){
         this.attr = attr;
-    } };
+    }, setAttribute: function(a){
+        for(var k in this.attr) a.setAttribute(k,this.attr[k]);
+    }, };
     j.e = f
 });
 C("0/9", ["require", "exports", "module"], function (c, k, j) {
@@ -2437,8 +2440,10 @@ var app = function (c, el, opt) {
     for (O = 0; O < Q.length; O++){
         Q[O].m(new L), 
         Q[O].k("click", function (e) {
-            var el = e.target.parentNode.parentNode;
-            console.log(el);
+            var el = e.target;
+            while(!el.classList.contains('fg-item-hq')){
+                el = el.parentNode;
+            };
             console.log(el.getAttribute('data-name'));
             ba.R(el.getAttribute('data-name'));
             ga.Zb(1);
