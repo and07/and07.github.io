@@ -113,7 +113,8 @@ C("0/a", ["require", "exports", "module"], function (c, k, j) {
         this.next = l
     }
 
-    f.prototype = {get: function () {
+    f.prototype = {
+       get: function () {
         return this.cd
     }, f: function (h) {
         h = new f(h);
@@ -140,7 +141,8 @@ C("0/6", ["require", "exports", "module"], function (c, k, j) {
         this.fc = {}
     }
 
-    f.prototype = {d: function (h, e) {
+    f.prototype = {
+       d: function (h, e) {
         e || (e = {});
         e.origin = this;
         for (var a = 0; a < this.Tc.length; a++)this.Tc[a].d(h, e);
@@ -157,11 +159,12 @@ C("0/3", ["require", "exports", "module", "./a", "./6"], function (c, k, j) {
     function f(a) {
         this.aa = a;
         this.tc = l;
-        this.pb = new e
+        this.pb = new e;
     }
 
     var h = c("./a"), e = c("./6");
-    f.prototype = {Qb: function (a) {
+    f.prototype = {
+       Qb: function (a) {
         return this.tc = new h(a)
     }, update: function () {
         this.tc && this.aa.update(this.tc.execute())
@@ -231,6 +234,7 @@ C("0/c", ["require", "exports", "module", "./7", "./6"], function (c, k, j) {
         this.Lc = new h;
         this.pb = new e;
         this.size = l;
+        this.attr = {};
         "object" == typeof a && this.pa(a);
         "undefined" != typeof b && this.R(b);
         f.he[this.id] = this
@@ -263,8 +267,7 @@ C("0/c", ["require", "exports", "module", "./7", "./6"], function (c, k, j) {
     }, cf: function (a) {
         for (var b in this.J)this.J.hasOwnProperty(b) && a.addEventListener(b, this.Wb);
         b = f.Qe;
-        for (var d = 0; d < b.length; d++)a.addEventListener(b[d],
-            this.Wb)
+        for (var d = 0; d < b.length; d++)a.addEventListener(b[d],this.Wb)
     }, gf: function (a) {
         for (var b in this.J)this.J.hasOwnProperty(b) && a.removeEventListener(b, this.Wb);
         b = f.Qe;
@@ -294,6 +297,7 @@ C("0/c", ["require", "exports", "module", "./7", "./6"], function (c, k, j) {
         this.Kb = l
     }, Rd: function (a) {
         a.innerHTML = this.content;
+        for(var k in this.attr) a.setAttribute(k,this.attr[k]);
         this.d("deploy", a)
     }, nd: function () {
     }, Sc: function () {
@@ -309,6 +313,8 @@ C("0/c", ["require", "exports", "module", "./7", "./6"], function (c, k, j) {
     }, pa: function (a) {
         this.size = a.slice(0, 2);
         this.Ba = p
+    }, setAttr: function(attr){
+        this.attr = attr;
     } };
     j.e = f
 });
@@ -617,7 +623,7 @@ C("0/d", "require exports module ./c ./9 ./b ./g".split(" "), function (c, k, j)
         this.a.oe || (this.a.oe = 30);
         this.a.dc || (this.a.dc = 0);
         this.a.Da || (this.a.Da = "c");
-        this.a.size || (this.a.size = [a.offsetWidth, a.offsetHeight])
+        this.a.size || (this.a.size = [a.offsetWidth, a.offsetHeight]);
     }
 
     function h(a, b) {
@@ -637,7 +643,8 @@ C("0/d", "require exports module ./c ./9 ./b ./g".split(" "), function (c, k, j)
     }
 
     var b = c("./c"), d = c("./9"), g = c("./b"), x = c("./g"), q = document.body.style.webkitTransform !== l;
-    f.prototype = {update: function (b) {
+    f.prototype = {
+       update: function (b) {
         var a = (new g).parse(b), b = a.C, d = a.n, e = a.lc, c = a.ac, h = a.tb, f = a.sb, a = a.cc, x = {}, q = [], j;
         for (j in d)if (d.hasOwnProperty(j)) {
             var k = this.Va[j];
@@ -653,9 +660,8 @@ C("0/d", "require exports module ./c ./9 ./b ./g".split(" "), function (c, k, j)
         } else for (q = 0; q < this.n[m].length; q++)delete this.n[m][q].rb;
         this.n = j;
         for (var u in this.Y)b.hasOwnProperty(u) || this.detach(u);
-        for (u in b)this.hg(u, b[u], d[u],
-            e[u], c[u]);
-        for (u in h)this.gg(u, h[u], f[u], a[u])
+        for (u in b)this.hg(u, b[u], d[u], e[u], c[u]);
+        for (u in h)this.gg(u, h[u], f[u], a[u]);
     }, gg: function (b, g, e, c) {
         if (b = this.n[b])for (var f = 0; f < b.length; f++) {
             if (!d.Yd(b[f].ne, g)) {
@@ -2287,9 +2293,12 @@ var app = function (c, el, opt) {
 
     if (!("WebKitCSSMatrix"in window) || !("m11"in new WebKitCSSMatrix) )console.log('Not WebKitCSSMatrix');
     
-    var A = "Common"in window && "API"in Common, G = w, P = c("0/4"), E = c("0/c"), Eb = c("0/2"), m = c("0/9"), u = c("0/e"), Fb = c("0/f"), ja = c("0/1"), Pa = c("0/5"), Gb = c("0/7"), ua = c("0/6"), ra = c("0/g"), Hb = c("1/i");
+    var A = "Common"in window && "API"in Common, G = w, P = c("0/4"), E = c("0/c"), Eb = c("0/2"), 
+        m = c("0/9"), u = c("0/e"), Fb = c("0/f"), ja = c("0/1"), Pa = c("0/5"), Gb = c("0/7"), 
+        ua = c("0/6"), ra = c("0/g"), Hb = c("1/i");
     c("1/j");
-    var Qa = c("1/s"), Ib = c("1/r"), Jb = c("1/p"), ka = c("1/l"), Kb = c("1/q"), va = c("1/n"), ca = c("1/o"), Lb = c("1/m"), la = c("3/14"), Mb = c("3/15"), Nb = c("3/16");
+    var Qa = c("1/s"), Ib = c("1/r"), Jb = c("1/p"), ka = c("1/l"), Kb = c("1/q"), 
+        va = c("1/n"), ca = c("1/o"), Lb = c("1/m"), la = c("3/14"), Mb = c("3/15"), Nb = c("3/16");
     c("3/19");
     var Ob = c("3/1a"), Pb = c("6/1i"), Qb = c("6/1k"), Rb = c("6/1j");
     c("2/z");
@@ -2304,24 +2313,26 @@ var app = function (c, el, opt) {
     var size_items = opt.param.size_items || {small:[160, 120], big:[480,360]}
     
     for (var L = c("4/1d"), Sb = c("4/1c"), ma = Ra.length, Sa = Array(ma), Ta = 0; Ta < ma; Ta++)Sa[Ta] = 0.1 + 0.7 * Math.random();
-    for (var aa, Ua = Array(ma), S = 0; S < Ua.length; S++) {
+    for (var Ua = Array(ma), S = 0; S < Ua.length; S++) {
         var wa = new E(size_items.small); // proportion
         wa.Bb({backgroundColor: "rgba("+rgb.join(',')+","+ Sa[S] + ")"});
         wa.j("fg-item");
         wa.R('<div class="number">' + /*(S + 1) */ ''+ '</div><div class="symbol">' + Ra[S] + '</div><div class="name">' + nb[S] + '</div><div class="mass">' +
             ob[S] + "</div>");
-        console.log(wa);
         Ua[S] = wa
     }
-    aa = Ua;
-    for (var Q, Va = Array(ma), T = 0; T < Va.length; T++) {
+    var aa = Ua;Ua = null;
+    for (var Va = Array(ma), T = 0; T < Va.length; T++) {
         var xa = new E(size_items.big); // proportion
         xa.Bb({backgroundColor: "rgba("+rgb.join(',')+"," + Sa[T] + ")"});
         xa.j("fg-item-hq");
+        var attr = {id:(S + 1) };
+        attr['data-name'] = nb[T];
+        xa.setAttr(attr);
         xa.R('<div class="number">' + /*(T + 1)*/'' + '</div><div class="symbol">' + Ra[T] + '</div><div class="name">' + nb[T] + '</div><div class="mass">' + ob[T] + "</div>");
         Va[T] = xa
     }
-    Q = Va;
+    var Q = Va;Va=null;
     var r = new Hb;
     r.A([0, 0, 5E3]);
     r.F([0, 0, 0]);
@@ -2402,12 +2413,17 @@ var app = function (c, el, opt) {
         function (a) {
             27 == a.keyCode ? d() : 32 == a.keyCode && ga.Zb()
         });
-    var $ = new Pa(0), z = new Ob(aa);
+        
+    var $ = new Pa(0);
+    var z = new Ob(aa);
     z.cb(h);
     z.bb(0);
-    for (var gc = new Rb(z, 0.1), Ba = new Pb(z, Tb), Ma = new la(0, w), ga = new Mb, K = -1, Ka = l, lb = l, La = l, mb = l, O = 0; O < aa.length; O++)(function (a, b) {
+    var gc = new Rb(z, 0.1), Ba = new Pb(z, Tb), 
+        Ma = new la(0, w), ga = new Mb, K = -1, 
+        Ka = l, lb = l, La = l, mb = l;
+    for (var O = 0; O < aa.length; O++)(function (a, b) {
         b.m(new L);
-        b.k("click", function () {
+        b.k("click", function (e) {
             G && (0 > K ? g(a) : (x(K), g(a), Ka = [0, 0, 600], beforeRotate = [0, 0, 0], La = [0, 0, 0]))
         });
         b.k("hold", function () {
@@ -2417,14 +2433,19 @@ var app = function (c, el, opt) {
             }
         })
     }).call(this, O, aa[O]);
+
     for (O = 0; O < Q.length; O++){
         Q[O].m(new L), 
-        Q[O].k("click", function () {
+        Q[O].k("click", function (e) {
+            var el = e.target.parentNode.parentNode;
+            console.log(el);
+            console.log(el.getAttribute('data-name'));
+            ba.R(el.getAttribute('data-name'));
             ga.Zb(1);
         });
     }
     new Fb(0);
-    var ba = new E(size_items.big, "Reserved for Future Examples",{size:'ffgh'});
+    var ba = new E(size_items.big, "Reserved for Future Examples");
     ba.j("fg-item-hq");
     ba.j("fg-item-back");
     ba.m(new L);
@@ -2489,11 +2510,13 @@ var app = function (c, el, opt) {
             gc.update();
         }
     });
-    
+
     b(type);
     init();
     return {
-        setType : function(a){ b(a); }
+        setType : function(a){ b(a); },
+        el : E,
+        l :L
     };
 };
 return app(da, el, opt);
