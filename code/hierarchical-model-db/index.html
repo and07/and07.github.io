@@ -1,0 +1,123 @@
+<!-- http://cturt.github.io/ -->
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="../../css/core.css" />
+		<!--<link rel="stylesheet" type="text/css" href="css/application.css" />-->
+        
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+        <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/9.0.0/styles/default.min.css"> -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/9.0.0/styles/railscasts.min.css">
+        <script src="https://cdn.jsdelivr.net/highlight.js/9.0.0/highlight.min.js"></script>
+        
+		<title>Hierarchical DB model</title>
+	</head>
+	
+	<body>
+		<div class="page">
+			<div class="container">
+				<div class="header">
+					<a href="/other.html" class="header-element">
+						Other
+					</a>
+					
+					<a href="/index.html" class="header-element">
+						Home
+					</a>
+				</div>
+				<h1>Hierarchical DB model</h1>
+				<hr>
+				<ul>
+					<li><a href="#model1">Adjacency List</a></li>
+					<li><a href="#model2">Nested Set</a></li>
+					<li><a href="#model3">Materialized Path</a></li>
+				</ul>
+<hr>
+
+                <h2 id="model1">Adjacency List</h2>
+                <a href="../../images/hierarchical_model_db/AdjacencyList.gif">img</a>
+<div class="">
+        <img src="../../images/hierarchical_model_db/AdjacencyList.gif" alt="Adjacency List" title="Adjacency List"/>
+        <pre><code class="">
++----+-----------+-----------+
+| id | parent_id | name      |
++----+-----------+-----------+
+|  1 |      NULL | FOOD      |
+|  2 |         1 | VEGETABLE |
+|  3 |         2 | POTATO    |
+|  4 |         2 | TOMATO    |
+|  5 |         1 | FRUIT     |
+|  6 |         5 | APPLE     |
+|  7 |         5 | BANANA    |
++----+-----------+-----------+
+        </code></pre>		
+</div>
+				<br> 
+                <h2 id="model2">Nested Set</h2>
+                <a href="../../images/hierarchical_model_db/NestedSet.gif">img</a>
+                <a href="../../images/hierarchical_model_db/sitepoint_numbering.gif">img1</a>
+<div class="">
+         <img src="../../images/hierarchical_model_db/NestedSet.gif" alt="Nested Set" title="Nested Set"/>
+         <img src="../../images/hierarchical_model_db/sitepoint_numbering.gif" alt="Nested Set" title="Nested Set"/>
+        <pre><code class="">
++----+--------------+------+------+-------+
+| id |   name       | lft  |  rgt | level |
++----+--------------+------+------+-------+
+| 1  |   FOOD       | 1    |   14 |    0  |
+| 2  |   VEGETABLE  | 2    |   7  |    1  |
+| 3  |   POTATO     | 3    |   4  |    2  |
+| 4  |   TOMATO     | 5    |   6  |    2  |
+| 5  |   FRUIT      | 8    |   13 |    1  |
+| 6  |   APPLE      | 9    |   10 |    2  |
+| 7  |   BANANA     | 11   |   12 |    2  |
++----+--------------+------+------+-------+
+        </code></pre>		
+</div>
+				<br> 
+                <h2 id="model3">Materialized Path</h2>
+                <a href="../../images/hierarchical_model_db/MaterializedPath.gif">img</a>
+<div class="">
+        <img src="../../images/hierarchical_model_db/MaterializedPath.gif" alt="Materialized Path" title="Materialized Path"/>
+        <pre><code class="">
++----+-----------+-----------+
+| id |   path    | name      |
++----+-----------+-----------+
+|  1 |     1     | FOOD      |
+|  2 |     1.1   | VEGETABLE |
+|  3 |     1.1.1 | POTATO    |
+|  4 |     1.1.2 | TOMATO    |
+|  5 |     1.2   | FRUIT     |
+|  6 |     1.2.1 | APPLE     |
+|  7 |     1.2.2 | BANANA    |
++----+-----------+-----------+
+        </code></pre>		
+</div>
+				<br> 
+                <h2></h2>
+<div class="">
+        <pre><code class="javascript">
+        </code></pre>		
+</div>
+				<br> 
+                <h2></h2>
+<div class="">
+        <pre><code class="javascript">
+        </code></pre>		
+</div>
+			</div>
+		</div>
+	</body>
+<script>
+$(document).ready(function() {
+  $('pre code').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+</script> 
+<script async src="/js/site.js"></script>  
+</html>

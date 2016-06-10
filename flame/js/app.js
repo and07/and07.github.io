@@ -148,7 +148,7 @@ C("0/6", ["require", "exports", "module"], function (c, k, j) {
         for (var a = 0; a < this.Tc.length; a++)this.Tc[a].d(h, e);
         var b = this.fc[h];
         if (b)for (a = 0; a < b.length; a++)b[a].call(this, e)
-    }, k: function (h, e) {
+    }, on: function (h, e) {
         this.fc[h] || (this.fc[h] = []);
         this.fc[h].push(e);
         return this
@@ -170,8 +170,8 @@ C("0/3", ["require", "exports", "module", "./a", "./6"], function (c, k, j) {
         this.tc && this.aa.update(this.tc.execute())
     }, d: function (a, b) {
         this.pb.d(a, b)
-    }, k: function (a, b) {
-        this.pb.k(a, b)
+    }, on: function (a, b) {
+        this.pb.on(a, b)
     }};
     j.e = f
 });
@@ -248,8 +248,8 @@ C("0/c", ["require", "exports", "module", "./7", "./6"], function (c, k, j) {
     };
     f.Qe = ["touchstart", "touchmove", "touchend", "touchcancel", "click"];
     f.prototype = {
-       k: function (a, b) {
-        this.pb.k(a, b)
+       on: function (a, b) {
+        this.pb.on(a, b)
     }, d: function (a, b) {
         b && (b.origin = this);
         this.pb.d(a, b);
@@ -800,47 +800,7 @@ C("0/4", "require exports module ./3 ./7 ./8 ./d".split(" "), function (c, k, j)
         return q
     }, Xc: h}
 });
-C("0/2", "require exports module ./d ./c ./a".split(" "), function (c, k, j) {
-    function f() {
-        e.apply(this, arguments);
-        this.P = document.createElement("div");
-        this.P.classList.add("container-surface");
-        this.Vb = document.createElement("div");
-        this.Vb.appendChild(this.P);
-        this.aa = new h(this.P, {size: this.size});
-        this.Ba = p;
-        this.Rb = l
-    }
 
-    var h = c("./d"), e = c("./c"), a = c("./a");
-    f.prototype = {Rd: function (a) {
-        if (this.Pa) {
-            if (this.Pa == a)return;
-            this.nd()
-        }
-        a.innerHTML = "";
-        this.Pa = a;
-        this.Pa.appendChild(this.Vb.removeChild(this.Vb.firstChild))
-    }, nd: function () {
-        this.Vb.appendChild(this.Pa.removeChild(this.Pa.firstChild));
-        this.Pa = l
-    }, update: function (a) {
-        this.aa.update(a)
-    }, z: function (a) {
-        !a && this.Rb && (a = this.Rb.execute());
-        this.update(a);
-        return e.prototype.z.call(this)
-    }, Qb: function (b) {
-        return this.Rb = new a(b)
-    }, rc: function (a) {
-        this.aa.rc(a)
-    }, pa: function (a) {
-        e.prototype.pa.apply(this, arguments);
-        this.aa && this.aa.pa(a)
-    }};
-    for (var b in e.prototype)e.prototype.hasOwnProperty(b) && !f.prototype.hasOwnProperty(b) && (f.prototype[b] = e.prototype[b]);
-    j.e = f
-});
 C("0/e", "require exports module ./9 ./f ./g".split(" "), function (c, k, j) {
     function f(d, e, c) {
         d || (d = a.W);
@@ -2296,7 +2256,7 @@ var app = function (c, el, opt) {
 
     if (!("WebKitCSSMatrix"in window) || !("m11"in new WebKitCSSMatrix) )console.log('Not WebKitCSSMatrix');
     
-    var A = "Common"in window && "API"in Common, G = w, P = c("0/4"), E = c("0/c"), Eb = c("0/2"), 
+    var A = "Common"in window && "API"in Common, G = w, P = c("0/4"), E = c("0/c"),
         m = c("0/9"), u = c("0/e"), Fb = c("0/f"), ja = c("0/1"), Pa = c("0/5"), Gb = c("0/7"), 
         ua = c("0/6"), ra = c("0/g"), Hb = c("1/i");
     c("1/j");
@@ -2399,20 +2359,20 @@ var app = function (c, el, opt) {
     W.Q(1).m([Yb, $b, cc]);
     W.Q(2).m([Xb, ac, dc]);
     var tb = new ua;
-    tb.k("keyup", function (a) {
+    tb.on("keyup", function (a) {
         if (G)if (A) {
             var c = new Common.API.TVKeyValue;
             a.keyCode == c.KEY_ENTER && b()
         } else 32 == a.keyCode && b()
     });
     var J = 4, Aa = new ua([new L, new Sb]);
-    Aa.k("click", function (a) {
+    Aa.on("click", function (a) {
         a.target == document.body && d()
     });
-    Aa.k("pinch", function () {
+    Aa.on("pinch", function () {
         d()
     });
-    Aa.k("keyup",
+    Aa.on("keyup",
         function (a) {
             27 == a.keyCode ? d() : 32 == a.keyCode && ga.Zb()
         });
@@ -2426,10 +2386,10 @@ var app = function (c, el, opt) {
         Ka = l, lb = l, La = l, mb = l;
     for (var O = 0; O < aa.length; O++)(function (a, b) {
         b.m(new L);
-        b.k("click", function (e) {
+        b.on("click", function (e) {
             G && (0 > K ? g(a) : (x(K), g(a), Ka = [0, 0, 600], beforeRotate = [0, 0, 0], La = [0, 0, 0]))
         });
-        b.k("hold", function () {
+        b.on("hold", function () {
             if (G) {
                 var b = Ba.nf(a)[0];
                 Ba.Nf(a) ? Ba.fg(b) : Ba.Mc(b)
@@ -2439,7 +2399,7 @@ var app = function (c, el, opt) {
 
     for (O = 0; O < Q.length; O++){
         Q[O].m(new L), 
-        Q[O].k("click", function (e) {
+        Q[O].on("click", function (e) {
             var el = e.target;
             while(!el.classList.contains('fg-item-hq')){
                 el = el.parentNode;
@@ -2454,7 +2414,7 @@ var app = function (c, el, opt) {
     ba.j("fg-item-hq");
     ba.j("fg-item-back");
     ba.m(new L);
-    ba.k("click", function () {
+    ba.on("click", function () {
         ga.Zb(0);
     });
     var ub = new E([200, 32], param.name);
@@ -2469,12 +2429,12 @@ var app = function (c, el, opt) {
 
     sessionStorage.getItem("signedUp") ? (G = p, P.Xc(v)) : (G = w, P.Xc(D));
     var Za = new ua([new L]);
-    Za.k("keyup", F);
-    Za.k("click", F);
+    Za.on("keyup", F);
+    Za.on("click", F);
 
     var ta = new la(0);
     var yb = new ua;
-    yb.k("keyup", function (a) {
+    yb.on("keyup", function (a) {
         if (A) {
             var b = new Common.API.TVKeyValue;
             a.keyCode ==
