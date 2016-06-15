@@ -3,11 +3,9 @@
 'use strict';
 
 var config = {
-  version: 'achillesaa',
+  version: 'achillesa',
   staticCacheItems: [
     '/',
-    '/code/',
-    '/other.html',
     '/images/GitHub.png',
     '/images/2040077.png',
     '/css/core.css',
@@ -28,8 +26,6 @@ function cacheName (key, opts) {
 }
 
 function addToCache (cacheKey, request, response) {
-  console.log('addToCache ---'+response);
-  console.log(response);
   if (response.ok) {
     var copy = response.clone();
     caches.open(cacheKey).then( cache => {
@@ -40,8 +36,6 @@ function addToCache (cacheKey, request, response) {
 }
 
 function fetchFromCache (event) {
-  console.log('fetchFromCache ---'+event.request);
-   console.log(event.request);
   return caches.match(event.request).then(response => {
     if (!response) {
       throw Error(`${event.request.url} not found in cache`);
@@ -51,8 +45,6 @@ function fetchFromCache (event) {
 }
 
 function offlineResponse (resourceType, opts) {
-   console.log('offlineResponse ---'+resourceType);
-   console.log(resourceType);
   if (resourceType === 'image') {
     return new Response(opts.offlineImage,
       { headers: { 'Content-Type': 'image/svg+xml' } }
@@ -63,7 +55,7 @@ function offlineResponse (resourceType, opts) {
     }
     return caches.match(opts.offlinePage[1]);
   }
-  return caches.match(opts.offlinePage[2]);
+  return undefined;
 }
 
 self.addEventListener('install', event => {
@@ -114,7 +106,7 @@ self.addEventListener('fetch', event => {
     var acceptHeader = request.headers.get('Accept');
     var resourceType = 'static';
     var cacheKey;
-    //console.log(request);
+    console.log(acceptHeader);
     if (acceptHeader.indexOf('text/html') !== -1) {
       resourceType = 'content';
     } else if (acceptHeader.indexOf('image') !== -1) {
@@ -131,18 +123,10 @@ self.addEventListener('fetch', event => {
           .catch(() => offlineResponse(resourceType, opts))
       );
     } else {
-      /*
       event.respondWith(
         fetchFromCache(event)
           .catch(() => fetch(request))
             .then(response => addToCache(cacheKey, request, response))
-          .catch(() => offlineResponse(resourceType, opts))
-      );
-      */
-      event.respondWith(
-        fetch(request)
-          .then(response => addToCache(cacheKey, request, response))
-          .catch(() => fetchFromCache(event))
           .catch(() => offlineResponse(resourceType, opts))
       );
     }
