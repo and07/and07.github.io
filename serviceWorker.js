@@ -8,7 +8,6 @@ var config = {
     '/',
     '/index.html',
     '/other.html',
-    '/images/',
     '/images/GitHub.png',
     '/images/2040077.png',
     '/css/core.css',
