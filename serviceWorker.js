@@ -123,9 +123,9 @@ self.addEventListener('fetch', event => {
 
     cacheKey = cacheName(resourceType, opts);
     event.respondWith(
-      fetch(request)
+      fetchFromCache(event)
+        .catch(() => fetch(request))
         .then(response => addToCache(cacheKey, request, response))
-        .catch(() => fetchFromCache(event))
         .catch(() => offlineResponse(resourceType, opts))
     );
 /*     
