@@ -43,6 +43,7 @@ function fetchFromCache (event) {
 }
 
 function offlineResponse (resourceType, opts) {
+  console.log('offlineResponse--'+resourceType);
   if (resourceType === 'image') {
     return new Response(opts.offlineImage,
       { headers: { 'Content-Type': 'image/svg+xml' } }
@@ -51,7 +52,7 @@ function offlineResponse (resourceType, opts) {
     for(var i in opts.offlinePage){
       console.log(caches.match(opts.offlinePage[i]));
     }
-    return caches.match(opts.offlinePage[1]);
+    return caches.match(opts.offlinePage[2]);
   }
   return undefined;
 }
