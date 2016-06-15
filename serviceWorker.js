@@ -3,9 +3,10 @@
 'use strict';
 
 var config = {
-  version: 'achillesa',
+  version: 'achillesaa',
   staticCacheItems: [
     '/',
+    '/code/',
     '/images/GitHub.png',
     '/images/2040077.png',
     '/css/core.css',
@@ -123,10 +124,18 @@ self.addEventListener('fetch', event => {
           .catch(() => offlineResponse(resourceType, opts))
       );
     } else {
+      /*
       event.respondWith(
         fetchFromCache(event)
           .catch(() => fetch(request))
             .then(response => addToCache(cacheKey, request, response))
+          .catch(() => offlineResponse(resourceType, opts))
+      );
+      */
+      event.respondWith(
+        fetch(request)
+          .then(response => addToCache(cacheKey, request, response))
+          .catch(() => fetchFromCache(event))
           .catch(() => offlineResponse(resourceType, opts))
       );
     }
