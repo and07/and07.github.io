@@ -6,6 +6,11 @@ var config = {
   version: 'achillesaa',
   staticCacheItems: [
     '/',
+    '/index.html',
+    '/other.html',
+    '/images/',
+    '/images/GitHub.png',
+    '/images/2040077.png',
     '/css/core.css',
     '/js/site.js'
   ],
@@ -35,9 +40,10 @@ function addToCache (cacheKey, request, response) {
 }
 
 function fetchFromCache (event) {
-  console.log('fetchFromCache--');
+  console.log('fetchFromCache--'+event.request);
   return caches.match(event.request).then(response => {
     if (!response) {
+      console.log('not found in cache');
       throw Error(`${event.request.url} not found in cache`);
     }
     return response;
@@ -108,14 +114,22 @@ self.addEventListener('fetch', event => {
     var resourceType = 'static';
     var cacheKey;
     console.log(acceptHeader);
+    /*
     if (acceptHeader.indexOf('text/html') !== -1) {
       resourceType = 'content';
     } else if (acceptHeader.indexOf('image') !== -1) {
       resourceType = 'image';
     }
+    */
 
     cacheKey = cacheName(resourceType, opts);
-
+    event.respondWith(
+      fetch(request)
+        .then(response => addToCache(cacheKey, request, response))
+        .catch(() => fetchFromCache(event))
+        .catch(() => offlineResponse(resourceType, opts))
+    );
+/*     
     if (resourceType === 'content') {
       event.respondWith(
         fetch(request)
@@ -131,6 +145,7 @@ self.addEventListener('fetch', event => {
           .catch(() => offlineResponse(resourceType, opts))
       );
     }
+*/
   }
   if (shouldHandleFetch(event, config)) {
     onFetch(event, config);
