@@ -3,7 +3,7 @@
 'use strict';
 
 var config = {
-  version: 'achillesax',
+  version: 'achillesaaa',
   staticCacheItems: [
     '/',
     '/code/',
@@ -28,6 +28,7 @@ function cacheName (key, opts) {
 }
 
 function addToCache (cacheKey, request, response) {
+  console.log('addToCache ---'+response);
   if (response.ok) {
     var copy = response.clone();
     caches.open(cacheKey).then( cache => {
@@ -38,6 +39,7 @@ function addToCache (cacheKey, request, response) {
 }
 
 function fetchFromCache (event) {
+  console.log('fetchFromCache ---'+event.request);
   return caches.match(event.request).then(response => {
     if (!response) {
       throw Error(`${event.request.url} not found in cache`);
@@ -47,7 +49,7 @@ function fetchFromCache (event) {
 }
 
 function offlineResponse (resourceType, opts) {
-   console.log(resourceType);
+   console.log('offlineResponse ---'+resourceType);
   if (resourceType === 'image') {
     return new Response(opts.offlineImage,
       { headers: { 'Content-Type': 'image/svg+xml' } }
