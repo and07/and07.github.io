@@ -3,11 +3,9 @@
 'use strict';
 
 var config = {
-  version: 'achillesa',
+  version: 'achillesaa',
   staticCacheItems: [
     '/',
-    '/images/GitHub.png',
-    '/images/2040077.png',
     '/css/core.css',
     '/js/site.js'
   ],
@@ -56,7 +54,7 @@ function offlineResponse (resourceType, opts) {
     for(var i in opts.offlinePage){
       console.log(caches.match(opts.offlinePage[i]));
     }
-    return caches.match(opts.offlinePage[1]);
+    return caches.match(opts.offlinePage[0]);
   }
   return undefined;
 }
