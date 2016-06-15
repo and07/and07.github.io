@@ -60,7 +60,7 @@ function offlineResponse (resourceType, opts) {
     for(var i in opts.offlinePage){
       console.log(caches.match(opts.offlinePage[i]));
     }
-    return caches.match(opts.offlinePage[0]);
+    return caches.match(opts.offlinePage[2]);
   }
   return undefined;
 }
