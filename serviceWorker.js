@@ -40,6 +40,7 @@ function addToCache (cacheKey, request, response) {
 
 function fetchFromCache (event) {
   console.log('fetchFromCache--'+event.request);
+  console.log('---'+caches.match(event.request)+'---');
   return caches.match(event.request).then(response => {
     if (!response) {
       console.log('not found in cache');
@@ -122,12 +123,12 @@ self.addEventListener('fetch', event => {
     */
 
     cacheKey = cacheName(resourceType, opts);
-    event.respondWith(
-      fetchFromCache(event)
-        .catch(() => {fetch(request); console.log('fetch');})
-        .then(response => {addToCache(cacheKey, request, response); console.log('addToCache');})
-        .catch(() => {offlineResponse(resourceType, opts); console.log('offlineResponse');})
-    );
+      event.respondWith(
+        fetchFromCache(event)
+          .catch(() => fetch(request))
+            .then(response => addToCache(cacheKey, request, response))
+          .catch(() => offlineResponse(resourceType, opts))
+      );
 /*     
     if (resourceType === 'content') {
       event.respondWith(
