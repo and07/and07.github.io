@@ -3,10 +3,11 @@
 'use strict';
 
 var config = {
-  version: 'achillesaa',
+  version: 'achillesax',
   staticCacheItems: [
     '/',
     '/code/',
+    '/other.html',
     '/images/GitHub.png',
     '/images/2040077.png',
     '/css/core.css',
@@ -46,6 +47,7 @@ function fetchFromCache (event) {
 }
 
 function offlineResponse (resourceType, opts) {
+   console.log(resourceType);
   if (resourceType === 'image') {
     return new Response(opts.offlineImage,
       { headers: { 'Content-Type': 'image/svg+xml' } }
@@ -56,7 +58,7 @@ function offlineResponse (resourceType, opts) {
     }
     return caches.match(opts.offlinePage[1]);
   }
-  return undefined;
+  return caches.match(opts.offlinePage[2]);
 }
 
 self.addEventListener('install', event => {
@@ -107,7 +109,7 @@ self.addEventListener('fetch', event => {
     var acceptHeader = request.headers.get('Accept');
     var resourceType = 'static';
     var cacheKey;
-    console.log(acceptHeader);
+    console.log(request);
     if (acceptHeader.indexOf('text/html') !== -1) {
       resourceType = 'content';
     } else if (acceptHeader.indexOf('image') !== -1) {
