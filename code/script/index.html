@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="../../css/core.css" />
+		<!--<link rel="stylesheet" type="text/css" href="css/application.css" />-->
+        
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+        <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/9.0.0/styles/default.min.css"> -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/9.0.0/styles/railscasts.min.css">
+        <script src="https://cdn.jsdelivr.net/highlight.js/9.0.0/highlight.min.js"></script>
+        
+		<title>Shell</title>
+	</head>
+	
+	<body>
+		<div class="page">
+			<div class="container">
+				<div class="header">
+					<a href="/other.html" class="header-element">
+						Other
+					</a>
+					
+					<a href="/index.html" class="header-element">
+						Home
+					</a>
+				</div>
+				<h1>Shell</h1>
+				<hr>
+				<ul>
+					<li><a href="#script00">WSH</a></li>
+				</ul>
+<hr>
+
+                <h2 >WSH</h2>
+<div class="">
+        <pre><code class="javascript">
+/* Create the FileSystemObject */
+var fso = new ActiveXObject("Scripting.FileSystemObject");
+
+var tf = fso.CreateTextFile("dir_files.txt", true);
+/* Point the Object to a specific folder */
+var fsofolder = fso.GetFolder("C:\\");
+/* get a collection of the files contained in that folder */
+var colFiles  = fsofolder.Files;
+/* Create an Enumerator so that we can move through the collection */
+var fc = new Enumerator( colFiles );
+/* Create a variable to store an output message in */
+var msg = "";
+/* Loop through the Enumerator and add each item to our variable */
+for (; !fc.atEnd(); fc.moveNext() ){
+    msg += fc.item() + "\n";
+    tf.WriteLine(fc.item());
+}
+/* Show the user the results */
+WScript.Echo( msg );
+tf.Close();
+WScript.Echo( 'DONE' );
+        </code></pre>		
+</div>
+
+<br>
+                <h2></h2>
+<div class="">
+        <pre><code class="javascript">
+        </code></pre>		
+</div>
+			</div>
+		</div>
+	</body>
+<script>
+$(document).ready(function() {
+  $('pre code').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+<script async src="/js/site.js"></script>   
+</html>
