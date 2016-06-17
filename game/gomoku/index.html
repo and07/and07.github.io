@@ -7,11 +7,14 @@
          <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     </head>
     <body>
+		<h1>Gomoku</h1>
 		<div>
-        <button id="js_play">Play</button><br>
+        <button id="js_play">Play</button>
+		<button id="js_hint">Hint</button>
         <button id="js_autoplay">Autoplay</button>
         <button id="js_table_res">Result</button><br>
 		</div>
+		<br>
 		<div>
 			<canvas width="1000" height="500" id="game"></canvas> 
 		</div>
@@ -48,54 +51,43 @@
     
     
  <script>
-function initBoard(){
-	canvas=document.getElementById("game");
-	canvas.width = canvas.width;
-	init();
-	game = canvas.getContext("2d");
-	
-	for(i=0;i<AmountX+1;i++){
-	game.moveTo(Size*i, 0);
-	game.lineTo(Size*i, AmountY*Size);
-	
-	}
-	
-	for(i=0;i<AmountY+1;i++){
-	game.moveTo(0, Size*i);
-	game.lineTo(AmountY*Size, Size*i); 
-	}
-	
-	game.strokeStyle="#000";
-	game.stroke();	
-}
-
 	$('#js_table_res').on('click', function(){
-		alert('table');
-	
-	
+		var tab = '<table style="border-collapse: collapse;border: 1px solid white;">';
+		tab += '<tr><th style="border: 1px solid white;">name</th><th style="border: 1px solid white;">time</th></tr>';
+		var res = Gomoku.result;
+		for(var i in res){  
+			tab += '<tr><td style="border: 1px solid white;">'+res[i].name+'</td><td style="border: 1px solid white;">'+res[i].time[0]+' day/s '+res[i].time[1]+' hour/s '+res[i].time[2]+' minute/s '+res[i].time[3]+' second/s'+'</td></tr>';
+		}
+		tab += '</table>';
+		if(res.length){
+			_alert(tab);
+		}else{
+			_alert('Not data');
+		}
+
 	});
  	
  	$('#js_autoplay').on('click', function(){
- 		initBoard();
- 		setAutoplay();
+ 		Gomoku.initBoard();
+ 		Gomoku.setAutoplay();
  	});
  
 	$('#js_play').on('click',function(){
-		initBoard();
-		canvas.addEventListener("click", canvasClick, false);    
-	
+		Gomoku.initBoard();
 	});
+	$('#js_hint').on('click',function(){
+		Gomoku.showHint();
+	});	
+	
+	
  window.onload=function(){
-    
     
     //document.getElementById("game").style.width=AmountX*Size+"px";
     //document.getElementById("game").style.height=AmountY*Size+"px";
     
-
-      
-        
+   
 }
  
  </script>
-<script async src="js/site.js"></script>
+<script async src="/js/site.js"></script>
 </html>
