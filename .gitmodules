@@ -7,3 +7,9 @@
 [submodule "tools/api-gui"]
 	path = tools/api-gui
 	url = https://github.com/and07/api-gui.git
+[submodule "game/gomoku"]
+	path = game/gomoku
+	url = https://github.com/and07/gomokujs.git
+[submodule "flame"]
+	path = flame
+	url = https://github.com/and07/flamejs.git
