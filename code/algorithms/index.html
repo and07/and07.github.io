@@ -817,7 +817,7 @@ assertSimilarObjects(convertQueryToMap(q), out);
         </code></pre>		
 </div>
 				<br> 
-                <h2 id="alg0005">Recursive N-Queens</h2>
+                <h2 id="alg0006">Recursive N-Queens</h2>
 <div class="">
         <pre><code class="javascript">
 function calcQueens(size){
@@ -912,8 +912,8 @@ $(document).ready(function() {
 	for(var i = 0; i < anchorLinks.length; i++){
 		anchorLinks[i].addEventListener("click", function(e) {
 			if (window.scrollTo) {
-				var target = document.querySelector('[name='+this.getAttribute("href").substring(1)+']') ||  document.querySelector(this.getAttribute("href")) ;
-				e.preventDefault();
+				var target = document.querySelector('[name='+this.getAttribute("href").substring(1)+']')|| document.querySelector(this.getAttribute("href"));
+				e.preventDefault(target);
 				//window.scrollTo({"behavior": "smooth", "top": target.offsetTop});
 				window.scrollTo(0, target.offsetTop);
 			}
