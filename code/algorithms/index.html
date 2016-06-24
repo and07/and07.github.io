@@ -112,6 +112,7 @@ body {
 					<li><a href="#alg0003">Find Count of Most Frequent Item in an Array</a></li>
 					<li><a href="#alg0004">Double Cola</a></li>
 					<li><a href="#alg0005">Objectify a URL Query String</a></li>
+                    <li><a href="#alg0006">Recursive N-Queens</a></li>
 				</ul>
 <hr>
                 <h2><a name="alg00">binarySearch</a></h2>
@@ -816,10 +817,77 @@ assertSimilarObjects(convertQueryToMap(q), out);
         </code></pre>		
 </div>
 				<br> 
-                <h2><a name=""></a></h2>
+                <h2 id="alg0005">Recursive N-Queens</h2>
 <div class="">
         <pre><code class="javascript">
-        </code></pre>		
+function calcQueens(size){
+    var board = [];
+    for(var i = 0 ; i< size; i++){
+        board[i] = -1; 
+    }
+    var res = queens(board, 0, size);
+    console.log(board);
+    return res;
+}
+function queens(board, current, size){
+    if(current == size) return true;
+    for(var i = 0 ; i< size; i++){
+        board[current] = i;
+        if(noConflicts(board,current)){
+            var done = queens(board, current+1, size)
+            if(done) return true;
+        }
+    }
+    return false;
+}
+
+function noConflicts(board,current){
+    for(var i = 0 ; i< current; i++){
+        if(board[i] == board[current]){
+            return false
+        }
+        if(current-i == Math.abs(board[current] - board[i])){
+            return false
+        }
+    }
+    return true;
+}
+
+console.log(calcQueens(8));
+        </code></pre>	
+        <pre><code class="python">
+def calcQueens(size):
+    board = [-1] * size
+    res = queens(board, 0, size)
+    print board
+    return res
+
+
+def queens(board, current, size):
+    if  (current == size):
+        return True
+    else:
+        done = False
+        for i in range(size):
+            board[current] = i
+            if (noConflicts(board, current)):
+                done=queens(board, current + 1, size)
+                if (done):
+                    return True
+    return False
+
+def noConflicts(board, current):
+    for i in range(current):
+        if (board[i] == board[current]):
+            return False
+        if (current - i == abs(board[current] - board[i])):
+            return False
+    return True
+
+print calcQueens(8)
+#[0, 4, 7, 5, 2, 6, 1, 3]
+        </code></pre>	        
+
 </div>
 				<br> 
                 <h2><a name=""></a></h2>
