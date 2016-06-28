@@ -15,6 +15,7 @@ AVL.prototype.init = function(am, w, h)
 {
 	this.nextIndex = 1;
 	this.commands = [];
+	this.pTree = [];
 }
 
 AVL.prototype.reset = function()
@@ -57,7 +58,7 @@ AVL.prototype.sizeChanged = function(newWidth, newHeight)
 		
 AVL.prototype.printTree = function(unused)
 {
-	this.commands = [];
+	this.pTree = [];
 	
 	if (this.treeRoot != null)
 	{
@@ -66,7 +67,7 @@ AVL.prototype.printTree = function(unused)
 		this.printTreeRec(this.treeRoot);
 		this.nextIndex = this.highlightID;  /// Reuse objects.  Not necessary.
 	}
-	return this.commands;
+	return this.pTree;
 }
 
 AVL.prototype.printTreeRec = function(tree) 
@@ -76,7 +77,7 @@ AVL.prototype.printTreeRec = function(tree)
 		this.printTreeRec(tree.left);
 	}
 	var nextLabelID = this.nextIndex++;
-	this.commands.push(tree.data);
+	this.pTree.push(tree.data);
 	if (tree.right != null)
 	{
 		this.printTreeRec(tree.right);

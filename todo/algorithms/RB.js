@@ -9,6 +9,7 @@ RedBlack.prototype.init = function()
 {
 	this.nextIndex = 1;
 	this.commands = [];
+	this.pTree = [];
 }
 
 RedBlack.prototype.reset = function()
@@ -17,10 +18,9 @@ RedBlack.prototype.reset = function()
 	this.treeRoot = null;
 }
 
-RedBlack.widthDelta  = 50;
-RedBlack.heightDelta = 50;
-RedBlack.startingY = 50;
-
+RedBlack.WIDTH_DELTA  = 50;
+RedBlack.HEIGHT_DELTA = 50;
+RedBlack.STARTING_Y = 50;
 
 RedBlack.prototype.isAllDigits = function(str)
 {
@@ -29,7 +29,6 @@ RedBlack.prototype.isAllDigits = function(str)
 		if (str.charAt(i) < "0" || str.charAt(i) > "9")
 		{
 			return false;
-
 		}
 	}
 	return true;
@@ -49,7 +48,7 @@ RedBlack.prototype.normalizeNumber = function(input, maxLen)
 		
 RedBlack.prototype.printTree = function(unused)
 {
-	this.commands = [];
+	this.pTree = [];
 	
 	if (this.treeRoot != null)
 	{
@@ -60,7 +59,7 @@ RedBlack.prototype.printTree = function(unused)
 
 		this.nextIndex = this.highlightID;  /// Reuse objects.  Not necessary.
 	}
-	return this.commands;
+	return this.pTree;
 }
 
 RedBlack.prototype.printTreeRec = function(tree) 
@@ -71,7 +70,7 @@ RedBlack.prototype.printTreeRec = function(tree)
         this.printTreeRec(tree.left);
 	}
 	var nextLabelID = this.nextIndex++;
-	this.commands.push(tree.data);
+	this.pTree.push(tree.data);
 
 	if (tree.right != null && !tree.right.phantomLeaf)
 	{
@@ -165,7 +164,7 @@ RedBlack.prototype.attachLeftNullLeaf = function(node)
 {
 	// Add phantom left leaf
 	var treeNodeID = this.nextIndex++;
-	node.left = new RedBlackNode("", treeNodeID, this.startingX, RedBlack.startingY);
+	node.left = new RedBlackNode("", treeNodeID, this.startingX, RedBlack.STARTING_Y);
 	node.left.phantomLeaf = true;
 	node.left.blackLevel = 1;
 
@@ -176,7 +175,7 @@ RedBlack.prototype.attachRightNullLeaf = function(node)
 	// Add phantom right leaf
 	treeNodeID = this.nextIndex++;
 
-	node.right = new RedBlackNode("", treeNodeID, this.startingX, RedBlack.startingY);
+	node.right = new RedBlackNode("", treeNodeID, this.startingX, RedBlack.STARTING_Y);
 	
 	node.right.phantomLeaf = true;
 	node.right.blackLevel = 1;
@@ -198,7 +197,7 @@ RedBlack.prototype.insertElement = function(insertedValue)
 	{
 		treeNodeID = this.nextIndex++;
 
-		this.treeRoot = new RedBlackNode(this.normalizeNumber(insertedValue,4), treeNodeID, this.startingX, RedBlack.startingY);
+		this.treeRoot = new RedBlackNode(this.normalizeNumber(insertedValue,4), treeNodeID, this.startingX, RedBlack.STARTING_Y);
 		this.treeRoot.blackLevel = 1;
 		
 		this.attachNullLeaves(this.treeRoot);
@@ -359,8 +358,8 @@ RedBlack.prototype.insert = function(elem, tree)
 			tree.right=elem;
 			elem.parent = tree;
 
-			elem.x = tree.x + RedBlack.widthDelta/2;
-			elem.y = tree.y + RedBlack.heightDelta
+			elem.x = tree.x + RedBlack.WIDTH_DELTA/2;
+			elem.y = tree.y + RedBlack.HEIGHT_DELTA
 			
 			
 			this.attachNullLeaves(elem);
@@ -944,7 +943,7 @@ RedBlack.prototype.resizeTree = function()
 		{
 			startingPoint = Math.max(this.treeRoot.leftWidth, 2 * startingPoint - this.treeRoot.rightWidth);
 		}
-		this.setNewPositions(this.treeRoot, startingPoint, RedBlack.startingY, 0);
+		this.setNewPositions(this.treeRoot, startingPoint, RedBlack.STARTING_Y, 0);
 		this.animateNewPositions(this.treeRoot);
 	}
 	
@@ -971,8 +970,8 @@ RedBlack.prototype.setNewPositions = function(tree, xPosition, yPosition, side)
 		}
 		tree.x = xPosition;
 		tree.heightLabelY = tree.y - 20;
-		this.setNewPositions(tree.left, xPosition, yPosition + RedBlack.heightDelta, -1)
-		this.setNewPositions(tree.right, xPosition, yPosition + RedBlack.heightDelta, 1)
+		this.setNewPositions(tree.left, xPosition, yPosition + RedBlack.HEIGHT_DELTA, -1)
+		this.setNewPositions(tree.right, xPosition, yPosition + RedBlack.HEIGHT_DELTA, 1)
 	}
 	
 }
@@ -991,8 +990,8 @@ RedBlack.prototype.resizeWidths = function(tree)
 	{
 		return 0;
 	}
-	tree.leftWidth = Math.max(this.resizeWidths(tree.left), RedBlack.widthDelta / 2);
-	tree.rightWidth = Math.max(this.resizeWidths(tree.right), RedBlack.widthDelta / 2);
+	tree.leftWidth = Math.max(this.resizeWidths(tree.left), RedBlack.WIDTH_DELTA / 2);
+	tree.rightWidth = Math.max(this.resizeWidths(tree.right), RedBlack.WIDTH_DELTA / 2);
 	return tree.leftWidth + tree.rightWidth;
 }
 
