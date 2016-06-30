@@ -113,6 +113,7 @@ body {
 					<li><a href="#alg0004">Double Cola</a></li>
 					<li><a href="#alg0005">Objectify a URL Query String</a></li>
                     <li><a href="#alg0006">Recursive N-Queens</a></li>
+                    <li><a href="#alg0007">listToTree</a></li>
 				</ul>
 <hr>
                 <h2><a name="alg00">binarySearch</a></h2>
@@ -890,9 +891,55 @@ print calcQueens(8)
 
 </div>
 				<br> 
-                <h2></h2>
+                <h2 id="alg0007">listToTree</h2>
 <div class="">
         <pre><code class="javascript">
+function listToTree(data, options) {
+    options = options || {};
+    var ID_KEY = options.idKey || 'id';
+    var PARENT_KEY = options.parentKey || 'parent';
+    var CHILDREN_KEY = options.childrenKey || 'children';
+    var ROOT = options.root||0;
+    var tree, childrenOf = {};
+    
+    for (var i = 0, length = data.length; i < length; i++) {
+        var item = data[i];
+        var id = item[ID_KEY];
+        var parentId = item[PARENT_KEY] || 0;
+        // every item may have children
+        childrenOf[id] = childrenOf[id] || [];
+        // init its children
+        item[CHILDREN_KEY] = childrenOf[id];
+        if (parentId != ROOT) {
+            // init its parent's children object
+            childrenOf[parentId] = childrenOf[parentId] || [];
+            // push it into its parent's children object
+            childrenOf[parentId].push(item);
+        } else {
+            tree=item;
+        }
+    };
+
+    return tree;
+}
+
+var processes = [
+{ pid: 4, ppid: 1 },
+{ pid: 3, ppid: 1 },
+{ pid: 10, ppid: 5 },
+{ pid: 9, ppid: 4 },
+{ pid: 7, ppid: 3 },
+{ pid: 15, ppid: 4 },
+{ pid: 13, ppid: 2 },
+{ pid: 2, ppid: 1 },
+{ pid: 14, ppid: 3 },
+{ pid: 1, ppid: -1 },
+{ pid: 12, ppid: 7 },
+{ pid: 8, ppid: 4 },
+{ pid: 11, ppid: 1 },
+{ pid: 6, ppid: 2 },
+{ pid: 5, ppid: 1 } ];
+console.log(listToTree(processes,{idKey:'pid',parentKey:'ppid',root:-1}));
         </code></pre>		
 </div>
 				<br> 
