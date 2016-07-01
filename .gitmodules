@@ -13,3 +13,6 @@
 [submodule "tools/csv-convert"]
 	path = tools/csv-convert
 	url = https://github.com/and07/csv-convert.git
+[submodule "visualizing-algorithms"]
+	path = visualizing-algorithms
+	url = https://github.com/and07/VisualizingAlgorithmsJS.git
