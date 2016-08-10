@@ -133,7 +133,7 @@ function convertData2String(txt_input,separator,quotes){
 
 document.getElementById('js_btn_run').onclick = function(){
     var txt_input = document.getElementById('txt1').value;
-    var separator = document.querySelector('input[name="outsep"]:checked').value;
+    var separator = document.querySelector('input[name="outsep"]:checked').value == 'o' ?  document.querySelector('#outSepOtherVal').value : document.querySelector('input[name="outsep"]:checked').value;
     var quotes = document.querySelector('#js_add_quotes').checked;
     var res = convertData2String(txt_input,separator,quotes);
     
