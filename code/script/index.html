@@ -33,10 +33,11 @@
 				<hr>
 				<ul>
 					<li><a href="#script00">WSH</a></li>
+					<li><a href="#script01">Insiall python3.5 (centos)</a></li>
 				</ul>
 <hr>
 
-                <h2 >WSH</h2>
+                <h2 id="script00">WSH</h2>
 <div class="">
         <pre><code class="javascript">
 /* Create the FileSystemObject */
@@ -64,9 +65,41 @@ WScript.Echo( 'DONE' );
 </div>
 
 <br>
-                <h2></h2>
+                <h2  id="script01">Insiall python3.5 (centos)</h2>
 <div class="">
-        <pre><code class="javascript">
+        <pre><code class="bash">
+#!/bin/bash
+
+yum update
+yum wget
+yum groupinstall "Development tools"
+yum install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel
+# Python 3.3.5:
+#http://stackoverflow.com/questions/7623698/wget-cant-download-404-error
+
+WEBSITE_URL='https://www.python.org/ftp/python/3.5.2/Python-3.5.2.tar.xz' # replace url with the address of the website you want to backup
+wget  ${WEBSITE_URL}  --header "Referer: www.python.org"
+
+tar xvf Python-3.5.2.tar.xz
+cd Python-3.5.2
+./configure --prefix=/usr/local --enable-shared LDFLAGS="-Wl,-rpath /usr/local/lib"
+make && make altinstall
+# First get the setup script for Setuptools:
+wget https://bootstrap.pypa.io/ez_setup.py --header "Referer: bootstrap.pypa.io"
+python3.5 ez_setup.py
+easy_install-3.5 pip
+pyvenv-3.5 python_script
+# Activate the python_script sandbox and check the version of the default Python interpreter in it:
+source python_script/bin/activate
+
+pip3 install numpy
+
+rm -rf Python-3.5.2
+rm -rf Python-3.5.2.tar.xz
+
+#python --version
+# This will show Python 3.3.5
+deactivate
         </code></pre>		
 </div>
 			</div>
