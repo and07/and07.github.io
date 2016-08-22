@@ -34,6 +34,7 @@
 				<ul>
 					<li><a href="#script00">WSH</a></li>
 					<li><a href="#script01">Insiall python3.5 (centos)</a></li>
+					<li><a href="#script02">diff dir(WIN bat)</a></li>
 				</ul>
 <hr>
 
@@ -100,6 +101,42 @@ rm -rf Python-3.5.2.tar.xz
 #python --version
 # This will show Python 3.3.5
 deactivate
+        </code></pre>		
+</div>
+
+<br>
+                <h2  id="script02">diff dir(WIN bat)</h2>
+<div class="">
+        <pre><code class="bash">
+dirc.bat        	
+        	
+@echo off
+if "%2" == "" GOTO Usage
+
+cd /D %1
+if errorlevel 1 goto usage
+
+for %%x in (*.*) do if NOT exist %2\%%x echo missing %2\%%x
+cd /D %2
+for %%x in (*.*) do if NOT exist %1\%%x echo missing %1\%%x
+
+goto end
+
+:usage
+echo Usage %0 dir1 dir2
+echo where dir1 and dir2 are full paths
+:end
+
+use
+F:\so\dir1>dirc f:\so\dir1 f:\so\dir2
+        </code></pre>		
+</div>
+
+<br>
+                <h2  id=""></h2>
+<div class="">
+        <pre><code class="bash">
+        	
         </code></pre>		
 </div>
 			</div>
