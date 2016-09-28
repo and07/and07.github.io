@@ -32,7 +32,7 @@ var ids = ['27780','75057','80145','80146','100839','70054','67297','71917','527
      var data = {"settings":{"domen":"n.vn-chk777.com","scriptName":"a.js","prefixName":"SC_TBlock"}};
    	 for(var k in ids ){
    		 var id = ids[k];
-   		 if(document.querySelector('.SC_TBlock#SC_TBlock_'+id)){
+   		 if(document.getElementById('SC_TBlock_'+id)){
 			window.SC_Adblock.ads.push({"containerId":"SC_TBlock_"+id,"blockId":id,"settings":{"domen":"n.vn-chk777.com","scriptName":"a.js","prefixName":"SC_TBlock"}});
             		console.log(document.getElementById('SC_TBlock_'+id));
    		 }	 
