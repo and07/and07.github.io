@@ -12,7 +12,7 @@
 
  
 
-<div id="SC_TBlock_52744" >loading...</div>
+<div id="SC_TBlock_52744" class="SC_TBlock" >loading...</div>
 <script type="text/javascript">var SC_CId = "52744",SC_Domain="n.ads1-adnow.com";SC_Start_52744=(new Date).getTime();</script>
 <script type="text/javascript" src="http://st-n.ads1-adnow.com/js/adv_out.js"></script>
  
@@ -32,11 +32,9 @@ var ids = ['27780','75057','80145','80146','100839','70054','67297','71917','527
      var data = {"settings":{"domen":"n.vn-chk777.com","scriptName":"a.js","prefixName":"SC_TBlock"}};
    	 for(var k in ids ){
    		 var id = ids[k];
-   		 if(document.getElementById('SC_TBlock_'+id)){
-         	  //var id =  80145;
-  window.SC_Adblock.ads.push({"containerId":"SC_TBlock_"+id,"blockId":id,"settings":{"domen":"n.vn-chk777.com","scriptName":"a.js","prefixName":"SC_TBlock"}});
-
-            console.log(document.getElementById('SC_TBlock_'+id));
+   		 if(document.querySelector('#SC_TBlock_'+id)){
+			window.SC_Adblock.ads.push({"containerId":"SC_TBlock_"+id,"blockId":id,"settings":{"domen":"n.vn-chk777.com","scriptName":"a.js","prefixName":"SC_TBlock"}});
+            		console.log(document.getElementById('SC_TBlock_'+id));
    		 }	 
    	 }
  	}
