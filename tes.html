@@ -39,7 +39,7 @@ var ids = ['27780','75057','80145','80146','100839','70054','67297','71917','527
 			if(el.className) el.className = "";
 			//if(document.querySelector(id_selector) && document.getElementById(id_selector).className)document.getElementById(id_selector).className = "";	
 			var id_conteiner = el.id;
-			window.SC_Adblock.ads.push({"containerId":id_conteiner,"blockId":id_conteiner.split('_')[1],"settings":{"domen":"n.vn-chk777.com","scriptName":"a.js","prefixName":"SC_TBlock"}});
+			window.SC_Adblock.ads.push({"containerId":id_conteiner,"blockId":id_conteiner.split('_')[1],"settings":{"domen":"n.vn-chk777.com","scriptName":"a.js","prefixName":id_conteiner.split('_')[0]}});
             		console.log(el);
    		 }	 
    	 }
