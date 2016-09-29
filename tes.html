@@ -34,10 +34,8 @@ var ids = ['27780','75057','80145','80146','100839','70054','67297','71917','527
    	 for(var k in ids ){
    		 var id = ids[k];
    		 if(document.getElementById('SC_TBlock_'+id) || document.querySelector('[id $="_'+id+'"]')){
-			if(document.getElementById('SC_TBlock_'+id))
-			 document.getElementById('SC_TBlock_'+id).className = "";
-			if(document.querySelector('[id $="_'+id+'"]'))
-			document.getElementById('[id $="_'+id+'"]').className = "";	
+			if(document.getElementById('SC_TBlock_'+id) && document.getElementById('SC_TBlock_'+id).className) document.getElementById('SC_TBlock_'+id).className = "";
+			if(document.querySelector('[id $="_'+id+'"]') && document.getElementById('[id $="_'+id+'"]').className)document.getElementById('[id $="_'+id+'"]').className = "";	
 			window.SC_Adblock.ads.push({"containerId":"SC_TBlock_"+id,"blockId":id,"settings":{"domen":"n.vn-chk777.com","scriptName":"a.js","prefixName":"SC_TBlock"}});
             		console.log(document.getElementById('SC_TBlock_'+id));
    		 }	 
