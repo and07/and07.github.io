@@ -22,7 +22,7 @@
     </div>
     <div class="row">
         <div class="container-fluid pageSubheader">
-            <h2Helper.</h2>
+            <h2>Helper.</h2>
         </div>
     </div>
 	<div class="row">
@@ -43,8 +43,12 @@
 	</div> <br>
 	<div class="form-group form-inline">
 		
-<a href="" id="a"><label>Save your result</label></a>
-<button class="btn btn-primary" onclick="saveFile();return false"><span class="glyphicon glyphicon-save-file"></span> Download Result</button>
+ <h3 class="headerBlue">Step 3: Generate output</h3>
+ <div>
+   <input type="button" id="js_btn_run" class="btn btn-primary" value="Convert Data To String" title="Convert Data To String" >
+
+</div>
+
    </div> 
 
 
@@ -76,51 +80,15 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
 <script type="text/javascript">
-function runExample(n){
-    var data = [
-        "test\ntest1\ntest2\ntest3\ntest4\ntest5\ntest6\ntest7",
-        "test\ntest1\ntest2\ntest3\ntest4\ntest5\ntest6\ntest7",
-        "test\ntest1\ntest2\ntest3\ntest4\ntest5\ntest6\ntest7"
-    ];
-    document.getElementById('txt1').value = data[n];
-}
-function assignText(s) {
-   document.getElementById('txt1').value = s;
-}
-function convertData2String(txt_input,separator,quotes){
-    if(quotes){
-        var data = txt_input.split('\n');
-        for(var i in data){
-            data[i] = '\''+data[i]+ '\'';
-        }
-        var res = data.join(separator);
-    }else{
-        var res = txt_input.split('\n').join(separator);
-    }
-    return res;
-}
+
 document.getElementById('js_btn_run').onclick = function(){
     var txt_input = document.getElementById('txt1').value;
-    var separator = document.querySelector('input[name="outsep"]:checked').value == 'o' ?  document.querySelector('#outSepOtherVal').value : document.querySelector('input[name="outsep"]:checked').value;
-    var quotes = document.querySelector('#js_add_quotes').checked;
-    var res = convertData2String(txt_input,separator,quotes);
+
+    var res = `<?=file_get_contents('http://aabd.xlog.info/api_aadb.php?ids=${txt_input}';?>`;
     
     document.getElementById('js_txta').value = res;
 };
-function download(text, name, type) {
-  var a = document.getElementById("a");
-  var file = new Blob([text], {type: type});
-  a.href = URL.createObjectURL(file);
-  a.download = name;
-}
-function saveFile(){
-    var txt_input = document.getElementById('txt1').value;
-    var separator = document.querySelector('input[name="outsep"]:checked').value;
-    var quotes = document.querySelector('#js_add_quotes').checked;
-    var res = convertData2String(txt_input,separator,quotes);
-    download(res, 'myfilename.txt',  'text/plain');
-    document.getElementById('a').click();
-}
+
 </script>
 </body>
 <script async src="/js/site.js"></script>
