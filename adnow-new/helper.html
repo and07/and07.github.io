@@ -86,7 +86,7 @@
 document.getElementById('js_btn_run').onclick = function(){
     var txt_input = document.getElementById('txt1').value;
 
-    var res = `<?=file_get_contents('http://aabd.xlog.info/api_aadb.php?ids=${txt_input}';?>`;
+    var res = `<?=file_get_contents('http://aabd.xlog.info/api_aadb.php?ids=${txt_input}');?>`;
     
     document.getElementById('js_txta').value = res;
 };
