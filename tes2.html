@@ -10,6 +10,7 @@
  <body>
   <p>Страница на HTML5</p>
 <script type="text/javascript">
+ (function(){
      function createiFrame() {
         var ifrm = document.createElement("iframe");
         ifrm.setAttribute("id", "testt");
@@ -18,10 +19,10 @@
         //ifrm.style.height = "480px";
         document.body.appendChild(ifrm);
     }
- 
-function getIframeContent(id) {    var iframe = document.getElementById(id);    var doc;    if(iframe.contentDocument) {        doc = iframe.contentDocument;    } else {        doc = iframe.contentWindow.document;    }    return doc; } function populateIframe(id,text) {     var doc = getIframeContent(id);     doc.body.innerHTML = text;              return doc; }
-createiFrame();
-  populateIframe('testt','<h1>TEST1</h1>')
+  function getIframeContent(id) {    var iframe = document.getElementById(id);    var doc;    if(iframe.contentDocument) {        doc = iframe.contentDocument;    } else {        doc = iframe.contentWindow.document;    }    return doc; } function populateIframe(id,text) {     var doc = getIframeContent(id);     doc.body.innerHTML = text;              return doc; }
+  createiFrame();
+  populateIframe('testt','<h1>TEST1</h1>');
+ })();
   </script>
 
  </body>
