@@ -2,19 +2,28 @@
 <html>
  <head>
   <meta charset="utf-8">
-  <title>Пример страницы</title>
+  <title>Title</title>
   <style>
 
   </style>
  </head>
  <body>
   <p>Страница на HTML5</p>
-<div id="SC_TBlock_316024" class="SC_TBlock">loading...</div>
 <script type="text/javascript">
- var SC_CId = "316024",SC_Domain="n.ads2-adnow.com";
- SC_Start_316024=(new Date).getTime();
-</script>
-<script type="text/javascript" src="//st-n.ads2-adnow.com/js/adv_out.js"></script>
+     function createiFrame() {
+        var ifrm = document.createElement("iframe");
+        ifrm.setAttribute("id", "testt");
+        //ifrm.setAttribute("src", "http://google.com/");
+        //ifrm.style.width = "640px";
+        //ifrm.style.height = "480px";
+        document.body.appendChild(ifrm);
+    }
+ 
+function getIframeContent(id) {    var iframe = document.getElementById(id);    var doc;    if(iframe.contentDocument) {        doc = iframe.contentDocument;    } else {        doc = iframe.contentWindow.document;    }    return doc; } function populateIframe(id,text) {     var doc = getIframeContent(id);     doc.body.innerHTML = text;              return doc; }
+createiFrame();
+  populateIframe('testt','<h1>TEST1</h1>')
+  </script>
+
  </body>
 
 </html>
