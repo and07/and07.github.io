@@ -94,7 +94,7 @@
         });
     }
     function blob2canvas(canvas,blob){
-        var img = new Img;
+        var img = new Image;
         var ctx = canvas.getContext('2d');
         img.onload = function () {
             ctx.drawImage(img,0,0);
