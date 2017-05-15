@@ -22,9 +22,11 @@
 <div class="hero-unit holder">
 <p>This is the dummy text which we can see in the generated Screenshot.</p>
 <p><a class="btn btn-success" href="javascript:void(0);" onClick="generate();">Generate Screenshot &raquo;</a></p>
+
 </div>
  
 <div class="row">
+  <canvas id = 'canvas'></canvas>
 </div>
 <hr>
 <footer>
@@ -91,7 +93,15 @@
             window.scrollTo(scrollX, scrollY);
         });
     }
-
+function blob2canvas(canvas,blob){
+    var img = new Img;
+    var ctx = canvas.getContext('2d');
+    img.onload = function () {
+        ctx.drawImage(img,0,0);
+    }
+    img.crossOrigin = "Anonymous";
+    img.src = blob;
+}
     function generate() {
         window.URL = window.URL || window.webkitURL;
         window.open(window.URL.createObjectURL(screenshotPage()));
