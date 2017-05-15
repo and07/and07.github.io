@@ -81,7 +81,8 @@
         script.textContent = '(' + addOnPageLoad_.toString() + ')();';
         screenshot.querySelector('body').appendChild(script);
         var blob = new Blob([screenshot.outerHTML], {
-            type: 'text/html'
+            //type: 'text/html'
+            type: "image/png"
         });
         return blob;
     }
