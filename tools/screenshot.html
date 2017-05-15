@@ -27,6 +27,7 @@
  
 <div class="row">
   <canvas id = 'canvas'></canvas>
+  <img id="image">
 </div>
 <hr>
 <footer>
@@ -79,8 +80,8 @@
         script.textContent = '(' + addOnPageLoad_.toString() + ')();';
         screenshot.querySelector('body').appendChild(script);
         var blob = new Blob([screenshot.outerHTML], {
-            //type: 'text/html'
-            type: "image/png"
+            type: 'text/html'
+            //type: "image/png"
         });
         return blob;
     }
