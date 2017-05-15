@@ -93,19 +93,20 @@
             window.scrollTo(scrollX, scrollY);
         });
     }
-function blob2canvas(canvas,blob){
-    var img = new Img;
-    var ctx = canvas.getContext('2d');
-    img.onload = function () {
-        ctx.drawImage(img,0,0);
+    function blob2canvas(canvas,blob){
+        var img = new Img;
+        var ctx = canvas.getContext('2d');
+        img.onload = function () {
+            ctx.drawImage(img,0,0);
+        }
+        img.crossOrigin = "Anonymous";
+        img.src = blob;
     }
-    img.crossOrigin = "Anonymous";
-    img.src = blob;
-}
     function generate() {
         window.URL = window.URL || window.webkitURL;
         window.open(window.URL.createObjectURL(screenshotPage()));
     }
+    exports.blob2canvas = blob2canvas;
     exports.screenshotPage = screenshotPage;
     exports.generate = generate;
 })(window);
