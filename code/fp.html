@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="../../css/core.css" />
+		<!--<link rel="stylesheet" type="text/css" href="css/application.css" />-->
+        
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+        <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/9.0.0/styles/default.min.css"> -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/9.0.0/styles/railscasts.min.css">
+        <script src="https://cdn.jsdelivr.net/highlight.js/9.0.0/highlight.min.js"></script>
+        
+		<title>Currying Javascript</title>
+	</head>
+<style>
+body {
+	scroll-behavior: smooth;
+}
+</style>
+	<body>
+		<div class="page">
+			<div class="container">
+				<div class="header">
+					<a href="/other.html" class="header-element">
+						Other
+					</a>
+					
+					<a href="/index.html" class="header-element">
+						Home
+					</a>
+				</div>
+				<h1>FP</h1>
+				<ul>
+					<li><a href="#Currying">Currying</a></li>
+				</ul>
+<hr>
+				<br> 
+                <h2></h2>
+<div class="">
+        <pre><code class="javascript">
+        
+function Currying(fn, ...args){
+    return function(arg){
+        const _args = args.concat(arg);
+        if(_args.length >= fn.length){
+            return fn(..._args);
+        }else{
+            return Currying(fn, ..._args)
+        }
+    }
+}
+
+        </code></pre>		
+</div>
+
+
+			</div>
+		</div>
+	</body>
+<script>
+$(document).ready(function() {
+	var anchorLinks = document.querySelectorAll("a[href^='#']");
+	for(var i = 0; i < anchorLinks.length; i++){
+		anchorLinks[i].addEventListener("click", function(e) {
+			if (window.scrollTo) {
+				var target = document.querySelector('[name='+this.getAttribute("href").substring(1)+']')|| document.querySelector(this.getAttribute("href"));
+				e.preventDefault(target);
+				//window.scrollTo({"behavior": "smooth", "top": target.offsetTop});
+				window.scrollTo(0, target.offsetTop);
+			}
+		}.bind(anchorLinks[i]));
+	};
+	
+	$('pre code').each(function(i, block) {
+		hljs.highlightBlock(block);
+	});
+});
+</script>
+<script async src="/js/site.js"></script>
+</html>
