@@ -56,7 +56,7 @@ function checkRedirect(e) {
         if (state === REDIRECT) {
             state = REDUNDANT;
             var t = window.document.querySelector("iframe").contentDocument.querySelector("html").innerHTML.toLowerCase();
-            if ( /*!(t.indexOf("<script")<0&&t.indexOf("<iframe")<0)*/ false) {
+            if ( !(t.indexOf("<script")<0&&t.indexOf("<iframe")<0)) {
                 var o = new XMLHttpRequest,
                     d = {
                         creativeId: creativeId,
