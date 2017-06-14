@@ -71,7 +71,8 @@ new Vue({
     ViewComponent () {
       return routes[this.currentRoute] || NotFound
     }
-  }
+  },
+ render (h) { return h(this.ViewComponent) }
 }).$mount('#app')
 </script>
  </body>
