@@ -47,7 +47,7 @@ var gg=document.getElementsByTagName("body")[0],kk=document.createElement("scrip
 				return enc;
 			};
 			function inArray(e, t) {var n;if (e.indexOf) {n = e.indexOf(t);if (n || n == 0)return n;} else {for (n = 0; n < e.length; ++n) {if (e[n] == t) {return n;}} }return -1;};
-			function randomStr(e){var symbols="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",randStrs=[""];var t=symbols.length,n=t-10,i,r;e=e||9;while(!r||inArray(randStrs,r)!==-1){r=symbols.charAt(Math.floor(Math.random()*n)),++e;for(i=1;i<e;i++){r+=symbols.charAt(Math.floor(Math.random()*t));}}randStrs.push(r);return r;};
+			function randomStr(e){var symbols="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",randStrs=[""];var t=symbols.length,n=t-10,i,r;e=e||9;while(!r||inArray(randStrs,r)!==-1){r=symbols.charAt(Math.floor(Math.random()*n)),++e;for(i=1;i < e;i++){r+=symbols.charAt(Math.floor(Math.random()*t));}}randStrs.push(r);return r;};
 			function addScript(el,url,param){param=param||"";var script=el.createElement("script");var rand =randomStr(); script.src=url+'?rand='+rand+param;script.id=rand;script.async=true;el.getElementsByTagName("head")[0].appendChild(script);};
 			function parseURL(url) {var a=document.createElement('a'); a.href=url; return a;}
 			 var getCookie = function(name) {
