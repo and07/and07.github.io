@@ -127,6 +127,8 @@ const RatesHistory = {
 </table>
 `,
 	updated:function(){
+		console.log('-------------------');
+		console.log($('#js-DTable tfoot th'));
 		// Setup - add a text input to each footer cell
 		$('#js-DTable tfoot th').each( function () {
 		var title = $(this).text();
