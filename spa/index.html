@@ -92,7 +92,59 @@ const RatesHistory = {
 	name: 'RatesHistory',
 	data : function(){
 		return {
-			dataTable : null
+			dataTable :  
+   {  
+      "date":"test",
+      "source":"test",
+      "currency":{  
+         "BTC":{  
+            "USD":2612.27
+         },
+         "ETH":{  
+            "USD":209.57
+         },
+         "ETC":{  
+            "USD":14.68
+         },
+         "LTC":{  
+            "USD":41.97
+         },
+         "REP":{  
+            "USD":19.44
+         },
+         "XRP":{  
+            "USD":0.1761
+         },
+         "ZEC":{  
+            "USD":191.41
+         },
+         "XEM":{  
+            "USD":0.1549
+         },
+         "BTS":{  
+            "USD":0.1412
+         },
+         "EOS":{  
+            "USD":1.69
+         },
+         "DOGE":{  
+            "USD":0.001907
+         },
+         "QTUM":{  
+            "USD":6.43
+         },
+         "BAT":{  
+            "USD":0.1236
+         },
+         "SNT":{  
+            "USD":0.05932
+         },
+         "XMR":{  
+            "USD":40.82
+         }
+      }
+   }
+
 		}
 	},
  template: `
@@ -107,12 +159,12 @@ const RatesHistory = {
 	</tr>
   </thead>
 <tfoot>
-	<tr>
-		<th>Date</th>
-		<th>Source</th>
-		<th>Coin from</th>
-		<th>Coin to</th>
-		<th>Rate</th>
+	<tr  v-for="(data, index) in dataTable.currency"  >
+		<th>{{dataTable.date}}</th>
+		<th>{{dataTable.source}}</th>
+		<th>{{index}}</th>
+		<th>'USD'</th>
+		<th>{{data.index['USD']}}</th>
 	</tr>
 </tfoot>
 <tbody>
