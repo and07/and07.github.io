@@ -159,22 +159,24 @@ const RatesHistory = {
 	</tr>
   </thead>
 <tfoot>
-	<tr  v-for="(data, index) in dataTable.currency"  >
-		<th>{{dataTable.date}}</th>
-		<th>{{dataTable.source}}</th>
-		<th>{{index}}</th>
-		<th>test</th>
-		<th>test</th>
+	<tr>
+		<th>Date</th>
+		<th>Source</th>
+		<th>Coin from</th>
+		<th>Coin to</th>
+		<th>Rate</th>
 	</tr>
 </tfoot>
 <tbody>
-	<tr>
-		<td>Date</td>
-		<td>Source</td>
-		<td>Coin from</td>
-		<td>Coin to</td>
-		<td>Rate</td>
+	<tr  v-for="(data, index) in dataTable.currency"  >
+		<td>{{dataTable.date}}</td>
+		<td>{{dataTable.source}}</td>
+		<td>{{index}}</td>
+		<td>test</td>
+		<td>test</td>
 	</tr>
+
+
 </tbody>
 </table>
 `,
