@@ -82,6 +82,98 @@ const Component1 = {
     }
   }
 }
+
+const RatesHistory = {
+	name: 'RatesHistory',
+	data : function(){
+		return {
+			dataTable : null
+		}
+	},
+ template: `
+<table class="table table-bordered" id="js-DTable">
+      <thead>
+	<tr>
+		<th>Date</th>
+		<th>Source</th>
+		<th>Coin from</th>
+		<th>Coin to</th>
+		<th>Rate</th>
+	</tr>
+  </thead>
+<tfoot>
+	<tr>
+		<th>Date</th>
+		<th>Source</th>
+		<th>Coin from</th>
+		<th>Coin to</th>
+		<th>Rate</th>
+	</tr>
+</tfoot>
+<tbody>
+	<tr>
+		<td>Date</td>
+		<td>Source</td>
+		<td>Coin from</td>
+		<td>Coin to</td>
+		<td>Rate</td>
+	</tr>
+</tbody>
+</table>
+`,
+	updated:function(){
+		// Setup - add a text input to each footer cell
+		$('#js-DTable tfoot th').each( function () {
+		var title = $(this).text();
+		$(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+		} );
+
+		// DataTable
+		var table = $('#js-DTable').DataTable({
+		"pageLength": 100,
+		 "lengthMenu": [[10, 25, 50,100,100000, -1], [10, 25, 50,100,100000, "All"]],
+		//bFilter: true, bInfo: false,
+		initComplete: function ()
+		{
+		    var r = $('#js-DTable tfoot tr');
+		    r.find('th').each(function(){
+			$(this).css('padding', 8);
+		    });
+		    $('#js-DTable thead').append(r);
+		    $('#search_0').css('text-align', 'center');
+		    $('#js-DTable_filter').hide();
+		},
+		"fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+			if(!(aData[5])) aData[5] = 0;
+			if(!(aData[6])) aData[6] = 0;
+			if ( parseInt(aData[4]) >  parseInt(aData[5]) )
+			{
+			    //$('td', nRow).css('background-color', 'Pink');
+			     $(nRow).find('td:eq(5)').css('background-color', 'Pink');
+			}
+			else if (  parseInt(aData[4]) >  parseInt(aData[6])  )
+			{
+			    $(nRow).find('td:eq(6)').css('background-color', '#f4b942');
+			}
+		}
+		} );
+
+		// Apply the search
+		table.columns().every( function () {
+		var that = this;
+
+		$( 'input', this.footer() ).on( 'keyup change', function () {
+		    if ( that.search() !== this.value ) {
+			that
+			    .search( this.value )
+			    .draw();
+		    }
+		} );
+		} );
+	},
+	
+}
+
 const NotFound = { template: '<p>Page not found</p>' }
 const Home = { template: '<p>home page</p>' }
 const About = { template: '<p>about page</p>' }
@@ -156,6 +248,7 @@ var router = new VueRouter({
         `},
       children: [   
         {path: '',name : 'main', component: Component1},
+	 {path: 'rates-history',name : 'rates_history', component:RatesHistory },
         {path: 'about',name : 'about', component: About},
         {
           path: 'list',
