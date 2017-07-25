@@ -92,59 +92,7 @@ const RatesHistory = {
 	name: 'RatesHistory',
 	data : function(){
 		return {
-			dataTable :  
-   {  
-      "date":"test",
-      "source":"test",
-      "currency":{  
-         "BTC":{  
-            "USD":2612.27
-         },
-         "ETH":{  
-            "USD":209.57
-         },
-         "ETC":{  
-            "USD":14.68
-         },
-         "LTC":{  
-            "USD":41.97
-         },
-         "REP":{  
-            "USD":19.44
-         },
-         "XRP":{  
-            "USD":0.1761
-         },
-         "ZEC":{  
-            "USD":191.41
-         },
-         "XEM":{  
-            "USD":0.1549
-         },
-         "BTS":{  
-            "USD":0.1412
-         },
-         "EOS":{  
-            "USD":1.69
-         },
-         "DOGE":{  
-            "USD":0.001907
-         },
-         "QTUM":{  
-            "USD":6.43
-         },
-         "BAT":{  
-            "USD":0.1236
-         },
-         "SNT":{  
-            "USD":0.05932
-         },
-         "XMR":{  
-            "USD":40.82
-         }
-      }
-   }
-
+			dataTable : [{"date":1500992302,"source":"cryptocompare","coin_from":"BTC","coin_to":"USD","rate":2605.3},{"date":1500992302,"source":"cryptocompare","coin_from":"ETH","coin_to":"USD","rate":208.61},{"date":1500992302,"source":"cryptocompare","coin_from":"ETC","coin_to":"USD","rate":14.72},{"date":1500992302,"source":"cryptocompare","coin_from":"LTC","coin_to":"USD","rate":42.34},{"date":1500992302,"source":"cryptocompare","coin_from":"REP","coin_to":"USD","rate":19.04},{"date":1500992302,"source":"cryptocompare","coin_from":"XRP","coin_to":"USD","rate":0.1731},{"date":1500992302,"source":"cryptocompare","coin_from":"ZEC","coin_to":"USD","rate":184.45},{"date":1500992302,"source":"cryptocompare","coin_from":"XEM","coin_to":"USD","rate":0.1591},{"date":1500992302,"source":"cryptocompare","coin_from":"BTS","coin_to":"USD","rate":0.14},{"date":1500992302,"source":"cryptocompare","coin_from":"EOS","coin_to":"USD","rate":1.65},{"date":1500992302,"source":"cryptocompare","coin_from":"DOGE","coin_to":"USD","rate":0.001762},{"date":1500992302,"source":"cryptocompare","coin_from":"QTUM","coin_to":"USD","rate":6.16},{"date":1500992302,"source":"cryptocompare","coin_from":"BAT","coin_to":"USD","rate":0.1219},{"date":1500992302,"source":"cryptocompare","coin_from":"SNT","coin_to":"USD","rate":0.06055},{"date":1500992302,"source":"cryptocompare","coin_from":"XMR","coin_to":"USD","rate":39.02}]
 		}
 	},
  template: `
@@ -169,11 +117,11 @@ const RatesHistory = {
 </tfoot>
 <tbody>
 	<tr  v-for="(data, index) in dataTable.currency"  >
-		<td>{{dataTable.date}}</td>
-		<td>{{dataTable.source}}</td>
-		<td>{{index}}</td>
-		<td>test</td>
-		<td>test</td>
+		<td>{{data.date}}</td>
+		<td>{{data.source}}</td>
+		<td>{{data.coin_from}}</td>
+		<td>{{data.coin_to}}</td>
+		<td>{{data.rate}}</td>
 	</tr>
 
 
