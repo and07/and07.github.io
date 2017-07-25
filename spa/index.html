@@ -274,6 +274,8 @@ var router = new VueRouter({
     {path: '*', component: NotFound},
 	]
 });
+	
+/*
 router.beforeEach(function (to, from, next) {
   if (to.params.lang) {
      i18n.locale  = to.params.lang
@@ -282,7 +284,7 @@ router.beforeEach(function (to, from, next) {
     next('/' + i18n.locale )
   }
 })
-
+*/
 
 var app = new Vue({
   i18n,
