@@ -2,25 +2,25 @@
 
 echo 'Update'
 echo ''
-sudo apt update
+apt update
 echo ''
 echo ''
 
 echo 'Upgrade'
 echo ''
-sudo apt upgrade
+apt upgrade
 echo ''
 echo ''
 
 echo 'Figlet'
 echo ''
-sudo apt install figlet
+apt install figlet
 echo ''
 echo ''
 
 figlet install golang
 
-sudo apt install golang
+apt install golang
 
 echo ''
 
