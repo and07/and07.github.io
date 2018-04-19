@@ -1,5 +1,5 @@
-
 #!/bin/bash
+
 apt update && apt full-upgrade -y
 apt-get autoremove -y
 apt-get clean -y
