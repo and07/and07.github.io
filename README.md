@@ -6,6 +6,5 @@
  Game javascript
  
  **tools**
- - csv converter
  - gui for parser generate rule (xpath or css selector)
  - getXPath
