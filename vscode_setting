@@ -1,0 +1,28 @@
+{
+    "go.gopath": "/Users/and07/work",
+    "go.goroot": "/usr/local/opt/go/libexec",
+    "git.enableSmartCommit": true,
+    "go.buildOnSave": true,
+    "go.lintOnSave": true,
+    "go.vetOnSave": true,
+    "go.buildFlags": [],
+    "go.lintTool": "golangci-lint",
+    "go.lintFlags": [
+        "run"
+    ],
+    "go.vetFlags": [],
+    "go.useCodeSnippetsOnFunctionSuggest": false,
+    "go.formatOnSave": false,
+    "go.formatTool": "goreturns",
+    "window.zoomLevel": 0,
+    "editor.formatOnSave": false,
+    "prettier.singleQuote": true,
+    "prettier.semi": false,
+    "prettier.tabWidth": 4,
+    "prettier.trailingComma": "es5",
+    "[yaml]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 4
+    },
+    "eslint.autoFixOnSave": true
+}
