@@ -5,6 +5,8 @@
  "start_url": "/",
  "display": "standalone",
  "orientation" : "undefined",
+ "theme_color": "#cccccc",
+ "background_color": "#cccccc",
  "icons": [
   {
    "src": "\/icons\/android-icon-36x36.png",
