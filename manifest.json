@@ -4,6 +4,7 @@
  "lang": "en-GB",
  "start_url": "/",
  "display": "standalone",
+ "orientation" : "undefined",
  "icons": [
   {
    "src": "\/icons\/android-icon-36x36.png",
