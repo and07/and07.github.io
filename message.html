@@ -69,13 +69,26 @@ limitations under the License.
   </main>
 </div>
 
-<!-- Import and configure the Firebase SDK -->
-<!-- These scripts are made available when the app is served or deployed on Firebase Hosting -->
-<!-- If you do not serve/host your project using Firebase Hosting see https://firebase.google.com/docs/web/setup -->
-<script src="/__/firebase/6.3.5/firebase-app.js"></script>
-<script src="/__/firebase/6.3.5/firebase-messaging.js"></script>
-<script src="/__/firebase/init.js"></script>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-app.js"></script>
 
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#config-web-app -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyBRIEulNdrGdRJ_8c_Pjz82E8Isz0ZtCxo",
+    authDomain: "precise-ray-249612.firebaseapp.com",
+    databaseURL: "https://precise-ray-249612.firebaseio.com",
+    projectId: "precise-ray-249612",
+    storageBucket: "",
+    messagingSenderId: "756003866504",
+    appId: "1:756003866504:web:6d4ec35a2431cd4e"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
 <script>
   // [START get_messaging_object]
   // Retrieve Firebase Messaging object.
@@ -83,7 +96,7 @@ limitations under the License.
   // [END get_messaging_object]
   // [START set_public_vapid_key]
   // Add the public key generated from the console here.
-  messaging.usePublicVapidKey('<YOUR_PUBLIC_VAPID_KEY_HERE>');
+  messaging.usePublicVapidKey('BDrMpQUpg-UIpH-yMenUWXZW9WMBM8hYWL6bhViiANpZCCgdJ5fbDpYBzwlUnZQQOiF6xNkLxPwDuFyMk7q6BC4');
   // [END set_public_vapid_key]
   // IDs of divs that display Instance ID token UI or request permission UI.
   const tokenDivId = 'token_div';
