@@ -20,7 +20,7 @@ messaging.setBackgroundMessageHandler(function(payload) {
   const notificationTitle = 'Background Message Title';
   const notificationOptions = {
     body: 'Background Message body.',
-    icon: '/icons/android-icon-72x72.png'
+    icon: '/firebase-logo.png'
   };
 
   return self.registration.showNotification(notificationTitle,
