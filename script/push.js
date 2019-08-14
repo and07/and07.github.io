@@ -2,6 +2,8 @@
 
 const appServerKey = 'BDrMpQUpg-UIpH-yMenUWXZW9WMBM8hYWL6bhViiANpZCCgdJ5fbDpYBzwlUnZQQOiF6xNkLxPwDuFyMk7q6BC4';
 
+let swRegistration = null
+
 function askPermission() {
   return new Promise(function(resolve, reject) {
     const permissionResult = Notification.requestPermission(function(result) {
