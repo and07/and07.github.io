@@ -98,7 +98,7 @@ function askPermission() {
 
 function initPush() {
   
-  askPermission();
+  //askPermission();
   subscribeUser();
 
   // Set the initial subscription value
