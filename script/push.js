@@ -10,7 +10,7 @@ function askPermission() {
       resolve(result);
       if (result === 'granted') {
         var notification = new Notification('Notification title', {
-          icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
+          icon: 'https://and07.github.io/images/2040077.png',
           body: "Hey there! You've been notified!",
         });
 
