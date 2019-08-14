@@ -97,7 +97,8 @@ function askPermission() {
 
 
 function initPush() {
-
+  
+  askPermission();
   subscribeUser();
 
   // Set the initial subscription value
@@ -105,9 +106,7 @@ function initPush() {
   .then(function(subscription) {
     console.log("subscription ",subscription)
   });
-  
-  askPermission()
-  
+
 }
 
 navigator.serviceWorker.register('sw.js')
