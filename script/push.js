@@ -81,3 +81,95 @@ function sendSubscriptionToBackEnd(subscription) {
   });
 }
  
+/**************/
+
+
+    if ('serviceWorker' in navigator && 'PushManager' in window) {
+      // console.log('Service Worker and Push is supported');
+      navigator.serviceWorker.register('service-worker.js')
+        .then(function(swReg) {
+          // console.log('Service Worker is registered', swReg);
+          if (Notification.permission == 'default') {
+            askPermission()
+          }
+          swRegistration = swReg;
+        })
+        .catch(function(error) {
+          console.error('Service Worker Error', error);
+        });
+    } else {
+      console.warn('Push messaging is not supported');
+      pushButton.textContent = 'Push Not Supported';
+    }
+    // Just the push button
+    function notifyMe() {
+      if (!Notification) {
+        alert('Desktop notifications not available in your browser. Try Chromium.');
+        return;
+      }
+      if (Notification.permission !== "granted") {
+        Notification.requestPermission();
+      } else {
+        var notification = new Notification('Notification title', {
+          icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
+          body: "Hey there! You've been notified!",
+        });
+        allTheEvents(notification);
+      }
+    }
+    function allTheEvents(notification) {
+      notification.addEventListener("show", (e) => {
+        const testDataObject = {
+          name: "show",
+          favorite_drink: "Fire Ball",
+          favorite_food: "Steak"
+        }
+        new Promise((resolve, reject) => {
+          resolve(postsendTestDataData(testDataObject))
+        })
+      })
+      notification.addEventListener("click", (e) => {
+        const testDataObject = {
+          name: "click",
+          favorite_drink: "Fire Ball",
+          favorite_food: "Steak"
+        }
+        new Promise((resolve, reject) => {
+          postsendTestDataData(testDataObject)
+        })
+      })
+      notification.addEventListener("close", (e) => {
+        const testDataObject = {
+          name: "close",
+          favorite_drink: "Fire Ball",
+          favorite_food: "Steak"
+        }
+        new Promise((resolve, reject) => {
+          postsendTestDataData(testDataObject)
+        })
+      })
+      notification.addEventListener("error", (e) => {
+        const testDataObject = {
+          name: "error",
+          favorite_drink: "Fire Ball",
+          favorite_food: "Steak"
+        }
+        new Promise((resolve, reject) => {
+          postsendTestDataData(testDataObject)
+        })
+      })
+    }
+    function postsendTestDataData(data) {
+        let domain;
+        const local = window.location.href.includes("127");
+        local ? domain = "http://localhost:3000/" : "https://arcane-stream-87798.herokuapp.com/"
+        return fetch(`${domain}/test_data`, {
+          body: JSON.stringify(data), // must match 'Content-Type' header
+          method: 'POST',
+          headers: {
+            'user-agent': 'Mozilla/4.0 MDN Example',
+            'content-type': 'application/json'
+          },
+        })
+          .then(response => console.log(response)) // parses response to JSON
+      }
