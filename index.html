@@ -34,18 +34,6 @@ if ('serviceWorker' in navigator && 'PushManager' in window) {
   s.async = true;
   document.head.appendChild(s);
 }
-if ('serviceWorker' in navigator) {
- window.addEventListener('load', function() {  
-  navigator.serviceWorker.register('/sw.js').then(
-    function(registration) {
-      // Registration was successful
-      console.log('ServiceWorker registration successful with scope: ', registration.scope); },
-    function(err) {
-      // registration failed :(
-      console.log('ServiceWorker registration failed: ', err);
-    });
-  });
-}
 </script>
 	</head>
 	
@@ -88,8 +76,9 @@ if ('serviceWorker' in navigator) {
 	-->
 			</div>
 		</div>
-		
+	<!--
 		<script async src="js/site.js"></script>
+	-->
 		<script type="text/javascript" async src="https://adrelative.com/api/adrelative.js?token=93ab80a81f28fcca46a57c46509b640a"></script>
 		
 		
