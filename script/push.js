@@ -2,13 +2,48 @@
 
 const appServerKey = 'BDrMpQUpg-UIpH-yMenUWXZW9WMBM8hYWL6bhViiANpZCCgdJ5fbDpYBzwlUnZQQOiF6xNkLxPwDuFyMk7q6BC4';
 
-let serviceWorkerRegistration = null;
+function askPermission() {
+  return new Promise(function(resolve, reject) {
+    const permissionResult = Notification.requestPermission(function(result) {
+      resolve(result);
+      if (result === 'granted') {
+        var notification = new Notification('Notification title', {
+          icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
+          body: "Hey there! You've been notified!",
+        });
 
-function urlB64ToUint8Array(base64String) {
+        allTheEvents(notification);
+        subscribeUser();
+      }
+    });
+
+    if (permissionResult) {
+      permissionResult.then(resolve, reject);
+    }
+
+  }).then(function(permissionResult) {
+    if (permissionResult !== 'granted') {
+      throw new Error('We weren\'t granted permission.');
+    }
+  });
+}
+
+function subscribeUser() {
+  const applicationServerKey = urlBase64ToUint8Array(appServerKey);
+  const options = {
+    userVisibleOnly: true,
+    applicationServerKey: applicationServerKey
+  }
+  return swRegistration.pushManager.subscribe(options).then(function(subscription) {
+    sendSubscriptionToBackEnd(subscription)
+  }).catch(function(err) {
+    console.log('Failed to subscribe the user: ', err);
+  });
+}
+
+function urlBase64ToUint8Array(base64String) {
   const padding = '='.repeat((4 - base64String.length % 4) % 4);
-  const base64 = (base64String + padding)
-    .replace(/\-/g, '+')
-    .replace(/_/g, '/');
+  const base64 = (base64String + padding).replace(/\-/g, '+').replace(/_/g, '/');
 
   const rawData = window.atob(base64);
   const outputArray = new Uint8Array(rawData.length);
@@ -18,104 +53,31 @@ function urlB64ToUint8Array(base64String) {
   }
   return outputArray;
 }
-function subscribeUser() {
-  serviceWorkerRegistration.pushManager.subscribe({
-    userVisibleOnly: true,
-    applicationServerKey: urlB64ToUint8Array(appServerKey)
-  })
-  .then(function(subscription) {
 
-    fetch('/push/subscribe',{
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(subscription)
-    })
-    .then(function(response) {
-      return response;
-    })
-    .then(function(text) {
-      console.log('User is subscribed.');
-    })
-    .catch(function(error) {
-      console.error('error fetching subscribe', error);
-    });
-    
-  })
-  .catch(function(err) {
-    console.log('Failed to subscribe the user: ', err);
-  });
-}
+function sendSubscriptionToBackEnd(subscription) {
+  let endPoint;
+  if(window.location.href === 'https://digitaldrk.github.io') {
+    endPoint = 'https://arcane-stream-87798.herokuapp.com'
+  } else {
+    endPoint = 'http://localhost:3000/subscriptions'
+  }
 
-function unsubscribeUser() {
-  serviceWorkerRegistration.pushManager.getSubscription()
-  .then(function(subscription) {
-    if (subscription) {
-      subscriptionData = {
-        endpoint: subscription.endpoint
-      };
-      
-      fetch('/push/unsubscribe',{
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(subscriptionData)
-      })
-      .then(function(response) {
-        return response;
-      })
-      .then(function(text) {
-        console.log('User is unsubscribe.');
-      })
-      .catch(function(error) {
-        console.error('error fetching unsubscribe', error);
-      });
-      
-      return subscription.unsubscribe();
+  return fetch(endPoint, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(subscription)
+  }).then(function(response) {
+    if (!response.ok) {
+      throw new Error('Bad status code from server.');
+    }
+
+    return response.json();
+  }).then(function(responseData) {
+    if (!(responseData.data && responseData.data.success)) {
+      throw new Error('Bad response from server.');
     }
   });
 }
-
-function askPermission() {
-  return new Promise(function(resolve, reject) {
-  const permissionResult = Notification.requestPermission(function(result) {        
-    resolve(result);
-    if (result === 'granted') {
-      subscribeUser();
-    }
-  });
-if (permissionResult) {
-    permissionResult.then(resolve, reject);
-  }
-  }).then(function(permissionResult) {
-    if (permissionResult !== 'granted') {
-    throw new Error('We weren\'t granted permission.');
-  }
-});}
-
-function initPush() {
-
-  // Set the initial subscription value
-  serviceWorkerRegistration.pushManager.getSubscription()
-  .then(function(subscription) {
-    console.log("subscription ",subscription)
-  });
-
-}
-
-navigator.serviceWorker.register('sw.js')
-.then(function(sw) {
-  console.log('Service Worker is registered', sw);           
-  if (Notification.permission == 'default') {            
-    askPermission()
-  }
-
-  serviceWorkerRegistration = sw;
-  initPush();
-})
-.catch(function(error) {
-  console.error('Service Worker Error', error);
-});
-
+ 
