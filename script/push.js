@@ -80,26 +80,22 @@ function unsubscribeUser() {
 
 function askPermission() {
   return new Promise(function(resolve, reject) {
-    const permissionResult = Notification.requestPermission(function(result) {
-      resolve(result);
-    });
-
-    if (permissionResult) {
-      permissionResult.then(resolve, reject);
-    }
-  })
-  .then(function(permissionResult) {
-    if (permissionResult !== 'granted') {
-      throw new Error('We weren\'t granted permission.');
+  const permissionResult = Notification.requestPermission(function(result) {        
+    resolve(result);
+    if (result === 'granted') {
+      subscribeUser();
     }
   });
-}
-
+if (permissionResult) {
+    permissionResult.then(resolve, reject);
+  }
+  }).then(function(permissionResult) {
+    if (permissionResult !== 'granted') {
+    throw new Error('We weren\'t granted permission.');
+  }
+});}
 
 function initPush() {
-  
-  //askPermission();
-  subscribeUser();
 
   // Set the initial subscription value
   serviceWorkerRegistration.pushManager.getSubscription()
@@ -111,6 +107,11 @@ function initPush() {
 
 navigator.serviceWorker.register('sw.js')
 .then(function(sw) {
+  console.log('Service Worker is registered', sw);           
+  if (Notification.permission == 'default') {            
+    askPermission()
+  }
+
   serviceWorkerRegistration = sw;
   initPush();
 })
