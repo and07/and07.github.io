@@ -77,7 +77,7 @@ self.addEventListener('push', function(event) {
 			icon: '/icons/android-icon-72x72.png'
 		};
 	}
-
+	
 	event.waitUntil(
 		self.registration.showNotification(notificationData.title, {
 			body: notificationData.body,
