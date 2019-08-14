@@ -7,6 +7,7 @@ toolbox.router.get("/icons/*", toolbox.cacheFirst);
 toolbox.router.get("/*", toolbox.networkFirst, {
 networkTimeoutSeconds: 5});
 */
+const VERSION = 0.01
 
 self.addEventListener('install', function(event) {
 	self.skipWaiting();
