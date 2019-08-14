@@ -106,6 +106,8 @@ function initPush() {
     console.log("subscription ",subscription)
   });
   
+  askPermission()
+  
 }
 
 navigator.serviceWorker.register('sw.js')
