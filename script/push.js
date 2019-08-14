@@ -86,7 +86,7 @@ function sendSubscriptionToBackEnd(subscription) {
 
 if ('serviceWorker' in navigator && 'PushManager' in window) {
   // console.log('Service Worker and Push is supported');
-  navigator.serviceWorker.register('service-worker.js')
+  navigator.serviceWorker.register('sw.js')
     .then(function(swReg) {
       // console.log('Service Worker is registered', swReg);
       if (Notification.permission == 'default') {
