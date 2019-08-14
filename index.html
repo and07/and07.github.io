@@ -28,6 +28,12 @@
 		<meta property="og:image" content="https://and07.github.io/icons/apple-icon-180x180.png">
         	<link rel="icon" href="favicon.ico" type="image/x-icon" />
 <script>
+if ('serviceWorker' in navigator && 'PushManager' in window) {
+  var s = document.createElement('script');
+  s.src = '/script/push.js';
+  s.async = true;
+  document.head.appendChild(s);
+}
 if ('serviceWorker' in navigator) {
  window.addEventListener('load', function() {  
   navigator.serviceWorker.register('/sw.js').then(
