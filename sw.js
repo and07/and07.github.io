@@ -62,7 +62,7 @@ self.addEventListener('activate', function(event) {
 	);
 });
 
-sself.addEventListener("push", (event) => {
+self.addEventListener("push", (event) => {
   message_object = JSON.parse(event.data.text());
 
   let title = message_object.title;
