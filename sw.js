@@ -8,8 +8,6 @@ toolbox.router.get("/*", toolbox.networkFirst, {
 networkTimeoutSeconds: 5});
 */
 
-const VERSION = 'v0.0.5';
-
 self.addEventListener('install', function(event) {
 	self.skipWaiting();
 	event.waitUntil(
@@ -64,45 +62,49 @@ self.addEventListener('activate', function(event) {
 	);
 });
 
-self.addEventListener('push', function(event) {
+sself.addEventListener("push", (event) => {
+  message_object = JSON.parse(event.data.text());
 
-	let notificationData = {};
+  let title = message_object.title;
+  let options = {
+    body: message_object.body,
+    tag: "push-simple-demo-notification-tag",
+    icon: message_object.icon,
+    link: message_object.link
+  }
 
-	try {
-		notificationData = event.data.json();
-	} catch (e) {
-		notificationData = {
-			title: 'Default title',
-			body: 'Default message',
-			icon: '/icons/android-icon-72x72.png'
-		};
-	}
-	
-	event.waitUntil(
-		self.registration.showNotification(notificationData.title, {
-			body: notificationData.body,
-			icon: notificationData.icon
-		})
-	);
+  const testDataObject = {
+    name: "waitUntil",
+    favorite_drink: "Fire Ball",
+    favorite_food: "Steak"
+  }
 
+  event.waitUntil(
+    self.registration.showNotification(title, options)
+      .then(postsendTestDataData(testDataObject))   
+  )
 });
 
-self.addEventListener('notificationclick', function(event) {
-
-	// close the notification
-	event.notification.close();
-
-	// see if the current is open and if it is focus it
-	// otherwise open new tab
+self.addEventListener('notificationclick', function (event) {
+  event.notification.close();
+  console.log('self in click event Listener', self)
   event.waitUntil(
-
-    self.clients.matchAll().then(function(clientList) {
- 
-      if (clientList.length > 0) {
-        return clientList[0].focus();
-      }
- 
-      return self.clients.openWindow('/');
-    })
+    clients.openWindow(event.currentTarget.message_object.link)
   );
 });
+
+function postsendTestDataData(data) {
+  let domain;
+  const local = location.origin.includes("127");
+  local ? domain = "http://localhost:3000/" : "https://arcane-stream-87798.herokuapp.com/"
+
+  return fetch(`${domain}/test_data`, {
+    body: JSON.stringify(data), // must match 'Content-Type' header
+    method: 'POST',
+    headers: {
+      'user-agent': 'Mozilla/4.0 MDN Example',
+      'content-type': 'application/json'
+    },
+  })
+    .then(response => console.log(response)) // parses response to JSON
+}
