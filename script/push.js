@@ -162,6 +162,7 @@ function allTheEvents(notification) {
   })
 }
 function postsendTestDataData(data) {
+/*
     let domain;
     const local = window.location.href.includes("127");
     local ? domain = "http://localhost:3000/" : "https://arcane-stream-87798.herokuapp.com/"
@@ -174,6 +175,7 @@ function postsendTestDataData(data) {
       },
     })
       .then(response => console.log(response)) // parses response to JSON
+*/
   }
 
 notifyMe()
