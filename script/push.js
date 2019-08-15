@@ -166,7 +166,9 @@ function postsendTestDataData(data) {
     let domain;
     const local = window.location.href.includes("127");
     local ? domain = "http://localhost:3000/" : "https://and07-push-notifications.herokuapp.com/"
-    return fetch(`${domain}/test-data`, {
+    const url = `${domain}/test-data`
+    console.log(url)
+    return fetch(url, {
       body: JSON.stringify(data), // must match 'Content-Type' header
       method: 'POST',
       headers: {
