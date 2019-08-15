@@ -1,6 +1,6 @@
 'use strict';
 
-const appServerKey = 'BDrMpQUpg-UIpH-yMenUWXZW9WMBM8hYWL6bhViiANpZCCgdJ5fbDpYBzwlUnZQQOiF6xNkLxPwDuFyMk7q6BC4';
+const appServerKey = 'BJrbQTpQd72tDRmegu-HqrXPx9VyYqmnZAes0Y_IF6HrGTbGfk9_rByEOcXxpPm-A1YE5PlVYf5D9H3_vj21O8w';
 
 let swRegistration = null
 
@@ -58,8 +58,8 @@ function urlBase64ToUint8Array(base64String) {
 
 function sendSubscriptionToBackEnd(subscription) {
   let endPoint;
-  if(window.location.href === 'https://digitaldrk.github.io') {
-    endPoint = 'https://arcane-stream-87798.herokuapp.com'
+  if(window.location.href === 'https://and07.github.io') {
+    endPoint = 'https://and07-push-notifications.herokuapp.com/subscriptions'
   } else {
     endPoint = 'http://localhost:3000/subscriptions'
   }
@@ -162,11 +162,11 @@ function allTheEvents(notification) {
   })
 }
 function postsendTestDataData(data) {
-/*
+
     let domain;
     const local = window.location.href.includes("127");
-    local ? domain = "http://localhost:3000/" : "https://arcane-stream-87798.herokuapp.com/"
-    return fetch(`${domain}/test_data`, {
+    local ? domain = "http://localhost:3000/" : "https://and07-push-notifications.herokuapp.com/"
+    return fetch(`${domain}/test-data`, {
       body: JSON.stringify(data), // must match 'Content-Type' header
       method: 'POST',
       headers: {
@@ -175,7 +175,7 @@ function postsendTestDataData(data) {
       },
     })
       .then(response => console.log(response)) // parses response to JSON
-*/
+
   }
 
 notifyMe()

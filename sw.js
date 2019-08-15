@@ -95,12 +95,11 @@ self.addEventListener('notificationclick', function (event) {
 });
 
 function postsendTestDataData(data) {
-/*
   let domain;
   const local = location.origin.includes("127");
-  local ? domain = "http://localhost:3000/" : "https://arcane-stream-87798.herokuapp.com/"
+  local ? domain = "http://localhost:3000/" : "https://and07-push-notifications.herokuapp.com/"
 
-  return fetch(`${domain}/test_data`, {
+  return fetch(`${domain}/test-data`, {
     body: JSON.stringify(data), // must match 'Content-Type' header
     method: 'POST',
     headers: {
@@ -109,5 +108,4 @@ function postsendTestDataData(data) {
     },
   })
     .then(response => console.log(response)) // parses response to JSON
-*/
 }
