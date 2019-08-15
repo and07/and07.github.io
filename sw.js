@@ -9,6 +9,8 @@ networkTimeoutSeconds: 5});
 */
 const VERSION = 0.01
 
+let message_object = {}
+
 self.addEventListener('install', function(event) {
 	self.skipWaiting();
 	event.waitUntil(
