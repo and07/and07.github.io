@@ -58,7 +58,7 @@ function urlBase64ToUint8Array(base64String) {
 
 function sendSubscriptionToBackEnd(subscription) {
   let endPoint;
-  if(window.location.href === 'https://and07.github.io') {
+  if(window.location.href === 'https://and07.github.io/') {
     endPoint = 'https://and07-push-notifications.herokuapp.com/subscriptions'
   } else {
     endPoint = 'http://localhost:3000/subscriptions'
