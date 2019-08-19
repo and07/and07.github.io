@@ -96,6 +96,10 @@ self.addEventListener('notificationclick', function (event) {
   );
 });
 
+self.addEventListener('pushsubscriptionchange', function() {
+    console.log('pushsubscriptionchange!!!');
+});
+
 function postsendTestDataData(data) {
   let domain;
   const local = location.origin.includes("127");
