@@ -96,8 +96,9 @@ self.addEventListener('notificationclick', function (event) {
   );
 });
 
-self.addEventListener('pushsubscriptionchange', function() {
+self.addEventListener('pushsubscriptionchange', function(event) {
     console.log('pushsubscriptionchange!!!');
+    console.log(event);
 });
 
 function postsendTestDataData(data) {
