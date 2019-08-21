@@ -66,8 +66,17 @@ self.addEventListener('activate', function(event) {
 });
 
 self.addEventListener("push", (event) => {
-  message_object = JSON.parse(event.data.text());
-
+  message_object = event.data.json();
+  console.log(message_object)
+  if ( 'notification' in message_object){
+    return ;
+  }
+  if ('data' in message_object){
+    if ( navigator.userAgent.indexOf('Macintosh') != -1){
+      message_object.data.requireInteraction=false;
+    }	
+  }
+	  
   let title = message_object.title;
   let options = {
     body: message_object.body,
