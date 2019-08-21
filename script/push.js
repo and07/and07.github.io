@@ -95,8 +95,12 @@ if ('serviceWorker' in navigator && 'PushManager' in window) {
       if (Notification.permission == 'default') {
         askPermission()
       }
-      swRegistration = swReg;
-      console.log('register', swReg)
+      swRegistration = swReg
+      console.log('register')
+      swRegistration.pushManager.getSubscription().then((s) => {
+        console.log(s)
+        sendSubscriptionToBackEnd(s)
+      })
     })
     .catch(function(error) {
       console.error('Service Worker Error', error);
