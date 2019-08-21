@@ -96,6 +96,7 @@ if ('serviceWorker' in navigator && 'PushManager' in window) {
         askPermission()
       }
       swRegistration = swReg;
+      console.log('register', swReg)
     })
     .catch(function(error) {
       console.error('Service Worker Error', error);
@@ -121,6 +122,7 @@ function notifyMe() {
   }
 }
 function allTheEvents(notification) {
+  console.log('allTheEvents', notification)
   notification.addEventListener("show", (e) => {
     const testDataObject = {
       name: "show",
@@ -128,6 +130,7 @@ function allTheEvents(notification) {
       favorite_food: "Steak"
     }
     new Promise((resolve, reject) => {
+      console.log('show')
       resolve(postsendTestDataData(testDataObject))
     })
   })
@@ -138,6 +141,7 @@ function allTheEvents(notification) {
       favorite_food: "Steak"
     }
     new Promise((resolve, reject) => {
+      console.log('click')
       postsendTestDataData(testDataObject)
     })
   })
@@ -148,6 +152,7 @@ function allTheEvents(notification) {
       favorite_food: "Steak"
     }
     new Promise((resolve, reject) => {
+      console.log('close')
       postsendTestDataData(testDataObject)
     })
   })
@@ -158,9 +163,15 @@ function allTheEvents(notification) {
       favorite_food: "Steak"
     }
     new Promise((resolve, reject) => {
+      console.log('error')
       postsendTestDataData(testDataObject)
     })
   })
+  
+  notification.addEventListener('pushsubscriptionchange', function(event) {
+    console.log('pushsubscriptionchange!!!');
+    console.log(event);
+  });
 }
 function postsendTestDataData(data) {
 
