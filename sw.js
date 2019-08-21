@@ -66,7 +66,7 @@ self.addEventListener('activate', function(event) {
 });
 
 self.addEventListener("push", (event) => {
-  message_object = event.data.json();
+  message_object = JSON.parse(event.data.text());
   console.log(message_object)
   if ( 'notification' in message_object){
     return ;
