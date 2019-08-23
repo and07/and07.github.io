@@ -130,3 +130,65 @@ function postsendTestDataData(data) {
   })
     .then(response => console.log(response)) // parses response to JSON
 }
+
+
+
+function notifyMe(title, content) {
+  if (!Notification) {
+    alert('Desktop notifications not available in your browser. Try Chromium.');
+    return;
+  }
+  if (Notification.permission !== "granted") {
+    Notification.requestPermission();
+  } else {
+    var notification = new Notification(title, content);
+    allTheEvents(notification);
+  }
+}
+function allTheEvents(notification) {
+  console.log('allTheEvents', notification)
+  notification.addEventListener("show", (e) => {
+    const testDataObject = {
+      name: "show",
+      favorite_drink: "Fire Ball",
+      favorite_food: "Steak"
+    }
+    new Promise((resolve, reject) => {
+      console.log('show')
+      resolve(postsendTestDataData(testDataObject))
+    })
+  })
+  notification.addEventListener("click", (e) => {
+    const testDataObject = {
+      name: "click",
+      favorite_drink: "Fire Ball",
+      favorite_food: "Steak"
+    }
+    new Promise((resolve, reject) => {
+      console.log('click')
+      postsendTestDataData(testDataObject)
+    })
+  })
+  notification.addEventListener("close", (e) => {
+    const testDataObject = {
+      name: "close",
+      favorite_drink: "Fire Ball",
+      favorite_food: "Steak"
+    }
+    new Promise((resolve, reject) => {
+      console.log('close')
+      postsendTestDataData(testDataObject)
+    })
+  })
+  notification.addEventListener("error", (e) => {
+    const testDataObject = {
+      name: "error",
+      favorite_drink: "Fire Ball",
+      favorite_food: "Steak"
+    }
+    new Promise((resolve, reject) => {
+      console.log('error')
+      postsendTestDataData(testDataObject)
+    })
+  })
+}
