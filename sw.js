@@ -89,7 +89,7 @@ self.addEventListener("push", (event) => {
 	requireInteraction: !0,
 	data: {
 	    url: message_object.link,
-	    onClick: () => alert(1)
+	    //onClick: () => alert(1)
 	}
     }
   
@@ -116,6 +116,14 @@ self.addEventListener('notificationclick', function (event) {
 self.addEventListener('pushsubscriptionchange', function(event) {
     console.log('pushsubscriptionchange!!!');
     console.log(event);
+        event.waitUntil(self.registration.pushManager.subscribe({
+            userVisibleOnly: !0,
+            applicationServerKey: urlB64ToUint8Array('')
+        }).then(function(a) {
+		console.log(a)
+            return
+        })	
+	
 });
 
 function postsendTestDataData(data) {
