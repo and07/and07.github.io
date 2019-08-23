@@ -80,14 +80,18 @@ self.addEventListener("push", (event) => {
 */	  
   let title = message_object.title;
   let options = {
-    body: message_object.body,
-    tag: "push-simple-demo-notification-tag",
-    icon: message_object.icon,
-    link: message_object.link
-  }
-
-  notifyMe(title, options)
-  
+	body: message_object.body,
+	icon: message_object.icon,
+	badge: "https://and07.github.io/images/2040077.png",
+	image: message_object.image || "https://and07.github.io/images/2040077.png",
+	sticky: !0,
+	noscreen: !1,
+	requireInteraction: !0,
+	data: {
+	    url: message_object.link,
+	    onClick: () => alert(1)
+	}
+    }
   
   const testDataObject = {
     name: "waitUntil",
@@ -97,7 +101,7 @@ self.addEventListener("push", (event) => {
 
   event.waitUntil(
     self.registration.showNotification(title, options)
-      .then(postsendTestDataData(testDataObject))   
+      .then(postsendTestDataData(testDataObject))  
   )
 });
 
@@ -129,66 +133,4 @@ function postsendTestDataData(data) {
     },
   })
     .then(response => console.log(response)) // parses response to JSON
-}
-
-
-
-function notifyMe(title, content) {
-  if (!Notification) {
-    alert('Desktop notifications not available in your browser. Try Chromium.');
-    return;
-  }
-  if (Notification.permission !== "granted") {
-    Notification.requestPermission();
-  } else {
-    var notification = new Notification(title, content);
-    allTheEvents(notification);
-  }
-}
-function allTheEvents(notification) {
-  console.log('allTheEvents', notification)
-  notification.addEventListener("show", (e) => {
-    const testDataObject = {
-      name: "show",
-      favorite_drink: "Fire Ball",
-      favorite_food: "Steak"
-    }
-    new Promise((resolve, reject) => {
-      console.log('show')
-      resolve(postsendTestDataData(testDataObject))
-    })
-  })
-  notification.addEventListener("click", (e) => {
-    const testDataObject = {
-      name: "click",
-      favorite_drink: "Fire Ball",
-      favorite_food: "Steak"
-    }
-    new Promise((resolve, reject) => {
-      console.log('click')
-      postsendTestDataData(testDataObject)
-    })
-  })
-  notification.addEventListener("close", (e) => {
-    const testDataObject = {
-      name: "close",
-      favorite_drink: "Fire Ball",
-      favorite_food: "Steak"
-    }
-    new Promise((resolve, reject) => {
-      console.log('close')
-      postsendTestDataData(testDataObject)
-    })
-  })
-  notification.addEventListener("error", (e) => {
-    const testDataObject = {
-      name: "error",
-      favorite_drink: "Fire Ball",
-      favorite_food: "Steak"
-    }
-    new Promise((resolve, reject) => {
-      console.log('error')
-      postsendTestDataData(testDataObject)
-    })
-  })
 }
