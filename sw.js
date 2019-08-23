@@ -86,6 +86,9 @@ self.addEventListener("push", (event) => {
     link: message_object.link
   }
 
+  notifyMe(title, options)
+  
+  
   const testDataObject = {
     name: "waitUntil",
     favorite_drink: "Fire Ball",
