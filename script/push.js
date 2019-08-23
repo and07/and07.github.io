@@ -110,7 +110,7 @@ if ('serviceWorker' in navigator && 'PushManager' in window) {
   pushButton.textContent = 'Push Not Supported';
 }
 // Just the push button
-function notifyMe() {
+function notifyMe(title, content) {
   if (!Notification) {
     alert('Desktop notifications not available in your browser. Try Chromium.');
     return;
@@ -118,10 +118,7 @@ function notifyMe() {
   if (Notification.permission !== "granted") {
     Notification.requestPermission();
   } else {
-    var notification = new Notification('Notification title', {
-      icon: 'https://and07.github.io/images/2040077.png',
-      body: "Hey there! You've been notified!",
-    });
+    var notification = new Notification(title, content);
     allTheEvents(notification);
   }
 }
@@ -171,11 +168,6 @@ function allTheEvents(notification) {
       postsendTestDataData(testDataObject)
     })
   })
-  
-  notification.addEventListener('pushsubscriptionchange', function(event) {
-    console.log('pushsubscriptionchange!!!');
-    console.log(event);
-  });
 }
 function postsendTestDataData(data) {
 
