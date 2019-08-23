@@ -122,7 +122,7 @@ self.addEventListener('pushsubscriptionchange', function(event) {
         }).then(function(a) {
 		console.log(a)
             return
-        })	
+        }))
 	
 });
 
