@@ -37,6 +37,9 @@ function askPermission() {
         });
 
         allTheEvents(notification);
+
+      }
+      if (result === 'granted') {
         subscribeUser();
       }
     });
