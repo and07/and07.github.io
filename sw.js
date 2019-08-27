@@ -90,8 +90,32 @@ self.addEventListener("push", (event) => {
 	data: {
 	    url: message_object.link,
 	    //onClick: () => alert(1)
+	},
+	actions: [
+	{
+	   action: 'coffee-action',
+           title: 'Coffee',
+           icon: '/images/demos/action-1-128x128.png'
+	},
+	{
+           action: 'doughnut-action',
+           title: 'Doughnut',
+           icon: '/images/demos/action-2-128x128.png'
+	},
+	{
+           action: 'gramophone-action',
+           title: 'gramophone',
+           icon: '/images/demos/action-3-128x128.png'
+	},
+	{
+           action: 'atom-action',
+           title: 'Atom',
+           icon: '/images/demos/action-4-128x128.png'
 	}
+	]
     }
+  
+  console.log('Notification.maxActions ', Notification.maxActions)
   
   const testDataObject = {
     name: "waitUntil",
