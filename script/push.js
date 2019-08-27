@@ -11,7 +11,21 @@ function askPermission() {
      
        if (result === 'granted') {
           navigator.serviceWorker.ready.then(function(registration) {
-            registration.showNotification('Notification with ServiceWorker');
+            let title = 'Notification with ServiceWorker'
+            let options = {
+              body: 'body',
+              icon: "https://and07.github.io/images/2040077.png",
+              badge: "https://and07.github.io/images/2040077.png",
+              image: "https://and07.github.io/images/2040077.png",
+              sticky: !0,
+              noscreen: !1,
+              requireInteraction: !0,
+              data: {
+                  url: "https://and07.github.io/",
+                  //onClick: () => alert(1)
+              }
+            }
+            registration.showNotification(title, options);
           });
        }
       
