@@ -25,6 +25,7 @@ function askPermission() {
                   //onClick: () => alert(1)
               }
             }
+            console.log(registration)
             registration.showNotification(title, options);
           });
        }
@@ -141,6 +142,11 @@ function notifyMe(title, content) {
   if (Notification.permission !== "granted") {
     Notification.requestPermission();
   } else {
+    navigator.serviceWorker.getRegistrations().then(function(registrations) {
+      console.log('notifyMe', registrations)
+      registrations[0].showNotification(title, options);
+    }); 
+    
     var notification = new Notification(title, content);
     allTheEvents(notification);
   }
