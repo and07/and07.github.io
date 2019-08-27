@@ -108,6 +108,7 @@ self.addEventListener("push", (event) => {
 self.addEventListener('notificationclick', function (event) {
   event.notification.close();
   console.log('self in click event Listener', self)
+  console.log('event', event)
   event.waitUntil(
     clients.openWindow(event.currentTarget.message_object.link)
   );
