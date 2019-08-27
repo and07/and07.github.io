@@ -8,6 +8,13 @@ function askPermission() {
   return new Promise(function(resolve, reject) {
     const permissionResult = Notification.requestPermission(function(result) {
       resolve(result);
+     
+       if (result === 'granted') {
+          navigator.serviceWorker.ready.then(function(registration) {
+            registration.showNotification('Notification with ServiceWorker');
+          });
+       }
+      
       if (result === 'granted') {
         var notification = new Notification('Notification title', {
           icon: 'https://and07.github.io/images/2040077.png',
@@ -110,7 +117,6 @@ if ('serviceWorker' in navigator && 'PushManager' in window) {
     });
 } else {
   console.warn('Push messaging is not supported');
-  pushButton.textContent = 'Push Not Supported';
 }
 // Just the push button
 function notifyMe(title, content) {
