@@ -95,22 +95,22 @@ self.addEventListener("push", (event) => {
 	{
 	   action: 'coffee-action',
            title: 'Coffee',
-           icon: '/images/demos/action-1-128x128.png'
+           icon: 'https://and07.github.io/icons/apple-icon-120x120.png'
 	},
 	{
            action: 'doughnut-action',
            title: 'Doughnut',
-           icon: '/images/demos/action-2-128x128.png'
+           icon: 'https://and07.github.io/icons/apple-icon-120x120.png'
 	},
 	{
            action: 'gramophone-action',
            title: 'gramophone',
-           icon: '/images/demos/action-3-128x128.png'
+           icon: 'https://and07.github.io/icons/apple-icon-120x120.png'
 	},
 	{
            action: 'atom-action',
            title: 'Atom',
-           icon: '/images/demos/action-4-128x128.png'
+           icon: 'https://and07.github.io/icons/apple-icon-120x120.png'
 	}
 	]
     }
