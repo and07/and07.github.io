@@ -30,14 +30,12 @@ function askPermission() {
           });
        }
       
-      if (result === 'granted' && !window.Notification) {
+      if (result === 'granted' && 'Notification' in window) {
         var notification = new Notification('Notification title', {
           icon: 'https://and07.github.io/images/2040077.png',
           body: "Hey there! You've been notified!",
         });
-
         allTheEvents(notification);
-
       }
       if (result === 'granted') {
         subscribeUser();
@@ -163,7 +161,7 @@ function notifyMe(title, options) {
       }
       registrations[0].showNotification(title, options);
     }); 
-    if (!window.Notification) {
+    if ('Notification' in window) {
       var notification = new Notification(title, options);
       allTheEvents(notification);
     }
