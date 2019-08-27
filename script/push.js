@@ -134,7 +134,7 @@ if ('serviceWorker' in navigator && 'PushManager' in window) {
   console.warn('Push messaging is not supported');
 }
 // Just the push button
-function notifyMe(title, content) {
+function notifyMe(title, options) {
   if (!Notification) {
     alert('Desktop notifications not available in your browser. Try Chromium.');
     return;
@@ -147,7 +147,7 @@ function notifyMe(title, content) {
       registrations[0].showNotification(title, options);
     }); 
     
-    var notification = new Notification(title, content);
+    var notification = new Notification(title, options);
     allTheEvents(notification);
   }
 }
