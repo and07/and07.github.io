@@ -177,7 +177,7 @@ self.addEventListener('pushsubscriptionchange', (event) => {
 });
 
 function subscribeUser() {
-  const applicationServerKey = urlBase64ToUint8Array('BJrbQTpQd72tDRmegu-HqrXPx9VyYqmnZAes0Y_IF6HrGTbGfk9_rByEOcXxpPm-A1YE5PlVYf5D9H3_vj21O8w');
+  const applicationServerKey = urlB64ToUint8Array('BJrbQTpQd72tDRmegu-HqrXPx9VyYqmnZAes0Y_IF6HrGTbGfk9_rByEOcXxpPm-A1YE5PlVYf5D9H3_vj21O8w');
   const options = {
     userVisibleOnly: true,
     applicationServerKey: applicationServerKey
@@ -190,26 +190,23 @@ function subscribeUser() {
   });
 }
 
-function urlBase64ToUint8Array(base64String) {
-  const padding = '='.repeat((4 - base64String.length % 4) % 4);
-  const base64 = (base64String + padding).replace(/\-/g, '+').replace(/_/g, '/');
-
-  const rawData = window.atob(base64);
-  const outputArray = new Uint8Array(rawData.length);
-
+// urlB64ToUint8Array is a magic function that will encode the base64 public key
+// to Array buffer which is needed by the subscription option
+const urlB64ToUint8Array = base64String => {
+  const padding = '='.repeat((4 - (base64String.length % 4)) % 4)
+  const base64 = (base64String + padding).replace(/\-/g, '+').replace(/_/g, '/')
+  const rawData = atob(base64)
+  const outputArray = new Uint8Array(rawData.length)
   for (let i = 0; i < rawData.length; ++i) {
-    outputArray[i] = rawData.charCodeAt(i);
+    outputArray[i] = rawData.charCodeAt(i)
   }
-  return outputArray;
+  return outputArray
 }
 
 function sendSubscriptionToBackEnd(subscription) {
   let endPoint;
-  if(window.location.href === 'https://and07.github.io/') {
-    endPoint = 'https://and07-push-notifications.herokuapp.com/subscriptions'
-  } else {
-    endPoint = 'http://localhost:3000/subscriptions'
-  }
+  const local = location.origin.includes("127");
+  endPoint = local ? "http://localhost:3000/" : "https://and07-push-notifications.herokuapp.com/"
 
   return fetch(endPoint, {
     method: 'POST',
