@@ -137,6 +137,9 @@ self.addEventListener('notificationclick', function (event) {
   if (!event.action) {
     // Was a normal notification click
     console.log('Notification Click.');
+    event.waitUntil(
+      clients.openWindow(event.notification.data.url)
+    );
     return;
   }
 
@@ -158,9 +161,7 @@ self.addEventListener('notificationclick', function (event) {
       break;
   }	
 
-  event.waitUntil(
-    clients.openWindow(event.currentTarget.message_object.link)
-  );
+
 
 });
 
