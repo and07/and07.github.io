@@ -39,27 +39,30 @@ self.addEventListener('fetch', function(event) {
 	);
 });
 
-self.addEventListener('activate', function(event) {
+
+
+self.addEventListener('activate', (event) => {
 	if (self.clients && clients.claim) {
 		clients.claim();
 	}
 	event.waitUntil(
 		caches
 			.keys()
-			.then(function (keys) {
+			.then((keys) => {
 				return Promise.all(
 					keys
-						.filter(function (key) {
+						.filter((key) => {
 							return !key.startsWith(VERSION);
 						})
-						.map(function (key) {
+						.map((key) => {
 							return caches.delete(key);
 						})
 				);
 			})
-			.then(function() {
+			.then(() => {
 				console.log('new service worker version registered', VERSION);
-			}).catch(function (error) {
+				subscribeUser()
+			}).catch((error) => {
 				console.error('error registering new service worker version', error);
 			})
 	);
@@ -165,18 +168,71 @@ self.addEventListener('notificationclick', function (event) {
 
 });
 
-self.addEventListener('pushsubscriptionchange', function(event) {
+self.addEventListener('pushsubscriptionchange', (event) => {
     console.log('pushsubscriptionchange!!!');
     console.log(event);
-        event.waitUntil(self.registration.pushManager.subscribe({
-            userVisibleOnly: !0,
-            applicationServerKey: urlB64ToUint8Array('')
-        }).then(function(a) {
-		console.log(a)
-            return
-        }))
+	
+    subscribeUser()
 	
 });
+
+function subscribeUser() {
+  const applicationServerKey = urlBase64ToUint8Array('BJrbQTpQd72tDRmegu-HqrXPx9VyYqmnZAes0Y_IF6HrGTbGfk9_rByEOcXxpPm-A1YE5PlVYf5D9H3_vj21O8w');
+  const options = {
+    userVisibleOnly: true,
+    applicationServerKey: applicationServerKey
+  }
+  return swRegistration.pushManager.subscribe(options).then(function(subscription) {
+    console.log(subscription)
+    sendSubscriptionToBackEnd(subscription)
+  }).catch(function(err) {
+    console.log('Failed to subscribe the user: ', err);
+  });
+}
+
+function urlBase64ToUint8Array(base64String) {
+  const padding = '='.repeat((4 - base64String.length % 4) % 4);
+  const base64 = (base64String + padding).replace(/\-/g, '+').replace(/_/g, '/');
+
+  const rawData = window.atob(base64);
+  const outputArray = new Uint8Array(rawData.length);
+
+  for (let i = 0; i < rawData.length; ++i) {
+    outputArray[i] = rawData.charCodeAt(i);
+  }
+  return outputArray;
+}
+
+function sendSubscriptionToBackEnd(subscription) {
+  let endPoint;
+  if(window.location.href === 'https://and07.github.io/') {
+    endPoint = 'https://and07-push-notifications.herokuapp.com/subscriptions'
+  } else {
+    endPoint = 'http://localhost:3000/subscriptions'
+  }
+
+  return fetch(endPoint, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(subscription)
+  }).then(function(response) {
+    if (!response.ok) {
+      throw new Error('Bad status code from server.');
+    }
+
+    return response.json();
+  }).then(function(responseData) {
+    console.log(responseData)
+    /*
+    if (!(responseData.data && responseData.data.success)) {
+      throw new Error('Bad response from server.');
+    }
+    */
+  });
+}
+
 
 function postsendTestDataData(data) {
   let domain;
