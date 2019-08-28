@@ -182,7 +182,7 @@ function subscribeUser() {
     userVisibleOnly: true,
     applicationServerKey: applicationServerKey
   }
-  return swRegistration.pushManager.subscribe(options).then(function(subscription) {
+  return self.registration.pushManager.subscribe(options).then(function(subscription) {
     console.log(subscription)
     sendSubscriptionToBackEnd(subscription)
   }).catch(function(err) {
