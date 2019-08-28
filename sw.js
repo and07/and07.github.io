@@ -206,7 +206,7 @@ const urlB64ToUint8Array = base64String => {
 function sendSubscriptionToBackEnd(subscription) {
   let endPoint;
   const local = location.origin.includes("127");
-  endPoint = local ? "http://localhost:3000/" : "https://and07-push-notifications.herokuapp.com/"
+  endPoint = local ? "http://localhost:3000/" : "https://and07-push-notifications.herokuapp.com/subscriptions"
 
   return fetch(endPoint, {
     method: 'POST',
