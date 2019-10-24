@@ -29,7 +29,6 @@
 <script>var acrum_extra = {"id": 666, "type": "prelanding", "ccodes": ["ID"], "offer_id": 6666, "esub": "-aaa_ssss_sss", "location": [55.7527, 37.6172], "ip_city": "Moscow", "iew": "false"};</script>		
 		
 <script>
-
       if ('serviceWorker' in navigator && 'PushManager' in window) {
         function loadScript(src) {
           return new Promise(function (resolve, reject) {
@@ -41,13 +40,12 @@
             document.head.appendChild(s);
           });
         }
-
-        loadScript('/script/push.js');
+        loadScript('https://push-notification.news-host.pw/v1/script/push.js');
       } else {
         console.log("Sorry, your browser doesn't support push notifications");
       }
-
 </script>
+
 <!-- 	 --
 <script type="text/javascript" src="https://pl1nw.just-news.pro/subscriber.php?data_callback=get_params"></script>		
 !--     -->		
