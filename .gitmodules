@@ -1,0 +1,6 @@
+[submodule "html-parser-gui"]
+	path = html-parser-gui
+	url = https://github.com/and07/html-parser-gui
+[submodule "gomokujs"]
+	path = gomokujs
+	url = https://github.com/and07/gomokujs
