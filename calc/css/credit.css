@@ -1,0 +1,181 @@
+.card {
+    width: 980px;
+    margin: 0 auto;
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+}
+
+.clear {
+    clear: both;
+}
+
+.title {
+	font-size:			20px;
+	color:				#000;
+	font-weight:		normal;
+	border-bottom: 1px dotted #9eaeb1;
+	padding-top:10px;
+	padding-bottom:10px;
+	padding-left:30px;
+}
+
+#calc_ico{
+background: url(http://all4credit.ru/img/calc_ico.png) no-repeat 2px 3px;
+
+}
+
+.labelbottom{
+font-size:12px;
+color:#9eaeb1;
+}
+
+.dotted{
+border-bottom: 1px dotted #9eaeb1;
+border-top: 1px dotted #9eaeb1;
+text-align:center;
+padding:10px;
+}
+/*
+input[value="Расчёт"] {
+	margin-top:	20px;
+	width: 100%;	
+	/*border-radius:	5px;*
+	font-size:	24px;
+	text-align:  left;
+}
+*/
+.calc {
+	/*margin-top: 30px;*/
+    background: #d4e9ed;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+	margin-bottom:10px;
+}
+
+.line div{
+float:left;
+}
+
+
+
+.calc input[type = "text"] {
+	text-align: right;
+	/*border-radius: 5px;*/
+}
+
+.wrong {
+	background-color: #ffd0d0;
+	width:275px ;
+	height:20px;
+}
+
+input.normCheck {
+	width:275px;
+	height:20px;
+}
+
+
+#report{
+width:950px;
+text-align:center;
+}
+
+.reportTable{
+margin-left:auto;
+margin-right:auto;
+padding-bottom:10px;
+padding-top:5px;
+}
+
+.report{
+font-weight:bold;
+text-align: center;
+}
+.reportTable td:nth-child(odd){
+	font-weight: bold;
+	text-align: right;
+}
+.reportTable td{
+	font-weight: bold;
+	text-align: left;
+}
+
+#tab_payment {
+background:#fff;
+margin-left:auto;
+margin-right:auto;
+margin-top:5px;
+}
+
+#tab_payment td {
+border-bottom: 1px dotted #9eaeb1;
+padding:10px;
+}
+
+.reportHeader td{
+background:#95b500;
+padding:5px;
+color:#fff;
+font-size:13px;
+}
+
+.column {
+	padding-bottom:20px;
+}
+
+.num {
+	background-color: #eee;
+}
+
+
+#ccalc{
+padding-top:20px;
+}
+
+.payment{
+color:#ff0000;
+font-size:20px;
+
+}
+
+input.needCheck{
+width:275px;
+height:20px;
+}
+
+input.Check{
+width:450px;
+height:20px;
+
+}
+
+select.Check{
+width:450px;
+height:24px;
+}
+
+.line div.datasum{
+padding-left:13px;
+}
+
+.line div.datasum1{
+padding-left:13px;
+}
+
+#datapayment{
+padding-left:18px;
+}
+	
+input#ccalcSBTN01{
+width:218px;
+height:30px;
+/*
+background: url(http://all4credit.ru/img/sum.png) no-repeat ;
+border:0;
+*/
+}
+
+#MorY{
+	height:24px;
+	margin-left: 7px;
+}

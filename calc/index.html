@@ -1,0 +1,87 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>The HTML5 Herald</title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+  <link rel="stylesheet" href="css/credit.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+</head>
+
+<body>
+
+<div class="card calc">
+	<div class="card-header">Calc</div>
+	<div class="card-body">
+
+		<div class='clear'></div>
+
+		<div class = "calc">
+				<div class = 'title' id="calc_ico">КРЕДИТНЫЙ КАЛЬКУЛЯТОР</div>
+			
+				<!--sub class = "comment">Простой расчёт кредита</sub-->
+				<form name = "calc" class = "calc1" id ="ccalc">
+				
+			<div class="line">
+						<div class = "datasum">
+							<label>НУЖНАЯ СУММА</label><br>
+								<input name = "sum" id = "sum" placeholder = "столько" type = "text" class = "needCheck"></abbr>
+						</div>
+						<div class = "datasum">
+						<label>СРОК</label><br>
+							<input name = "term" placeholder = "на столько" type = "text" class = "needCheck">
+							<select style="height:24px;" id="MorY"><option value="month">мес</option><option value="year">лет</option></select>
+						</div>
+						<div class = "datasum">
+						<label>ГОДОВАЯ ПРОЦЕНТНАЯ СТАВКА</label> <br>
+							<input name = "rate" id = "rate" placeholder = "за столько % в год" type = "text" class = "needCheck"><br>
+						<label class="labelbottom">(не ПСК и не переплата)</label>
+						</div>			
+			</div>
+			<div class="clear"></div>
+			<div class="line">
+						<div class = "datasum1" >
+						<label>РАЗМЕР ПЕРВОНАЧАЛЬНОГО ВЗНОСА</label><br>
+							<abbr title = "Необязательное поле"><input name = "firstPayment" placeholder = "столько внесу" type = "text" class="Check" ></abbr><br>
+						<label class="labelbottom">(добавьте «%», если в процентах)</label>
+						</div>
+						<div class = "datasum1"  id="datapayment">
+						<label>ТИП ПЛАТЕЖЕЙ</label><br>
+						<select id = "paymentType" class="Check" >
+							  <option  value = "annuitet">Все одинаковые (аннуитетные) </option>
+							  <option  value = "differ">Уменьшающиеся каждый месяц (дифференцированные) </option>
+						</select>
+						</div>
+			</div>	
+					<!--label>
+						<input type = "radio" name = "paymentType" value = "annuitet" checked></input>
+						Все одинаковые (аннуитетные) 
+					</label>
+					<label> 	 
+						<input type = "radio" name = "paymentType" value = "differ" ></input>
+						Уменьшающиеся каждый месяц (дифференцированные) 
+					</label-->
+		<div class="clear"></div>
+		<div class ="dotted">
+					<input type = "button" value = "Расчёт" id = "ccalcSBTN01">
+		</div>
+				</form>
+				
+		<div id = "report"></div>
+		<div class='clear'></div>
+
+
+	</div>
+</div>
+
+
+<script src = "js/gcTools.js"></script>
+<script src = "js/newCredit.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+</html>
