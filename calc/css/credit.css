@@ -1,3 +1,4 @@
+/*
 .card {
     width: 980px;
     margin: 0 auto;
@@ -50,8 +51,14 @@ input[value="Расчёт"] {
     background: #d4e9ed;
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
 	margin-bottom:10px;
+	padding: 20px;
 }
 
+.red {
+    color: #ff0000;
+    font-weight: bold;
+}
+/*
 .line div{
 float:left;
 }
@@ -60,23 +67,20 @@ float:left;
 
 .calc input[type = "text"] {
 	text-align: right;
-	/*border-radius: 5px;*/
-}
 
+}
+*/
 .wrong {
 	background-color: #ffd0d0;
-	width:275px ;
-	height:20px;
 }
-
+/*
 input.normCheck {
 	width:275px;
 	height:20px;
 }
 
-
+*/
 #report{
-width:950px;
 text-align:center;
 }
 
@@ -119,6 +123,7 @@ color:#fff;
 font-size:13px;
 }
 
+/*
 .column {
 	padding-bottom:20px;
 }
@@ -131,13 +136,12 @@ font-size:13px;
 #ccalc{
 padding-top:20px;
 }
-
+*/
 .payment{
 color:#ff0000;
 font-size:20px;
-
 }
-
+/*
 input.needCheck{
 width:275px;
 height:20px;
@@ -169,13 +173,11 @@ padding-left:18px;
 input#ccalcSBTN01{
 width:218px;
 height:30px;
-/*
-background: url(http://all4credit.ru/img/sum.png) no-repeat ;
-border:0;
-*/
+
 }
 
 #MorY{
 	height:24px;
 	margin-left: 7px;
 }
+*/

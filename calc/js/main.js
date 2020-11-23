@@ -55,12 +55,12 @@ function checkNumbers(inputs) {
 			if ( !inputs[x].getAttribute( "data-oldClass" ) ) {
 				inputs[x].setAttribute("data-oldClass", inputs[x].className);
 			}
-			inputs[x].className = "wrong";
+			inputs[x].className = "form-control wrong";
 			result = false;
 			
 		} else {
 			inputs[x].className = inputs[x].getAttribute( "data-oldClass" );
-			inputs[x].className = "normCheck";
+			inputs[x].className = "form-control normCheck";
 		}
 	}
 	return result;

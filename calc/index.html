@@ -7,25 +7,77 @@
   <title>The HTML5 Herald</title>
   <meta name="description" content="The HTML5 Herald">
   <meta name="author" content="SitePoint">
-  <link rel="stylesheet" href="css/credit.css">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/credit.css">
 </head>
 
 <body>
-
-<div class="card calc">
+	<div class="container">
+<div class="card">
 	<div class="card-header">Calc</div>
 	<div class="card-body">
 
-		<div class='clear'></div>
-
 		<div class = "calc">
-				<div class = 'title' id="calc_ico">КРЕДИТНЫЙ КАЛЬКУЛЯТОР</div>
 			
 				<!--sub class = "comment">Простой расчёт кредита</sub-->
 				<form name = "calc" class = "calc1" id ="ccalc">
-				
+
+<!-- columns -->
+<div class="form-group">
+	<div class="form-row align-items-center">
+		<div class="col-md-3 mb-3">
+	<!-- Input type text -->
+		<label for="input_id_0">НУЖНАЯ СУММА</label>
+		<input type="text" class="form-control needCheck"  name = "sum" id = "sum" placeholder = "столько">
+			</div>
+	
+		<div class="col-md-3 mb-3">
+	<!-- Input type text -->
+		<label for="input_id_0">СРОК</label>
+		<input type="text" class="form-control needCheck" name = "term" placeholder = "на столько">
+			</div>
+	
+		<div class="col-md-3 mb-3">
+	<!-- select -->
+		<label for="state">State</label>
+		<select  class="custom-select" id="MorY"><option value="month">мес</option><option value="year">лет</option></select>
+			</div>
+	
+		<div class="col-md-3 mb-3">
+	<!-- Input type text -->
+		<label for="input_id_0">ГОДОВАЯ ПРОЦЕНТНАЯ СТАВКА</label>
+		<input type="text" class="form-control needCheck" name = "rate" id = "rate" placeholder = "за столько % в год" >
+			</div>
+	
+	</div>
+	
+	</div>
+
+<!-- columns -->
+<div class="form-group">
+	<div class="form-row align-items-center">
+		<div class="col-md-6 mb-3">
+	<!-- Input type text -->
+		<label for="firstPayment">РАЗМЕР ПЕРВОНАЧАЛЬНОГО ВЗНОСА</label>
+		<input class="form-control" name = "firstPayment" placeholder = "столько внесу" type = "text" class="Check">
+			</div>
+	
+		<div class="col-md-6 mb-3">
+		<!-- select -->
+		<label for="input_id_0">ТИП ПЛАТЕЖЕЙ</label>
+		<select id="paymentType" class="custom-select Check" >
+			<option  value = "annuitet">Все одинаковые (аннуитетные) </option>
+			<option  value = "differ">Уменьшающиеся каждый месяц (дифференцированные) </option>
+	 	</select>
+			</div>
+	
+	</div>
+	
+	</div>
+	<input type = "button" class="btn btn-primary"  value = "Расчёт" id = "ccalcSBTN01">
+
+<!--
 			<div class="line">
 						<div class = "datasum">
 							<label>НУЖНАЯ СУММА</label><br>
@@ -42,7 +94,9 @@
 						<label class="labelbottom">(не ПСК и не переплата)</label>
 						</div>			
 			</div>
+
 			<div class="clear"></div>
+
 			<div class="line">
 						<div class = "datasum1" >
 						<label>РАЗМЕР ПЕРВОНАЧАЛЬНОГО ВЗНОСА</label><br>
@@ -64,19 +118,24 @@
 					<label> 	 
 						<input type = "radio" name = "paymentType" value = "differ" ></input>
 						Уменьшающиеся каждый месяц (дифференцированные) 
-					</label-->
+					</label--
 		<div class="clear"></div>
 		<div class ="dotted">
 					<input type = "button" value = "Расчёт" id = "ccalcSBTN01">
 		</div>
+		-->
 				</form>
-				
+
+
 		<div id = "report"></div>
 		<div class='clear'></div>
 
 
 	</div>
 </div>
+</div>
+</div>
+
 
 
 <script src = "js/gcTools.js"></script>
