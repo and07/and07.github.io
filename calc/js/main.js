@@ -44,7 +44,7 @@ function groupThis(e) {
 
 function go(e) {
 	e = e || window.event;
-	if(e.keyCode === 13) gc("input[value = 'Рассчитать']").onclick();
+	if(e.keyCode === 13) gc("input[value = 'Calculate']").onclick();
 }
 
 function checkNumbers(inputs) {
@@ -66,8 +66,8 @@ function checkNumbers(inputs) {
 	return result;
 }
 
-//Оператор расчёта
-gc("input[value = 'Расчёт']").onclick = (
+//event Calculate
+gc("input[value = 'Calculate']").onclick = (
 	function() {
 		var 
 			term = gc(".calc input[name = 'term']"),
@@ -109,15 +109,15 @@ gc("input[value = 'Расчёт']").onclick = (
 			fP = proc ? summ * ( fP / 100 ) : fP;
 			
 			if( !checkNumbers( gc( ".calc input.needCheck, .calc input.wrong", true ) ) ) {
-				textReport = "<p class='reportText'>В отмеченных полях обязательно должны быть цифры. Исправьте, пожалуйста, иначе расчёт сделать не получится.</p>";
+				textReport = "<p class='reportText'>The marked fields must contain numbers. Correct, please, otherwise the calculation will not work.</p>";
 			} else {
 				result = calculateCredit[type]((summ - fP), _term, rate.value);
 				textReport += "<table class = 'reportTable'><tr >";
-				textReport += "<td>Сумма кредита: </td><td><span class='red'>" + groupNums((summ - fP) )+ "</span> руб.</td><tr>";
-				textReport += "<td>Придётся переплатить за весь срок: </td><td><span class='red'>" +groupNums(result.overpay) + "</span>  руб. (" + groupNums(( ( result.overpay / summ ) * 100 ).toFixed( 2 ) ) + "%)</td><tr>";
-				textReport += "<td>Всего нужно отдать: </td><td><span class='red'>" + groupNums(result.total )+ "</span> руб.</td><tr>";
+				textReport += "<td>Credit amount: </td><td><span class='red'>" + groupNums((summ - fP) )+ "</span> </td><tr>";
+				textReport += "<td>You will have to overpay for the entire period: </td><td><span class='red'>" +groupNums(result.overpay) + "</span>   (" + groupNums(( ( result.overpay / summ ) * 100 ).toFixed( 2 ) ) + "%)</td><tr>";
+				textReport += "<td>All you have to give: </td><td><span class='red'>" + groupNums(result.total )+ "</span> </td><tr>";
 				textReport += "</table>";
-				textReport += "<h3>ПЛАТЕЖИ</h3>";
+				textReport += "<h3>PAYMENTS</h3>";
 				textReport += "<div class = 'column'>";
 				/*********************/	
 				 var now = new Date();
@@ -130,7 +130,7 @@ gc("input[value = 'Расчёт']").onclick = (
 				for(x = 0; x < result.payments.length; x++) {
 				
 					if(type === "annuitet") {
-						if(MorY === 'year'){	var MorY_term = term.value+' лет';	}else{ var MorY_term = term.value+' мес.';}
+						if(MorY === 'year'){	var MorY_term = term.value+' year';	}else{ var MorY_term = term.value+' months';}
 						textReport += "<p class = 'payment'><b>" + result.payments[x] + " X " + MorY_term + "</b></p>";
 						break
 					}
@@ -149,9 +149,9 @@ gc("input[value = 'Расчёт']").onclick = (
 					
 					if(x == 0)
 					{
-					textReport += '<table   id = "tab_payment" cellpadding="15"  cellspacing="15"><tr class ="reportHeader"><td>НОМЕР</td><td>ДАТА ПЛАТЕЖА</td><td>СУММА ПЛАТЕЖА</td><td>НАЧИСЛЕННЫЕ ПРОЦЕНТЫ</td><td>ОСНОВНОЙ ДОЛГ</td><td>ОСТАТОК ЗАДОЛЖЕННОСТИ</td></tr>';
+					textReport += '<table   id = "tab_payment" cellpadding="15"  cellspacing="15"><tr class ="reportHeader"><td>№</td><td>DATE</td><td>AMOUNT</td><td>INTEREST CHARGES</td><td>MAIN DEBT</td><td>REMAINING DEBT</td></tr>';
 					}
-					textReport += '<tr><td>' + ( x + 1 ) + '</td><td>' + getMonthName(monthN, 'rus') + ' ' +year+ '</td><td><span class="red">' + groupNums(result.payments[x]) + '</span> руб.</td><td><span class="red">' + groupNums(result.pay[x]) + '</span></td><td><span class="red">' + groupNums(payrate) + '</span></td><td><span class="red">' + groupNums(balance) + '</span></td></tr>';
+					textReport += '<tr><td>' + ( x + 1 ) + '</td><td>' + getMonthName(monthN, 'en') + ' ' +year+ '</td><td><span class="red">' + groupNums(result.payments[x]) + '</span> </td><td><span class="red">' + groupNums(result.pay[x]) + '</span></td><td><span class="red">' + groupNums(payrate) + '</span></td><td><span class="red">' + groupNums(balance) + '</span></td></tr>';
 					if(x == result.payments.length -1)
 					{
 					textReport += "</table>";
