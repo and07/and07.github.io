@@ -262,6 +262,10 @@ a:active {
 	margin-bottom: -108px; /* -(footer.height + footer.margin-top) */
 	display: inline-block;
 }
+
+.clear{
+	clear: both;
+}
 .container {
 	min-width: 256px; /* may vary depending on content */
 	max-width: 1000px;
