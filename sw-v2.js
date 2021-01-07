@@ -18,6 +18,8 @@ self.addEventListener('install', event => {
           '/js/swipe.html',
           '/js/swipe.css',
           '/js/swipe.js',
+          '/css/clock.css',
+          '/js/clock.js',
           '/manifest.json',
           '/css/core.css',
           '/images/2040077.png',

@@ -6,6 +6,7 @@
 		<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
 		<link rel="stylesheet" type="text/css" href="css/core.css" />
         <link rel="stylesheet" type="text/css" href="css/swipe.css" />
+        <link rel="stylesheet" type="text/css" href="css/clock.css" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     
@@ -32,12 +33,26 @@
                 <div class="clear"></div>
                 <div>
                     <div id="board"></div>
+
+                    <div class="clear"></div>
+
+                    <div class="clock"> 
+                        <div><span id="min">00</span>:<span id="sec">00</span></div>
+                    
+                        <input id="startButton" type="button" value="Start">
+                        <input id="pauseButton" type="button" value="Pause">
+                        <input id="resumeButton" type="button" value="Resume">
+                        <input id="resetButton" type="button" value="Reset">
+                        <input id="restartButton" type="button" value="Restart">
+                    </div>
                 </div>
+
 			</div>
 		</div>
     </body>
     <script src='https://hammerjs.github.io/dist/hammer.min.js'></script>
     <script async src="js/swipe.js"></script>
+    <script async src="js/clock.js"></script>
 	<script async src="js/app.js"></script>
 	
 </html>

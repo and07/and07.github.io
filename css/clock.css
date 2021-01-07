@@ -1,0 +1,8 @@
+.clock{
+	text-align: center;
+}
+.clock  div{
+	font-size: 30px;
+	font-weight: bold;
+	color: green;
+}
