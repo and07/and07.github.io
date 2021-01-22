@@ -91,6 +91,7 @@ self.addEventListener('sync', event => {
 
 
 self.addEventListener("push", (event) => {
+    console.log(event)
     message_object = JSON.parse(event.data.text());
     console.log(message_object)
   /*
