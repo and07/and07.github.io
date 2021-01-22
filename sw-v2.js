@@ -1,5 +1,28 @@
 importScripts('/js/idb.js');
 importScripts('/js/utility.js');
+importScripts('https://cdnjs.cloudflare.com/ajax/libs/cache.adderall/1.0.0/cache.adderall.js');
+
+var STATIC_FILES = [
+    '/',
+    '/index.html',
+    '/other.html',
+    '/message.html',
+    '/favicon.ico',
+    '/js/app.js',
+    '/js/swipe.html',
+    '/js/swipe.css',
+    '/js/swipe.js',
+    '/css/clock.css',
+    '/js/clock.js',
+    '/manifest.json',
+    '/css/core.css',
+    '/images/2040077.png',
+    '/images/GitHub.png',
+    '/RTB.png',
+    'https://fonts.googleapis.com/icon?family=Material+Icons',
+    'https://code.jquery.com/jquery-2.1.1.min.js',
+    'https://cdn.jsdelivr.net/npm/chart.js@2.8.0'
+  ];
 
 self.addEventListener('install', event => {
   console.log('Installing [Service Worker]', event);
@@ -8,27 +31,8 @@ self.addEventListener('install', event => {
     caches.open('static')
       .then(cache => {
         console.log('[Service Worker] Precaching App Shell');
-        cache.addAll([
-          '/',
-          '/index.html',
-          '/other.html',
-          '/message.html',
-          '/favicon.ico',
-          '/js/app.js',
-          '/js/swipe.html',
-          '/js/swipe.css',
-          '/js/swipe.js',
-          '/css/clock.css',
-          '/js/clock.js',
-          '/manifest.json',
-          '/css/core.css',
-          '/images/2040077.png',
-          '/images/GitHub.png',
-          '/RTB.png',
-          'https://fonts.googleapis.com/icon?family=Material+Icons',
-          'https://code.jquery.com/jquery-2.1.1.min.js',
-          'https://cdn.jsdelivr.net/npm/chart.js@2.8.0'
-        ]);
+        //cache.addAll(STATIC_FILES);
+        adderall.addAll(cache, STATIC_FILES)
       }));
 });
 
