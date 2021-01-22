@@ -85,14 +85,27 @@ self.addEventListener('sync', event => {
     );
   }
 });
-
+  
+function IsJsonString(str) {
+  try {
+      JSON.parse(str);
+  } catch (e) {
+      return false;
+  }
+  return true;
+}
 
 //PUSH
-
-
 self.addEventListener("push", (event) => {
-    console.log(event)
-    message_object = JSON.parse(event.data.text());
+    isJson = IsJsonString(event.data.text())
+    if (isJson){
+      message_object = JSON.parse(event.data.text());
+    }else{
+      message_object = {
+        title: event.data.text()
+      }
+    }
+    
     console.log(message_object)
   /*
     if ( 'notification' in message_object){
