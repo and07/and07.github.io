@@ -232,4 +232,4 @@ function postsendTestDataData(data) {
 
   }
 
-notifyMe('Notification title', {icon: 'https://and07.github.io/images/2040077.png', body: "Hey there! You've been notified!"})
+//notifyMe('Notification title', {icon: 'https://and07.github.io/images/2040077.png', body: "Hey there! You've been notified!"})
